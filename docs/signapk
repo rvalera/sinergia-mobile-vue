@@ -1,0 +1,4 @@
+keytool -genkey -v -keystore smol-android.keystore -alias smol-android-app-key -keyalg RSA -keysize 2048 -validity 10000
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore najoconsultores.keystore app-release-unsigned.apk najoconsultores-app-key
+zipalign -v 4 app-release-unsigned.apk app-release.apk
+./gradlew app:bundleRelease
