@@ -5,6 +5,10 @@ import AppFooter from "@/layouts/App/Footer";
 import Error404 from "@/views/Pages/Errors/Error404";
 import Error500 from "@/views/Pages/Errors/Error500";
 
+import LoginPage from "@/views/Pages/Authentication/LoginPage";
+import ForgotPasswordPage from "@/views/Pages/Authentication/ForgotPasswordPage";
+import RegisterPage from "@/views/Pages/Authentication/RegisterPage";
+
 import QRScanner from "@/views/QRScanner";
 
 export const routes = [
@@ -18,6 +22,24 @@ export const routes = [
       header: AppToolbar,
       footer: AppFooter
     }
+  },
+  {
+    path: "/login",
+    components: { default: LoginPage },
+    name: "LoginPage",
+    meta: { layout: "auth" }
+  },
+  {
+    path: "/forgot-password",
+    components: { default: ForgotPasswordPage },
+    name: "ForgotPasswordPage",
+    meta: { layout: "auth" }
+  },
+  {
+    path: "/register",
+    components: { default: RegisterPage },
+    name: "RegisterPage",
+    meta: { layout: "auth" }
   },
   {
     path: "/pages/error/500",

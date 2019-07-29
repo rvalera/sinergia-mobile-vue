@@ -54,7 +54,7 @@
           <v-list-tile-title>Perfil de usuario</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile @click="() => {}">
+        <v-list-tile @click="() => $router.push({name:'LoginPage'})">
           <v-list-tile-avatar>
             <v-icon>power_settings_new</v-icon>
           </v-list-tile-avatar>

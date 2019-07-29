@@ -7,7 +7,6 @@
         <router-view />
       </v-content>
       <router-view name="footer" />
-    </v-app>
     <v-snackbar
       :timeout="3000"
       bottom
@@ -20,6 +19,7 @@
         <v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
+    </v-app>
   </div>
 </template>
 <script>

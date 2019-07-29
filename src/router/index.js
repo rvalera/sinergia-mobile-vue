@@ -6,8 +6,8 @@ Vue.use(Router);
 
 export default new Router({
   routes,
-  mode: "hash",
-  //mode: !process.env.CORDOVA_PLATFORM ? "history" : "hash",
+  //mode: "hash",
+  mode: "history",
   scrollBehviour(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
