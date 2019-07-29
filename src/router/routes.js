@@ -8,6 +8,7 @@ import Error500 from "@/views/Pages/Errors/Error500";
 import LoginPage from "@/views/Pages/Authentication/LoginPage";
 import ForgotPasswordPage from "@/views/Pages/Authentication/ForgotPasswordPage";
 import RegisterPage from "@/views/Pages/Authentication/RegisterPage";
+import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 
 import QRScanner from "@/views/QRScanner";
 
@@ -39,6 +40,12 @@ export const routes = [
     path: "/register",
     components: { default: RegisterPage },
     name: "RegisterPage",
+    meta: { layout: "auth" }
+  },
+  {
+    path: "/signup",
+    components: { default: Signup },
+    name: "SignupPage",
     meta: { layout: "auth" }
   },
   {
