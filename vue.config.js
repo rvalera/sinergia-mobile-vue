@@ -6,6 +6,5 @@ module.exports = {
   //publicPath: '',
   baseUrl: "",
   indexPath: "index.html",
-  outputDir: "www",
-  assetsDir: ""
+  outputDir: "www"
 };

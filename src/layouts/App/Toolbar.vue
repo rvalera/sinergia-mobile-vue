@@ -11,12 +11,10 @@
       class="hidden-lg-and-up"
       @click.stop="$store.dispatch('toggleDrawer', !navDrawer)"
     ></v-toolbar-side-icon>
-
     <v-toolbar-title
       v-text="title"
       class="ml-0 hidden-lg-and-up"
     ></v-toolbar-title>
-
     <v-btn
       icon
       light
@@ -32,21 +30,8 @@
         <span>Collapse</span>
       </v-tooltip>
     </v-btn>
-
     <v-spacer></v-spacer>
-
-    <!-- <v-btn icon @click="refreshData">
-      <v-icon>exit_to_app</v-icon>
-    </v-btn>     -->
-
-    <!-- <v-btn icon :to="{name: 'BlankPage'}" flat>
-      <v-icon>contacts</v-icon>
-    </v-btn>
-    <v-btn icon :to="{name: 'BlankPage'}" flat>
-      <v-icon>chat</v-icon>
-    </v-btn> -->
-
-    <!-- <v-menu offset-y>
+    <v-menu offset-y>
       <v-avatar slot="activator" size="40">
         <img :src="authUser.avatar" :alt="authUser.name" />
       </v-avatar>
@@ -55,6 +40,7 @@
           <v-list-tile-avatar>
             <img :src="authUser.avatar" :alt="authUser.name" />
           </v-list-tile-avatar>
+
           <v-list-tile-content>
             <v-list-tile-title v-text="authUser.name"></v-list-tile-title>
             <v-list-tile-sub-title>CEO of Vuse</v-list-tile-sub-title>
@@ -65,32 +51,21 @@
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Edit Profile</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click="() => {}">
-          <v-list-tile-avatar>
-            <v-icon>settings_applications</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-title>Settings</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click="() => {}">
-          <v-list-tile-avatar>
-            <v-icon>mail</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-title>Inbox</v-list-tile-title>
+          <v-list-tile-title>Perfil de usuario</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="() => {}">
           <v-list-tile-avatar>
             <v-icon>power_settings_new</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Sign Out</v-list-tile-title>
+          <v-list-tile-title>Cerrar sesión</v-list-tile-title>
         </v-list-tile>
       </v-list>
-    </v-menu> -->
+    </v-menu>
   </v-toolbar>
 </template>
 <script>
+import { authUser } from "@/data/dummyData";
 import { mapGetters } from "vuex";
 
 export default {
@@ -107,22 +82,15 @@ export default {
       toolbar: "toolbarVisibility",
       navToolbarScheme: "navToolbarScheme",
       navMiniVarient: "navMiniVarient"
-    })
+    }),
+    authUser() {
+      return authUser;
+    }
   },
   methods: {
     toggleMiniVariantMode() {
       this.$store.dispatch("toggleMiniVariantMode");
       this.$store.dispatch("toggleMiniVarient");
-    },
-    refreshData() {
-      this.$store.dispatch("refreshPairs");
-    },
-    closeAllPositions() {
-      this.$confirm("Do you really want to close all positions?").then(res => {
-        if (res) {
-          this.$store.dispatch("closeAllPositions");
-        }
-      });
     }
   }
 };

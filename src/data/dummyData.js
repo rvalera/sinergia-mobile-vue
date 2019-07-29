@@ -6,7 +6,7 @@ export const users = [
     firstname: "Alice",
     lastname: "Blue",
     email: "aliceblue@example.com",
-    avatar: `/static/doc-images/lists/ali.jpg`,
+    avatar: `static/doc-images/lists/ali.jpg`,
     mood: "Vuse - Powerful VuejS admin template.",
     status: {
       color: "success",
