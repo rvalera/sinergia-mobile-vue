@@ -1,7 +1,7 @@
 import colors from "vuetify/es5/util/colors";
 export default {
-  name: "Blue-light",
+  name: "Default-light",
   dark: false,
-  scheme: "md-blue-500-scheme",
-  primary: colors.blue.base
+  scheme: "md-deep-purple-a700-scheme",
+  primary: colors.deepPurple.base
 };
