@@ -1,8 +1,5 @@
 <template>
-  <v-img
-    :src="backgroundImg"
-    class="page-vimg"
-  >
+  <v-img :src="backgroundImg" class="page-vimg">
     <v-container fill-height pa-0>
       <v-layout align-center>
         <v-flex xs12>
@@ -11,9 +8,17 @@
           >
             <v-layout align-center justify-center row fill-height wrap>
               <v-flex xs12 class="text-xs-center mt-3">
-                <img src="/static/vuse-circle-white.svg" alt="Vuse" class="text-xs-center" height="100">
+                <img
+                  src="/static/vuse-circle-white.svg"
+                  alt="Vuse"
+                  class="text-xs-center"
+                  height="100"
+                />
                 <div class="headline">Iniciar sesión</div>
-                <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
+                <v-form
+                  @submit.prevent="$v.$invalid ? null : submit()"
+                  ref="form"
+                >
                   <v-layout wrap row pa-4>
                     <v-flex xs12 pa-0>
                       <v-text-field
@@ -57,11 +62,14 @@
                             :disabled="$v.$invalid"
                             block
                             :class="$v.$invalid ? '' : 'white--text'"
-                          >Login</v-btn>
+                            >Login</v-btn
+                          >
                         </v-flex>
                         <!-- Forgot password -->
                         <v-flex xs12>
-                          <router-link :to="{ name: 'ForgotPasswordPage' }" tag="div"
+                          <router-link
+                            :to="{ name: 'ForgotPasswordPage' }"
+                            tag="div"
                             class="grey--text cursor-pointer"
                           >
                             <strong>¿Olvidaste la contraseña?</strong>
@@ -69,7 +77,9 @@
                         </v-flex>
                         <!-- Sign up -->
                         <v-flex xs12>
-                          <router-link :to="{ name: 'RegisterPage' }" tag="div"
+                          <router-link
+                            :to="{ name: 'RegisterPage' }"
+                            tag="div"
                             class="grey--text cursor-pointer"
                           >
                             <strong>¿No tienes una cuenta?</strong>
@@ -125,7 +135,7 @@ export default {
   components: {},
   methods: {
     submit() {
-      window.getApp.$emit("SHOW_MESSAGE", {text: "Exito"});
+      window.getApp.$emit("SHOW_MESSAGE", { text: "Exito" });
       this.resetForm();
       this.$v.$reset();
       setTimeout(() => {

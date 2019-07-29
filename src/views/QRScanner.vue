@@ -147,7 +147,7 @@ export default {
           text:
             "A5lIYhEHUXcSoMWgGUPTh2ImbkeuJyCXAENfwAHkRzQlnprVVRvNrLfWn0rTg5eLosPeZpicDw8jKmub7Wopjg4Pt16+fiPTRuPCUN16WZT8Obo2ftXTWiwSDKYFV41k"
         };
-      else
+      /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(
           result => {
             this.resultQR = result;

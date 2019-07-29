@@ -60,5 +60,5 @@ export const routes = [
     name: "/Error404",
     meta: { layout: "full" }
   },
-  { path: "*", redirect: "/pages/error/404" },
+  { path: "*", redirect: "/pages/error/404" }
 ];

@@ -1,72 +1,96 @@
 <template>
   <v-layout wrap>
-    <v-flex xs12 sm6>
+    <v-flex xs12>
       <v-layout align-center>
         <v-flex xs12>
-          <v-card
-            flat
-            height="480"
-            class="margin-auto transparent"
-            width="360"
-          >
+          <v-card flat height="480" class="margin-auto transparent" width="360">
             <v-container fill-height pa-0>
               <v-layout align-center>
                 <v-flex xs12>
                   <v-card-text>
-                    <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
+                    <v-form
+                      @submit.prevent="$v.$invalid ? null : submit()"
+                      ref="form"
+                    >
                       <v-container grid-list-xl fluid>
                         <v-layout wrap>
-                          <!-- <v-flex xs12 px-0>
+                          <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong>Your</strong>
-                              <br>
                               <strong class="primary--text">
-                                Profile Details
+                                Datos personales
                               </strong>
                             </div>
-                          </v-flex> -->
-                          <!-- <v-flex xs12 px-0>
-                            <v-divider class="section-spacer"></v-divider>
-                          </v-flex> -->
+                          </v-flex>
                           <v-flex xs12 pa-0>
+                            <v-select
+                              :items="genders"
+                              color="primary"
+                              label="Genero"
+                              v-model="form.gender"
+                              required
+                              class="box-input"
+                              :error-messages="fieldErrors('form.gender')"
+                              @blur="$v.form.gender.$touch()"
+                            ></v-select>
                             <v-text-field
                               color="primary"
-                              placeholder="First Name"
-                              v-model="firstname"
+                              label="Teléfono"
+                              v-model="form.phoneNumber"
                               required
-                              class="box-input"
-                              :error-messages="fieldErrors('firstname')"
-                              @blur="$v.firstname.$touch()"
+                              mask="phone"
+                              :error-messages="fieldErrors('form.phoneNumber')"
+                              @blur="$v.form.phoneNumber.$touch()"
                             ></v-text-field>
                             <v-text-field
                               color="primary"
-                              placeholder="Last Name"
-                              v-model="lastname"
+                              label="Correo secundario"
+                              v-model="form.secondaryEmail"
                               required
-                              class="box-input"
-                              :error-messages="fieldErrors('lastname')"
-                              @blur="$v.lastname.$touch()"
+                              :error-messages="
+                                fieldErrors('form.secondaryEmail')
+                              "
+                              @blur="$v.form.secondaryEmail.$touch()"
                             ></v-text-field>
-                            <v-text-field
-                              color="primary"
-                              placeholder="Username"
-                              v-model="username"
-                              required
-                              class="box-input"
-                              :error-messages="fieldErrors('username')"
-                              @blur="$v.username.$touch()"
-                            ></v-text-field>
-                            <password v-model="password" :badge="false" hint="" @next="handlePasswordScoreEvent" required></password>
-                            <v-text-field
-                              class="box-input"
-                              placeholder="Confirm New Password"
-                              type="password"
-                              v-model="repeatPassword"
-                              :error-messages="fieldErrors('repeatPassword')"
-                              @input="$v.repeatPassword.$touch()"
-                              @blur="$v.repeatPassword.$touch()"
-                              required
-                            ></v-text-field>
+                            <v-dialog
+                              ref="dialog"
+                              v-model="modal"
+                              :return-value.sync="form.birthdate"
+                              lazy
+                              full-width
+                              width="290px"
+                            >
+                              <template v-slot:activator="{ on }">
+                                <v-text-field
+                                  v-model="form.birthdate"
+                                  label="Fecha de nacimiento"
+                                  prepend-icon="event"
+                                  readonly
+                                  v-on="on"
+                                  :error-messages="
+                                    fieldErrors('form.birthdate')
+                                  "
+                                  @blur="$v.form.birthdate.$touch()"
+                                ></v-text-field>
+                              </template>
+                              <v-date-picker
+                                v-model="form.birthdate"
+                                scrollable
+                              >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  flat
+                                  color="primary"
+                                  @click="modal = false"
+                                  >Cancel</v-btn
+                                >
+                                <v-btn
+                                  flat
+                                  color="primary"
+                                  @click="$refs.dialog.save(form.birthdate)"
+                                  >OK</v-btn
+                                >
+                              </v-date-picker>
+                            </v-dialog>
                           </v-flex>
 
                           <v-flex xs12>
@@ -80,7 +104,8 @@
                                   :disabled="$v.$invalid"
                                   class="ml-0"
                                   :class="$v.$invalid ? '' : 'white--text'"
-                                >Continue</v-btn>
+                                  >Continue</v-btn
+                                >
                               </v-flex>
                             </v-layout>
                           </v-flex>
@@ -95,76 +120,65 @@
         </v-flex>
       </v-layout>
     </v-flex>
-    <v-flex xs12 sm6 primary>
-      <v-container fill-height>
-        <v-layout align-center>
-          <v-flex xs12 class="text-xs-center">
-            <img src="/static/vuse.svg" alt="Vuse" class="text-xs-center" height="100">
-            <div class="body-2 white--text">Enter your emaill address, we will send you a mail for verification code.</div>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-flex>
   </v-layout>
 </template>
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
-import Password from "@/components/PasswordStrength.vue";
-import { required, sameAs } from "vuelidate/lib/validators";
-import validationLangMixin from "@/mixins/validationLangMixin";
-
+import { required, email } from "vuelidate/lib/validators";
+import validationMixin from "@/mixins/validationMixin";
+const defaultForm = {
+  birthdate: null,
+  gender: null,
+  phoneNumber: null,
+  secondaryEmail: null
+};
 export default {
-  mixins: [validationLangMixin, ResizeMixin],
+  mixins: [validationMixin, ResizeMixin],
   validations: {
-    firstname: { required },
-    lastname: { required },
-    username: { required },
-    password: { required },
-    repeatPassword: {
-      sameAsPassword: sameAs("password")
+    form: {
+      birthdate: { required },
+      gender: { required },
+      phoneNumber: { required },
+      secondaryEmail: { required, email }
     }
   },
   validationMessages: {
-    firstname: {
-      required: "validation.userprofile.first.required"
-    },
-    lastname: {
-      required: "validation.userprofile.last.required"
-    },
-    username: {
-      required: "validation.username.required"
-    },
-    password: { required: "validation.password.required" },
-    repeatPassword: {
-      sameAsPassword: "validation.password.confirm"
+    form: {
+      birthdate: {
+        required: "Campo requerido"
+      },
+      gender: {
+        required: "Campo requerido"
+      },
+      phoneNumber: {
+        required: "Campo requerido"
+      },
+      secondaryEmail: {
+        required: "Por favor ingresa un correo",
+        email: "Correo debe ser valido"
+      }
     }
-  },
-  components: {
-    Password
   },
   data() {
     return {
-      firstname: null,
-      lastname: null,
-      username: null,
-      password: null,
-      repeatPassword: null,
-      passwordScore: 0,
-      loader: false
+      form: Object.assign({}, defaultForm),
+      genders: [
+        { text: "Masculino", value: "M" },
+        { text: "Femenino", value: "F" }
+      ],
+      loader: false,
+      modal: false
     };
   },
   methods: {
-    handlePasswordScoreEvent(data) {
-      this.passwordScore = data.score;
-    },
     submit() {
       this.loader = true;
       setTimeout(() => {
-        this.$emit("success", {
-          firstname: this.firstname,
-          lastname: this.lastname,
-          username: this.username,
-          password: this.password
+        this.$emit("next", {
+          birthdate: this.form.birthdate,
+          gender: this.form.gender,
+          phoneNumber: this.form.phoneNumber,
+          secondaryEmail: this.form.secondaryEmail
         });
       }, 2000);
     }

@@ -19,9 +19,12 @@
                   alt="Vuse"
                   class="text-xs-center"
                   height="100"
-                >
+                />
                 <div class="headline">Crear una cuenta</div>
-                <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
+                <v-form
+                  @submit.prevent="$v.$invalid ? null : submit()"
+                  ref="form"
+                >
                   <v-layout wrap row pa-4>
                     <v-flex xs12 pa-0>
                       <v-text-field
@@ -56,12 +59,18 @@
                         :error-messages="fieldErrors('form.lastName')"
                         @blur="$v.form.lastName.$touch()"
                       ></v-text-field>
-                      <v-checkbox color="primary" v-model="form.agreeToPolicy" required>
-                        <div slot="label" @click.stop="() => {}">Agree to
+                      <v-checkbox
+                        color="primary"
+                        v-model="form.agreeToPolicy"
+                        required
+                      >
+                        <div slot="label" @click.stop="() => {}">
+                          Agree to
                           <v-btn-toggle
                             class="transparent blue--text"
                             @click.native.stop="dialog = !dialog"
-                          >terms & privacy policy</v-btn-toggle>.
+                            >terms & privacy policy</v-btn-toggle
+                          >.
                         </div>
                       </v-checkbox>
                     </v-flex>
@@ -76,10 +85,13 @@
                             :disabled="$v.$invalid"
                             block
                             :class="$v.$invalid ? '' : 'white--text'"
-                          >Registrarse</v-btn>
+                            >Registrarse</v-btn
+                          >
                         </v-flex>
                         <v-flex xs12>
-                          <router-link :to="{ name: 'LoginPage' }" tag="div"
+                          <router-link
+                            :to="{ name: 'LoginPage' }"
+                            tag="div"
                             class="grey--text cursor-pointer"
                           >
                             <strong>¿Ya tienes una cuenta?</strong>
@@ -116,7 +128,7 @@
 </template>
 
 <script>
-import { required, email, sameAs, minLength } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
   firstName: "",
@@ -149,7 +161,7 @@ export default {
         email: "Correo debe ser valido"
       },
       idNumber: {
-        required: "Por favor ingresa tu identificación",
+        required: "Por favor ingresa tu identificación"
       }
     }
   },
@@ -171,7 +183,7 @@ export default {
       this.resetForm();
       this.$v.$reset();
       setTimeout(() => {
-        window.getApp.$emit("SHOW_MESSAGE", {text: "Registro exitoso!"});
+        window.getApp.$emit("SHOW_MESSAGE", { text: "Registro exitoso!" });
         this.$router.push({
           name: "LoginPage"
         });

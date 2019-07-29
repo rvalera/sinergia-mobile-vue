@@ -1,8 +1,5 @@
 <template>
-  <v-img
-    :src="backgroundImg"
-    class="page-vimg"
-  >
+  <v-img :src="backgroundImg" class="page-vimg">
     <toolbar-simple></toolbar-simple>
     <v-container fill-height pa-0>
       <v-layout align-center>
@@ -10,14 +7,14 @@
           <v-card
             class="text-xs-center margin-auto border-radius6 box-pink-500-glow elevation-10 card-center-box"
           >
-            <v-img
-              :src="backgroundImg"
-            >
+            <v-img :src="backgroundImg">
               <v-layout align-center justify-center row fill-height>
                 <v-flex xs12>
                   <div class="display-4 white--text" v-text="title"></div>
                   <p class="subheading white--text" v-html="description"></p>
-                  <v-btn :to="{ name: 'home' }" round color="primary" dark>Go Home</v-btn>
+                  <v-btn :to="{ name: 'home' }" round color="primary" dark
+                    >Go Home</v-btn
+                  >
                 </v-flex>
               </v-layout>
             </v-img>
