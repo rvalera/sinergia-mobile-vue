@@ -23,8 +23,8 @@ export default [
   },
   {
     name: "LOADING",
-    callback: function(params) {
-      this.$loading(params.show);
+    callback: function(flag) {
+      this.$loading(flag);
     }
   }
 ];

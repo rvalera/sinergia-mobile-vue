@@ -1,98 +1,64 @@
 import axios from "axios";
 import config from "./config/axiosConfig";
 
-export const API_URL_BACKEND = "https://bobbot.najoconsultores.com/api";
+//export const API_URL_BACKEND = "https://bobbot.najoconsultores.com/api";
+export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 
 export const apiHttp = async (verb, endpoint, data, params = {}) => {
   const apiConfiguration = { ...config };
 
-  if (Object.keys(params).length !== 0) {
-    apiConfiguration.params = params;
-  }
-  verb = verb.toUpperCase();
-  const serviceResponse = { ...customResponse };
+  if (Object.keys(params).length) apiConfiguration.params = params;
+
+  let serviceResponse = { ...customResponse };
+  let servicePromise, inputData;
+  window.getApp.$emit("LOADING", true);
+
+  verb = verb.toLowerCase();
   switch (verb) {
-    case "GET":
-      try {
-        const servicePromise = axios.get(
-          `${API_URL_BACKEND}${endpoint}`,
-          apiConfiguration
-        );
-        const [materializedPromise] = await Promise.all([servicePromise]);
-        serviceResponse.ok = 1;
-        serviceResponse.data = materializedPromise.data.data;
-        return serviceResponse;
-      } catch (error) {
-        return buildErrorMessage(error);
-      }
-    case "POST":
-      try {
-        const inputData = await data;
-        const servicePromise = axios.post(
-          `${API_URL_BACKEND}${endpoint}`,
-          inputData,
-          apiConfiguration
-        );
-        const [materializedPromise] = await Promise.all([servicePromise]);
-        serviceResponse.ok = 1;
-        serviceResponse.data = materializedPromise.data.data;
-        return serviceResponse;
-      } catch (error) {
-        return buildErrorMessage(error);
-      }
-    case "PUT":
-      try {
-        const inputData = await data;
-        const servicePromise = axios.put(
-          `${API_URL_BACKEND}${endpoint}`,
-          inputData,
-          apiConfiguration
-        );
-        const [materializedPromise] = await Promise.all([servicePromise]);
-        serviceResponse.ok = 1;
-        serviceResponse.data = materializedPromise.data.data;
-        return serviceResponse;
-      } catch (error) {
-        return buildErrorMessage(error);
-      }
-    case "DELETE":
-      try {
-        const servicePromise = axios.delete(
-          `${API_URL_BACKEND}${endpoint}`,
-          apiConfiguration
-        );
-        const [materializedPromise] = await Promise.all([servicePromise]);
-        serviceResponse.ok = 1;
-        serviceResponse.data = materializedPromise.data.data;
-        return serviceResponse;
-      } catch (error) {
-        return buildErrorMessage(error);
-      }
+    case "get":
+    case "delete":
+      servicePromise = axios[verb](
+        `${API_URL_BACKEND}${endpoint}`,
+        apiConfiguration
+      );
+      break;
+    case "post":
+    case "put":
+      inputData = await data;
+      servicePromise = axios[verb](
+        `${API_URL_BACKEND}${endpoint}`,
+        inputData,
+        apiConfiguration
+      );
+      break;
   }
+
+  try {
+    const [materializedPromise] = await Promise.all([servicePromise]);
+    serviceResponse.ok = 1;
+    serviceResponse.data = materializedPromise.data.data;
+  } catch (error) {
+    serviceResponse = buildErrorMessage(error);
+  }
+  window.getApp.$emit("LOADING", false);
+  return serviceResponse;
 };
 
 function buildErrorMessage(error) {
-  if (typeof error.response === "undefined") {
-    customResponse.ok = 0;
-    customResponse.data.code = "E999";
+  if (typeof error.response === "undefined")
     customResponse.data.text = "Error General de la Aplicacion";
-    return customResponse;
-  } else if (error.response.status == 404) {
-    customResponse.ok = 0;
-    customResponse.data.code = "E999";
+  else if (error.response.status == 404)
     customResponse.data.text = "Servicio no disponible";
-    return customResponse;
-  } else if (error.response.status == 405 || error.response.status == 406) {
-    customResponse.ok = 0;
-    customResponse.data.code = "E999";
+  else if (error.response.status == 500)
+    customResponse.data.text = "Error de conexión";
+  else if (error.response.status == 405 || error.response.status == 406)
     customResponse.data.text = "Solicitud invalida";
-    return customResponse;
-  } else {
-    customResponse.ok = 0;
-    customResponse.data.text = error.response.data.text;
-    return customResponse;
-  }
+  else customResponse.data.text = error.response.data.text;
+  customResponse.ok = 0;
+  customResponse.data.code = "E999";
+  return customResponse;
 }
+
 var customResponse = {
   ok: 1,
   data: {

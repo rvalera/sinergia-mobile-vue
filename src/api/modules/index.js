@@ -1,1 +1,1 @@
-export * from "./apiBoBBot";
+export * from "./mobileUser";

@@ -35,29 +35,39 @@
                         :error-messages="fieldErrors('form.email')"
                         @blur="$v.form.email.$touch()"
                       ></v-text-field>
+                      <v-select
+                        :items="types"
+                        color="primary"
+                        label="Tipo de persona"
+                        v-model="form.type"
+                        required
+                        class="box-input"
+                        :error-messages="fieldErrors('form.type')"
+                        @blur="$v.form.type.$touch()"
+                      ></v-select>
                       <v-text-field
                         color="purple darken-2"
                         label="Identificación"
-                        v-model="form.idNumber"
+                        v-model="form.id_number"
                         required
-                        :error-messages="fieldErrors('form.idNumber')"
-                        @blur="$v.form.idNumber.$touch()"
+                        :error-messages="fieldErrors('form.id_number')"
+                        @blur="$v.form.id_number.$touch()"
                       ></v-text-field>
                       <v-text-field
                         color="purple darken-2"
                         label="Nombres"
-                        v-model="form.firstName"
+                        v-model="form.first_name"
                         required
-                        :error-messages="fieldErrors('form.firstName')"
-                        @blur="$v.form.firstName.$touch()"
+                        :error-messages="fieldErrors('form.first_name')"
+                        @blur="$v.form.first_name.$touch()"
                       ></v-text-field>
                       <v-text-field
                         color="purple darken-2"
                         label="Apellidos"
-                        v-model="form.lastName"
+                        v-model="form.last_name"
                         required
-                        :error-messages="fieldErrors('form.lastName')"
-                        @blur="$v.form.lastName.$touch()"
+                        :error-messages="fieldErrors('form.last_name')"
+                        @blur="$v.form.last_name.$touch()"
                       ></v-text-field>
                       <v-checkbox
                         color="primary"
@@ -97,23 +107,6 @@
                             <strong>¿Ya tienes una cuenta?</strong>
                           </router-link>
                         </v-flex>
-                        <!-- Sign in with Social -->
-                        <!-- <v-flex xs12>
-                          <v-btn fab small color="blue darken-4">
-                            <v-icon color="white">fa-facebook</v-icon>
-                          </v-btn>
-                          <v-btn fab small color="red darken-4">
-                            <v-icon color="white">fa-google</v-icon>
-                          </v-btn>
-                          <v-btn fab small color="light-blue">
-                            <v-icon color="white">fa-twitter</v-icon>
-                          </v-btn>
-                        </v-flex>-->
-                        <!-- Register Btn -->
-                        <!-- <v-flex xs12>
-                          <p class="body-1"><strong>Don't have an account?</strong></p>
-                          <router-link :to="{ name: 'RegisterPage' }" tag="v-btn" class="primary">Register Now</router-link>
-                        </v-flex>-->
                       </v-layout>
                     </v-flex>
                   </v-layout>
@@ -129,38 +122,44 @@
 
 <script>
 import { required, email } from "vuelidate/lib/validators";
+import { createUserApi } from "@/api/modules";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
-  idNumber: "",
-  agreeToPolicy: false
+  id_number: "",
+  agreeToPolicy: false,
+  type: ""
 };
 export default {
   mixins: [validationMixin],
   validations: {
     form: {
-      firstName: { required },
-      lastName: { required },
-      idNumber: { required },
+      first_name: { required },
+      last_name: { required },
+      id_number: { required },
       email: { required, email },
-      agreeToPolicy: { required }
+      agreeToPolicy: { required },
+      type: { required }
     }
   },
   validationMessages: {
     form: {
-      firstName: {
+      first_name: {
         required: "Por favor ingresa tus nombres"
       },
-      lastName: {
+      last_name: {
         required: "Por favor ingresa tus apellidos"
+      },
+      type: {
+        required: "Por favor ingresa el tipo de persona"
       },
       email: {
         required: "Por favor ingresa un correo",
         email: "Correo debe ser valido"
       },
-      idNumber: {
+      id_number: {
         required: "Por favor ingresa tu identificación"
       }
     }
@@ -168,6 +167,10 @@ export default {
   data() {
     return {
       form: Object.assign({}, defaultForm),
+      types: [
+        { text: "Natural", value: "N" },
+        { text: "Jurídico", value: "J" }
+      ],
       dialog: false,
       policyText: `
         <h5>What is privacy?</h5>
@@ -179,19 +182,24 @@ export default {
     };
   },
   methods: {
-    submit() {
-      this.resetForm();
-      this.$v.$reset();
-      setTimeout(() => {
-        window.getApp.$emit("SHOW_MESSAGE", { text: "Registro exitoso!" });
-        this.$router.push({
-          name: "LoginPage"
-        });
-      }, 2000);
-    },
     resetForm() {
       this.form = Object.assign({}, defaultForm);
       this.$refs.form.reset();
+      this.$v.$reset();
+    },
+    async submit() {
+      var serviceResponse = await createUserApi(this.form);
+      if (serviceResponse.ok) {
+        this.resetForm();
+        const params = {
+          text: "Usuario registrado con éxito. Revisa tu correo."
+        };
+        window.getApp.$emit("SHOW_MESSAGE", params);
+        this.$router.push({ name: "LoginPage" });
+      } else {
+        const params = { text: serviceResponse.data.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   }
 };
