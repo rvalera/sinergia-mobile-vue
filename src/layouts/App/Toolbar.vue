@@ -53,6 +53,14 @@
           </v-list-tile-avatar>
           <v-list-tile-title>Perfil de usuario</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile
+          @click="() => $router.push({ name: 'ChangePasswordPage' })"
+        >
+          <v-list-tile-avatar>
+            <v-icon>vpn_key</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-title>Cambiar contraseña</v-list-tile-title>
+        </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">
           <v-list-tile-avatar>
