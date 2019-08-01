@@ -12,7 +12,7 @@
                 <v-flex xs12>
                   <div class="display-4 white--text" v-text="title"></div>
                   <p class="subheading white--text" v-html="description"></p>
-                  <v-btn :to="{ name: 'home' }" round color="primary" dark
+                  <v-btn :to="{ name: 'Home' }" round color="primary" dark
                     >Go Home</v-btn
                   >
                 </v-flex>

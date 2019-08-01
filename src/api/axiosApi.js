@@ -28,6 +28,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
     const [materializedPromise] = await Promise.all([servicePromise]);
     serviceResponse.ok = 1;
     serviceResponse.data = materializedPromise.data.data;
+    serviceResponse.message = materializedPromise.data.message;
   } catch (error) {
     serviceResponse = buildErrorMessage(error);
   }
@@ -36,23 +37,26 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
 };
 
 function buildErrorMessage(error) {
+  console.log(error.response);
   if (typeof error.response === "undefined")
-    customResponse.data.text = "Error General de la Aplicacion";
+    customResponse.message.text = "Error General de la Aplicacion";
+  else if (error.response.status == 401)
+    customResponse.message.text = "Credenciales incorrectas";
   else if (error.response.status == 404)
-    customResponse.data.text = "Servicio no disponible";
+    customResponse.message.text = "Servicio no disponible";
   else if (error.response.status == 500)
-    customResponse.data.text = "Error de conexión";
+    customResponse.message.text = "Error de conexión";
   else if (error.response.status == 405 || error.response.status == 406)
-    customResponse.data.text = "Solicitud invalida";
-  else customResponse.data.text = error.response.data.text;
+    customResponse.message.text = "Solicitud invalida";
+  else customResponse.message.text = error.response.data.message.text;
   customResponse.ok = 0;
-  customResponse.data.code = "E999";
+  customResponse.message.code = "E999";
   return customResponse;
 }
 
 var customResponse = {
   ok: 1,
-  data: {
+  message: {
     code: String,
     text: String
   }

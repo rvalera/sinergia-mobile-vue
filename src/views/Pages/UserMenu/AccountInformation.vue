@@ -142,8 +142,7 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
-import { mapGetters } from "vuex";
-import { updateUserApi } from "@/api/modules";
+import { mapGetters, mapActions } from "vuex";
 
 const defaultForm = {
   first_name: "",
@@ -203,23 +202,12 @@ export default {
     ...mapGetters(["user"])
   },
   mounted() {
-    console.log(this.user);
-    this.form = Object.assign({}, this.user.detail);
+    this.form = Object.assign({}, this.user.person);
   },
   methods: {
-    async submit() {
-      const { user_id } = localStorage;
-      var serviceResponse = await updateUserApi(user_id, this.data);
-      if (serviceResponse.ok) {
-        const params = {
-          text: "Usuario actualizado con éxito."
-        };
-        window.getApp.$emit("SHOW_MESSAGE", params);
-        this.$router.push({ name: "Home" });
-      } else {
-        const params = { text: serviceResponse.data.text };
-        window.getApp.$emit("SHOW_ERROR", params);
-      }
+    ...mapActions(["updatePersonAction"]),
+    submit() {
+      this.updatePersonAction(this.form);
     }
   }
 };

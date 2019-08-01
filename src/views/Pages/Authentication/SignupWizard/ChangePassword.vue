@@ -108,12 +108,7 @@ export default {
       this.passwordScore = data.score;
     },
     submit() {
-      this.loader = true;
-      setTimeout(() => {
-        this.$emit("next", {
-          password: this.password
-        });
-      }, 2000);
+      this.$emit("next", { password: this.password });
     }
   }
 };

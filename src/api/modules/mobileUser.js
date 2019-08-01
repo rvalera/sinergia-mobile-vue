@@ -10,7 +10,7 @@ export const changePassUserApi = (userId, password) =>
   apiHttp("PUT", `${userPath}/password/${userId}`, { password });
 
 export const loginApi = ({ email, password }) => {
-  return apiHttp("GET", `${userPath}/details`, null, {
+  return apiHttp("GET", `${userPath}/detail`, null, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

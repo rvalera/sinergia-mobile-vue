@@ -50,7 +50,7 @@ import ChangePassword from "./ChangePassword";
 import ChangeSpecialKey from "./ChangeSpecialKey";
 import AccountInformation from "./AccountInformation";
 import Presentation from "./Presentation";
-import { updateUserApi } from "@/api/modules";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     ChangePassword,
@@ -71,12 +71,11 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters(["user"])
+  },
   methods: {
-    stageHandler() {
-      if (this.stage > 1) {
-        this.stage -= 1;
-      }
-    },
+    ...mapActions(["updatePersonAction"]),
     goToChangePassword() {
       this.stage = 2;
     },
@@ -94,18 +93,7 @@ export default {
     },
     async submitAll(data) {
       this.data.operation_key = data.operation_key;
-      const { user_id } = localStorage;
-      var serviceResponse = await updateUserApi(user_id, this.data);
-      if (serviceResponse.ok) {
-        const params = {
-          text: "Usuario actualizado con éxito."
-        };
-        window.getApp.$emit("SHOW_MESSAGE", params);
-        this.$router.push({ name: "Home" });
-      } else {
-        const params = { text: serviceResponse.data.text };
-        window.getApp.$emit("SHOW_ERROR", params);
-      }
+      this.updatePersonAction(this.data);
     }
   }
 };

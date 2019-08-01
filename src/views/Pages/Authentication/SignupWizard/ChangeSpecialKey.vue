@@ -114,12 +114,9 @@ export default {
       this.passwordScore = data.score;
     },
     submit() {
-      this.loader = true;
-      setTimeout(() => {
-        this.$emit("success", {
-          operation_key: this.password
-        });
-      }, 2000);
+      this.$emit("success", {
+        operation_key: this.password
+      });
     }
   }
 };

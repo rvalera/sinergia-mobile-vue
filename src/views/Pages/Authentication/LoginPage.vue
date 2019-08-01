@@ -100,7 +100,7 @@ export default {
   validations: {
     form: {
       email: { required, email },
-      password: { required, minLength: minLength(6) }
+      password: { required, minLength: minLength(5) }
     }
   },
   validationMessages: {
@@ -128,10 +128,6 @@ export default {
     ...mapActions(["loginAction", "logoutAction"]),
     submit() {
       this.loginAction(this.form);
-    },
-    resetForm() {
-      this.form = Object.assign({}, defaultForm);
-      this.$refs.form.reset();
     }
   }
 };

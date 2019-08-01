@@ -191,13 +191,11 @@ export default {
       var serviceResponse = await createUserApi(this.form);
       if (serviceResponse.ok) {
         this.resetForm();
-        const params = {
-          text: "Usuario registrado con éxito. Revisa tu correo."
-        };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.$router.push({ name: "LoginPage" });
       } else {
-        const params = { text: serviceResponse.data.text };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     }

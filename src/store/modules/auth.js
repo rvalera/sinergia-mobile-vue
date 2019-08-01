@@ -1,19 +1,12 @@
-import { LOGIN_USER, LOGOUT_USER } from "../mutation-types";
+import { LOGIN_USER, LOGOUT_USER, UPDATE_PERSON } from "../mutation-types";
 
-import { loginApi } from "@/api/modules";
+import { loginApi, updateUserApi } from "@/api/modules";
 
 import router from "@/router";
 
 const initialState = {
   user: {
-    detail: {
-      first_name: "aaaaaaaaaa",
-      last_name: "bbbbbbbbbbbbbb",
-      phone_number: "+584166127779",
-      gender: "M",
-      secondary_email: "joanrosendo@gmail.com",
-      birth_date: "1982-12-18T08:28:56.782Z"
-    }
+    person: {}
   }
 };
 
@@ -31,6 +24,12 @@ const mutations = {
   },
   [LOGOUT_USER]: state => {
     state.user = {};
+  },
+  [UPDATE_PERSON]: (state, payload) => {
+    state.user.person = {
+      ...state.user.person,
+      ...payload
+    };
   }
 };
 
@@ -46,7 +45,7 @@ const actions = {
       localStorage.setItem("email", serviceResponse.data.email);
       localStorage.setItem("password", payload.password);
     } else {
-      const params = { text: serviceResponse.data.text };
+      const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
     }
   },
@@ -54,6 +53,23 @@ const actions = {
     localStorage.clear();
     commit(LOGOUT_USER);
     //router.push({ name: "LoginPage" });
+  },
+  async updatePersonAction({ commit, state }, payload) {
+    const { id } = state.user;
+    var serviceResponse = await updateUserApi(id, payload);
+    if (serviceResponse.ok) {
+      if (payload.hasOwnProperty("password")) {
+        localStorage.setItem("password", payload.password);
+        delete payload.password;
+      }
+      const params = { text: serviceResponse.message.text };
+      window.getApp.$emit("SHOW_MESSAGE", params);
+      commit(UPDATE_PERSON, payload);
+      router.push({ name: "Home" });
+    } else {
+      const params = { text: serviceResponse.message.text };
+      window.getApp.$emit("SHOW_ERROR", params);
+    }
   }
 };
 

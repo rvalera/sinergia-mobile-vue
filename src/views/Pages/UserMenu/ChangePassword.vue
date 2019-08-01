@@ -133,13 +133,11 @@ export default {
       var serviceResponse = await changePassUserApi(user_id, this.password);
       if (serviceResponse.ok) {
         localStorage.password = this.password;
-        const params = {
-          text: "Cambio de contraseña exitoso"
-        };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.$router.push({ name: "Home" });
       } else {
-        const params = { text: serviceResponse.data.text };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     }

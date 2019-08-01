@@ -172,15 +172,12 @@ export default {
   },
   methods: {
     submit() {
-      this.loader = true;
-      setTimeout(() => {
-        this.$emit("next", {
-          birth_date: this.form.birth_date,
-          gender: this.form.gender,
-          phone_number: this.form.phone_number,
-          secondary_email: this.form.secondary_email
-        });
-      }, 2000);
+      this.$emit("next", {
+        birth_date: this.form.birth_date,
+        gender: this.form.gender,
+        phone_number: this.form.phone_number,
+        secondary_email: this.form.secondary_email
+      });
     }
   }
 };
