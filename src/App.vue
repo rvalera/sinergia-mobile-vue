@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Events from "./events/event";
 export default {
   data() {
@@ -41,11 +41,17 @@ export default {
       this.$on(item.name, item.callback);
     });
     window.getApp = this;
+    //Auto login for keep sign in
+    const { email, password } = localStorage;
+    if (email && password) this.loginAction({ email, password });
   },
   computed: {
     ...mapGetters({
       colorScheme: "colorScheme"
     })
+  },
+  methods: {
+    ...mapActions(["loginAction"])
   }
 };
 </script>
