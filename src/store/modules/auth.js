@@ -23,7 +23,7 @@ const mutations = {
     state.user = payload;
   },
   [LOGOUT_USER]: state => {
-    state.user = {};
+    state.user = initialState.user;
   },
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
@@ -47,6 +47,7 @@ const actions = {
     } else {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
+      router.push({ name: "LoginPage" });
     }
   },
   logoutAction({ commit }) {

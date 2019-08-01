@@ -199,7 +199,7 @@
   </v-navigation-drawer>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import appDrawerItems from "@/data/app-drawer-items";
 import { camel } from "@/utils/helpers";
 
@@ -212,6 +212,7 @@ export default {
     };
   },
   mounted() {
+    this.keepLogin();
     const ps = document.getElementById("app-drawer");
     ps.addEventListener("mouseenter", this.miniEnterVariantHandler);
     ps.addEventListener("mouseleave", this.miniLeaveVariantHandler);
@@ -250,6 +251,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["loginAction"]),
     miniEnterVariantHandler() {
       // if it's tab or small devive then it won't listen this event
       if (
@@ -288,6 +290,12 @@ export default {
       // console.log(`Sidebar:`)
       // console.log({ name: `${item.group}/${camel(subItem.name)}` })
       return { name: `${item.group}/${camel(subItem.name)}` };
+    },
+    keepLogin() {
+      //Auto login for keep sign in
+      const { email, password } = localStorage;
+      if (email && password) this.loginAction({ email, password });
+      else this.$router.push({ name: "LoginPage" });
     }
   }
 };
