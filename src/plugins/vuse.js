@@ -55,6 +55,12 @@ Vue.filter("firstChar", function(str) {
 Vue.filter("first2Char", function(str) {
   return str.substring(0, 2).toUpperCase();
 });
+Vue.filter("first2Initials", function(str) {
+  return str
+    .split(" ")
+    .map(n => n[0])
+    .join("");
+});
 Vue.filter("hljshtml", function(value) {
   return value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 });

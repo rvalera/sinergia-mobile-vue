@@ -32,18 +32,26 @@
     </v-btn>
     <v-spacer></v-spacer>
     <v-menu offset-y>
-      <v-avatar slot="activator" size="40">
-        <img :src="authUser.avatar" :alt="authUser.name" />
+      <v-avatar color="primary" slot="activator" size="40">
+        <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
+        <span class="white--text">{{
+          user.person.fullname | first2Initials
+        }}</span>
       </v-avatar>
       <v-list dense>
         <v-list-tile avatar>
-          <v-list-tile-avatar>
-            <img :src="authUser.avatar" :alt="authUser.name" />
+          <v-list-tile-avatar color="primary">
+            <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
+            <span class="white--text">{{
+              user.person.fullname | first2Initials
+            }}</span>
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title v-text="authUser.name"></v-list-tile-title>
-            <v-list-tile-sub-title>CEO of Vuse</v-list-tile-sub-title>
+            <v-list-tile-title
+              v-text="user.person.fullname"
+            ></v-list-tile-title>
+            <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
@@ -75,7 +83,6 @@
   </v-toolbar>
 </template>
 <script>
-import { authUser } from "@/data/dummyData";
 import { mapGetters } from "vuex";
 
 export default {
@@ -86,16 +93,14 @@ export default {
   },
   computed: {
     ...mapGetters({
+      user: "user",
       navDrawer: "navDrawer",
       toolbarClippedLeft: "toolbarClippedLeft",
       fixedToolbar: "fixedToolbar",
       toolbar: "toolbarVisibility",
       navToolbarScheme: "navToolbarScheme",
       navMiniVarient: "navMiniVarient"
-    }),
-    authUser() {
-      return authUser;
-    }
+    })
   },
   methods: {
     toggleMiniVariantMode() {
