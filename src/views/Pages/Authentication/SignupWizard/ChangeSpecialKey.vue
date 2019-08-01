@@ -117,7 +117,7 @@ export default {
       this.loader = true;
       setTimeout(() => {
         this.$emit("success", {
-          specialKey: this.password
+          operation_key: this.password
         });
       }, 2000);
     }

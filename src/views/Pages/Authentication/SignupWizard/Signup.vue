@@ -50,6 +50,7 @@ import ChangePassword from "./ChangePassword";
 import ChangeSpecialKey from "./ChangeSpecialKey";
 import AccountInformation from "./AccountInformation";
 import Presentation from "./Presentation";
+import { updateUserApi } from "@/api/modules";
 export default {
   components: {
     ChangePassword,
@@ -61,12 +62,12 @@ export default {
     return {
       stage: 1,
       data: {
-        specialKey: null,
+        operation_key: null,
         password: null,
-        birthdate: null,
+        birth_date: null,
         gender: null,
-        phoneNumber: null,
-        secondaryEmail: null
+        phone_number: null,
+        secondary_email: null
       }
     };
   },
@@ -91,9 +92,20 @@ export default {
       };
       this.stage = 4;
     },
-    submitAll(data) {
-      this.data.specialKey = data.specialKey;
-      console.log(this.data);
+    async submitAll(data) {
+      this.data.operation_key = data.operation_key;
+      const { user_id } = localStorage;
+      var serviceResponse = await updateUserApi(user_id, this.data);
+      if (serviceResponse.ok) {
+        const params = {
+          text: "Usuario actualizado con éxito."
+        };
+        window.getApp.$emit("SHOW_MESSAGE", params);
+        this.$router.push({ name: "Home" });
+      } else {
+        const params = { text: serviceResponse.data.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   }
 };

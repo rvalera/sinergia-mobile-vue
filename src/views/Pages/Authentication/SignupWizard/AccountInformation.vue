@@ -35,45 +35,45 @@
                             <v-text-field
                               color="primary"
                               label="Teléfono"
-                              v-model="form.phoneNumber"
+                              v-model="form.phone_number"
                               required
                               mask="phone"
-                              :error-messages="fieldErrors('form.phoneNumber')"
-                              @blur="$v.form.phoneNumber.$touch()"
+                              :error-messages="fieldErrors('form.phone_number')"
+                              @blur="$v.form.phone_number.$touch()"
                             ></v-text-field>
                             <v-text-field
                               color="primary"
                               label="Correo secundario"
-                              v-model="form.secondaryEmail"
+                              v-model="form.secondary_email"
                               required
                               :error-messages="
-                                fieldErrors('form.secondaryEmail')
+                                fieldErrors('form.secondary_email')
                               "
-                              @blur="$v.form.secondaryEmail.$touch()"
+                              @blur="$v.form.secondary_email.$touch()"
                             ></v-text-field>
                             <v-dialog
                               ref="dialog"
                               v-model="modal"
-                              :return-value.sync="form.birthdate"
+                              :return-value.sync="form.birth_date"
                               lazy
                               full-width
                               width="290px"
                             >
                               <template v-slot:activator="{ on }">
                                 <v-text-field
-                                  v-model="form.birthdate"
+                                  v-model="form.birth_date"
                                   label="Fecha de nacimiento"
                                   prepend-icon="event"
                                   readonly
                                   v-on="on"
                                   :error-messages="
-                                    fieldErrors('form.birthdate')
+                                    fieldErrors('form.birth_date')
                                   "
-                                  @blur="$v.form.birthdate.$touch()"
+                                  @blur="$v.form.birth_date.$touch()"
                                 ></v-text-field>
                               </template>
                               <v-date-picker
-                                v-model="form.birthdate"
+                                v-model="form.birth_date"
                                 scrollable
                               >
                                 <v-spacer></v-spacer>
@@ -86,7 +86,7 @@
                                 <v-btn
                                   flat
                                   color="primary"
-                                  @click="$refs.dialog.save(form.birthdate)"
+                                  @click="$refs.dialog.save(form.birth_date)"
                                   >OK</v-btn
                                 >
                               </v-date-picker>
@@ -127,33 +127,33 @@ import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
-  birthdate: null,
+  birth_date: null,
   gender: null,
-  phoneNumber: null,
-  secondaryEmail: null
+  phone_number: null,
+  secondary_email: null
 };
 export default {
   mixins: [validationMixin, ResizeMixin],
   validations: {
     form: {
-      birthdate: { required },
+      birth_date: { required },
       gender: { required },
-      phoneNumber: { required },
-      secondaryEmail: { required, email }
+      phone_number: { required },
+      secondary_email: { required, email }
     }
   },
   validationMessages: {
     form: {
-      birthdate: {
+      birth_date: {
         required: "Campo requerido"
       },
       gender: {
         required: "Campo requerido"
       },
-      phoneNumber: {
+      phone_number: {
         required: "Campo requerido"
       },
-      secondaryEmail: {
+      secondary_email: {
         required: "Por favor ingresa un correo",
         email: "Correo debe ser valido"
       }
@@ -175,10 +175,10 @@ export default {
       this.loader = true;
       setTimeout(() => {
         this.$emit("next", {
-          birthdate: this.form.birthdate,
+          birth_date: this.form.birth_date,
           gender: this.form.gender,
-          phoneNumber: this.form.phoneNumber,
-          secondaryEmail: this.form.secondaryEmail
+          phone_number: this.form.phone_number,
+          secondary_email: this.form.secondary_email
         });
       }, 2000);
     }
