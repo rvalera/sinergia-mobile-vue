@@ -5,7 +5,16 @@ import { loginApi } from "@/api/modules";
 import router from "@/router";
 
 const initialState = {
-  user: {}
+  user: {
+    detail: {
+      first_name: "aaaaaaaaaa",
+      last_name: "bbbbbbbbbbbbbb",
+      phone_number: "+584166127779",
+      gender: "M",
+      secondary_email: "joanrosendo@gmail.com",
+      birth_date: "1982-12-18T08:28:56.782Z"
+    }
+  }
 };
 
 const state = {

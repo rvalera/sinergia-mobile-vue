@@ -47,7 +47,9 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile @click="() => {}">
+        <v-list-tile
+          @click="() => $router.push({ name: 'AccountInformationPage' })"
+        >
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>

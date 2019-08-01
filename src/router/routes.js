@@ -10,6 +10,7 @@ import ForgotPasswordPage from "@/views/Pages/Authentication/ForgotPasswordPage"
 import RegisterPage from "@/views/Pages/Authentication/RegisterPage";
 import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
+import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
 import QRScanner from "@/views/QRScanner";
 
@@ -30,6 +31,16 @@ export const routes = [
     name: "ChangePasswordPage",
     components: {
       default: ChangePassword,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    }
+  },
+  {
+    path: "/profile",
+    name: "AccountInformationPage",
+    components: {
+      default: AccountInformation,
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
