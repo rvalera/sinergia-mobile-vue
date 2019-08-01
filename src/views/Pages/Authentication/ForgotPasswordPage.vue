@@ -19,7 +19,7 @@
                     <v-layout wrap>
                       <v-flex xs12 class="text-xs-center">
                         <img
-                          src="/static/forgotpassword-vuse.svg"
+                          src="static/forgotpassword-vuse.svg"
                           alt=""
                           height="145px"
                         />
@@ -95,7 +95,7 @@ export default {
     return {
       errors: null,
       email: null,
-      backgroundImg: "/static/doc-images/HexesisMaterial01.png"
+      backgroundImg: "static/doc-images/HexesisMaterial01.png"
     };
   },
   methods: {

@@ -9,7 +9,7 @@
             <v-layout align-center justify-center row fill-height wrap>
               <v-flex xs12 class="text-xs-center mt-3">
                 <img
-                  src="/static/vuse-circle-white.svg"
+                  src="static/vuse-circle-white.svg"
                   alt="Vuse"
                   class="text-xs-center"
                   height="100"
@@ -118,7 +118,7 @@ export default {
   data() {
     return {
       form: Object.assign({}, defaultForm),
-      backgroundImg: "/static/doc-images/HexesisMaterial01.png"
+      backgroundImg: "static/doc-images/HexesisMaterial01.png"
     };
   },
   mounted() {

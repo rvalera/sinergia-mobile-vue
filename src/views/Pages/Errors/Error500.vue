@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     backgroundImg() {
-      return "/static/doc-images/HexesisMaterial01.png";
+      return "static/doc-images/HexesisMaterial01.png";
     }
   }
 };

@@ -5,7 +5,7 @@
         <v-layout align-center>
           <v-flex xs12 class="text-xs-center">
             <img
-              src="/static/vuse.svg"
+              src="static/vuse.svg"
               alt="Vuse"
               class="text-xs-center"
               height="100"
