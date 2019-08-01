@@ -39,17 +39,6 @@
                         :error-messages="fieldErrors('form.password')"
                         @blur="$v.form.password.$touch()"
                       ></v-text-field>
-                      <div class="width-150x margin-horiz-center">
-                        <v-checkbox
-                          color="primary"
-                          v-model="form.remeberme"
-                          required
-                        >
-                          <div slot="label" @click.stop="() => {}">
-                            Recuérdame
-                          </div>
-                        </v-checkbox>
-                      </div>
                     </v-flex>
 
                     <v-flex xs12>
@@ -100,11 +89,11 @@
 
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
   email: "",
-  password: "",
-  remeberme: false
+  password: ""
 };
 export default {
   mixins: [validationMixin],
@@ -132,17 +121,13 @@ export default {
       backgroundImg: "/static/doc-images/HexesisMaterial01.png"
     };
   },
-  components: {},
+  mounted() {
+    this.logoutAction();
+  },
   methods: {
+    ...mapActions(["loginAction", "logoutAction"]),
     submit() {
-      window.getApp.$emit("SHOW_MESSAGE", { text: "Exito" });
-      this.resetForm();
-      this.$v.$reset();
-      setTimeout(() => {
-        this.$router.push({
-          name: "home"
-        });
-      }, 2000);
+      this.loginAction(this.form);
     },
     resetForm() {
       this.form = Object.assign({}, defaultForm);

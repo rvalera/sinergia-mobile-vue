@@ -13,7 +13,7 @@ import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import QRScanner from "@/views/QRScanner";
 
 export const routes = [
-  { name: "home", path: "/", redirect: "/qr" },
+  { name: "Home", path: "/", redirect: "/qr" },
   {
     path: "/qr",
     name: "QRScanner",

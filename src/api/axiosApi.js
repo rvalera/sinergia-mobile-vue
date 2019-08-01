@@ -1,39 +1,30 @@
 import axios from "axios";
-import config from "./config/axiosConfig";
 
 //export const API_URL_BACKEND = "https://bobbot.najoconsultores.com/api";
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 
-export const apiHttp = async (verb, endpoint, data, params = {}) => {
-  const apiConfiguration = { ...config };
+export const apiHttp = async (method, endpoint, data, options = {}) => {
+  const { email, password } = localStorage;
+  const defaultHeaders = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: "Basic " + btoa(`${email}:${password}`)
+  };
 
-  if (Object.keys(params).length) apiConfiguration.params = params;
+  if (!options.hasOwnProperty("headers")) options.headers = defaultHeaders;
 
   let serviceResponse = { ...customResponse };
-  let servicePromise, inputData;
-  window.getApp.$emit("LOADING", true);
 
-  verb = verb.toLowerCase();
-  switch (verb) {
-    case "get":
-    case "delete":
-      servicePromise = axios[verb](
-        `${API_URL_BACKEND}${endpoint}`,
-        apiConfiguration
-      );
-      break;
-    case "post":
-    case "put":
-      inputData = await data;
-      servicePromise = axios[verb](
-        `${API_URL_BACKEND}${endpoint}`,
-        inputData,
-        apiConfiguration
-      );
-      break;
-  }
+  method = method.toLowerCase();
+  const servicePromise = axios({
+    method,
+    url: `${API_URL_BACKEND}${endpoint}`,
+    data,
+    ...options
+  });
 
   try {
+    window.getApp.$emit("LOADING", true);
     const [materializedPromise] = await Promise.all([servicePromise]);
     serviceResponse.ok = 1;
     serviceResponse.data = materializedPromise.data.data;
