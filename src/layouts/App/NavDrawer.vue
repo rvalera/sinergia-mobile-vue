@@ -29,7 +29,7 @@
           </v-list-tile-avatar> 
           -->
           <v-list-tile-content>
-            <v-list-tile-title class="headline">QR App</v-list-tile-title>
+            <v-list-tile-title class="headline">Mark-one</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

@@ -59,7 +59,9 @@ Vue.filter("first2Initials", function(str = "") {
   return str
     .split(" ")
     .map(n => n[0])
-    .join("");
+    .join("")
+    .substr(0, 2)
+    .toUpperCase();
 });
 Vue.filter("hljshtml", function(value) {
   return value.replace(/</g, "&lt;").replace(/>/g, "&gt;");

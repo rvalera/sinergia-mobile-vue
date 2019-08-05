@@ -28,7 +28,8 @@ const mutations = {
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
       ...state.user.person,
-      ...payload
+      ...payload,
+      fullname: payload.first_name + " " + payload.last_name
     };
   }
 };
