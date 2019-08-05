@@ -6,22 +6,22 @@
       </v-btn>
     </v-toolbar> -->
     <v-flex xs12>
-      <v-stepper v-model="stage">
+      <v-stepper v-model="stage" non-linear>
         <v-stepper-header>
           <div class="back-button">
             <v-btn icon @click="() => $router.push({ name: 'LoginPage' })">
               <v-icon> keyboard_backspace </v-icon>
             </v-btn>
           </div>
-          <v-stepper-step step="1" :complete="stage > 1"
+          <v-stepper-step :editable="stage > 1" step="1" :complete="stage > 1"
             >Bienvenido</v-stepper-step
           >
           <v-divider></v-divider>
-          <v-stepper-step step="2" :complete="stage > 2"
+          <v-stepper-step :editable="stage > 2" step="2" :complete="stage > 2"
             >Contraseña</v-stepper-step
           >
           <v-divider></v-divider>
-          <v-stepper-step step="3" :complete="stage > 3"
+          <v-stepper-step :editable="stage > 3" step="3" :complete="stage > 3"
             >Datos personales</v-stepper-step
           >
           <v-divider></v-divider>
