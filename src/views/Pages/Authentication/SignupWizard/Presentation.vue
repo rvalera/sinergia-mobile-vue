@@ -8,7 +8,7 @@
               src="static/vuse.svg"
               alt="Vuse"
               class="text-xs-center"
-              height="100"
+              height="300"
             />
             <div class="body-2 white--text">Bienvenido a CryptoPos blabla</div>
             <v-btn color="act" @click="$emit('next')" class="ml-0"

@@ -1,14 +1,18 @@
 <template>
   <v-layout column wrap class="pos-relative">
-    <v-toolbar dense flat class="transparent pos-top-1px">
-      <v-spacer></v-spacer>
+    <!--     <v-toolbar dense flat class="transparent pos-top-1px">
       <v-btn icon @click="() => $router.push({ name: 'LoginPage' })">
-        <v-icon>close</v-icon>
+        <v-icon> keyboard_backspace </v-icon> 
       </v-btn>
-    </v-toolbar>
+    </v-toolbar> -->
     <v-flex xs12>
       <v-stepper v-model="stage">
         <v-stepper-header>
+          <div class="back-button">
+            <v-btn icon @click="() => $router.push({ name: 'LoginPage' })">
+              <v-icon> keyboard_backspace </v-icon>
+            </v-btn>
+          </div>
           <v-stepper-step step="1" :complete="stage > 1"
             >Bienvenido</v-stepper-step
           >
@@ -98,3 +102,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.back-button {
+  align-items: center;
+  display: flex;
+}
+</style>
