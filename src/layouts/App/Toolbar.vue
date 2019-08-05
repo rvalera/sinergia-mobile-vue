@@ -88,7 +88,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      title: "QR App"
+      title: "Mark-one"
     };
   },
   computed: {
