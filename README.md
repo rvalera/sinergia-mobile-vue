@@ -2,28 +2,38 @@
 
 ## Project setup
 ```
-npm install
+yarn
+npm run cordova-prepare
 ```
 
-### Compiles and hot-reloads for development
+### Compiles and hot-reloads for development in browser
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+npm start
 ```
 
-### Run your tests
+### Compiles and hot-reloads for development in a phone (using ADB) or emulator
 ```
-npm run test
+npm run cordova-serve-android
+```
+
+### Build android debug .apk (--prod is optional)
+```
+npm run cordova-build-only-www-android
+cd src-cordova
+cordova build android --prod
+```
+
+### Build android release .apk (Must be sign)
+```
+npm run cordova-build-android
 ```
 
 ### Lints and fixes files
 ```
 npm run lint
 ```
+
+### All cordova plugins must be installed on `src-cordova`
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
