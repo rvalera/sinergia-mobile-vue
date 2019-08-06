@@ -3,7 +3,12 @@
     <v-flex xs12>
       <v-layout align-center>
         <v-flex xs12>
-          <v-card flat height="480" class="margin-auto transparent" width="360">
+          <v-card
+            flat
+            :height="`${height}px`"
+            class="margin-auto transparent"
+            width="360"
+          >
             <v-container fill-height pa-0>
               <v-layout align-center>
                 <v-flex xs12>
@@ -56,6 +61,7 @@
                               <v-flex xs12 class="no-mrpd">
                                 <v-btn
                                   :loading="loader"
+                                  block
                                   color="act"
                                   type="submit"
                                   :disabled="$v.$invalid"
@@ -103,6 +109,7 @@ export default {
   },
   data() {
     return {
+      height: window.innerHeight - 72, // 72 is stepper header size
       password: null,
       repeatPassword: null,
       passwordScore: 0,

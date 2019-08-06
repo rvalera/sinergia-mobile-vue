@@ -3,7 +3,12 @@
     <v-flex xs12>
       <v-layout align-center>
         <v-flex xs12>
-          <v-card flat height="480" class="margin-auto transparent" width="360">
+          <v-card
+            flat
+            :height="`${height}px`"
+            class="margin-auto transparent"
+            width="360"
+          >
             <v-container fill-height pa-0>
               <v-layout align-center>
                 <v-flex xs12>
@@ -100,6 +105,7 @@
                                 <v-btn
                                   :loading="loader"
                                   color="act"
+                                  block
                                   type="submit"
                                   :disabled="$v.$invalid"
                                   class="ml-0"
@@ -161,6 +167,7 @@ export default {
   },
   data() {
     return {
+      height: window.innerHeight - 72, // 72 is stepper header size
       form: Object.assign({}, defaultForm),
       genders: [
         { text: "Masculino", value: "M" },
