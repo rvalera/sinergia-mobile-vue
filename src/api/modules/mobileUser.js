@@ -1,7 +1,10 @@
 import { apiHttp } from "../axiosApi.js";
-import { mobileUserPath, userPath } from "../config/apiRoute.js";
+import { mobileUserPath, userPath, appPersonPath } from "../config/apiRoute.js";
 
 export const createUserApi = body => apiHttp("POST", `${mobileUserPath}`, body);
+
+export const createAppPersonApi = (userId, body) =>
+  apiHttp("POST", `${appPersonPath}/${userId}`, body);
 
 export const updateUserApi = (userId, body) =>
   apiHttp("PUT", `${mobileUserPath}/${userId}`, body);

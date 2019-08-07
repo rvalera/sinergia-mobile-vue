@@ -79,7 +79,7 @@ export default {
     ...mapGetters(["user"])
   },
   methods: {
-    ...mapActions(["updatePersonAction"]),
+    ...mapActions(["createAppPersonAction"]),
     goToChangePassword() {
       this.stage = 2;
     },
@@ -97,7 +97,7 @@ export default {
     },
     async submitAll(data) {
       this.data.operation_key = data.operation_key;
-      this.updatePersonAction(this.data);
+      this.createAppPersonAction(this.data);
     }
   }
 };
