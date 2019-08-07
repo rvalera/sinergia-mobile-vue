@@ -7,6 +7,10 @@ import router from "@/router";
 const initialState = {
   user: {
     person: {}
+  },
+  crypto: {
+    key: "FGLKJGLKJTYLKJVBLKDFFGKLYJPOIIPZ",
+    iv: "dslkfjhsdvdsvklj"
   }
 };
 
@@ -15,7 +19,8 @@ const state = {
 };
 
 const getters = {
-  user: state => state.user
+  user: state => state.user,
+  crypto: state => state.crypto
 };
 
 const mutations = {

@@ -94,8 +94,8 @@
 <script>
 import * as crypto from "crypto";
 import QRCode from "qrcode";
-const key = "FGLKJGLKJTYLKJVBLKDFFGKLYJPOIIPZ";
-const iv = "dslkfjhsdvdsvklj";
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
@@ -106,9 +106,16 @@ export default {
       QR: ""
     };
   },
+  computed: {
+    ...mapGetters(["crypto"])
+  },
   methods: {
     descryptToken() {
-      var decipher = crypto.createDecipheriv("aes-256-cbc", key, iv),
+      var decipher = crypto.createDecipheriv(
+          "aes-256-cbc",
+          this.crypto.key,
+          this.crypto.iv
+        ),
         buffer = Buffer.concat([
           decipher.update(Buffer.from(this.resultQR.text, "base64")),
           decipher.final()
@@ -127,7 +134,11 @@ export default {
         .split("")
         .reverse()
         .join("");
-      var encipher = crypto.createCipheriv("aes-256-cbc", key, iv),
+      var encipher = crypto.createCipheriv(
+          "aes-256-cbc",
+          this.crypto.key,
+          this.crypto.iv
+        ),
         buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
       this.encodeCrypto = buffer.toString("base64");
     },

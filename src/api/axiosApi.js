@@ -1,6 +1,5 @@
 import axios from "axios";
 
-//export const API_URL_BACKEND = "https://bobbot.najoconsultores.com/api";
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 
 export const apiHttp = async (method, endpoint, data, options = {}) => {
@@ -37,7 +36,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
 };
 
 function buildErrorMessage(error) {
-  console.log(error.response);
+  console.error(error.response);
   if (typeof error.response === "undefined")
     customResponse.message.text = "Error General de la Aplicacion";
   else if (error.response.status == 401)
