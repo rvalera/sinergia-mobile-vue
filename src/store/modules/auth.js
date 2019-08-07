@@ -9,10 +9,7 @@ const initialState = {
   user: {
     person: {}
   },
-  crypto: {
-    key: "FGLKJGLKJTYLKJVBLKDFFGKLYJPOIIPZ",
-    iv: "dslkfjhsdvdsvklj"
-  }
+  logged: false
 };
 
 const state = {
@@ -21,15 +18,17 @@ const state = {
 
 const getters = {
   user: state => state.user,
-  crypto: state => state.crypto
+  logged: state => state.logged
 };
 
 const mutations = {
   [LOGIN_USER]: (state, payload) => {
     state.user = payload;
+    state.logged = true;
   },
   [LOGOUT_USER]: state => {
     state.user = initialState.user;
+    state.logged = initialState.logged;
   },
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
@@ -41,7 +40,7 @@ const mutations = {
 };
 
 const actions = {
-  async loginAction({ commit }, payload) {
+  async loginAction({ commit, dispatch }, payload) {
     var serviceResponse = await loginApi(payload);
     if (serviceResponse.ok) {
       if (serviceResponse.data.type === USER_TYPE_WORKSTATION) {
@@ -55,6 +54,7 @@ const actions = {
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
         else router.push({ name: "Home" });
+        dispatch("getAppToken");
       }
     } else {
       const params = { text: serviceResponse.message.text };
@@ -62,9 +62,10 @@ const actions = {
       router.push({ name: "LoginPage" });
     }
   },
-  logoutAction({ commit }) {
+  logoutAction({ commit, dispatch }) {
     localStorage.clear();
     commit(LOGOUT_USER);
+    dispatch("cleanApp");
     //router.push({ name: "LoginPage" });
   },
   async updatePersonAction({ commit, state }, payload) {

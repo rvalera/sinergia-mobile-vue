@@ -107,14 +107,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["crypto"])
+    ...mapGetters(["app_iv", "app_key"])
   },
   methods: {
     descryptToken() {
       var decipher = crypto.createDecipheriv(
           "aes-256-cbc",
-          this.crypto.key,
-          this.crypto.iv
+          this.app_key,
+          this.app_iv
         ),
         buffer = Buffer.concat([
           decipher.update(Buffer.from(this.resultQR.text, "base64")),
@@ -136,8 +136,8 @@ export default {
         .join("");
       var encipher = crypto.createCipheriv(
           "aes-256-cbc",
-          this.crypto.key,
-          this.crypto.iv
+          this.app_key,
+          this.app_iv
         ),
         buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
       this.encodeCrypto = buffer.toString("base64");

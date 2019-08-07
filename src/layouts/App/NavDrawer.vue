@@ -226,6 +226,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      logged: "logged",
       clipped: "navClipped",
       navDrawer: "navDrawer",
       navMiniVarient: "navMiniVarient",
@@ -293,9 +294,11 @@ export default {
     },
     keepLogin() {
       //Auto login for keep sign in
-      const { email, password } = localStorage;
-      if (email && password) this.loginAction({ email, password });
-      else this.$router.push({ name: "LoginPage" });
+      if (!this.logged) {
+        const { email, password } = localStorage;
+        if (email && password) this.loginAction({ email, password });
+        else this.$router.push({ name: "LoginPage" });
+      }
     }
   }
 };

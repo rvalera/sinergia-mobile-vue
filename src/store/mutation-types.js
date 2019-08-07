@@ -21,3 +21,7 @@ export const NAV_DRAWER_VARIANT_MOD = "NAV_DRAWER_VARIANT_MOD";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_PERSON = "UPDATE_PERSON";
+
+//App
+export const SET_APP = "SET_APP";
+export const CLEAN_APP = "CLEAN_APP";
