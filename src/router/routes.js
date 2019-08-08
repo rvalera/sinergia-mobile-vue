@@ -12,12 +12,12 @@ import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
-import QRScanner from "@/views/QRScanner";
+import QRScanner from "@/views/Pages/Pay/QRScanner";
 
 export const routes = [
-  { name: "Home", path: "/", redirect: "/qr" },
+  { name: "Home", path: "/", redirect: "/pay" },
   {
-    path: "/qr",
+    path: "/pay",
     name: "QRScanner",
     components: {
       default: QRScanner,

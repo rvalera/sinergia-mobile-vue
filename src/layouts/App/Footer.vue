@@ -47,6 +47,6 @@ export default {
 
 <style>
 .fab-btn {
-  bottom: 10% !important;
+  bottom: 5% !important;
 }
 </style>
