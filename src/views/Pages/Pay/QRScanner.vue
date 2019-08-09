@@ -11,12 +11,6 @@
             >Escanear</v-btn
           >
         </v-card>
-        <!-- <v-card elevantion="4" class="text-xs-left pa-3">
-            <p class="subheading my-4"><b>Destino:</b> {{ decodeResult.target }}</p>
-            <p class="subheading my-4"><b>Monto:</b> {{ decodeResult.amount }}</p>
-            <p class="subheading my-4"><b>Concepto:</b> {{ decodeResult.concept }}</p>
-          </v-card>
-          <v-btn large block color="green" @click="startCamera">Pagar</v-btn> -->
       </v-flex>
     </v-layout>
   </v-container>
@@ -31,26 +25,31 @@ export default {
   },
   methods: {
     descryptToken(resultQR) {
-      var decipher = crypto.createDecipheriv(
-          "aes-256-cbc",
-          this.app_key,
-          this.app_iv
-        ),
-        buffer = Buffer.concat([
-          decipher.update(Buffer.from(resultQR.text, "base64")),
-          decipher.final()
-        ]);
-      var bufferString = buffer.toString();
-      let decodeResult = JSON.parse(
-        bufferString
-          .split("")
-          .reverse()
-          .join("")
-      );
-      this.$emit("next", {
-        resultQR,
-        decodeResult
-      });
+      try {
+        var decipher = crypto.createDecipheriv(
+            "aes-256-cbc",
+            this.app_key,
+            this.app_iv
+          ),
+          buffer = Buffer.concat([
+            decipher.update(Buffer.from(resultQR.text, "base64")),
+            decipher.final()
+          ]);
+        var bufferString = buffer.toString();
+        let decodeResult = JSON.parse(
+          bufferString
+            .split("")
+            .reverse()
+            .join("")
+        );
+        this.$emit("next", {
+          resultQR,
+          decodeResult
+        });
+      } catch (error) {
+        const params = { text: "QR inválido!" };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     },
     startCamera() {
       if (typeof cordova === "undefined")

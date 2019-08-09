@@ -115,6 +115,7 @@
                               <v-flex xs12 class="no-mrpd">
                                 <v-btn
                                   :loading="loader"
+                                  block
                                   color="act"
                                   type="submit"
                                   :disabled="$v.$invalid"

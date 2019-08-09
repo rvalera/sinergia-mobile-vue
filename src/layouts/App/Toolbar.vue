@@ -32,7 +32,7 @@
     </v-btn>
     <v-spacer></v-spacer>
     <v-menu offset-y>
-      <v-avatar color="primary" slot="activator" size="40">
+      <v-avatar color="md-sidebar-500" slot="activator" size="40">
         <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
         <span class="white--text">{{
           user.person.fullname | first2Initials
@@ -40,7 +40,7 @@
       </v-avatar>
       <v-list dense>
         <v-list-tile avatar>
-          <v-list-tile-avatar color="primary">
+          <v-list-tile-avatar color="md-sidebar-500">
             <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
             <span class="white--text">{{
               user.person.fullname | first2Initials
@@ -70,6 +70,14 @@
             <v-icon>vpn_key</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-title>Cambiar contraseña</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile
+          @click="() => $router.push({ name: 'AccountInformationPage' })"
+        >
+          <v-list-tile-avatar>
+            <v-icon>person</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-title>Clave de operaciones</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">

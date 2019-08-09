@@ -25,7 +25,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
   try {
     window.getApp.$emit("LOADING", true);
     const [materializedPromise] = await Promise.all([servicePromise]);
-    serviceResponse.ok = 1;
+    serviceResponse.ok = materializedPromise.data.ok;
     serviceResponse.data = materializedPromise.data.data;
     serviceResponse.message = materializedPromise.data.message;
   } catch (error) {

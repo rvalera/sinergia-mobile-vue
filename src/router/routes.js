@@ -1,6 +1,6 @@
 import AppSidebar from "@/layouts/App/NavDrawer";
 import AppToolbar from "@/layouts/App/Toolbar";
-import AppFooter from "@/layouts/App/Footer";
+//import AppFooter from "@/layouts/App/Footer";
 
 import Error404 from "@/views/Pages/Errors/Error404";
 import Error500 from "@/views/Pages/Errors/Error500";
@@ -22,8 +22,8 @@ export const routes = [
     components: {
       default: PayStepper,
       sidebar: AppSidebar,
-      header: AppToolbar,
-      footer: AppFooter
+      header: AppToolbar
+      //footer: AppFooter
     }
   },
   {

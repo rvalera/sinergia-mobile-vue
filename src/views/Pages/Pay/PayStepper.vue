@@ -25,11 +25,15 @@
     </v-stepper-content>
 
     <v-stepper-content step="3" class="no-mrpd h-full">
-      <operation-key @success="submitAll" @back="stage--"></operation-key>
+      <operation-key
+        @success="submitAll"
+        @back="stage--"
+        :operation_key_md5="user.operation_key"
+      ></operation-key>
     </v-stepper-content>
 
     <v-stepper-content step="4" class="no-mrpd h-full">
-      <pay-receipt :payData="decodeResult" @finish="stage = 1"></pay-receipt>
+      <pay-receipt :receipt="receipt" @finish="stage = 1"></pay-receipt>
     </v-stepper-content>
   </v-stepper>
 </template>
@@ -40,6 +44,7 @@ import PayInformation from "./PayInformation";
 import PayReceipt from "./PayReceipt";
 import { mapGetters } from "vuex";
 import { createPaymentApi } from "@/api/modules";
+import * as crypto from "crypto";
 
 export default {
   components: {
@@ -52,7 +57,8 @@ export default {
     return {
       stage: 1,
       resultQR: {},
-      decodeResult: {}
+      decodeResult: {},
+      receipt: {}
     };
   },
   computed: {
@@ -67,19 +73,36 @@ export default {
     goToOperationKey() {
       this.stage = 3;
     },
+    encryptToken(obj) {
+      const key = this.user.operation_key;
+      const iv = key.substr(0, 16);
+      var jsonString = JSON.stringify(obj)
+        .split("")
+        .reverse()
+        .join("");
+      var encipher = crypto.createCipheriv("aes-256-cbc", key, iv),
+        buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
+      return buffer.toString("base64");
+    },
     async submitAll() {
+      const jsonToEncrypt = {
+        ...this.decodeResult,
+        qr: this.resultQR.text
+      };
+      const data = this.encryptToken(jsonToEncrypt);
       const {
         person: { id: source_id }
       } = this.user;
       const body = {
-        data: this.resultQR.text,
+        data,
         source_id
       };
       var serviceResponse = await createPaymentApi(body);
       if (serviceResponse.ok) {
-        const params = { text: serviceResponse.message.text };
+        const params = { text: "Pago realizado con éxito!" };
         window.getApp.$emit("SHOW_MESSAGE", params);
-        this.state++;
+        this.receipt = serviceResponse.data;
+        this.stage++;
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);

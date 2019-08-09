@@ -41,15 +41,15 @@ export default [
   { icon: "pages", title: "Directorio", name: "/Error404" },
   { icon: "pages", title: "Medios de Recarga", name: "/Error404" },
   { icon: "pages", title: "Configuración", name: "/Error404" },
-  { icon: "pages", title: "Notificaciones", name: "/Error404" },
-  {
-    icon: "pages",
-    title: "Seguridad",
-    group: "",
-    items: [
-      { icon: "pages", title: "Recuperación de Datos", name: "Error404" },
-      { icon: "pages", title: "Cambio de Contraseña", name: "Error404" },
-      { icon: "pages", title: "Cambiar Clave Especial", name: "Error404" }
-    ]
-  }
+  { icon: "pages", title: "Notificaciones", name: "/Error404" }
+  // {
+  //   icon: "pages",
+  //   title: "Seguridad",
+  //   group: "",
+  //   items: [
+  //     { icon: "pages", title: "Recuperación de Datos", name: "Error404" },
+  //     { icon: "pages", title: "Cambio de Contraseña", name: "Error404" },
+  //     { icon: "pages", title: "Cambiar Clave Especial", name: "Error404" }
+  //   ]
+  // }
 ];

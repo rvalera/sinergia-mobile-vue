@@ -4,31 +4,50 @@
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="4" class="text-xs-left pa-3">
           <div class="text-xs-center">
-            <v-icon x-large color="green">check_circle_outline</v-icon>
+            <p class="title my-3 green--text font-weight-bold">
+              <v-icon x-large color="green">check_circle_outline</v-icon>
+              Transacción exitosa
+            </p>
           </div>
-          <p class="subheading my-4"><b>Destino:</b> {{ payData.target }}</p>
-          <p class="subheading my-4">
-            <b>Monto:</b>
+          <p class="subheading my-3">
+            <b>De:</b><br />
+            {{ receipt.source_description }}
+          </p>
+          <p class="subheading my-3">
+            <b>Para:</b><br />
+            {{ receipt.target_description }}
+          </p>
+          <p class="subheading my-3">
+            <b>Monto:</b><br />
             {{
-              payData.amount
+              receipt.amount
                 | currency("$", 2, {
                   thousandsSeparator: ".",
                   decimalSeparator: ","
                 })
             }}
           </p>
-          <p class="subheading my-4"><b>Concepto:</b> {{ payData.concept }}</p>
-          <p class="subheading my-4">
-            <b>Fecha:</b> {{ new Date().toISOString().substr(0, 10) }}
+          <p class="subheading my-3">
+            <b>Concepto:</b><br />
+            {{ receipt.observation }}
+          </p>
+          <p class="subheading my-3">
+            <b>Referencia:</b><br />
+            {{ receipt.ref_number }}
+          </p>
+          <p class="subheading my-3">
+            <b>Fecha:</b><br />
+            {{ receipt.execution_date }}
           </p>
         </v-card>
         <v-layout row class="mt-4">
-          <v-flex xs2>
-            <v-btn large icon>
-              <v-icon>share</v-icon>
+          <v-flex xs6>
+            <v-btn large round block color="primary">
+              <v-icon left>share</v-icon>
+              Compartir
             </v-btn>
           </v-flex>
-          <v-flex xs10>
+          <v-flex xs6>
             <v-btn large round block color="primary" @click="$emit('finish')"
               >Finalizar</v-btn
             >
@@ -41,7 +60,7 @@
 <script>
 export default {
   props: {
-    payData: Object
+    receipt: Object
   }
 };
 </script>

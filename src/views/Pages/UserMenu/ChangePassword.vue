@@ -60,6 +60,7 @@
                                 <v-btn
                                   :loading="loader"
                                   color="act"
+                                  block
                                   type="submit"
                                   :disabled="$v.$invalid"
                                   class="ml-0"

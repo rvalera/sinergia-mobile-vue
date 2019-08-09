@@ -47,33 +47,39 @@
   </v-container>
 </template>
 <script>
-import { required, sameAs, minLength } from "vuelidate/lib/validators";
+import { required, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import md5 from "md5";
 export default {
+  props: {
+    operation_key_md5: String
+  },
   mixins: [validationMixin],
   validations: {
     operation_key: {
       required,
-      minLength: minLength(8),
-      sameAsReal: sameAs("operation_key_real")
+      minLength: minLength(8)
     }
   },
   validationMessages: {
     operation_key: {
       required: "Clave requerida",
-      minLength: "Clave debe ser de 8 caracteres",
-      sameAsReal: "Clave invalida"
+      minLength: "Clave debe ser de 8 caracteres"
     }
   },
   data() {
     return {
-      operation_key: "",
-      operation_key_real: "12345678"
+      operation_key: ""
     };
   },
   methods: {
     submit() {
-      this.$emit("success");
+      if (md5(this.operation_key) === this.operation_key_md5)
+        this.$emit("success");
+      else {
+        const params = { text: "Clave invalida" };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   }
 };
