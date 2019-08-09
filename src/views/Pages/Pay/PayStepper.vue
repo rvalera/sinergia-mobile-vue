@@ -25,7 +25,7 @@
     </v-stepper-content>
 
     <v-stepper-content step="3" class="no-mrpd h-full">
-      <operation-key @success="stage++" @back="stage--"></operation-key>
+      <operation-key @success="submitAll" @back="stage--"></operation-key>
     </v-stepper-content>
 
     <v-stepper-content step="4" class="no-mrpd h-full">
@@ -39,6 +39,8 @@ import OperationKey from "./OperationKey";
 import PayInformation from "./PayInformation";
 import PayReceipt from "./PayReceipt";
 import { mapGetters } from "vuex";
+import { createPaymentApi } from "@/api/modules";
+
 export default {
   components: {
     "qr-scanner": QRScanner,
@@ -49,7 +51,7 @@ export default {
   data() {
     return {
       stage: 1,
-      resultQR: "",
+      resultQR: {},
       decodeResult: {}
     };
   },
@@ -65,9 +67,23 @@ export default {
     goToOperationKey() {
       this.stage = 3;
     },
-    async submitAll(data) {
-      this.data.operation_key = data.operation_key;
-      this.createAppPersonAction(this.data);
+    async submitAll() {
+      const {
+        person: { id: source_id }
+      } = this.user;
+      const body = {
+        data: this.resultQR.text,
+        source_id
+      };
+      var serviceResponse = await createPaymentApi(body);
+      if (serviceResponse.ok) {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_MESSAGE", params);
+        this.state++;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   }
 };
