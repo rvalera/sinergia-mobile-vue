@@ -12,15 +12,15 @@ import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
-import QRScanner from "@/views/Pages/Pay/QRScanner";
+import PayStepper from "@/views/Pages/Pay/PayStepper";
 
 export const routes = [
   { name: "Home", path: "/", redirect: "/pay" },
   {
     path: "/pay",
-    name: "QRScanner",
+    name: "PayStepper",
     components: {
-      default: QRScanner,
+      default: PayStepper,
       sidebar: AppSidebar,
       header: AppToolbar,
       footer: AppFooter

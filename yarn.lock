@@ -7880,6 +7880,11 @@ vue-toasted@^1.1.27:
   version "1.1.27"
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.27.tgz#ce0a74b875f90c2e4a9e163cce6d5fc37d78a07c"
 
+vue2-filters@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.7.0.tgz#76ca2b92531bd1e8a79be7afb3551aa270f103ea"
+  integrity sha512-T6d+CN8oJuRY/hlOALI+iptFmTuqNPVL5cMU56cLho487WySOxVUfKa3FqRS2aF4Pt4RgSwSN8WlN3GF07aTkw==
+
 vue@^2.2.6, vue@^2.5.17:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"

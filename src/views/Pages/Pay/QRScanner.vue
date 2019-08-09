@@ -1,13 +1,13 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center>
-      <v-flex xs12 class="text-xs-center">
+    <v-layout row wrap align-content-center justify-center>
+      <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="4" class="pa-3">
           <v-icon x-large color="primary">photo_camera</v-icon>
           <p class="title my-5 text-xs-left ">
             Escanea el código QR para realizar pago
           </p>
-          <v-btn large block color="primary" @click="startCamera"
+          <v-btn round large block color="primary" @click="startCamera"
             >Escanear</v-btn
           >
         </v-card>
@@ -26,11 +26,6 @@ import * as crypto from "crypto";
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      decodeResult: {}
-    };
-  },
   computed: {
     ...mapGetters(["app_iv", "app_key"])
   },
@@ -46,19 +41,22 @@ export default {
           decipher.final()
         ]);
       var bufferString = buffer.toString();
-      this.decodeResult = JSON.parse(
+      let decodeResult = JSON.parse(
         bufferString
           .split("")
           .reverse()
           .join("")
       );
-      console.log(this.decodeResult);
+      this.$emit("next", {
+        resultQR,
+        decodeResult
+      });
     },
     startCamera() {
       if (typeof cordova === "undefined")
         this.descryptToken({
           text:
-            "A5lIYhEHUXcSoMWgGUPTh2ImbkeuJyCXAENfwAHkRzQlnprVVRvNrLfWn0rTg5eLosPeZpicDw8jKmub7Wopjg4Pt16+fiPTRuPCUN16WZT8Obo2ftXTWiwSDKYFV41k"
+            "858dxpn7adELRBlcKYbK0zEw1/8Kckn6sdfPkyzLmSm9k1y4lylc4hKk6ClH3R96j6LLFdU6tKOa+gew8y8f3RF5AKNjt77vW115u2mMJjZe+qoXMrlPGR/R4vC98uQQOxJzhAqafywO2GyGEnZRyQGqWOnU7ofzCRBREB3Ttj+SFkGYtKxGJpvO3ijqa4tTnwLxS9eJPv0gjy9rK2ZbRg=="
         });
       /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(

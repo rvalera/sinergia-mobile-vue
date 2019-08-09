@@ -1,6 +1,6 @@
 export default [
   { header: "Menu" },
-  { icon: "pages", title: "QR encode/decode", name: "QRScanner" },
+  { icon: "pages", title: "QR encode/decode", name: "PayStepper" },
   { icon: "pages", title: "Dashboard Cliente", name: "/Error404" },
   { icon: "pages", title: "Dashboard Afiliado", name: "/Error404" },
   {
