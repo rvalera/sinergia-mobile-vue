@@ -1,6 +1,6 @@
 <template>
   <v-stepper v-model="stage" class="h-full">
-    <v-stepper-header class="hide">
+    <v-stepper-header>
       <v-stepper-step step="1" :complete="stage > 1">Camara</v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step step="2" :complete="stage > 2">Verificar</v-stepper-step>
