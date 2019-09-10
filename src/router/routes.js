@@ -13,9 +13,10 @@ import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
 import PayStepper from "@/views/Pages/Pay/PayStepper";
+import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 
 export const routes = [
-  { name: "Home", path: "/", redirect: "/pay" },
+  { name: "Home", path: "/", redirect: "/transfer" },
   {
     path: "/pay",
     name: "PayStepper",
@@ -69,6 +70,15 @@ export const routes = [
     components: { default: Signup },
     name: "SignupPage",
     meta: { layout: "auth" }
+  },
+  {
+    path: "/transfer",
+    name: "/TransferStepper",
+    components: {
+      default: TransferStepper,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
   },
   {
     path: "/pages/error/500",

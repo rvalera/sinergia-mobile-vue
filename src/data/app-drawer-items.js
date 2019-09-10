@@ -52,7 +52,7 @@ export default [
       {
         prependIcon: "arrow_forward",
         title: "Transferir Saldo",
-        name: "Error404"
+        name: "TransferStepper"
       },
       { prependIcon: "arrow_back", title: "Recargar Saldo", name: "Error404" },
       {
