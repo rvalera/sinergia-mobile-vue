@@ -3,39 +3,21 @@
     <v-layout row wrap align-content-center-top justify-center>
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="4" class="text-xs-left pa-1">
+          <div class="text-xs-center">
+            <v-icon x-large color="primary">email</v-icon>
+          </div>
           <v-card-text>
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <v-container grid-list-xl fluid>
-                <div class="text-xs-center">
-                  <v-icon x-large color="primary">receipt</v-icon>
-                </div>
                 <v-layout wrap>
-                  <p class="subheading my-4">
-                    <b>Destino:</b>
-                    {{ transferData.email }}
-                    <br />
-                    <br />
-                    <b>Nombre:</b>
-                    {{ transferData.fullname }}
-                  </p>
-
                   <v-flex xs12 pa-0>
                     <v-text-field
                       color="primary"
-                      label="Monto"
-                      type="number"
-                      v-model="form.amount"
+                      label="Correo Destino"
+                      v-model="form.destiny_email"
                       required
-                      :error-messages="fieldErrors('form.amount')"
-                      @blur="$v.form.amount.$touch()"
-                    ></v-text-field>
-                    <v-text-field
-                      color="primary"
-                      label="Concepto"
-                      v-model="form.description"
-                      required
-                      :error-messages="fieldErrors('form.description')"
-                      @blur="$v.form.description.$touch()"
+                      :error-messages="fieldErrors('form.destiny_email')"
+                      @blur="$v.form.destiny_email.$touch()"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
@@ -45,23 +27,13 @@
                         <v-btn
                           :loading="loader"
                           color="primary"
-                          large
-                          block
                           round
+                          block
                           type="submit"
                           :disabled="$v.$invalid"
-                          class="ml-0"
+                          class="mt-4"
                           :class="$v.$invalid ? '' : 'white--text'"
                           >Continue</v-btn
-                        >
-                        <v-btn
-                          large
-                          block
-                          round
-                          color="gray"
-                          class="mt-4"
-                          @click="$emit('back')"
-                          >Volver</v-btn
                         >
                       </v-flex>
                     </v-layout>
@@ -77,30 +49,23 @@
 </template>
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
-import { required } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
-  description: null,
-  amount: null
+  destiny_email: null
 };
 export default {
-  props: {
-    transferData: Object
-  },
   mixins: [validationMixin, ResizeMixin],
   validations: {
     form: {
-      description: { required },
-      amount: { required }
+      destiny_email: { required, email }
     }
   },
   validationMessages: {
     form: {
-      description: {
-        required: "Campo requerido"
-      },
-      amount: {
-        required: "Campo requerido"
+      destiny_email: {
+        required: "Por favor ingresa un correo",
+        email: "Correo debe ser valido"
       }
     }
   },
@@ -115,8 +80,7 @@ export default {
   methods: {
     submit() {
       this.$emit("next", {
-        description: this.form.description,
-        amount: this.form.amount
+        destiny_email: this.form.destiny_email
       });
     }
   }

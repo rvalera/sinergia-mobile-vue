@@ -46,8 +46,7 @@ import PayReceipt from "../Pay/PayReceipt";
 import TransferForm from "./TransferForm";
 import TransferEmail from "./TransferEmail";
 import { mapGetters } from "vuex";
-import { createPaymentApi, getAppPersonApi } from "@/api/modules";
-import * as crypto from "crypto";
+import { getAppPersonApi, createTransferApi } from "@/api/modules";
 
 export default {
   components: {
@@ -66,7 +65,8 @@ export default {
         source_id: null,
         target_id: null,
         amount: null,
-        concept: null
+        concept: null,
+        datetime: null
       }
     };
   },
@@ -78,7 +78,6 @@ export default {
       var serviceResponse = await getAppPersonApi(data.destiny_email);
       if (serviceResponse.ok) {
         this.destinyUser = serviceResponse.data;
-        console.log(this.destinyUser);
         this.stage++;
       } else {
         const params = { text: serviceResponse.message.text };
@@ -86,38 +85,24 @@ export default {
       }
     },
     goToPayInformation(data) {
-      console.log(data);
-      this.stage = 3;
-    },
-    goToOperationKey() {
-      this.stage = 4;
-    },
-    encryptToken(obj) {
-      const key = this.user.operation_key;
-      const iv = key.substr(0, 16);
-      var jsonString = JSON.stringify(obj)
-        .split("")
-        .reverse()
-        .join("");
-      var encipher = crypto.createCipheriv("aes-256-cbc", key, iv),
-        buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
-      return buffer.toString("base64");
-    },
-    async submitAll() {
-      const jsonToEncrypt = {
-        ...this.decodeResult
-      };
-      const data = this.encryptToken(jsonToEncrypt);
+      let datetime = new Date();
       const {
         person: { id: source_id }
       } = this.user;
-      const body = {
-        data,
-        source_id
+      //data to transfer wallet to wallet
+      this.transferData = {
+        source_id: source_id,
+        target_id: this.destinyUser.id,
+        amount: parseFloat(data.amount),
+        concept: data.description,
+        datetime: datetime.getTime()
       };
-      var serviceResponse = await createPaymentApi(body);
+      this.stage = 3;
+    },
+    async submitAll() {
+      var serviceResponse = await createTransferApi(this.transferData);
       if (serviceResponse.ok) {
-        const params = { text: "Pago realizado con éxito!" };
+        const params = { text: "Transferencia realizada con éxito!" };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.receipt = serviceResponse.data;
         this.stage++;
