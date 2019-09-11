@@ -6,23 +6,20 @@
           <v-card-text>
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <v-container grid-list-xl fluid>
+                <div class="text-xs-center">
+                  <v-icon x-large color="primary">receipt</v-icon>
+                </div>
                 <v-layout wrap>
-                  <v-flex xs12 px-0>
-                    <div class="dialog-title">
-                      <strong class="primary--text"
-                        >Datos de transferencia</strong
-                      >
-                    </div>
-                  </v-flex>
+                  <p class="subheading my-4">
+                    <b>Destino:</b>
+                    {{ transferData.email }}
+                    <br />
+                    <br />
+                    <b>Nombre:</b>
+                    {{ transferData.fullname }}
+                  </p>
+
                   <v-flex xs12 pa-0>
-                    <v-text-field
-                      color="primary"
-                      label="Correo Destino"
-                      v-model="form.destiny_email"
-                      required
-                      :error-messages="fieldErrors('form.destiny_email')"
-                      @blur="$v.form.destiny_email.$touch()"
-                    ></v-text-field>
                     <v-text-field
                       color="primary"
                       label="Monto"
@@ -54,6 +51,15 @@
                           :class="$v.$invalid ? '' : 'white--text'"
                           >Continue</v-btn
                         >
+                        <v-btn
+                          large
+                          block
+                          round
+                          color="gray"
+                          class="mt-4"
+                          @click="$emit('back')"
+                          >Volver</v-btn
+                        >
                       </v-flex>
                     </v-layout>
                   </v-flex>
@@ -68,20 +74,21 @@
 </template>
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
-import { required, email } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 const defaultForm = {
   description: null,
-  amount: null,
-  destiny_email: null
+  amount: null
 };
 export default {
+  props: {
+    transferData: Object
+  },
   mixins: [validationMixin, ResizeMixin],
   validations: {
     form: {
       description: { required },
-      amount: { required },
-      destiny_email: { required, email }
+      amount: { required }
     }
   },
   validationMessages: {
@@ -91,10 +98,6 @@ export default {
       },
       amount: {
         required: "Campo requerido"
-      },
-      destiny_email: {
-        required: "Por favor ingresa un correo",
-        email: "Correo debe ser valido"
       }
     }
   },
@@ -110,8 +113,7 @@ export default {
     submit() {
       this.$emit("next", {
         description: this.form.description,
-        amount: this.form.amount,
-        destiny_email: this.form.destiny_email
+        amount: this.form.amount
       });
     }
   }

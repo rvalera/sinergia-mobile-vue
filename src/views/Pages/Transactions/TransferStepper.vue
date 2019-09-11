@@ -4,19 +4,29 @@
       <v-stepper-step step="1" :complete="stage > 1"
         >Datos de Transferencia</v-stepper-step
       >
-      <v-divider></v-divider>
       <v-stepper-step step="2" :complete="stage > 2"
+        >Datos de Transferencia</v-stepper-step
+      >
+      <v-divider></v-divider>
+      <v-stepper-step step="3" :complete="stage > 3"
         >Clave de operaciones</v-stepper-step
       >
       <v-divider></v-divider>
-      <v-stepper-step step="3">Comprobante</v-stepper-step>
+      <v-stepper-step step="4">Comprobante</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-content step="1" class="no-mrpd h-full">
-      <transfer-form @next="goToPayInformation"></transfer-form>
+      <transfer-email @next="goToSearchEmail"></transfer-email>
+    </v-stepper-content>
+    <v-stepper-content step="2" class="no-mrpd h-full">
+      <transfer-form
+        :transferData="destinyUser"
+        @back="stage--"
+        @next="goToPayInformation"
+      ></transfer-form>
     </v-stepper-content>
 
-    <v-stepper-content step="2" class="no-mrpd h-full">
+    <v-stepper-content step="3" class="no-mrpd h-full">
       <operation-key
         @success="submitAll"
         @next="stage++"
@@ -25,7 +35,7 @@
       ></operation-key>
     </v-stepper-content>
 
-    <v-stepper-content step="3" class="no-mrpd h-full">
+    <v-stepper-content step="4" class="no-mrpd h-full">
       <pay-receipt :receipt="receipt" @finish="stage = 1"></pay-receipt>
     </v-stepper-content>
   </v-stepper>
@@ -34,13 +44,15 @@
 import OperationKey from "../Pay/OperationKey";
 import PayReceipt from "../Pay/PayReceipt";
 import TransferForm from "./TransferForm";
+import TransferEmail from "./TransferEmail";
 import { mapGetters } from "vuex";
-import { createPaymentApi } from "@/api/modules";
+import { createPaymentApi, getAppPersonApi } from "@/api/modules";
 import * as crypto from "crypto";
 
 export default {
   components: {
     TransferForm,
+    TransferEmail,
     OperationKey,
     PayReceipt
   },
@@ -48,18 +60,37 @@ export default {
     return {
       stage: 1,
       decodeResult: {},
-      receipt: {}
+      receipt: {},
+      destinyUser: {},
+      transferData: {
+        source_id: null,
+        target_id: null,
+        amount: null,
+        concept: null
+      }
     };
   },
   computed: {
     ...mapGetters(["user"])
   },
   methods: {
-    goToPayInformation() {
-      this.stage = 2;
+    async goToSearchEmail(data) {
+      var serviceResponse = await getAppPersonApi(data.destiny_email);
+      if (serviceResponse.ok) {
+        this.destinyUser = serviceResponse.data;
+        console.log(this.destinyUser);
+        this.stage++;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
+    },
+    goToPayInformation(data) {
+      console.log(data);
+      this.stage = 3;
     },
     goToOperationKey() {
-      this.stage = 3;
+      this.stage = 4;
     },
     encryptToken(obj) {
       const key = this.user.operation_key;

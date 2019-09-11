@@ -30,9 +30,8 @@
           :disabled="$v.$invalid"
           :class="$v.$invalid ? '' : 'white--text'"
           @click="submit"
+          >Pagar</v-btn
         >
-          Pagar
-        </v-btn>
         <v-btn
           large
           block
@@ -74,9 +73,10 @@ export default {
   },
   methods: {
     submit() {
-      if (md5(this.operation_key) === this.operation_key_md5)
+      if (md5(this.operation_key) === this.operation_key_md5) {
+        console.log("igual");
         this.$emit("success");
-      else {
+      } else {
         const params = { text: "Clave invalida" };
         window.getApp.$emit("SHOW_ERROR", params);
       }
