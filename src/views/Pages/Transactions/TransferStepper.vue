@@ -22,7 +22,7 @@
       <transfer-form
         :transferData="destinyUser"
         @back="stage--"
-        @next="goToPayInformation"
+        @next="goToTransferInformation"
       ></transfer-form>
     </v-stepper-content>
 
@@ -84,7 +84,7 @@ export default {
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },
-    goToPayInformation(data) {
+    goToTransferInformation(data) {
       let datetime = new Date();
       const {
         person: { id: source_id }
