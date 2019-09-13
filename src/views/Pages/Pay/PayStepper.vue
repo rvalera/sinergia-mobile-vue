@@ -18,10 +18,17 @@
 
     <v-stepper-content step="2" class="no-mrpd h-full">
       <pay-information
+        v-if="typePay"
         :payData="decodeResult"
-        @next="stage++"
+        @next="goToOperationKey"
         @back="stage--"
       ></pay-information>
+      <pay-sticker
+        v-if="!typePay"
+        :payData="decodeResult"
+        @next="goToOperationKey"
+        @back="stage--"
+      ></pay-sticker>
     </v-stepper-content>
 
     <v-stepper-content step="3" class="no-mrpd h-full">
@@ -41,6 +48,7 @@
 import QRScanner from "./QRScanner";
 import OperationKey from "./OperationKey";
 import PayInformation from "./PayInformation";
+import PaySticker from "./PaySticker";
 import PayReceipt from "./PayReceipt";
 import { mapGetters } from "vuex";
 import { createPaymentApi } from "@/api/modules";
@@ -51,14 +59,16 @@ export default {
     "qr-scanner": QRScanner,
     PayInformation,
     OperationKey,
-    PayReceipt
+    PayReceipt,
+    PaySticker
   },
   data() {
     return {
       stage: 1,
       resultQR: {},
       decodeResult: {},
-      receipt: {}
+      receipt: {},
+      typePay: false //false if type is sticker
     };
   },
   computed: {
@@ -68,9 +78,17 @@ export default {
     goToPayInformation(data) {
       this.resultQR = data.resultQR;
       this.decodeResult = data.decodeResult;
+      if (!this.decodeResult.amount) this.typePay = false;
+      else this.typePay = true;
+
       this.stage = 2;
     },
-    goToOperationKey() {
+    goToOperationKey(data) {
+      if (data.amount) {
+        this.decodeResult.amount = data.amount;
+        this.decodeResult.concept = data.description;
+      }
+      console.log(this.decodeResult);
       this.stage = 3;
     },
     encryptToken(obj) {
