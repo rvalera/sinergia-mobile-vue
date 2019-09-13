@@ -4,6 +4,7 @@
       <v-stepper-step step="1" :complete="stage > 1"
         >Datos de Transferencia</v-stepper-step
       >
+      <v-divider></v-divider>
       <v-stepper-step step="2" :complete="stage > 2"
         >Datos de Transferencia</v-stepper-step
       >
