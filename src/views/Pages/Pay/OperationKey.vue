@@ -74,7 +74,6 @@ export default {
   methods: {
     submit() {
       if (md5(this.operation_key) === this.operation_key_md5) {
-        console.log("igual");
         this.$emit("success");
       } else {
         const params = { text: "Clave invalida" };

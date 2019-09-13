@@ -1548,6 +1548,11 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
+autonumeric@^4.2.13, autonumeric@^4.5.7:
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/autonumeric/-/autonumeric-4.5.7.tgz#19907481c25fc52d01e7b4bef7d741d6ae4ac250"
+  integrity sha512-+uADvdvfzIl0qLunD1acpjqXSbgqtVXUBGYEbNzuVbM89gSqUHJa9lc5MQwe648NW3xMTT6stxFXPoDpyOxcfQ==
+
 autoprefixer@^9.5.1:
   version "9.6.0"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.6.0.tgz#0111c6bde2ad20c6f17995a33fad7cf6854b4c87"
@@ -7800,6 +7805,13 @@ vm-browserify@^1.0.1:
 void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
+
+vue-autonumeric@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/vue-autonumeric/-/vue-autonumeric-1.2.6.tgz#97df68cbeac05d3dc0c3f5e49b9b5ff99bc05452"
+  integrity sha512-bKYpqDTqcw6kR26G25/PQZaBIcPTk6AblJPzVo3bc56HHHDC32MrKvCsQtkvFoF8TghHA5TTRZ5UZg2cuvuQEA==
+  dependencies:
+    autonumeric "^4.2.13"
 
 vue-chartjs@^3.4.0:
   version "3.4.2"

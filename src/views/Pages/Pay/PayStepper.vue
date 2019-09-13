@@ -83,12 +83,14 @@ export default {
 
       this.stage = 2;
     },
-    goToOperationKey(data) {
-      if (data.amount) {
-        this.decodeResult.amount = data.amount;
+    goToOperationKey(data = null) {
+      let datetime = new Date();
+      if (data != null) {
+        this.decodeResult.amount = parseFloat(data.amount);
         this.decodeResult.concept = data.description;
+        this.decodeResult.type = "S";
+        this.decodeResult.datetime = datetime.getTime();
       }
-      console.log(this.decodeResult);
       this.stage = 3;
     },
     encryptToken(obj) {

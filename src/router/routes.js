@@ -14,9 +14,19 @@ import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
-
+import App from "@/App";
 export const routes = [
-  { name: "Home", path: "/", redirect: "/transfer" },
+  { name: "Home", path: "/", redirect: "App" },
+  {
+    path: "/dashboard",
+    name: "App",
+    components: {
+      default: App,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    }
+  },
   {
     path: "/pay",
     name: "PayStepper",

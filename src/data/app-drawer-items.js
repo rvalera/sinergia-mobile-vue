@@ -1,7 +1,6 @@
 export default [
   { header: "Menu" },
-  { icon: "pages", title: "QR encode/decode", name: "PayStepper" },
-  { icon: "bar_chart", title: "Dashboard Cliente", name: "/Error404" },
+  { icon: "bar_chart", title: "Dashboard Cliente", name: "App" },
   { icon: "bar_chart", title: "Dashboard Afiliado", name: "/Error404" },
   {
     icon: "credit_card",
@@ -43,7 +42,7 @@ export default [
     title: "Transacciones",
     group: "",
     items: [
-      { prependIcon: "local_atm", title: "Pagar factura", name: "Error404" },
+      { prependIcon: "local_atm", title: "Pago con QR", name: "PayStepper" },
       {
         prependIcon: "speaker_phone",
         title: "Pago Confiable",
