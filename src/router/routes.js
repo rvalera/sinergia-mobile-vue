@@ -14,6 +14,7 @@ import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
+import CardsList from "@/views/Pages/Cards/CardsList";
 import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -86,6 +87,15 @@ export const routes = [
     name: "/TransferStepper",
     components: {
       default: TransferStepper,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/cards",
+    name: "/CardsList",
+    components: {
+      default: CardsList,
       sidebar: AppSidebar,
       header: AppToolbar
     }
