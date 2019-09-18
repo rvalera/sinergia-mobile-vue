@@ -10,7 +10,7 @@ export default [
       { prependIcon: "card_giftcard", title: "Solicitud ", name: "CardsList" },
       { prependIcon: "verified_user", title: "Activar", name: "Error404" },
       { prependIcon: "lock", title: "Bloqueo/Desbloqueo", name: "Error404" },
-      { prependIcon: "fiber_pin", title: "PIN", name: "Error404" }
+      { prependIcon: "fiber_pin", title: "PIN", name: "CardsPinChange" }
     ]
   },
   {

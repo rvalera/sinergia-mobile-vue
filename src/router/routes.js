@@ -15,6 +15,7 @@ import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
+import CardsPinChange from "@/views/Pages/Cards/CardsPinChange";
 import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -96,6 +97,15 @@ export const routes = [
     name: "/CardsList",
     components: {
       default: CardsList,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/cards/pin",
+    name: "/CardsPinChange",
+    components: {
+      default: CardsPinChange,
       sidebar: AppSidebar,
       header: AppToolbar
     }
