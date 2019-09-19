@@ -75,7 +75,7 @@ import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 export default {
   props: {
-    operation_key_md5: String
+    card: Object
   },
   mixins: [validationMixin],
   validations: {
@@ -118,6 +118,8 @@ export default {
     submit() {
       if (this.new_pin === this.new_pin_confirm) {
         this.$emit("success");
+        console.log(this.new_pin);
+        console.log(this.$route.params.validation_number);
       } else {
         const params = { text: "Clave invalida" };
         window.getApp.$emit("SHOW_ERROR", params);

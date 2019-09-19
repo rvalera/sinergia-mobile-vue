@@ -3,14 +3,14 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card elevation="4" class="text-xs-left pa-3">
         <v-toolbar color="#6a1b9a" dark>
-          <v-toolbar-title>Tarjetas</v-toolbar-title>
+          <v-toolbar-title>Movimientos</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
 
         <v-list two-line>
           <template v-for="(item, index) in cards">
             <v-divider :inset="true" :key="index"></v-divider>
-            <v-list-tile :key="item.validation_number" avatar>
+            <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
                 width="60px"
                 class="avatarCard"
@@ -19,16 +19,14 @@
               >
                 <v-img
                   width="60px"
-                  :src="item.status === 'A' ? avatarActive : avatarDisabled"
+                  :src="item.tipe === 'D' ? avatarActive : avatarDisabled"
                 ></v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content @click="handleClick(item)">
-                <v-list-tile-title
-                  v-html="item.validation_number"
-                ></v-list-tile-title>
+                <v-list-tile-title v-html="item.amount"></v-list-tile-title>
                 <v-list-tile-sub-title
-                  v-html="item.activation_date"
+                  v-html="item.date"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
@@ -94,14 +92,12 @@
 //import { getAppCardsData } from "@/api/modules";
 import axios from "axios";
 import CardsInfo from "./CardsInfo";
-
 export default {
   components: { CardsInfo },
   data: () => ({
     avatarActive:
-      "https://www.trzcacak.rs/myfile/full/367-3670440_credit-card.png",
-    avatarDisabled:
-      "https://www.trzcacak.rs/myfile/full/149-1497778_card-back-png-transparent-background-credit-card-icon.png",
+      "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
+    avatarDisabled: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     cards: {},
     dialog: false,
     textDialog: {},
@@ -157,9 +153,9 @@ export default {
   },
   async mounted() {
     axios
-      .get("http://www.mocky.io/v2/5d83da473000006f0022d716")
+      .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
       .then(response => {
-        this.cards = response.data.data.cards;
+        this.cards = response.data.data.transactions;
         console.log(this.cards);
         // this.cards.map(card=>{
         //   card.avatar="1";

@@ -16,6 +16,7 @@ import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
 import CardsPinChange from "@/views/Pages/Cards/CardsPinChange";
+import CardsMovements from "@/views/Pages/Cards/CardsMovements";
 import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -102,10 +103,19 @@ export const routes = [
     }
   },
   {
-    path: "/cards/pin",
+    path: "/cardsPin",
     name: "/CardsPinChange",
     components: {
       default: CardsPinChange,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/cardsMov",
+    name: "/CardsMovements",
+    components: {
+      default: CardsMovements,
       sidebar: AppSidebar,
       header: AppToolbar
     }
