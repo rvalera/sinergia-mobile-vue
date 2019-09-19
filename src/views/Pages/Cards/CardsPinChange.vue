@@ -12,9 +12,9 @@
               placeholder="Ingrese su PIN actual"
               type="password"
               v-model="old_pin"
-              :error-messages="fieldErrors('operation_key')"
-              @input="$v.operation_key.$touch()"
-              @blur="$v.operation_key.$touch()"
+              :error-messages="fieldErrors('old_pin')"
+              @input="$v.old_pin.$touch()"
+              @blur="$v.old_pin.$touch()"
               required
               counter
               maxlength="4"
@@ -25,9 +25,9 @@
               placeholder="Ingrese su nuevo PIN"
               type="password"
               v-model="new_pin"
-              :error-messages="fieldErrors('operation_key')"
-              @input="$v.operation_key.$touch()"
-              @blur="$v.operation_key.$touch()"
+              :error-messages="fieldErrors('new_pin')"
+              @input="$v.new_pin.$touch()"
+              @blur="$v.new_pin.$touch()"
               required
               counter
               maxlength="4"
@@ -37,9 +37,9 @@
               placeholder="Confirme su nuevo PIN"
               type="password"
               v-model="new_pin_confirm"
-              :error-messages="fieldErrors('operation_key')"
-              @input="$v.operation_key.$touch()"
-              @blur="$v.operation_key.$touch()"
+              :error-messages="fieldErrors('new_pin_confirm')"
+              @input="$v.new_pin_confirm.$touch()"
+              @blur="$v.new_pin_confirm.$touch()"
               required
               counter
               maxlength="4"
@@ -71,7 +71,7 @@
   </v-container>
 </template>
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 export default {
   props: {
@@ -79,15 +79,31 @@ export default {
   },
   mixins: [validationMixin],
   validations: {
-    operation_key: {
+    new_pin: {
       required,
       minLength: minLength(4)
+    },
+    old_pin: {
+      required,
+      minLength: minLength(4)
+    },
+    new_pin_confirm: {
+      sameAsPassword: sameAs("new_pin")
     }
   },
   validationMessages: {
-    operation_key: {
-      required: "Clave requerida",
-      minLength: "Clave debe ser de 4 caracteres"
+    new_pin: {
+      required: "PIN requerido",
+      minLength: "PIN debe ser de 4 caracteres"
+    },
+    old_pin: {
+      required: "PIN requerido",
+      minLength: "PIN debe ser de 4 caracteres"
+    },
+    new_pin_confirm: {
+      required: "PIN requerido",
+      minLength: "Clave debe ser de 4 caracteres",
+      sameAsPassword: "PIN debe coincidir"
     }
   },
   data() {
