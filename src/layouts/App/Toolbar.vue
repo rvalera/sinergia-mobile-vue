@@ -12,7 +12,7 @@
       @click.stop="$store.dispatch('toggleDrawer', !navDrawer)"
     ></v-toolbar-side-icon>
     <v-toolbar-title
-      v-text="title"
+      v-text="app_title"
       class="ml-0 hidden-lg-and-up"
     ></v-toolbar-title>
     <v-btn
@@ -96,7 +96,7 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      title: "Mark-one"
+      title: "Mark-One"
     };
   },
   computed: {
@@ -107,7 +107,8 @@ export default {
       fixedToolbar: "fixedToolbar",
       toolbar: "toolbarVisibility",
       navToolbarScheme: "navToolbarScheme",
-      navMiniVarient: "navMiniVarient"
+      navMiniVarient: "navMiniVarient",
+      app_title: "app_title"
     })
   },
   methods: {

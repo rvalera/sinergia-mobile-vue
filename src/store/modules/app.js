@@ -1,9 +1,10 @@
-import { SET_APP, CLEAN_APP } from "../mutation-types";
+import { SET_APP, CLEAN_APP, TITLE_APP } from "../mutation-types";
 
 import { getAppToken } from "@/api/modules";
 
 const initialState = {
-  data: {}
+  data: {},
+  app_title: "Mark-One"
 };
 
 const state = {
@@ -12,7 +13,8 @@ const state = {
 
 const getters = {
   app_iv: state => state.data.app_iv,
-  app_key: state => state.data.app_key
+  app_key: state => state.data.app_key,
+  app_title: state => state.app_title
 };
 
 const mutations = {
@@ -21,6 +23,9 @@ const mutations = {
   },
   [CLEAN_APP]: state => {
     state.data = initialState.data;
+  },
+  [TITLE_APP]: (state, payload) => {
+    state.app_title = payload !== undefined ? payload : initialState.app_title;
   }
 };
 
@@ -33,6 +38,9 @@ const actions = {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
     }
+  },
+  setTitleApp({ commit }, payload) {
+    commit(TITLE_APP, payload);
   },
   cleanApp({ commit }) {
     commit(CLEAN_APP);

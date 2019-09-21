@@ -1,11 +1,11 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
-      <v-card elevation="4" class="text-xs-left pa-3">
-        <v-toolbar color="#6a1b9a" dark>
+      <v-card>
+        <!-- <v-toolbar color="#6a1b9a" dark>
           <v-toolbar-title>Tarjetas</v-toolbar-title>
           <v-spacer></v-spacer>
-        </v-toolbar>
+        </v-toolbar> -->
 
         <v-list two-line>
           <template v-for="(item, index) in cards">
@@ -94,7 +94,7 @@
 //import { getAppCardsData } from "@/api/modules";
 import axios from "axios";
 import CardsInfo from "./CardsInfo";
-
+import { mapActions } from "vuex";
 export default {
   components: { CardsInfo },
   data: () => ({
@@ -112,6 +112,7 @@ export default {
     ]
   }),
   methods: {
+    ...mapActions(["setTitleApp"]),
     async handleClick(data) {
       console.log(data);
       this.$refs.modal.show(data);
@@ -156,6 +157,7 @@ export default {
     }
   },
   async mounted() {
+    this.setTitleApp("Tarjetas");
     axios
       .get("http://www.mocky.io/v2/5d83da473000006f0022d716")
       .then(response => {
@@ -166,6 +168,9 @@ export default {
         // });
         // console.log(this.cards);
       });
+  },
+  beforeDestroy() {
+    this.setTitleApp("Mark-One");
   }
 };
 </script>
