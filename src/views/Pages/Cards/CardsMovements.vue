@@ -54,9 +54,9 @@
 
 <script>
 //import { getAppCardsData } from "@/api/modules";
-import axios from "axios";
+//import axios from "axios";
 import CardsInfo from "./CardsInfo";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { CardsInfo },
   data: () => ({
@@ -65,8 +65,12 @@ export default {
     avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     transactions: {},
     dialog: false,
-    textDialog: {}
+    textDialog: {},
+    autoNumericModel: 12345.67
   }),
+  computed: {
+    ...mapGetters(["transactions_app"])
+  },
   methods: {
     ...mapActions(["setTitleApp"]),
     async handleClick(data) {
@@ -114,16 +118,17 @@ export default {
   },
   async mounted() {
     this.setTitleApp("Movimientos");
-    axios
-      .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
-      .then(response => {
-        this.transactions = response.data.data.transactions;
-        console.log(this.transactions);
-        // this.cards.map(card=>{
-        //   card.avatar="1";
-        // });
-        // console.log(this.cards);
-      });
+    //   console.log(this.transactions_app);
+    // axios
+    //   .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
+    //   .then(response => {
+    //     this.transactions = response.data.data.transactions;
+    //     console.log(this.transactions);
+    //     // this.cards.map(card=>{
+    //     //   card.avatar="1";
+    //     // });
+    //     // console.log(this.cards);
+    //   });
   },
   beforeDestroy() {
     this.setTitleApp("Mark-One");

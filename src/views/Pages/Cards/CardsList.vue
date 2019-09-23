@@ -112,7 +112,7 @@ export default {
     ]
   }),
   methods: {
-    ...mapActions(["setTitleApp"]),
+    ...mapActions(["setTitleApp", "setTransactionsApp"]),
     async handleClick(data) {
       console.log(data);
       this.$refs.modal.show(data);
@@ -163,10 +163,12 @@ export default {
       .then(response => {
         this.cards = response.data.data.cards;
         console.log(this.cards);
-        // this.cards.map(card=>{
-        //   card.avatar="1";
-        // });
-        // console.log(this.cards);
+      });
+    axios
+      .get("http://www.mocky.io/v2/5d88e902330000d50dd7dc85")
+      .then(response => {
+        console.log(response.data);
+        this.setTransactionsApp(response.data);
       });
   },
   beforeDestroy() {

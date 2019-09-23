@@ -26,3 +26,6 @@ export const UPDATE_PERSON = "UPDATE_PERSON";
 export const SET_APP = "SET_APP";
 export const CLEAN_APP = "CLEAN_APP";
 export const TITLE_APP = "TITLE_APP";
+
+//Transactions
+export const TRANSACTIONS_APP = "TRANSACTIONS_APP";
