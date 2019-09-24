@@ -5,7 +5,7 @@
         <!-- <v-toolbar color="#6a1b9a" dark>
           <v-toolbar-title>Tarjetas</v-toolbar-title>
           <v-spacer></v-spacer>
-        </v-toolbar> -->
+        </v-toolbar>-->
 
         <v-list two-line>
           <template v-for="(item, index) in cards">
@@ -40,7 +40,7 @@
                   </template>
 
                   <v-list>
-                    <v-list-tile @click="handleClickOptions">
+                    <v-list-tile @click="showMovementsByCard(item)">
                       <v-list-tile-title>Movimientos</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
@@ -121,6 +121,21 @@ export default {
       console.log("options");
       //this.$refs.modal.show(data);
     },
+    async showMovementsByCard(data) {
+      await axios
+        .get("http://www.mocky.io/v2/5d88e902330000d50dd7dc85")
+        .then(response => {
+          console.log(response.data);
+          this.setTransactionsApp(response.data);
+        });
+
+      this.$router.push({
+        name: "/AppMovements",
+        params: {
+          validation_number: data.validation_number
+        }
+      });
+    },
     showPinChange(data) {
       console.log(data);
       this.$router.push({
@@ -163,12 +178,6 @@ export default {
       .then(response => {
         this.cards = response.data.data.cards;
         console.log(this.cards);
-      });
-    axios
-      .get("http://www.mocky.io/v2/5d88e902330000d50dd7dc85")
-      .then(response => {
-        console.log(response.data);
-        this.setTransactionsApp(response.data);
       });
   },
   beforeDestroy() {

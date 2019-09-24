@@ -13,25 +13,50 @@
                 @click="handleClick(item)"
               >
                 <v-img
-                  :src="item.tipe === 'D' ? avatarRetire : avatarDeposit"
+                  :src="item.type === 'Pago' ? avatarRetire : avatarDeposit"
                 ></v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
                   class="green--text"
-                  v-text="item.amount"
+                  v-html="Number(item.amount).format()"
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
-                  v-html="item.date"
+                  v-html="item.execution_date"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
+              <v-list-tile-action>
+                <div class="text-xs-center">
+                  <v-chip v-if="item.type === 'Pago'" color="green" outline>{{
+                    item.type
+                  }}</v-chip>
+
+                  <v-chip
+                    v-if="item.type === 'Activación'"
+                    color="secondary"
+                    outline
+                    >{{ item.type }}</v-chip
+                  >
+
+                  <v-chip v-if="item.type === 'Recarga'" color="red" outline>{{
+                    item.type
+                  }}</v-chip>
+
+                  <v-chip
+                    v-if="item.type === 'Desconocida'"
+                    outline
+                    color="primary"
+                    >{{ item.type }}</v-chip
+                  >
+                </div>
+              </v-list-tile-action>
             </v-list-tile>
           </template>
         </v-list>
       </v-card>
 
-      <cards-info ref="modal"></cards-info>
+      <mov-info ref="modal"></mov-info>
 
       <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
@@ -55,10 +80,11 @@
 <script>
 //import { getAppCardsData } from "@/api/modules";
 //import axios from "axios";
-import CardsInfo from "./CardsInfo";
+import MovInfo from "./MovInfo";
 import { mapActions, mapGetters } from "vuex";
+import "../../../assets/utils";
 export default {
-  components: { CardsInfo },
+  components: { MovInfo },
   data: () => ({
     avatarRetire:
       "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
@@ -73,6 +99,7 @@ export default {
   },
   methods: {
     ...mapActions(["setTitleApp"]),
+
     async handleClick(data) {
       console.log(data);
       this.$refs.modal.show(data);
@@ -80,45 +107,11 @@ export default {
     handleClickOptions() {
       console.log("options");
       //this.$refs.modal.show(data);
-    },
-    showPinChange(data) {
-      console.log(data);
-      this.$router.push({
-        name: "/CardsPinChange",
-        params: {
-          validation_number: data.validation_number
-        }
-      });
-    },
-    showLockCard(data) {
-      this.textDialog.data = data;
-      if (data.status === "A") {
-        this.textDialog.title = "¿Seguro que Desea Bloquear la Tarjeta?";
-        this.textDialog.body =
-          "Esta opcion bloqueara la tarjeta:" + data.validation_number;
-      } else {
-        this.textDialog.title = "¿Seguro que Desea Desbloquear la Tarjeta?";
-        this.textDialog.body =
-          "Esta opcion desbloqueara la tarjeta:" + data.validation_number;
-      }
-      this.dialog = true;
-    },
-    handleLookCard() {
-      let status;
-      if (this.textDialog.data.status === "A") status = "L";
-      else status = "A";
-      //provisional code for look or unlook transactions
-      this.transactions.map(item => {
-        if (item.validation_number === this.textDialog.data.validation_number)
-          item.status = status.toString();
-      });
-      //=======================================
-      this.dialog = false;
     }
   },
   async mounted() {
     this.setTitleApp("Movimientos");
-    //   console.log(this.transactions_app);
+    this.transactions = this.transactions_app;
     // axios
     //   .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
     //   .then(response => {

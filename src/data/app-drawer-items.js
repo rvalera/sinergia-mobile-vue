@@ -11,7 +11,7 @@ export default [
       {
         prependIcon: "verified_user",
         title: "Activar",
-        name: "CardsMovements"
+        name: "Error404"
       },
       { prependIcon: "lock", title: "Bloqueo/Desbloqueo", name: "Error404" },
       { prependIcon: "fiber_pin", title: "PIN", name: "CardsPinChange" }

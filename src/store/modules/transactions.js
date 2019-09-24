@@ -1,7 +1,7 @@
 import { TRANSACTIONS_APP } from "../mutation-types";
 
 const initialState = {
-  trasactions_app: {}
+  transactions_app: {}
 };
 
 const state = {
@@ -9,12 +9,12 @@ const state = {
 };
 
 const getters = {
-  trasactions_app: state => state.trasactions_app
+  transactions_app: state => state.transactions_app
 };
 
 const mutations = {
   [TRANSACTIONS_APP]: (state, payload) => {
-    state.trasactions_app = payload;
+    state.transactions_app = payload;
   }
 };
 
