@@ -91,10 +91,10 @@
 </template>
 
 <script>
-//import { getAppCardsData } from "@/api/modules";
+import { getAppCardsData } from "@/api/modules";
 import axios from "axios";
 import CardsInfo from "./CardsInfo";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { CardsInfo },
   data: () => ({
@@ -111,6 +111,9 @@ export default {
       { title: "Bloqueo/Desbloqueo" }
     ]
   }),
+  computed: {
+    ...mapGetters(["user"])
+  },
   methods: {
     ...mapActions(["setTitleApp", "setTransactionsApp"]),
     async handleClick(data) {
@@ -173,12 +176,11 @@ export default {
   },
   async mounted() {
     this.setTitleApp("Tarjetas");
-    axios
-      .get("http://www.mocky.io/v2/5d83da473000006f0022d716")
-      .then(response => {
-        this.cards = response.data.data.cards;
-        console.log(this.cards);
-      });
+    const { person_id } = localStorage;
+    console.log(this.user);
+    let data = await getAppCardsData(person_id);
+    this.cards = data.data.cards;
+    console.log(this.cards);
   },
   beforeDestroy() {
     this.setTitleApp("Mark-One");

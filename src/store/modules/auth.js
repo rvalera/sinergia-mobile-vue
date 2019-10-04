@@ -1,6 +1,11 @@
 import { LOGIN_USER, LOGOUT_USER, UPDATE_PERSON } from "../mutation-types";
 
-import { loginApi, updateUserApi, createAppPersonApi } from "@/api/modules";
+import {
+  loginApi,
+  updateUserApi,
+  createAppPersonApi,
+  getAppPersonApi
+} from "@/api/modules";
 
 import router from "@/router";
 import { USER_STATUS_PENDING, USER_TYPE_WORKSTATION } from "@/config/constants";
@@ -55,6 +60,14 @@ const actions = {
           router.push({ name: "SignupPage" });
         else router.push({ name: "Home" });
         dispatch("getAppToken");
+
+        var serviceResponsePerson = await getAppPersonApi(
+          serviceResponse.data.email
+        );
+        if (serviceResponsePerson.ok) {
+          console.log(serviceResponsePerson.data.id);
+          localStorage.setItem("person_id", serviceResponsePerson.data.id);
+        }
       }
     } else {
       const params = { text: serviceResponse.message.text };

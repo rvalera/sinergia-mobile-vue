@@ -1,0 +1,143 @@
+<template>
+  <v-stepper v-model="stage" class="h-full">
+    <v-stepper-header>
+      <v-stepper-step step="1" :complete="stage > 1"
+        >Cambio de Pin</v-stepper-step
+      >
+      <v-divider></v-divider>
+      <v-stepper-step step="2" :complete="stage > 2"
+        >Clave de operaciones</v-stepper-step
+      >
+      <v-divider></v-divider>
+      <v-divider></v-divider>
+    </v-stepper-header>
+
+    <v-stepper-content step="1" class="no-mrpd h-full">
+      <qr-scanner @next="goToPayInformation"></qr-scanner>
+    </v-stepper-content>
+
+    <v-stepper-content step="2" class="no-mrpd h-full">
+      <pay-information
+        v-if="typePay"
+        :payData="decodeResult"
+        @next="goToOperationKey"
+        @back="stage--"
+      ></pay-information>
+      <pay-sticker
+        v-if="!typePay"
+        :payData="decodeResult"
+        @next="goToOperationKey"
+        @back="stage--"
+      ></pay-sticker>
+    </v-stepper-content>
+
+    <v-stepper-content step="3" class="no-mrpd h-full">
+      <operation-key
+        @success="submitAll"
+        @back="stage--"
+        :operation_key_md5="user.operation_key"
+      ></operation-key>
+    </v-stepper-content>
+
+    <v-stepper-content step="4" class="no-mrpd h-full">
+      <pay-receipt :receipt="receipt" @finish="stage = 1"></pay-receipt>
+    </v-stepper-content>
+  </v-stepper>
+</template>
+<script>
+import QRScanner from "./QRScanner";
+import OperationKey from "./OperationKey";
+import PayInformation from "./PayInformation";
+import PaySticker from "./PaySticker";
+import PayReceipt from "./PayReceipt";
+import { mapGetters } from "vuex";
+import { createPaymentApi } from "@/api/modules";
+import * as crypto from "crypto";
+
+export default {
+  components: {
+    "qr-scanner": QRScanner,
+    PayInformation,
+    OperationKey,
+    PayReceipt,
+    PaySticker
+  },
+  data() {
+    return {
+      stage: 1,
+      resultQR: {},
+      decodeResult: {},
+      receipt: {},
+      typePay: false //false if type is sticker
+    };
+  },
+  computed: {
+    ...mapGetters(["user"])
+  },
+  methods: {
+    goToPayInformation(data) {
+      this.resultQR = data.resultQR;
+      this.decodeResult = data.decodeResult;
+      if (!this.decodeResult.amount) this.typePay = false;
+      else this.typePay = true;
+
+      this.stage = 2;
+    },
+    goToOperationKey(data = null) {
+      let datetime = new Date();
+      if (data != null) {
+        this.decodeResult.amount = parseFloat(data.amount);
+        this.decodeResult.concept = data.description;
+        this.decodeResult.type = "S";
+        this.decodeResult.datetime = datetime.getTime();
+      }
+      this.stage = 3;
+    },
+    encryptToken(obj) {
+      const key = this.user.operation_key;
+      const iv = key.substr(0, 16);
+      var jsonString = JSON.stringify(obj)
+        .split("")
+        .reverse()
+        .join("");
+      var encipher = crypto.createCipheriv("aes-256-cbc", key, iv),
+        buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
+      return buffer.toString("base64");
+    },
+    async submitAll() {
+      const jsonToEncrypt = {
+        ...this.decodeResult,
+        qr: this.resultQR.text
+      };
+      const data = this.encryptToken(jsonToEncrypt);
+      const {
+        person: { id: source_id }
+      } = this.user;
+      const body = {
+        data,
+        source_id
+      };
+      var serviceResponse = await createPaymentApi(body);
+      if (serviceResponse.ok) {
+        const params = { text: "Pago realizado con éxito!" };
+        window.getApp.$emit("SHOW_MESSAGE", params);
+        this.receipt = serviceResponse.data;
+        this.stage++;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
+    }
+  }
+};
+</script>
+
+<style>
+.h-full {
+  height: 100%;
+}
+
+.v-stepper__wrapper {
+  height: 100%;
+}
+</style>

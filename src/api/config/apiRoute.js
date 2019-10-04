@@ -5,5 +5,5 @@ export const appPath = "/v2/app";
 export const appPaymentPath = "/v2/app_payment";
 export const appPersonData = "/v2/person";
 export const appTransferPath = "/v2/app_transference";
-export const appCardsData = "/v2/5d8248f9300000b61d699cbc";
+export const appCardsData = "/v2/affiliate";
 export const appMovements = "";
