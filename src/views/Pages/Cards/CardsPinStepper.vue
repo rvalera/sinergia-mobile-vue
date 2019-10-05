@@ -64,7 +64,9 @@ export default {
         this.card_id,
         this.decodeResult
       );
+      console.log(serviceResponse);
       if (serviceResponse.ok) {
+        console.log("algo");
         const params = { text: "Cambio de Pin Exitoso!" };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
