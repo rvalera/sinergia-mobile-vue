@@ -65,7 +65,7 @@ const actions = {
           serviceResponse.data.email
         );
         if (serviceResponsePerson.ok) {
-          console.log(serviceResponsePerson.data.id);
+          //console.log(serviceResponsePerson.data.id);
           localStorage.setItem("person_id", serviceResponsePerson.data.id);
         }
       }

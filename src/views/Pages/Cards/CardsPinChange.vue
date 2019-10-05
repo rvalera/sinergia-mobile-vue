@@ -57,13 +57,7 @@
           @click="submit"
           >Cambiar PIN</v-btn
         >
-        <v-btn
-          large
-          block
-          round
-          color="gray"
-          class="mt-4"
-          @click="$emit('back')"
+        <v-btn large block round color="gray" class="mt-4" @click="backToList"
           >Volver</v-btn
         >
       </v-flex>
@@ -75,7 +69,7 @@ import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 export default {
   props: {
-    card: Object
+    pin_card: Object
   },
   mixins: [validationMixin],
   validations: {
@@ -117,13 +111,22 @@ export default {
   methods: {
     submit() {
       if (this.new_pin === this.new_pin_confirm) {
-        this.$emit("success");
+        console.log(this.$route.params.card);
+        this.$emit("next", {
+          new_pin_card: this.new_pin,
+          old_pin_card: this.old_pin,
+          card_id: this.$route.params.card.id
+        });
         console.log(this.new_pin);
-        console.log(this.$route.params.validation_number);
       } else {
         const params = { text: "Clave invalida" };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    backToList() {
+      this.$router.push({
+        name: "/CardsList"
+      });
     }
   }
 };

@@ -142,9 +142,9 @@ export default {
     showPinChange(data) {
       console.log(data);
       this.$router.push({
-        name: "/CardsPinChange",
+        name: "/CardsPinStepper",
         params: {
-          validation_number: data.validation_number
+          card: data
         }
       });
     },

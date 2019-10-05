@@ -14,7 +14,7 @@ export default [
         name: "Error404"
       },
       { prependIcon: "lock", title: "Bloqueo/Desbloqueo", name: "Error404" },
-      { prependIcon: "fiber_pin", title: "PIN", name: "CardsPinChange" }
+      { prependIcon: "fiber_pin", title: "PIN", name: "CardsPinStepper" }
     ]
   },
   {

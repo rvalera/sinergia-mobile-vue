@@ -15,7 +15,7 @@ import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
-import CardsPinChange from "@/views/Pages/Cards/CardsPinChange";
+import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
 import App from "@/App";
 export const routes = [
@@ -104,9 +104,9 @@ export const routes = [
   },
   {
     path: "/cardsPin",
-    name: "/CardsPinChange",
+    name: "/CardsPinStepper",
     components: {
-      default: CardsPinChange,
+      default: CardsPinStepper,
       sidebar: AppSidebar,
       header: AppToolbar
     }

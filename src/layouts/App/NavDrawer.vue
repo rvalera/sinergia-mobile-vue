@@ -294,11 +294,11 @@ export default {
     },
     keepLogin() {
       //Auto login for keep sign in
-      // if (!this.logged) {
-      //   const { email, password } = localStorage;
-      //   if (email && password) this.loginAction({ email, password });
-      //   else this.$router.push({ name: "LoginPage" });
-      // }
+      if (!this.logged) {
+        const { email, password } = localStorage;
+        if (email && password) this.loginAction({ email, password });
+        else this.$router.push({ name: "LoginPage" });
+      }
     }
   }
 };

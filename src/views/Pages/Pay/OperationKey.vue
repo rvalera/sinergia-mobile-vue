@@ -30,7 +30,7 @@
           :disabled="$v.$invalid"
           :class="$v.$invalid ? '' : 'white--text'"
           @click="submit"
-          >Pagar</v-btn
+          >{{ this.app_button_label }}</v-btn
         >
         <v-btn
           large
@@ -48,6 +48,7 @@
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import { mapGetters } from "vuex";
 import md5 from "md5";
 export default {
   props: {
@@ -70,6 +71,9 @@ export default {
     return {
       operation_key: ""
     };
+  },
+  computed: {
+    ...mapGetters(["app_button_label"])
   },
   methods: {
     submit() {

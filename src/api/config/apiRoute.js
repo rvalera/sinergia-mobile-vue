@@ -6,4 +6,5 @@ export const appPaymentPath = "/v2/app_payment";
 export const appPersonData = "/v2/person";
 export const appTransferPath = "/v2/app_transference";
 export const appCardsData = "/v2/affiliate";
+export const appCardsPin = "/v2/card/pin";
 export const appMovements = "";
