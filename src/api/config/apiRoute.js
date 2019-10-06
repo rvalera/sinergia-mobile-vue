@@ -7,4 +7,6 @@ export const appPersonData = "/v2/person";
 export const appTransferPath = "/v2/app_transference";
 export const appCardsData = "/v2/affiliate";
 export const appCardsPin = "/v2/card/pin";
+export const appCardsBlock = "/v2/card/block";
+export const appCardsUnblock = "/v2/card/unblock";
 export const appMovements = "";

@@ -1,5 +1,11 @@
 import { apiHttp } from "../axiosApi.js";
-import { appCardsData, appMovements, appCardsPin } from "../config/apiRoute.js";
+import {
+  appCardsData,
+  appMovements,
+  appCardsPin,
+  appCardsUnblock,
+  appCardsBlock
+} from "../config/apiRoute.js";
 
 export const getAppCardsData = affiliateId =>
   apiHttp("GET", `${appCardsData}/${affiliateId}`);
@@ -9,3 +15,9 @@ export const getMovementsByCard = validation_number =>
 
 export const updatePinCard = (cardId, body) =>
   apiHttp("PUT", `${appCardsPin}/${cardId}`, body);
+
+export const blockCard = (cardId, body = {}) =>
+  apiHttp("PUT", `${appCardsBlock}/${cardId}`, body);
+
+export const unblockCard = (cardId, body = {}) =>
+  apiHttp("PUT", `${appCardsUnblock}/${cardId}`, body);

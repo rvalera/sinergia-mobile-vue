@@ -58,21 +58,20 @@ export default {
     },
 
     async submitAll() {
-      console.log(this.decodeResult);
-      console.log(this.card_id);
       var serviceResponse = await updatePinCard(
         this.card_id,
         this.decodeResult
       );
-      console.log(serviceResponse);
       if (serviceResponse.ok) {
-        console.log("algo");
-        const params = { text: "Cambio de Pin Exitoso!" };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+      this.$router.push({
+        name: "/CardsList"
+      });
     },
     beforeDestroy() {
       this.setTitleButton("Pagar");

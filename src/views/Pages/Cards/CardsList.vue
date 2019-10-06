@@ -91,7 +91,7 @@
 </template>
 
 <script>
-import { getAppCardsData } from "@/api/modules";
+import { getAppCardsData, blockCard, unblockCard } from "@/api/modules";
 import axios from "axios";
 import CardsInfo from "./CardsInfo";
 import { mapActions, mapGetters } from "vuex";
@@ -117,11 +117,9 @@ export default {
   methods: {
     ...mapActions(["setTitleApp", "setTransactionsApp"]),
     async handleClick(data) {
-      console.log(data);
       this.$refs.modal.show(data);
     },
     handleClickOptions() {
-      console.log("options");
       //this.$refs.modal.show(data);
     },
     async showMovementsByCard(data) {
@@ -140,7 +138,6 @@ export default {
       });
     },
     showPinChange(data) {
-      console.log(data);
       this.$router.push({
         name: "/CardsPinStepper",
         params: {
@@ -161,26 +158,37 @@ export default {
       }
       this.dialog = true;
     },
-    handleLookCard() {
-      let status;
-      if (this.textDialog.data.status === "A") status = "L";
-      else status = "A";
-      //provisional code for look or unlook cards
-      this.cards.map(item => {
-        if (item.validation_number === this.textDialog.data.validation_number)
-          item.status = status.toString();
-      });
-      //=======================================
+    async handleLookCard() {
+      let serviceResponse;
+      if (this.textDialog.data.status === "A")
+        serviceResponse = await blockCard(this.textDialog.data.id);
+      else serviceResponse = await unblockCard(this.textDialog.data.id);
+
+      if (serviceResponse.ok) {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_MESSAGE", params);
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
       this.dialog = false;
+      await this.getCards();
+      //provisional code for look or unlook cards
+      // this.cards.map(item => {
+      //   if (item.validation_number === this.textDialog.data.validation_number)
+      //     item.status = status.toString();
+      // });
+      //=======================================
+    },
+    async getCards() {
+      const { person_id } = localStorage;
+      let data = await getAppCardsData(person_id);
+      this.cards = data.data.cards;
     }
   },
   async mounted() {
     this.setTitleApp("Tarjetas");
-    const { person_id } = localStorage;
-    console.log(this.user);
-    let data = await getAppCardsData(person_id);
-    this.cards = data.data.cards;
-    console.log(this.cards);
+    await this.getCards();
   },
   beforeDestroy() {
     this.setTitleApp("Mark-One");

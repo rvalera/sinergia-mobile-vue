@@ -111,13 +111,11 @@ export default {
   methods: {
     submit() {
       if (this.new_pin === this.new_pin_confirm) {
-        console.log(this.$route.params.card);
         this.$emit("next", {
           new_pin_card: this.new_pin,
           old_pin_card: this.old_pin,
           card_id: this.$route.params.card.id
         });
-        console.log(this.new_pin);
       } else {
         const params = { text: "Clave invalida" };
         window.getApp.$emit("SHOW_ERROR", params);

@@ -1,6 +1,6 @@
 export default [
   { header: "Menu" },
-  { icon: "bar_chart", title: "Dashboard Cliente", name: "App" },
+  { icon: "bar_chart", title: "Dashboard Cliente", name: "PayStepper" },
   { icon: "bar_chart", title: "Dashboard Afiliado", name: "/Error404" },
   {
     icon: "credit_card",

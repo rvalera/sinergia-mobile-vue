@@ -17,14 +17,14 @@ import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
 import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
-import App from "@/App";
+//import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
   {
     path: "/dashboard",
-    name: "App",
+    name: "PayStepper",
     components: {
-      default: App,
+      default: PayStepper,
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
