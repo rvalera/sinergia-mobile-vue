@@ -1,4 +1,5 @@
 import { apiHttp } from "../axiosApi.js";
+import { stringify } from "query-string";
 import {
   appCardsData,
   appMovements,
@@ -10,8 +11,8 @@ import {
 export const getAppCardsData = affiliateId =>
   apiHttp("GET", `${appCardsData}/${affiliateId}`);
 
-export const getMovementsByCard = validation_number =>
-  apiHttp("GET", `${appMovements}/${validation_number}`);
+export const getMovements = query =>
+  apiHttp("GET", `${appMovements}?${stringify(query)}`);
 
 export const updatePinCard = (cardId, body) =>
   apiHttp("PUT", `${appCardsPin}/${cardId}`, body);

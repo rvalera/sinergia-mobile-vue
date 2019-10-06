@@ -9,4 +9,4 @@ export const appCardsData = "/v2/affiliate";
 export const appCardsPin = "/v2/card/pin";
 export const appCardsBlock = "/v2/card/block";
 export const appCardsUnblock = "/v2/card/unblock";
-export const appMovements = "";
+export const appMovements = "/v2/transaction";

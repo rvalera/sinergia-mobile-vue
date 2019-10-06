@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in transactions">
+          <template v-for="(item, index) in transactions_app">
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
@@ -28,9 +28,9 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="item.type === 'Pago'" color="green" outline>{{
-                    item.type
-                  }}</v-chip>
+                  <v-chip v-if="item.type === 'Pago'" color="green" outline>
+                    {{ item.type }}
+                  </v-chip>
 
                   <v-chip
                     v-if="item.type === 'Activación'"
@@ -39,9 +39,9 @@
                     >{{ item.type }}</v-chip
                   >
 
-                  <v-chip v-if="item.type === 'Recarga'" color="red" outline>{{
-                    item.type
-                  }}</v-chip>
+                  <v-chip v-if="item.type === 'Recarga'" color="red" outline>
+                    {{ item.type }}
+                  </v-chip>
 
                   <v-chip
                     v-if="item.type === 'Desconocida'"
@@ -111,7 +111,8 @@ export default {
   },
   async mounted() {
     this.setTitleApp("Movimientos");
-    this.transactions = this.transactions_app;
+    console.log(this.transactions_app);
+    this.transactions = await this.transactions_app;
     // axios
     //   .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
     //   .then(response => {

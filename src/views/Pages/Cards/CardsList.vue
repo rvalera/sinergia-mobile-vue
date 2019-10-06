@@ -92,7 +92,6 @@
 
 <script>
 import { getAppCardsData, blockCard, unblockCard } from "@/api/modules";
-import axios from "axios";
 import CardsInfo from "./CardsInfo";
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -123,12 +122,14 @@ export default {
       //this.$refs.modal.show(data);
     },
     async showMovementsByCard(data) {
-      await axios
-        .get("http://www.mocky.io/v2/5d88e902330000d50dd7dc85")
-        .then(response => {
-          console.log(response.data);
-          this.setTransactionsApp(response.data);
-        });
+      console.log(data);
+      let filter = {
+        page: 1,
+        perPage: 5,
+        id: data.id
+      };
+
+      this.setTransactionsApp(filter);
 
       this.$router.push({
         name: "/AppMovements",
