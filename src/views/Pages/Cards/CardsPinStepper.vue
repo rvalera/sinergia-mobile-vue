@@ -21,6 +21,19 @@
         :operation_key_md5="user.operation_key"
       ></operation-key>
     </v-stepper-content>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">{{ textDialog.title }}</v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" flat @click.native="handleCloseDialog"
+            >Aceptar</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-stepper>
 </template>
 <script>
@@ -39,7 +52,9 @@ export default {
     return {
       stage: 1,
       decodeResult: {},
-      card_id: ""
+      card_id: "",
+      dialog: false,
+      textDialog: {}
     };
   },
   computed: {
@@ -63,12 +78,20 @@ export default {
         this.decodeResult
       );
       if (serviceResponse.ok) {
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_MESSAGE", params);
+        // const params = { text: serviceResponse.message.text };
+        // window.getApp.$emit("SHOW_MESSAGE", params);
+        this.handleShowDialog(serviceResponse.message.text);
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    handleShowDialog(textD) {
+      this.textDialog.title = textD;
+      this.dialog = true;
+    },
+    handleCloseDialog() {
+      this.dialog = false;
       this.$router.push({
         name: "/CardsList"
       });

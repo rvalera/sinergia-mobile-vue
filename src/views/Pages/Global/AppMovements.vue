@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in transactions_app">
+          <template v-for="(item, index) in getTransactions">
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
@@ -20,7 +20,9 @@
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
                   class="green--text"
-                  v-html="Number(item.amount).format()"
+                  v-html="
+                    Number(item.amount).format() + ' ' + item.coin.diminutive
+                  "
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
                   v-html="item.execution_date"
@@ -28,25 +30,28 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="item.type === 'Pago'" color="green" outline>
-                    {{ item.type }}
-                  </v-chip>
+                  <v-chip v-if="item.type === 'Pago'" color="red" outline>{{
+                    item.type
+                  }}</v-chip>
 
                   <v-chip
                     v-if="item.type === 'Activación'"
-                    color="secondary"
+                    color="green"
                     outline
                     >{{ item.type }}</v-chip
                   >
 
-                  <v-chip v-if="item.type === 'Recarga'" color="red" outline>
-                    {{ item.type }}
-                  </v-chip>
+                  <v-chip
+                    v-if="item.type === 'Recarga'"
+                    color="green"
+                    outline
+                    >{{ item.type }}</v-chip
+                  >
 
                   <v-chip
                     v-if="item.type === 'Desconocida'"
                     outline
-                    color="primary"
+                    color="red"
                     >{{ item.type }}</v-chip
                   >
                 </div>
@@ -55,24 +60,21 @@
           </template>
         </v-list>
       </v-card>
-
+      <v-flex xs12 sm6 class="text-xs-center">
+        <v-chip
+          class="ma-2"
+          color="primary"
+          text-color="white"
+          outlined
+          @click="handleLoadMov"
+        >
+          <v-avatar left>
+            <v-icon color="white">mdi-chevron-double-down</v-icon>
+          </v-avatar>
+          Ver Mas
+        </v-chip>
+      </v-flex>
       <mov-info ref="modal"></mov-info>
-
-      <v-dialog v-model="dialog" persistent max-width="290">
-        <v-card>
-          <v-card-title class="headline">{{ textDialog.title }}</v-card-title>
-          <v-card-text>{{ textDialog.body }}</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="dialog = false"
-              >Cancelar</v-btn
-            >
-            <v-btn color="primary" flat @click.native="handleLookCard"
-              >Aceptar</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </v-flex>
   </v-layout>
 </template>
@@ -89,30 +91,49 @@ export default {
     avatarRetire:
       "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
     avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
-    transactions: {},
-    dialog: false,
-    textDialog: {},
-    autoNumericModel: 12345.67
+    transactions: [],
+    filter: {}
   }),
   computed: {
-    ...mapGetters(["transactions_app"])
+    ...mapGetters(["transactions_app", "filter_app"])
+  },
+  watch: {
+    getTransactions: function() {
+      if (this.filter.page === 1) this.transactions = this.transactions_app;
+      else if (
+        this.transactions_app != this.transactions &&
+        this.transactions_app !== []
+      ) {
+        console.log(this.transactions_app);
+        this.transactions_app.map(item => {
+          this.transactions.push(item);
+        });
+      }
+
+      return this.transactions;
+    }
   },
   methods: {
-    ...mapActions(["setTitleApp"]),
+    ...mapActions(["setTitleApp", "setTransactionsApp"]),
 
     async handleClick(data) {
-      console.log(data);
+      //console.log(data);
       this.$refs.modal.show(data);
     },
-    handleClickOptions() {
-      console.log("options");
-      //this.$refs.modal.show(data);
+    handleLoadMov() {
+      this.filter = this.filter_app;
+      this.filter.page = this.filter.page + 1;
+      console.log(this.filter.page);
+      this.setTransactionsApp(this.filter);
+
+      console.log(this.filter_app);
     }
   },
   async mounted() {
+    this.filter.page = 1;
     this.setTitleApp("Movimientos");
     console.log(this.transactions_app);
-    this.transactions = await this.transactions_app;
+    // this.transactions = await this.transactions_app;
     // axios
     //   .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
     //   .then(response => {
