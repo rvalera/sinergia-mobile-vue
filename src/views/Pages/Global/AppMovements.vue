@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in getTransactions">
+          <template v-for="(item, index) in transactions_app">
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
@@ -95,14 +95,14 @@ export default {
     filter: {}
   }),
   computed: {
-    ...mapGetters(["transactions_app", "filter_app"]),
-    getTransactions() {
-      var trans = [];
-      this.transactions_app.map(item => {
-        trans.push(item);
-      });
-      return trans;
-    }
+    ...mapGetters(["transactions_app", "filter_app"])
+    // getTransactions() {
+    //   var trans = [];
+    //   this.transactions_app.map(item => {
+    //     trans.push(item);
+    //   });
+    //   return trans;
+    // }
   },
 
   methods: {
@@ -114,7 +114,7 @@ export default {
     handleLoadMov() {
       this.transactions = this.transactions_app;
       this.filter = this.filter_app;
-      this.filter.page = this.filter.page + 1;
+      this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
       console.log(this.filter_app);
     }
