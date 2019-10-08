@@ -95,55 +95,33 @@ export default {
     filter: {}
   }),
   computed: {
-    ...mapGetters(["transactions_app", "filter_app"])
-  },
-  watch: {
-    getTransactions: function() {
-      if (this.filter.page === 1) this.transactions = this.transactions_app;
-      else if (
-        this.transactions_app != this.transactions &&
-        this.transactions_app !== []
-      ) {
-        console.log(this.transactions_app);
-        this.transactions_app.map(item => {
-          this.transactions.push(item);
-        });
-      }
-
-      return this.transactions;
+    ...mapGetters(["transactions_app", "filter_app"]),
+    getTransactions() {
+      var trans = [];
+      this.transactions_app.map(item => {
+        trans.push(item);
+      });
+      return trans;
     }
   },
+
   methods: {
     ...mapActions(["setTitleApp", "setTransactionsApp"]),
 
     async handleClick(data) {
-      //console.log(data);
       this.$refs.modal.show(data);
     },
     handleLoadMov() {
+      this.transactions = this.transactions_app;
       this.filter = this.filter_app;
       this.filter.page = this.filter.page + 1;
-      console.log(this.filter.page);
       this.setTransactionsApp(this.filter);
-
       console.log(this.filter_app);
     }
   },
   async mounted() {
     this.filter.page = 1;
     this.setTitleApp("Movimientos");
-    console.log(this.transactions_app);
-    // this.transactions = await this.transactions_app;
-    // axios
-    //   .get("http://www.mocky.io/v2/5d840100300000510022d7c3")
-    //   .then(response => {
-    //     this.transactions = response.data.data.transactions;
-    //     console.log(this.transactions);
-    //     // this.cards.map(card=>{
-    //     //   card.avatar="1";
-    //     // });
-    //     // console.log(this.cards);
-    //   });
   },
   beforeDestroy() {
     this.setTitleApp("Mark-One");

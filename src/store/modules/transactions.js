@@ -2,7 +2,7 @@ import { TRANSACTIONS_APP, FILTER_APP } from "../mutation-types";
 import { getMovements } from "@/api/modules";
 
 const initialState = {
-  transactions_app: {},
+  transactions_app: [],
   filter_app: {}
 };
 
@@ -44,7 +44,6 @@ const actions = {
       filter: JSON.stringify({ filter })
     };
     var response = await getMovements(query);
-    console.log(response);
     commit(TRANSACTIONS_APP, response.data);
   }
 };
