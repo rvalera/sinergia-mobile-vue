@@ -31,6 +31,7 @@
                   v-html="item.activation_date"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
+
               <v-list-tile-action>
                 <v-menu bottom left>
                   <template v-slot:activator="{ on }">

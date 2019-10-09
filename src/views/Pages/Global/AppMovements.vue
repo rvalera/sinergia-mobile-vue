@@ -19,7 +19,7 @@
 
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
-                  class="green--text"
+                  class="red--text"
                   v-html="
                     Number(item.amount).format() + ' ' + item.coin.diminutive
                   "
@@ -49,7 +49,19 @@
                   >
 
                   <v-chip
-                    v-if="item.type === 'Desconocida'"
+                    v-if="
+                      item.type === 'Transferencia' &&
+                        item.target.id === person_id
+                    "
+                    outline
+                    color="green"
+                    >{{ item.type }}</v-chip
+                  >
+                  <v-chip
+                    v-if="
+                      item.type === 'Transferencia' &&
+                        item.target.id !== person_id
+                    "
                     outline
                     color="red"
                     >{{ item.type }}</v-chip
@@ -92,10 +104,15 @@ export default {
       "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
     avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     transactions: [],
-    filter: {}
+    filter: {},
+    person_id: localStorage.person_id
   }),
   computed: {
-    ...mapGetters(["transactions_app", "filter_app"])
+    ...mapGetters(["transactions_app", "filter_app"]),
+    getColor: function(id) {
+      console.log(id);
+      return "red--text";
+    }
     // getTransactions() {
     //   var trans = [];
     //   this.transactions_app.map(item => {

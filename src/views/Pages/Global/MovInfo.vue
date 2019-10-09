@@ -19,9 +19,9 @@
             <v-flex xs12 sm6 class="text-xs-center">
               <v-card elevation="4" class="pa-3">
                 <v-list>
-                  <div class="text-xs-center">
+                  <!-- <div class="text-xs-center">
                     <v-icon x-large color="primary">mdi-coin</v-icon>
-                  </div>
+                  </div> -->
                   <v-spacer></v-spacer>
 
                   <v-text-field
