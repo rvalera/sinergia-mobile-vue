@@ -41,31 +41,32 @@
                   <v-text-field
                     color="purple darken-2"
                     label="Origen"
-                    v-model="mov.target.phone_number"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    color="purple darken-2"
-                    label="Descripción Origen"
-                    v-model="mov.target_description"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    color="purple darken-2"
-                    label="Destino"
                     v-model="mov.source.phone_number"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
                     color="purple darken-2"
-                    label="Descripción Destino"
+                    label="Descripción Origen"
                     v-model="mov.source_description"
                     filled
                     readonly
                   ></v-text-field>
+                  <v-text-field
+                    color="purple darken-2"
+                    label="Destino"
+                    v-model="mov.target.phone_number"
+                    filled
+                    readonly
+                  ></v-text-field>
+                  <v-text-field
+                    color="purple darken-2"
+                    label="Descripción Destino"
+                    v-model="mov.target_description"
+                    filled
+                    readonly
+                  ></v-text-field>
+
                   <v-text-field
                     color="purple darken-2"
                     label="Tipo"

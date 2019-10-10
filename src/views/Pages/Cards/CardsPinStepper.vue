@@ -1,6 +1,6 @@
 <template>
   <v-stepper v-model="stage" class="h-full">
-    <v-stepper-header>
+    <!-- <v-stepper-header>
       <v-stepper-step step="1" :complete="stage > 1"
         >Cambio de Pin</v-stepper-step
       >
@@ -8,7 +8,7 @@
       <v-stepper-step step="2" :complete="stage > 2"
         >Clave de operaciones</v-stepper-step
       >
-    </v-stepper-header>
+    </v-stepper-header> -->
 
     <v-stepper-content step="1" class="no-mrpd h-full">
       <cards-pin-change @next="goToOperationKey"></cards-pin-change>

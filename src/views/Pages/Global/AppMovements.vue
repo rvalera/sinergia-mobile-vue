@@ -19,7 +19,15 @@
 
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
+                  v-if="getSource(item.source.id)"
                   class="red--text"
+                  v-html="
+                    Number(item.amount).format() + ' ' + item.coin.diminutive
+                  "
+                ></v-list-tile-title>
+                <v-list-tile-title
+                  v-if="!getSource(item.source.id)"
+                  class="green--text"
                   v-html="
                     Number(item.amount).format() + ' ' + item.coin.diminutive
                   "
@@ -108,11 +116,8 @@ export default {
     person_id: localStorage.person_id
   }),
   computed: {
-    ...mapGetters(["transactions_app", "filter_app"]),
-    getColor: function(id) {
-      console.log(id);
-      return "red--text";
-    }
+    ...mapGetters(["transactions_app", "filter_app"])
+
     // getTransactions() {
     //   var trans = [];
     //   this.transactions_app.map(item => {
@@ -134,6 +139,11 @@ export default {
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
       console.log(this.filter_app);
+    },
+    getSource(id) {
+      //console.log(this.person_id);
+      if (this.person_id.toString() === id.toString()) return true;
+      else return false;
     }
   },
   async mounted() {

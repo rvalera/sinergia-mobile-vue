@@ -6,7 +6,7 @@
       hide-overlay
       transition="dialog-bottom-transition"
     >
-      <v-card elevation="4" class="text-xs-left pa-3">
+      <v-card class="text-xs-left pa-3">
         <v-toolbar dark color="#6a1b9a">
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
@@ -57,7 +57,6 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-divider></v-divider>
       </v-card>
     </v-dialog>
   </v-layout>
