@@ -4,7 +4,7 @@
       <v-card>
         <v-list two-line>
           <template v-for="(item, index) in transactions_app">
-            <v-divider :inset="true" :key="index + 'e'"></v-divider>
+            <v-divider :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
                 width="60px"
@@ -38,9 +38,9 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="item.type === 'Pago'" color="red" outline>{{
-                    item.type
-                  }}</v-chip>
+                  <v-chip v-if="item.type === 'Pago'" color="red" outline>
+                    {{ item.type }}
+                  </v-chip>
 
                   <v-chip
                     v-if="item.type === 'Activación'"
@@ -81,18 +81,16 @@
         </v-list>
       </v-card>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-chip
-          class="ma-2"
-          color="primary"
-          text-color="white"
-          outlined
-          @click="handleLoadMov"
-        >
+        <!-- <v-chip class="ma-2" color="primary" text-color="white" outlined @click="handleLoadMov">
           <v-avatar left>
             <v-icon color="white">mdi-chevron-double-down</v-icon>
-          </v-avatar>
-          Ver Mas
-        </v-chip>
+          </v-avatar>Ver Mas
+        </v-chip>-->
+        <v-btn block color="primary" text-color="white" @click="handleLoadMov">
+          <v-icon class="paddingBottom: 10px" color="white"
+            >mdi-chevron-double-down</v-icon
+          >
+        </v-btn>
       </v-flex>
       <mov-info ref="modal"></mov-info>
     </v-flex>
@@ -100,11 +98,10 @@
 </template>
 
 <script>
-//import { getAppCardsData } from "@/api/modules";
-//import axios from "axios";
 import MovInfo from "./MovInfo";
 import { mapActions, mapGetters } from "vuex";
 import "../../../assets/utils";
+
 export default {
   components: { MovInfo },
   data: () => ({
@@ -113,10 +110,23 @@ export default {
     avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     transactions: [],
     filter: {},
-    person_id: localStorage.person_id
+    person_id: localStorage.person_id,
+    type: "number"
   }),
   computed: {
-    ...mapGetters(["transactions_app", "filter_app"])
+    ...mapGetters(["transactions_app", "filter_app"]),
+    target() {
+      const value = this[this.type];
+      if (!isNaN(value)) return Number(value);
+      else return value;
+    },
+    options() {
+      return {
+        duration: 300,
+        offset: 0,
+        easing: "easeInOutCubic"
+      };
+    }
 
     // getTransactions() {
     //   var trans = [];
@@ -139,12 +149,17 @@ export default {
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
       console.log(this.filter_app);
+      //this.$vuetify.goTo(this.target, this.options);
     },
     getSource(id) {
       //console.log(this.person_id);
       if (this.person_id.toString() === id.toString()) return true;
       else return false;
     }
+  },
+  updated() {
+    console.log("update");
+    window.scrollTo(0, document.body.scrollHeight);
   },
   async mounted() {
     this.filter.page = 1;
