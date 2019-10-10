@@ -2,7 +2,7 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <!-- <v-toolbar color="#6a1b9a" dark>
+        <!-- <v-toolbar color="#333333" dark>
           <v-toolbar-title>Tarjetas</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>-->
