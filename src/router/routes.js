@@ -17,6 +17,8 @@ import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
 import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
+import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
+import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -116,6 +118,24 @@ export const routes = [
     name: "/AppMovements",
     components: {
       default: AppMovements,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/payment-instrument",
+    name: "PaymentInstrumentList",
+    components: {
+      default: PaymentInstrumentList,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/payment-instrument/new",
+    name: "PaymentInstrumentForm",
+    components: {
+      default: PaymentInstrumentForm,
       sidebar: AppSidebar,
       header: AppToolbar
     }

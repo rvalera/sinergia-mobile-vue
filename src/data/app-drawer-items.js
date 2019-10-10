@@ -66,7 +66,7 @@ export default [
     ]
   },
   { icon: "contacts", title: "Directorio", name: "/Error404" },
-  { icon: "360", title: "Medios de Recarga", name: "/Error404" },
+  { icon: "360", title: "Medios de Recarga", name: "PaymentInstrumentList" },
   { icon: "settings", title: "Configuración", name: "/Error404" },
   { icon: "notifications", title: "Notificaciones", name: "/Error404" }
   // {
