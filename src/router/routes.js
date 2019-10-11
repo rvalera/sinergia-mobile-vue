@@ -11,6 +11,7 @@ import RegisterPage from "@/views/Pages/Authentication/RegisterPage";
 import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
+import ChangeOperationKey from "@/views/Pages/UserMenu/ChangeOperationKey";
 
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
@@ -116,6 +117,15 @@ export const routes = [
     name: "/AppMovements",
     components: {
       default: AppMovements,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/appChangeOperationKey",
+    name: "/ChangeOperationKey",
+    components: {
+      default: ChangeOperationKey,
       sidebar: AppSidebar,
       header: AppToolbar
     }
