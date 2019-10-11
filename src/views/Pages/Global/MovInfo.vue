@@ -7,7 +7,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card elevation="4" class="text-xs-left pa-3">
-        <v-toolbar dark color="#6a1b9a">
+        <v-toolbar dark color="primary">
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
@@ -25,49 +25,43 @@
                   <v-spacer></v-spacer>
 
                   <v-text-field
-                    color="purple darken-2"
                     label="Monto"
                     v-model="amount"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
                     label="Fecha"
                     v-model="mov.execution_date"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
                     label="Origen"
-                    v-model="mov.target.phone_number"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    color="purple darken-2"
-                    label="Descripción Origen"
-                    v-model="mov.target_description"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    color="purple darken-2"
-                    label="Destino"
                     v-model="mov.source.phone_number"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
-                    label="Descripción Destino"
+                    label="Descripción Origen"
                     v-model="mov.source_description"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
+                    label="Destino"
+                    v-model="mov.target.phone_number"
+                    filled
+                    readonly
+                  ></v-text-field>
+                  <v-text-field
+                    label="Descripción Destino"
+                    v-model="mov.target_description"
+                    filled
+                    readonly
+                  ></v-text-field>
+
+                  <v-text-field
                     label="Tipo"
                     v-model="mov.type"
                     filled
@@ -112,7 +106,6 @@ export default {
   },
   methods: {
     show(data) {
-      console.log(data);
       this.mov = data;
       this.amount = Number(this.mov.amount).format();
       this.dialog = true;

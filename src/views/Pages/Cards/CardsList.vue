@@ -2,7 +2,7 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <!-- <v-toolbar color="#6a1b9a" dark>
+        <!-- <v-toolbar color="#333333" dark>
           <v-toolbar-title>Tarjetas</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>-->
@@ -31,7 +31,14 @@
                   v-html="item.activation_date"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
-
+              <v-list-tile-avatar tile>
+                <v-chip v-if="item.status === 'A'" color="green" outline
+                  >Activa</v-chip
+                >
+                <v-chip v-if="item.status != 'A'" color="red" outline
+                  >Bloqueada</v-chip
+                >
+              </v-list-tile-avatar>
               <v-list-tile-action>
                 <v-menu bottom left>
                   <template v-slot:activator="{ on }">
@@ -123,7 +130,6 @@ export default {
       //this.$refs.modal.show(data);
     },
     async showMovementsByCard(data) {
-      console.log(data);
       let filter = {
         page: 1,
         perPage: 5,

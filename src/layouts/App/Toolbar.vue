@@ -2,8 +2,9 @@
   <v-toolbar
     :fixed="fixedToolbar"
     v-if="toolbar"
-    :class="navToolbarScheme"
     :clipped-left="toolbarClippedLeft"
+    color="primary"
+    :dark="true"
     app
     flat
   >
@@ -32,7 +33,7 @@
     </v-btn>
     <v-spacer></v-spacer>
     <v-menu offset-y>
-      <v-avatar color="md-sidebar-500" slot="activator" size="40">
+      <v-avatar color="secondary" slot="activator" size="40">
         <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
         <span class="white--text">{{
           user.person.fullname | first2Initials
@@ -40,7 +41,7 @@
       </v-avatar>
       <v-list dense>
         <v-list-tile avatar>
-          <v-list-tile-avatar color="md-sidebar-500">
+          <v-list-tile-avatar color="secondary">
             <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
             <span class="white--text">{{
               user.person.fullname | first2Initials

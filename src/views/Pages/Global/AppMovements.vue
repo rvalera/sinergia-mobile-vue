@@ -4,7 +4,7 @@
       <v-card>
         <v-list two-line>
           <template v-for="(item, index) in transactions_app">
-            <v-divider :inset="true" :key="index + 'e'"></v-divider>
+            <v-divider :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar
                 width="60px"
@@ -13,13 +13,25 @@
                 @click="handleClick(item)"
               >
                 <v-img
-                  :src="item.type === 'Pago' ? avatarRetire : avatarDeposit"
+                  :src="
+                    getSource(item.source.id)
+                      ? require('@/assets/images/arrow_out_red.png')
+                      : require('@/assets/images/arrow_in_green.png')
+                  "
                 ></v-img>
               </v-list-tile-avatar>
 
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
+                  v-if="getSource(item.source.id)"
                   class="red--text"
+                  v-html="
+                    Number(item.amount).format() + ' ' + item.coin.diminutive
+                  "
+                ></v-list-tile-title>
+                <v-list-tile-title
+                  v-if="!getSource(item.source.id)"
+                  class="green--text"
                   v-html="
                     Number(item.amount).format() + ' ' + item.coin.diminutive
                   "
@@ -30,40 +42,14 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="item.type === 'Pago'" color="red" outline>{{
-                    item.type
-                  }}</v-chip>
+                  <v-chip v-if="getSource(item.source.id)" color="red" outline>
+                    {{ item.type }}
+                  </v-chip>
 
                   <v-chip
-                    v-if="item.type === 'Activación'"
+                    v-if="!getSource(item.source.id)"
                     color="green"
                     outline
-                    >{{ item.type }}</v-chip
-                  >
-
-                  <v-chip
-                    v-if="item.type === 'Recarga'"
-                    color="green"
-                    outline
-                    >{{ item.type }}</v-chip
-                  >
-
-                  <v-chip
-                    v-if="
-                      item.type === 'Transferencia' &&
-                        item.target.id === person_id
-                    "
-                    outline
-                    color="green"
-                    >{{ item.type }}</v-chip
-                  >
-                  <v-chip
-                    v-if="
-                      item.type === 'Transferencia' &&
-                        item.target.id !== person_id
-                    "
-                    outline
-                    color="red"
                     >{{ item.type }}</v-chip
                   >
                 </div>
@@ -73,18 +59,16 @@
         </v-list>
       </v-card>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-chip
-          class="ma-2"
-          color="primary"
-          text-color="white"
-          outlined
-          @click="handleLoadMov"
-        >
+        <!-- <v-chip class="ma-2" color="primary" text-color="white" outlined @click="handleLoadMov">
           <v-avatar left>
             <v-icon color="white">mdi-chevron-double-down</v-icon>
-          </v-avatar>
-          Ver Mas
-        </v-chip>
+          </v-avatar>Ver Mas
+        </v-chip>-->
+        <v-btn block color="primary" text-color="white" @click="handleLoadMov">
+          <v-icon class="paddingBottom: 10px" color="white"
+            >mdi-chevron-double-down</v-icon
+          >
+        </v-btn>
       </v-flex>
       <mov-info ref="modal"></mov-info>
     </v-flex>
@@ -92,27 +76,34 @@
 </template>
 
 <script>
-//import { getAppCardsData } from "@/api/modules";
-//import axios from "axios";
 import MovInfo from "./MovInfo";
 import { mapActions, mapGetters } from "vuex";
 import "../../../assets/utils";
+//import image1 from "../../../assets/images/arrow_out_red"
+
 export default {
   components: { MovInfo },
   data: () => ({
-    avatarRetire:
-      "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
-    avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     transactions: [],
     filter: {},
-    person_id: localStorage.person_id
+    person_id: localStorage.person_id,
+    type: "number"
   }),
   computed: {
     ...mapGetters(["transactions_app", "filter_app"]),
-    getColor: function(id) {
-      console.log(id);
-      return "red--text";
+    target() {
+      const value = this[this.type];
+      if (!isNaN(value)) return Number(value);
+      else return value;
+    },
+    options() {
+      return {
+        duration: 300,
+        offset: 0,
+        easing: "easeInOutCubic"
+      };
     }
+
     // getTransactions() {
     //   var trans = [];
     //   this.transactions_app.map(item => {
@@ -133,8 +124,16 @@ export default {
       this.filter = this.filter_app;
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
-      console.log(this.filter_app);
+      //this.$vuetify.goTo(this.target, this.options);
+    },
+    getSource(id) {
+      //console.log(this.person_id);
+      if (this.person_id.toString() === id.toString()) return true;
+      else return false;
     }
+  },
+  updated() {
+    window.scrollTo(0, document.body.scrollHeight);
   },
   async mounted() {
     this.filter.page = 1;

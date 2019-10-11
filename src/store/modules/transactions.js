@@ -44,7 +44,6 @@ const actions = {
       filter: JSON.stringify({ filter })
     };
     var response = await getMovements(query);
-    console.log(response);
     commit(TRANSACTIONS_APP, response.data);
   }
 };
