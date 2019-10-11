@@ -13,7 +13,11 @@
                 @click="handleClick(item)"
               >
                 <v-img
-                  :src="item.type === 'Pago' ? avatarRetire : avatarDeposit"
+                  :src="
+                    getSource(item.source.id)
+                      ? require('@/assets/images/arrow_out_red.png')
+                      : require('@/assets/images/arrow_in_green.png')
+                  "
                 ></v-img>
               </v-list-tile-avatar>
 
@@ -38,40 +42,14 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="item.type === 'Pago'" color="red" outline>
+                  <v-chip v-if="getSource(item.source.id)" color="red" outline>
                     {{ item.type }}
                   </v-chip>
 
                   <v-chip
-                    v-if="item.type === 'Activación'"
+                    v-if="!getSource(item.source.id)"
                     color="green"
                     outline
-                    >{{ item.type }}</v-chip
-                  >
-
-                  <v-chip
-                    v-if="item.type === 'Recarga'"
-                    color="green"
-                    outline
-                    >{{ item.type }}</v-chip
-                  >
-
-                  <v-chip
-                    v-if="
-                      item.type === 'Transferencia' &&
-                        item.target.id === person_id
-                    "
-                    outline
-                    color="green"
-                    >{{ item.type }}</v-chip
-                  >
-                  <v-chip
-                    v-if="
-                      item.type === 'Transferencia' &&
-                        item.target.id !== person_id
-                    "
-                    outline
-                    color="red"
                     >{{ item.type }}</v-chip
                   >
                 </div>
@@ -101,13 +79,11 @@
 import MovInfo from "./MovInfo";
 import { mapActions, mapGetters } from "vuex";
 import "../../../assets/utils";
+//import image1 from "../../../assets/images/arrow_out_red"
 
 export default {
   components: { MovInfo },
   data: () => ({
-    avatarRetire:
-      "https://st3.depositphotos.com/14846838/18027/v/1600/depositphotos_180272254-stock-illustration-atm-withdrawal-line-vector-icon.jpg",
-    avatarDeposit: "https://cdn.onlinewebfonts.com/svg/img_459174.png",
     transactions: [],
     filter: {},
     person_id: localStorage.person_id,

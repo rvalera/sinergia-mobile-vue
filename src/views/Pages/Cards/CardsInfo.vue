@@ -7,7 +7,7 @@
       transition="dialog-bottom-transition"
     >
       <v-card class="text-xs-left pa-3">
-        <v-toolbar dark color="#333333">
+        <v-toolbar dark color="primary">
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>

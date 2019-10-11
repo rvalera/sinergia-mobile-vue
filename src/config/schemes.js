@@ -2,6 +2,6 @@
 export default {
   name: "Default-light",
   dark: false,
-  scheme: "md-deep-purple-a700-scheme",
+  scheme: "#39BAE8",
   primary: "#39BAE8"
 };
