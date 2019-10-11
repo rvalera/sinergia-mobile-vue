@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout row wrap>
-      <v-flex xs12 md6>
+      <v-flex xs12 md6 offset-sm3>
         <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
           <v-text-field
             class="box-input"
