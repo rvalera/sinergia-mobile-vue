@@ -73,7 +73,7 @@
           <v-list-tile-title>Cambiar contraseña</v-list-tile-title>
         </v-list-tile>
         <v-list-tile
-          @click="() => $router.push({ name: 'AccountInformationPage' })"
+          @click="() => $router.push({ name: '/ChangeOperationKey' })"
         >
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
