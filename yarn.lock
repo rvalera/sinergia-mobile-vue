@@ -8529,10 +8529,9 @@ vuetify-confirm@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-0.2.6.tgz#9b6c4da87eb60c6c9c2dfec4a9df32cfbf042527"
 
-vuetify-credit-card@^1.0.0:
+"vuetify-credit-card@https://github.com/sadmanbd/vuetify-credit-card#aa551d7f115128f9b907b6a59833ffd3e89bec03":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vuetify-credit-card/-/vuetify-credit-card-1.0.0.tgz#46abf700d958bf87f9a9d520255dfae79e177d85"
-  integrity sha512-CkVZIhrKgz/ou1IfrCwvnSbgaQcX7WY2xVg4hGP+NjJ/drJRvaFql3gE1MeAi/CNfugw1w3gNgxAz1Hb+fgboQ==
+  resolved "https://github.com/sadmanbd/vuetify-credit-card#aa551d7f115128f9b907b6a59833ffd3e89bec03"
   dependencies:
     payment "^2.3.0"
     vue "^2.5.2"

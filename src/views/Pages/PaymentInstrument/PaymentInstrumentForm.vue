@@ -11,8 +11,7 @@
             @input="$v.form.number.$touch()"
             @blur="$v.form.number.$touch()"
             required
-            counter
-            maxlength="16"
+            maxlength="19"
           />
           <v-text-field
             class="box-input"
@@ -23,7 +22,7 @@
             @blur="$v.form.expiry.$touch()"
             required
             counter
-            maxlength="7"
+            maxlength="9"
           />
           <v-text-field
             class="box-input"
@@ -31,12 +30,22 @@
             v-model="form.cvc"
             :error-messages="fieldErrors('form.cvc')"
             @input="$v.form.cvc.$touch()"
-            @blur="$v.form.cvc.$touch()"
+            @blur="
+              $v.form.cvc.$touch();
+              invertedCard = false;
+            "
+            @focus="invertedCard = true"
             required
             counter
             maxlength="3"
           />
         </v-form>
+        <Card
+          class="pt-3"
+          v-model="form"
+          format-data
+          :invert-card.sync="invertedCard"
+        />
         <v-btn
           large
           round
@@ -63,7 +72,7 @@
 </template>
 
 <script>
-//import Card from "vuetify-credit-card"; https://github.com/iliojunior/vuetify-credit-card/issues/9
+import Card from "vuetify-credit-card";
 import { required } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 import { mapGetters } from "vuex";
@@ -71,9 +80,13 @@ import { postPaymentInstrumentApi } from "@/api/modules";
 const defaultForm = {
   number: "",
   expiry: "",
-  cvc: ""
+  cvc: "",
+  name: ""
 };
 export default {
+  components: {
+    Card
+  },
   mixins: [validationMixin],
   validations: {
     form: {
@@ -96,23 +109,28 @@ export default {
     }
   },
   data: () => ({
-    form: {}
+    form: Object.assign({}, defaultForm),
+    invertedCard: false
   }),
   computed: {
     ...mapGetters(["user"])
   },
   mounted() {
-    this.form = Object.assign(
-      {},
-      {
-        ...defaultForm,
-        name: this.user.person.fullname
-      }
-    );
+    this.form.name = this.user.person.fullname;
   },
   methods: {
     async submit() {
-      var serviceResponse = await postPaymentInstrumentApi();
+      console.log(this.form);
+      const expiry = this.form.expiry.split(" ");
+      const body = {
+        card_number: this.form.number.replace(/ /g, ""),
+        cvc: this.form.cvc,
+        exp_month: Number(expiry[0]),
+        exp_year: Number(expiry[2])
+      };
+      console.log(body);
+      var serviceResponse = await postPaymentInstrumentApi(body);
+      console.log(serviceResponse);
       if (serviceResponse.ok) {
         this.$router.back();
         const params = { text: serviceResponse.message.text };

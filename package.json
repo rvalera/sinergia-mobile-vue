@@ -49,7 +49,7 @@
     "vuelidate": "^0.7.4",
     "vuetify": "^1.3.0",
     "vuetify-confirm": "^0.2.6",
-    "vuetify-credit-card": "^1.0.0",
+    "vuetify-credit-card": "https://github.com/sadmanbd/vuetify-credit-card#aa551d7f115128f9b907b6a59833ffd3e89bec03",
     "vuetrend": "^0.3.2",
     "vuex": "^3.0.1",
     "webpack": "^4.35.3",
