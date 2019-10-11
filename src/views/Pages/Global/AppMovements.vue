@@ -124,7 +124,6 @@ export default {
       this.filter = this.filter_app;
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
-      console.log(this.filter_app);
       //this.$vuetify.goTo(this.target, this.options);
     },
     getSource(id) {
@@ -134,7 +133,6 @@ export default {
     }
   },
   updated() {
-    console.log("update");
     window.scrollTo(0, document.body.scrollHeight);
   },
   async mounted() {

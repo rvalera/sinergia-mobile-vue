@@ -127,7 +127,6 @@ export default {
           .reverse()
           .join("")
       );
-      console.log(this.decodeResult);
     },
     encryptToken() {
       var jsonString = JSON.stringify(this.decodeResult)
@@ -146,7 +145,6 @@ export default {
       QRCode.toDataURL(this.encodeCrypto)
         .then(url => {
           this.QR = url;
-          console.log(url);
         })
         .catch(err => {
           console.error(err);

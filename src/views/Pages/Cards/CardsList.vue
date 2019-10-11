@@ -130,7 +130,6 @@ export default {
       //this.$refs.modal.show(data);
     },
     async showMovementsByCard(data) {
-      console.log(data);
       let filter = {
         page: 1,
         perPage: 5,

@@ -6,6 +6,7 @@
       navDrawerScheme,
       navDrawerVariant ? 'google-material-effect' : ''
     ]"
+    color="primary"
     persistent
     fixed
     width="260"

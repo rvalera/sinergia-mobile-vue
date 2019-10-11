@@ -24,14 +24,12 @@
                   </div>
                   <v-spacer></v-spacer>
                   <v-text-field
-                    color="purple darken-2"
                     label="Numero de validación"
                     v-model="card.validation_number"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
                     label="Dia de activación"
                     v-model="card.activation_date"
                     filled
@@ -39,14 +37,12 @@
                   ></v-text-field>
                   <v-text-field
                     v-if="card.status != 'A'"
-                    color="purple darken-2"
                     label="Dia de inactivación:"
                     v-model="card.inactivation_date"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    color="purple darken-2"
                     label="Estatus:"
                     v-model="status"
                     filled

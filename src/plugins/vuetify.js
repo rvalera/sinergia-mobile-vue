@@ -8,8 +8,8 @@ Vue.use(Vuetify, {
   iconfont: "md",
   theme: {
     primary: store.state.swatch.colorScheme.primary,
-    secondary: colors.pink.base,
-    accent: colors.deepPurple.accent2,
+    secondary: store.state.swatch.colorScheme.secondary,
+    accent: store.state.swatch.colorScheme.primary,
     error: colors.red.accent4,
     info: colors.blue.lighten1,
     success: colors.green.accent4,
