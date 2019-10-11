@@ -57,7 +57,11 @@ export default [
         title: "Transferir Saldo",
         name: "TransferStepper"
       },
-      { prependIcon: "arrow_back", title: "Recargar Saldo", name: "Error404" },
+      {
+        prependIcon: "arrow_back",
+        title: "Recargar Saldo",
+        name: "RefillStepper"
+      },
       {
         prependIcon: "how_to_reg",
         title: "Generar Pago Confiable",

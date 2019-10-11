@@ -19,6 +19,7 @@ import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
 import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
+import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -136,6 +137,15 @@ export const routes = [
     name: "PaymentInstrumentForm",
     components: {
       default: PaymentInstrumentForm,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    }
+  },
+  {
+    path: "/refill",
+    name: "/RefillStepper",
+    components: {
+      default: RefillStepper,
       sidebar: AppSidebar,
       header: AppToolbar
     }
