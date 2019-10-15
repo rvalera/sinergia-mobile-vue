@@ -17,7 +17,7 @@
         <v-container fill-height>
           <v-layout row wrap align-content-center justify-center>
             <v-flex xs12 sm6 class="text-xs-center">
-              <v-card elevation="4" class="pa-3">
+              <v-card elevation="0" class="pa-3">
                 <v-list>
                   <div class="text-xs-center">
                     <v-icon x-large color="primary">mdi-credit-card</v-icon>

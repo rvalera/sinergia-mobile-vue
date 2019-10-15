@@ -52,7 +52,12 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <div class="text-xs-center">
-                  <v-chip v-if="getSource(item.source.id)" color="red" outline>
+                  <v-chip
+                    v-if="getSource(item.source.id)"
+                    color="red"
+                    outline
+                    class="max-width-chip"
+                  >
                     {{ item.type }}
                   </v-chip>
 
@@ -60,6 +65,7 @@
                     v-if="!getSource(item.source.id)"
                     color="green"
                     outline
+                    class="max-width-chip"
                     >{{ item.type }}</v-chip
                   >
                 </div>
@@ -161,5 +167,15 @@ export default {
 
 .v-stepper__wrapper {
   height: 100%;
+}
+
+.max-width-chip .v-chip__content {
+  line-height: 32px;
+  display: inline-block !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  width: 120px;
 }
 </style>
