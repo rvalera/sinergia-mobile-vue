@@ -6,7 +6,7 @@
       hide-overlay
       transition="dialog-bottom-transition"
     >
-      <v-card elevation="4" class="text-xs-left pa-3">
+      <v-card elevation="0" class="text-xs-left pa-3">
         <v-toolbar dark color="primary">
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
@@ -17,45 +17,31 @@
         <v-container fill-height>
           <v-layout row wrap align-content-center justify-center>
             <v-flex xs12 sm6 class="text-xs-center">
-              <v-card elevation="4" class="pa-3">
+              <v-card elevation="0" class="pa-3">
                 <v-list>
                   <!-- <div class="text-xs-center">
                     <v-icon x-large color="primary">mdi-coin</v-icon>
                   </div> -->
                   <v-spacer></v-spacer>
+                  <v-layout row>
+                    <v-text-field
+                      label="Fecha"
+                      v-model="mov.execution_date"
+                      filled
+                      readonly
+                    ></v-text-field>
+                    <v-label> {{ amount + " " + mov.coin.diminutive }}</v-label>
+                  </v-layout>
 
                   <v-text-field
-                    label="Monto"
-                    v-model="amount"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    label="Fecha"
-                    v-model="mov.execution_date"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
                     label="Origen"
-                    v-model="mov.source.phone_number"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    label="Descripción Origen"
                     v-model="mov.source_description"
                     filled
                     readonly
                   ></v-text-field>
+
                   <v-text-field
                     label="Destino"
-                    v-model="mov.target.phone_number"
-                    filled
-                    readonly
-                  ></v-text-field>
-                  <v-text-field
-                    label="Descripción Destino"
                     v-model="mov.target_description"
                     filled
                     readonly
@@ -68,11 +54,18 @@
                     readonly
                   ></v-text-field>
                 </v-list>
+                <v-layout row class="mt-4">
+                  <v-flex xs12>
+                    <v-btn large round block color="primary">
+                      <v-icon left>share</v-icon>
+                      Compartir
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
               </v-card>
             </v-flex>
           </v-layout>
         </v-container>
-        <v-divider></v-divider>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -106,6 +99,7 @@ export default {
   },
   methods: {
     show(data) {
+      console.log(data);
       this.mov = data;
       this.amount = Number(this.mov.amount).format();
       this.dialog = true;

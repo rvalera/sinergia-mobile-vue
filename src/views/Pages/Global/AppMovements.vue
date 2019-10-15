@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+      <v-card elevation="0">
         <v-list two-line>
           <template v-for="(item, index) in transactions_app">
             <v-divider :key="index + 'e'"></v-divider>
@@ -25,15 +25,25 @@
                 <v-list-tile-title
                   v-if="getSource(item.source.id)"
                   class="red--text"
+                  style="font-size:20px"
                   v-html="
-                    Number(item.amount).format() + ' ' + item.coin.diminutive
+                    '<b>' +
+                      Number(item.amount).format() +
+                      ' ' +
+                      item.coin.diminutive +
+                      '<b/>'
                   "
                 ></v-list-tile-title>
                 <v-list-tile-title
                   v-if="!getSource(item.source.id)"
                   class="green--text"
+                  style="font-size:20px"
                   v-html="
-                    Number(item.amount).format() + ' ' + item.coin.diminutive
+                    '<b>' +
+                      Number(item.amount).format() +
+                      ' ' +
+                      item.coin.diminutive +
+                      '<b/>'
                   "
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
