@@ -20,15 +20,16 @@ import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
 import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
+import ClientDashboard from "@/views/Pages/ClientDashboard/ClientDashboard";
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
   {
     path: "/dashboard",
-    name: "PayStepper",
+    name: "ClientDashboard",
     components: {
-      default: PayStepper,
+      default: ClientDashboard,
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
@@ -39,9 +40,15 @@ export const routes = [
     name: "/PayStepper",
     components: {
       default: PayStepper,
-      sidebar: AppSidebar,
+      //sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: "Pago con QR"
+      }
     }
   },
   {
@@ -93,8 +100,14 @@ export const routes = [
     name: "/TransferStepper",
     components: {
       default: TransferStepper,
-      sidebar: AppSidebar,
+      //sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: "Transferir saldo"
+      }
     }
   },
   {
@@ -104,6 +117,11 @@ export const routes = [
       default: CardsList,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        title: "Tarjetas"
+      }
     }
   },
   {
@@ -111,8 +129,14 @@ export const routes = [
     name: "/CardsPinStepper",
     components: {
       default: CardsPinStepper,
-      sidebar: AppSidebar,
+      //sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: "PIN"
+      }
     }
   },
   {
@@ -122,6 +146,11 @@ export const routes = [
       default: AppMovements,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        title: "Movimientos"
+      }
     }
   },
   {
@@ -131,6 +160,11 @@ export const routes = [
       default: PaymentInstrumentList,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        title: "Medios de recarga"
+      }
     }
   },
   {
@@ -140,6 +174,13 @@ export const routes = [
       default: PaymentInstrumentForm,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        goHome: false,
+        title: "Medios de recarga"
+      }
     }
   },
   {
@@ -149,6 +190,12 @@ export const routes = [
       default: RefillStepper,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: "Recargar saldo"
+      }
     }
   },
   {
