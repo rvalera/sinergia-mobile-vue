@@ -55,7 +55,7 @@ export default {
       if (typeof cordova === "undefined")
         this.descryptToken({
           text:
-            "08mSPIBxAaMFKQscDjkUjwYK0tiVnksuS8bT01U1KAWLncRnLzL7P+ms0kBQkrn3qebKXgKUPgM35j3s+emKsCjcATL1KjGhn9MICGGMN53a7VWsCgTapvwldoQWNe+Zh89hvNYPJNjv8js75IiFKA1V5frlZTGhIqzE/xEUVpU="
+            "RH3aqd8G6aoDzTl/tHJbGLG1yx1oaeA9Vfs/r6+DxDaIBqxMKlL7w+np+n3XiI4Cp78ziqfqtfdP83zFkwyFNBgG1eS/R1UdW9Lyusb6inF3ORTQGyffWnYrSEJyJ2osIKTTzX/D7qVGkNwWf1fit7rAobIhX/FhdNFjsIJDkAfxwxNOX3QCqA1EshowFeV+"
         });
       /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(

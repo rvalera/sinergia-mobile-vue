@@ -4,9 +4,7 @@
       <div class="layout row ma-0">
         <div class="subheading">{{ title }}</div>
         <v-spacer></v-spacer>
-        <div class="caption">
-          <v-icon v-text="icon" :color="iconColor"></v-icon> {{ subTitle }}
-        </div>
+        <div class="caption center"></div>
       </div>
     </v-card-title>
     <v-responsive class="white--text">

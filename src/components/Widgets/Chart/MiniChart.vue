@@ -1,8 +1,10 @@
 <template>
   <v-card :color="cardColorSet" :dark="computeCardDark">
     <v-card-text>
-      <p class="subheading my-0 grey--text">{{ title }}</p>
-      <span class="display-1">{{ subtitleLarge }}</span>
+      <p class="subheading my-0 grey--text text-right">{{ title }}</p>
+      <span class="display-1  font-weight-black green--text darken-4">{{
+        subtitleLarge
+      }}</span>
       <v-icon v-text="icon" :color="iconColor"></v-icon
       ><span :class="`${iconColor}--text`">{{ preSubtitle }}</span>
       {{ subTitle }}

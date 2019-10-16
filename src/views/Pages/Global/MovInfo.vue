@@ -30,7 +30,11 @@
                       filled
                       readonly
                     ></v-text-field>
-                    <v-label> {{ amount + " " + mov.coin.diminutive }}</v-label>
+                    <v-label>
+                      {{
+                        amount + " " + (mov.coin ? mov.coin.diminutive : " ")
+                      }}</v-label
+                    >
                   </v-layout>
 
                   <v-text-field

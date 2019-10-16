@@ -13,6 +13,7 @@ import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 import ChangeOperationKey from "@/views/Pages/UserMenu/ChangeOperationKey";
 
+import Dashboard from "@/views/Pages/Dashboard/Dashboard";
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
@@ -26,9 +27,9 @@ export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
   {
     path: "/dashboard",
-    name: "PayStepper",
+    name: "Dashboard",
     components: {
-      default: PayStepper,
+      default: Dashboard,
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
