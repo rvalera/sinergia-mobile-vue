@@ -122,7 +122,7 @@ export default {
     ...mapGetters(["user"])
   },
   methods: {
-    ...mapActions(["setTitleApp", "setTransactionsApp"]),
+    ...mapActions(["setTransactionsApp"]),
     async handleClick(data) {
       this.$refs.modal.show(data);
     },
@@ -195,11 +195,7 @@ export default {
     }
   },
   async mounted() {
-    this.setTitleApp("Tarjetas");
     await this.getCards();
-  },
-  beforeDestroy() {
-    this.setTitleApp("Mark-One");
   }
 };
 </script>

@@ -130,7 +130,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["setTitleApp", "setTransactionsApp"]),
+    ...mapActions(["setTransactionsApp"]),
 
     async handleClick(data) {
       this.$refs.modal.show(data);
@@ -153,10 +153,6 @@ export default {
   },
   async mounted() {
     this.filter.page = 1;
-    this.setTitleApp("Movimientos");
-  },
-  beforeDestroy() {
-    this.setTitleApp("Mark-One");
   }
 };
 </script>
