@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="pa-3">
+        <v-card elevation="0" class="pa-3">
           <v-icon x-large color="primary">photo_camera</v-icon>
           <p class="title my-5 text-xs-left ">
             Escanea el código QR para realizar pago

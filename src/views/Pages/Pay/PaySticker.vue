@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center-top justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-1">
+        <v-card elevation="0" class="text-xs-left pa-1">
           <v-card-text>
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <v-container grid-list-xl fluid>

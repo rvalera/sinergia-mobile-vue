@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-3">
+        <v-card elevation="0" class="text-xs-left pa-3">
           <div class="text-xs-center">
             <v-icon x-large color="primary">vpn_key</v-icon>
           </div>
@@ -21,26 +21,32 @@
             ></v-text-field>
           </v-form>
         </v-card>
-        <v-btn
-          large
-          round
-          block
-          color="primary"
-          class="mt-4"
-          :disabled="$v.$invalid"
-          :class="$v.$invalid ? '' : 'white--text'"
-          @click="submit"
-          >{{ this.app_button_label }}</v-btn
-        >
-        <v-btn
-          large
-          block
-          round
-          color="gray"
-          class="mt-4"
-          @click="$emit('back')"
-          >Volver</v-btn
-        >
+        <v-layout justify-space-around>
+          <v-flex xs5>
+            <v-btn
+              large
+              round
+              block
+              color="primary"
+              class="mt-4"
+              :disabled="$v.$invalid"
+              :class="$v.$invalid ? '' : 'white--text'"
+              @click="submit"
+              >{{ this.app_button_label }}</v-btn
+            >
+          </v-flex>
+          <v-flex xs5>
+            <v-btn
+              large
+              block
+              round
+              color="gray"
+              class="mt-4"
+              @click="$emit('back')"
+              >Volver</v-btn
+            >
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
