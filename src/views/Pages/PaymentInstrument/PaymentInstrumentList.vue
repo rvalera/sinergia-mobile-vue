@@ -64,14 +64,12 @@ import {
   putDefaultPaymentInstrumentApi,
   deletePaymentInstrumentApi
 } from "@/api/modules";
-import { mapActions } from "vuex";
 export default {
   data: () => ({
     paymentInstruments: [],
     paymentInsturmentImg: "static/paymentInstrument.png"
   }),
   methods: {
-    ...mapActions(["setTitleApp"]),
     async getPaymentInstruments() {
       var serviceResponse = await getPaymentInstrumentApi();
       if (serviceResponse.ok) {
@@ -105,11 +103,7 @@ export default {
     }
   },
   async mounted() {
-    this.setTitleApp("Medios de Recarga");
     this.getPaymentInstruments();
-  },
-  beforeDestroy() {
-    this.setTitleApp("Mark-One");
   }
 };
 </script>

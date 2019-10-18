@@ -1,24 +1,24 @@
 <template>
-  <v-card :color="cardColorSet" :dark="computeCardDark">
-    <v-card-text>
+  <v-card elevation="0" :color="cardColorSet" :dark="computeCardDark">
+    <v-card-text class="textAlign">
       <p class="subheading my-0 grey--text text-right">{{ title }}</p>
       <span class="display-1  font-weight-black green--text darken-4">{{
         subtitleLarge
       }}</span>
-      <v-icon v-text="icon" :color="iconColor"></v-icon
-      ><span :class="`${iconColor}--text`">{{ preSubtitle }}</span>
-      {{ subTitle }}
     </v-card-text>
-    <component
-      :is="type"
-      :data="setData"
-      :options="setOptions"
-      :height="setHeight"
-      :gradient="setGradient"
-      :gradientSet="setGradientData"
-      :linearStroke="linearStrokeData"
-    >
-    </component>
+
+    <v-responsive class="white--text">
+      <component
+        :is="type"
+        :data="setData"
+        :options="setOptions"
+        :height="setHeight"
+        :gradient="setGradient"
+        :gradientSet="setGradientData"
+        :linearStroke="linearStrokeData"
+      >
+      </component>
+    </v-responsive>
   </v-card>
 </template>
 <script>
@@ -45,7 +45,7 @@ export default {
     option: Object,
     height: {
       type: Number,
-      default: 100
+      default: 120
     },
     gradient: {
       type: Boolean,
@@ -90,6 +90,12 @@ export default {
     linearStrokeData() {
       return this.linearStroke;
     }
-  }
+  },
+  mounted() {}
 };
 </script>
+<style>
+.textAlign {
+  text-align: center;
+}
+</style>

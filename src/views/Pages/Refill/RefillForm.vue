@@ -88,7 +88,6 @@ import { required } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 import SelectInstrument from "./SelectInstrument";
 import { getPaymentInstrumentApi } from "@/api/modules";
-import { mapActions } from "vuex";
 export default {
   components: {
     SelectInstrument
@@ -114,14 +113,9 @@ export default {
     };
   },
   mounted() {
-    this.setTitleApp("Recarga");
     this.getPaymentInstruments();
   },
-  beforeDestroy() {
-    this.setTitleApp("Mark-One");
-  },
   methods: {
-    ...mapActions(["setTitleApp"]),
     async getPaymentInstruments() {
       var serviceResponse = await getPaymentInstrumentApi();
       if (serviceResponse.ok) {

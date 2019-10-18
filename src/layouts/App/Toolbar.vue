@@ -8,12 +8,16 @@
     app
     flat
   >
+    <v-btn v-if="hasBackButton" icon @click.stop="handleGoBackButton">
+      <v-icon>arrow_back</v-icon>
+    </v-btn>
     <v-toolbar-side-icon
+      v-else
       class="hidden-lg-and-up"
       @click.stop="$store.dispatch('toggleDrawer', !navDrawer)"
     ></v-toolbar-side-icon>
     <v-toolbar-title
-      v-text="app_title"
+      v-text="title"
       class="ml-0 hidden-lg-and-up"
     ></v-toolbar-title>
     <v-btn
@@ -95,10 +99,21 @@
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      title: "Mark-One"
-    };
+  props: {
+    title: {
+      type: String,
+      default: "Mark One"
+    },
+    hasBackButton: {
+      //it has back button or menu button
+      type: Boolean,
+      default: false
+    },
+    goHome: {
+      //If it has back button, then: Go home (dashboard) or go back (previous view)
+      type: Boolean,
+      default: true
+    }
   },
   computed: {
     ...mapGetters({
@@ -108,14 +123,18 @@ export default {
       fixedToolbar: "fixedToolbar",
       toolbar: "toolbarVisibility",
       navToolbarScheme: "navToolbarScheme",
-      navMiniVarient: "navMiniVarient",
-      app_title: "app_title"
+      navMiniVarient: "navMiniVarient"
     })
   },
   methods: {
     toggleMiniVariantMode() {
       this.$store.dispatch("toggleMiniVariantMode");
       this.$store.dispatch("toggleMiniVarient");
+    },
+    handleGoBackButton() {
+      this.$store.dispatch("toggleDrawer", false);
+      if (this.goHome) this.$router.push({ name: "Home" });
+      else this.$router.back();
     }
   }
 };

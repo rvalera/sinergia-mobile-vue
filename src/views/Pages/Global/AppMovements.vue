@@ -23,8 +23,9 @@
 
               <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
-                  v-if="getSource(item.source.id)"
-                  class="red--text"
+                  :class="
+                    getSource(item.source.id) ? 'red--text' : 'green--text'
+                  "
                   style="font-size:20px"
                   v-html="
                     '<b>' +
@@ -34,18 +35,7 @@
                       '<b/>'
                   "
                 ></v-list-tile-title>
-                <v-list-tile-title
-                  v-if="!getSource(item.source.id)"
-                  class="green--text"
-                  style="font-size:20px"
-                  v-html="
-                    '<b>' +
-                      Number(item.amount).format() +
-                      ' ' +
-                      item.coin.diminutive +
-                      '<b/>'
-                  "
-                ></v-list-tile-title>
+
                 <v-list-tile-sub-title
                   v-html="item.execution_date"
                 ></v-list-tile-sub-title>
@@ -53,21 +43,12 @@
               <v-list-tile-action>
                 <div class="text-xs-center">
                   <v-chip
-                    v-if="getSource(item.source.id)"
-                    color="red"
+                    :color="getSource(item.source.id) ? 'red' : 'green'"
                     outline
                     class="max-width-chip"
                   >
                     {{ item.type }}
                   </v-chip>
-
-                  <v-chip
-                    v-if="!getSource(item.source.id)"
-                    color="green"
-                    outline
-                    class="max-width-chip"
-                    >{{ item.type }}</v-chip
-                  >
                 </div>
               </v-list-tile-action>
             </v-list-tile>
@@ -75,12 +56,13 @@
         </v-list>
       </v-card>
       <v-flex xs12 sm6 class="text-xs-center">
-        <!-- <v-chip class="ma-2" color="primary" text-color="white" outlined @click="handleLoadMov">
-          <v-avatar left>
-            <v-icon color="white">mdi-chevron-double-down</v-icon>
-          </v-avatar>Ver Mas
-        </v-chip>-->
-        <v-btn block color="primary" text-color="white" @click="handleLoadMov">
+        <v-btn
+          v-if="activeButton"
+          block
+          color="primary"
+          text-color="white"
+          @click="handleLoadMov"
+        >
           <v-icon class="paddingBottom: 10px" color="white"
             >mdi-chevron-double-down</v-icon
           >
@@ -95,9 +77,14 @@
 import MovInfo from "./MovInfo";
 import { mapActions, mapGetters } from "vuex";
 import "../../../assets/utils";
-//import image1 from "../../../assets/images/arrow_out_red"
 
 export default {
+  props: {
+    activeButton: {
+      type: Boolean,
+      default: true
+    }
+  },
   components: { MovInfo },
   data: () => ({
     transactions: [],
@@ -118,19 +105,14 @@ export default {
         offset: 0,
         easing: "easeInOutCubic"
       };
+    },
+    setActiveButton() {
+      return this.activeButton;
     }
-
-    // getTransactions() {
-    //   var trans = [];
-    //   this.transactions_app.map(item => {
-    //     trans.push(item);
-    //   });
-    //   return trans;
-    // }
   },
 
   methods: {
-    ...mapActions(["setTitleApp", "setTransactionsApp"]),
+    ...mapActions(["setTransactionsApp"]),
 
     async handleClick(data) {
       this.$refs.modal.show(data);
@@ -140,10 +122,8 @@ export default {
       this.filter = this.filter_app;
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
-      //this.$vuetify.goTo(this.target, this.options);
     },
     getSource(id) {
-      //console.log(this.person_id);
       if (this.person_id.toString() === id.toString()) return true;
       else return false;
     }
@@ -153,16 +133,12 @@ export default {
   },
   async mounted() {
     this.filter.page = 1;
-    this.setTitleApp("Movimientos");
-  },
-  beforeDestroy() {
-    this.setTitleApp("Mark-One");
   }
 };
 </script>
 <style>
 .avatarCard {
-  padding-right: 30px;
+  padding-right: 20px;
 }
 
 .v-stepper__wrapper {
@@ -176,6 +152,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   position: relative;
-  width: 120px;
+  width: 100px;
+  font-size: 85%;
 }
 </style>

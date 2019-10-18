@@ -247,7 +247,7 @@ export const lineChartJs = {
     },
     option: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       legend: {
         display: false
       },
@@ -275,31 +275,32 @@ export const lineChartJs = {
   dashboardDownloads: {
     data: {
       labels: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+        "",
+        "12-12",
+        "12-12",
+        "23-23",
+        "23-23",
+        "23-23",
+        "23-23",
+        "23-23",
+        "45-45",
+        "12-23",
+        "23-23",
+        ""
       ],
       datasets: [
         {
           fill: true,
-          data: [200, 390, 200, 400, 390, 250, 150, 115, 300, 280, 250, 410],
-          borderColor: "#00C486",
-          pointBorderColor: "#00C486",
-          pointBackgroundColor: "#00C486",
+          backgroundColor: "#d1effa",
+          data: [0, 390, 200, 400, 390, 250, 150, 115, 300, 280, 250, 250],
+          borderColor: "#39BAE8",
+          pointBorderColor: "#39BAE8",
+          pointBackgroundColor: "#39BAE8",
           shadowOffsetX: 3,
           shadowOffsetY: 3,
           shadowBlur: 10,
           shadowColor: "rgba(0, 196, 134, 0.5)",
-          pointRadius: 4,
+          pointRadius: 2,
           pointBevelWidth: 3,
           pointBevelHighlightColor: "rgba(255, 255, 255, 0.75)",
           pointBevelShadowColor: "rgba(0, 196, 134, 0.5)",
@@ -314,27 +315,35 @@ export const lineChartJs = {
     },
     option: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       legend: {
         display: false
       },
       layout: {
         padding: {
-          left: 10,
-          right: 10,
-          top: 5,
-          bottom: 25
+          left: 0,
+          right: 0,
+          top: 10,
+          bottom: 20
         }
       },
       scales: {
         xAxes: [
           {
-            display: true
+            display: true,
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 7,
+              fontSize: 10
+            },
+            gridLines: {
+              offsetGridLines: true
+            }
           }
         ],
         yAxes: [
           {
-            display: true
+            display: false
           }
         ]
       }
