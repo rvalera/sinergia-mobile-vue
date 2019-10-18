@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap>
     <v-flex xs12>
-      <v-layout align-center>
+      <v-layout>
         <v-flex xs12>
           <v-card
             flat
@@ -10,7 +10,7 @@
             width="360"
           >
             <v-container fill-height pa-0>
-              <v-layout align-center>
+              <v-layout>
                 <v-flex xs12>
                   <v-card-text>
                     <v-form

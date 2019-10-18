@@ -36,7 +36,7 @@
       </v-tooltip>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-menu offset-y>
+    <v-menu offset-y v-if="logged">
       <v-avatar color="secondary" slot="activator" size="40">
         <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
         <span class="white--text">{{
@@ -111,6 +111,10 @@ export default {
     },
     goHome: {
       //If it has back button, then: Go home (dashboard) or go back (previous view)
+      type: Boolean,
+      default: true
+    },
+    logged: {
       type: Boolean,
       default: true
     }

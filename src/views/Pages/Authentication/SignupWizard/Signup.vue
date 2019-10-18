@@ -8,11 +8,6 @@
     <v-flex xs12>
       <v-stepper v-model="stage" non-linear>
         <v-stepper-header>
-          <div class="back-button">
-            <v-btn icon @click="() => $router.push({ name: 'LoginPage' })">
-              <v-icon> keyboard_backspace </v-icon>
-            </v-btn>
-          </div>
           <v-stepper-step :editable="stage > 1" step="1" :complete="stage > 1"
             >Bienvenido</v-stepper-step
           >
@@ -102,10 +97,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.back-button {
-  align-items: center;
-  display: flex;
-}
-</style>

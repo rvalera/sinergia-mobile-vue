@@ -91,9 +91,17 @@ export const routes = [
   },
   {
     path: "/signup",
-    components: { default: Signup },
+    components: { default: Signup, header: AppToolbar },
     name: "SignupPage",
-    meta: { layout: "auth" }
+    meta: { layout: "auth" },
+    props: {
+      header: {
+        logged: false,
+        hasBackButton: true,
+        goHome: false,
+        title: "Completar registro"
+      }
+    }
   },
   {
     path: "/transfer",
