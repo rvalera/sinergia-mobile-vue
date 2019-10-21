@@ -2,10 +2,19 @@
   <v-card elevation="0" :color="cardColorSet" :dark="computeCardDark">
     <v-card-text class="textAlign">
       <p class="subheading my-0 grey--text text-right">{{ title }}</p>
-      <span class="display-1  font-weight-black green--text darken-4">{{
-        subtitleLarge
-      }}</span>
+      <span class="display-1 font-weight-black green--text darken-4">
+        {{ subtitleLarge }}
+      </span>
     </v-card-text>
+
+    <v-layout row>
+      <v-flex xs10></v-flex>
+      <v-flex xs2>
+        <v-btn icon outline color="blue" @click="showModal">
+          <v-icon color="blue">mdi-filter</v-icon>
+        </v-btn>
+      </v-flex>
+    </v-layout>
 
     <v-responsive class="white--text">
       <component
@@ -16,8 +25,7 @@
         :gradient="setGradient"
         :gradientSet="setGradientData"
         :linearStroke="linearStrokeData"
-      >
-      </component>
+      ></component>
     </v-responsive>
   </v-card>
 </template>
@@ -45,7 +53,7 @@ export default {
     option: Object,
     height: {
       type: Number,
-      default: 120
+      default: 140
     },
     gradient: {
       type: Boolean,
@@ -54,7 +62,7 @@ export default {
     gradientSet: Array,
     linearStroke: {
       type: Array,
-      default: () => [500, 0, 100, 0]
+      default: () => [500, 0, 200, 0]
     }
   },
   components: {
@@ -91,11 +99,19 @@ export default {
       return this.linearStroke;
     }
   },
-  mounted() {}
+  methods: {
+    showModal() {
+      this.$emit("show", {});
+    }
+  },
+  mounted() {
+    // chart.canvas.parentNode.style.width = '128px';
+  }
 };
 </script>
 <style>
 .textAlign {
   text-align: center;
+  padding-bottom: 0px !important;
 }
 </style>

@@ -83,6 +83,10 @@ export default {
     activeButton: {
       type: Boolean,
       default: true
+    },
+    activeAutoScroll: {
+      type: Boolean,
+      default: true
     }
   },
   components: { MovInfo },
@@ -129,7 +133,7 @@ export default {
     }
   },
   updated() {
-    window.scrollTo(0, document.body.scrollHeight);
+    if (this.activeAutoScroll) window.scrollTo(0, document.body.scrollHeight);
   },
   async mounted() {
     this.filter.page = 1;

@@ -58,16 +58,17 @@ const actions = {
         localStorage.setItem("password", payload.password);
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
-        else router.push({ name: "Home" });
-        dispatch("getAppToken");
-
-        var serviceResponsePerson = await getAppPersonApi(
-          serviceResponse.data.email
-        );
-        if (serviceResponsePerson.ok) {
-          //console.log(serviceResponsePerson.data.id);
-          localStorage.setItem("person_id", serviceResponsePerson.data.id);
+        else {
+          var serviceResponsePerson = await getAppPersonApi(
+            serviceResponse.data.email
+          );
+          if (serviceResponsePerson.ok) {
+            //console.log(serviceResponsePerson.data.id);
+            localStorage.setItem("person_id", serviceResponsePerson.data.id);
+            router.push({ name: "Home" });
+          }
         }
+        dispatch("getAppToken");
       }
     } else {
       const params = { text: serviceResponse.message.text };

@@ -5,3 +5,4 @@ export * from "./app_transfer";
 export * from "./app_card";
 export * from "./paymentInstrument";
 export * from "./refill";
+export * from "./dashboard";

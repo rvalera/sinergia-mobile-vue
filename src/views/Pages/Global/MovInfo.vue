@@ -103,7 +103,6 @@ export default {
   },
   methods: {
     show(data) {
-      console.log(data);
       this.mov = data;
       this.amount = Number(this.mov.amount).format();
       this.dialog = true;
