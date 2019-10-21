@@ -1,24 +1,19 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center justify-center>
+    <v-layout row wrap justify-center>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-3">
+        <v-card elevation="0" class="text-xs-left px-3">
           <div class="text-xs-center">
-            <p class="title my-3 green--text font-weight-bold">
-              <v-icon x-large color="green">check_circle_outline</v-icon>
+            <p
+              class="title mb-3 green--text font-weight-bold d-flex headerSuccess"
+            >
+              <v-icon x-large class="mb-2" color="green"
+                >check_circle_outline</v-icon
+              >
               Transacción exitosa
             </p>
           </div>
-          <p class="subheading my-3">
-            <b>De:</b><br />
-            {{ receipt.source_description }}
-          </p>
-          <p class="subheading my-3">
-            <b>Para:</b><br />
-            {{ receipt.target_description }}
-          </p>
-          <p class="subheading my-3">
-            <b>Monto:</b><br />
+          <p class="display-1 mb-3 font-weight-bold text-xs-center">
             {{
               receipt.amount
                 | currency("$", 2, {
@@ -27,27 +22,45 @@
                 })
             }}
           </p>
-          <p class="subheading my-3">
-            <b>Concepto:</b><br />
-            {{ receipt.observation }}
-          </p>
-          <p class="subheading my-3">
-            <b>Referencia:</b><br />
-            {{ receipt.ref_number }}
-          </p>
-          <p class="subheading my-3">
-            <b>Fecha:</b><br />
-            {{ receipt.execution_date }}
-          </p>
+          <v-text-field
+            label="Origen"
+            v-model="receipt.source_description"
+            filled
+            readonly
+          />
+          <v-text-field
+            label="Destino"
+            v-model="receipt.target_description"
+            filled
+            readonly
+          />
+          <v-text-field
+            label="Concepto"
+            v-model="receipt.observation"
+            filled
+            readonly
+          />
+          <v-text-field
+            label="Referencia"
+            v-model="receipt.ref_number"
+            filled
+            readonly
+          />
+          <v-text-field
+            label="Fecha"
+            v-model="receipt.execution_date"
+            filled
+            readonly
+          />
         </v-card>
-        <v-layout row class="mt-4">
-          <v-flex xs6>
+        <v-layout row class="mt-2" justify-space-around>
+          <v-flex xs5>
             <v-btn large round block color="primary">
               <v-icon left>share</v-icon>
               Compartir
             </v-btn>
           </v-flex>
-          <v-flex xs6>
+          <v-flex xs5>
             <v-btn large round block color="primary" @click="$emit('finish')"
               >Finalizar</v-btn
             >
@@ -64,3 +77,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.headerSuccess {
+  flex-direction: column;
+}
+</style>
