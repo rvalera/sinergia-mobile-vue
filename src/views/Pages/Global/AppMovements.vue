@@ -2,6 +2,11 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card elevation="0">
+        <p class="text-xs-center mb-0">
+          <v-icon color="primary" @click="handleShowFilter" large
+            >mdi-filter</v-icon
+          >
+        </p>
         <v-list two-line>
           <template v-for="(item, index) in transactions_app">
             <v-divider :key="index + 'e'"></v-divider>
@@ -46,9 +51,8 @@
                     :color="getSource(item.source.id) ? 'red' : 'green'"
                     outline
                     class="max-width-chip"
+                    >{{ item.type }}</v-chip
                   >
-                    {{ item.type }}
-                  </v-chip>
                 </div>
               </v-list-tile-action>
             </v-list-tile>
@@ -69,12 +73,14 @@
         </v-btn>
       </v-flex>
       <mov-info ref="modal"></mov-info>
+      <movement-filter ref="filter"></movement-filter>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import MovInfo from "./MovInfo";
+import MovementFilter from "./MovementFilter";
 import { mapActions, mapGetters } from "vuex";
 import "../../../assets/utils";
 
@@ -89,7 +95,7 @@ export default {
       default: true
     }
   },
-  components: { MovInfo },
+  components: { MovInfo, MovementFilter },
   data: () => ({
     transactions: [],
     filter: {},
@@ -130,6 +136,9 @@ export default {
     getSource(id) {
       if (this.person_id.toString() === id.toString()) return true;
       else return false;
+    },
+    handleShowFilter() {
+      this.$refs.filter.show();
     }
   },
   updated() {
