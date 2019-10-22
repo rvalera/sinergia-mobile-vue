@@ -2,11 +2,6 @@
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
       <v-card elevation="0">
-        <p class="text-xs-center mb-0">
-          <v-icon color="primary" @click="handleShowFilter" large
-            >mdi-filter</v-icon
-          >
-        </p>
         <v-list two-line>
           <template v-for="(item, index) in transactions_app">
             <v-divider :key="index + 'e'"></v-divider>
@@ -73,7 +68,21 @@
         </v-btn>
       </v-flex>
       <mov-info ref="modal"></mov-info>
-      <movement-filter ref="filter"></movement-filter>
+      <template v-if="hasFilterFab">
+        <movement-filter ref="filter" />
+        <v-btn
+          @click="handleShowFilter"
+          dark
+          fab
+          bottom
+          right
+          fixed
+          color="primary"
+          class="fab-btn"
+        >
+          <v-icon large>mdi-filter</v-icon>
+        </v-btn>
+      </template>
     </v-flex>
   </v-layout>
 </template>
@@ -91,6 +100,10 @@ export default {
       default: true
     },
     activeAutoScroll: {
+      type: Boolean,
+      default: true
+    },
+    hasFilterFab: {
       type: Boolean,
       default: true
     }

@@ -24,11 +24,16 @@
 
     <v-toolbar color="primary" dark>
       <v-toolbar-title>Actividad</v-toolbar-title>
+      <v-spacer />
+      <v-btn @click="handleShowFilter" color="white" small icon fab light>
+        <v-icon medium color="primary">mdi-filter</v-icon>
+      </v-btn>
     </v-toolbar>
-
+    <movement-filter ref="filter" />
     <app-movements
       :activeButton="false"
       :activeAutoScroll="false"
+      :hasFilterFab="false"
     ></app-movements>
   </v-layout>
 </template>
@@ -37,13 +42,15 @@ import MiniChart from "@/components/Widgets/Chart/MiniChart";
 import { lineChartJs as lineChartData } from "@/data/ChartWidget";
 import { mapActions } from "vuex";
 import AppMovements from "../Global/AppMovements";
+import MovementFilter from "../Global/MovementFilter";
 import { getDashboardGraph } from "@/api/modules";
 import DateFilter from "./DateFilter";
 export default {
   components: {
     MiniChart,
     AppMovements,
-    DateFilter
+    DateFilter,
+    MovementFilter
   },
   props: {
     payData: Object
@@ -159,6 +166,9 @@ export default {
       this.graphData.data.datasets[0].data = data.values;
       //=============================================
       this.activeGraph = true;
+    },
+    handleShowFilter() {
+      this.$refs.filter.show();
     }
   },
   mounted() {
