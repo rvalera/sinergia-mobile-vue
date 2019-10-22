@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container fill-height py-1>
     <v-layout row wrap justify-center>
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="0" class="text-xs-left px-3">
@@ -13,7 +13,7 @@
               Transacción exitosa
             </p>
           </div>
-          <p class="display-1 mb-3 font-weight-bold text-xs-center">
+          <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               receipt.amount
                 | currency("$", 2, {
@@ -21,6 +21,9 @@
                   decimalSeparator: ","
                 })
             }}
+          </p>
+          <p class="body-1 mb-3 text-xs-center">
+            {{ receipt.execution_date }}
           </p>
           <v-text-field
             label="Origen"
@@ -46,14 +49,8 @@
             filled
             readonly
           />
-          <v-text-field
-            label="Fecha"
-            v-model="receipt.execution_date"
-            filled
-            readonly
-          />
         </v-card>
-        <v-layout row class="mt-2" justify-space-around>
+        <v-layout justify-space-around>
           <v-flex xs5>
             <v-btn large round block color="primary">
               <v-icon left>share</v-icon>
