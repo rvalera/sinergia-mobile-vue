@@ -8,7 +8,7 @@
     app
     flat
   >
-    <v-btn v-if="hasBackButton" icon @click.stop="handleGoBackButton">
+    <v-btn v-if="hasBackButton" icon @click.stop="dialog = true">
       <v-icon>arrow_back</v-icon>
     </v-btn>
     <v-toolbar-side-icon
@@ -39,17 +39,17 @@
     <v-menu offset-y v-if="logged">
       <v-avatar color="secondary" slot="activator" size="40">
         <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
-        <span class="white--text">{{
-          user.person.fullname | first2Initials
-        }}</span>
+        <span class="white--text">
+          {{ user.person.fullname | first2Initials }}
+        </span>
       </v-avatar>
       <v-list dense>
         <v-list-tile avatar>
           <v-list-tile-avatar color="secondary">
             <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
-            <span class="white--text">{{
-              user.person.fullname | first2Initials
-            }}</span>
+            <span class="white--text">
+              {{ user.person.fullname | first2Initials }}
+            </span>
           </v-list-tile-avatar>
 
           <v-list-tile-content>
@@ -93,6 +93,21 @@
         </v-list-tile>
       </v-list>
     </v-menu>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">Cancelar operación</v-card-title>
+        <v-card-text>¿Seguro que desea salir de la operación?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.native="dialog = false"
+            >Cancelar</v-btn
+          >
+          <v-btn color="primary" flat @click.native="handleGoBackButton"
+            >Aceptar</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-toolbar>
 </template>
 <script>
@@ -119,6 +134,9 @@ export default {
       default: true
     }
   },
+  data: () => ({
+    dialog: false
+  }),
   computed: {
     ...mapGetters({
       user: "user",
@@ -136,6 +154,7 @@ export default {
       this.$store.dispatch("toggleMiniVarient");
     },
     handleGoBackButton() {
+      this.dialog = false;
       this.$store.dispatch("toggleDrawer", false);
       if (this.goHome) this.$router.push({ name: "Home" });
       else this.$router.back();
