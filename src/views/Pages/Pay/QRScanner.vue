@@ -4,7 +4,7 @@
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="0" class="pa-3">
           <v-icon x-large color="primary">photo_camera</v-icon>
-          <p class="title my-5 text-xs-left ">
+          <p class="title my-5 text-xs-center ">
             Escanea el código QR para realizar pago
           </p>
           <v-btn round large block color="primary" @click="startCamera"

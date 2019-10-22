@@ -21,7 +21,18 @@
             ></v-text-field>
           </v-form>
         </v-card>
-        <v-layout justify-space-around>
+        <v-layout justify-space-around class="put-bottom">
+          <v-flex xs5>
+            <v-btn
+              large
+              block
+              round
+              color="gray"
+              class="mt-4"
+              @click="$emit('back')"
+              >Volver</v-btn
+            >
+          </v-flex>
           <v-flex xs5>
             <v-btn
               large
@@ -33,17 +44,6 @@
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
               >{{ this.app_button_label }}</v-btn
-            >
-          </v-flex>
-          <v-flex xs5>
-            <v-btn
-              large
-              block
-              round
-              color="gray"
-              class="mt-4"
-              @click="$emit('back')"
-              >Volver</v-btn
             >
           </v-flex>
         </v-layout>

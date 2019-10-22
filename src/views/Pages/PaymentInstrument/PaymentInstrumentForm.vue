@@ -46,26 +46,32 @@
           format-data
           :invert-card.sync="invertedCard"
         />
-        <v-btn
-          large
-          round
-          block
-          color="primary"
-          class="mt-4"
-          :disabled="$v.$invalid"
-          :class="$v.$invalid ? '' : 'white--text'"
-          @click="submit"
-          >Guardar</v-btn
-        >
-        <v-btn
-          large
-          block
-          round
-          color="gray"
-          class="mt-4"
-          @click="() => $router.back()"
-          >Volver</v-btn
-        >
+        <v-layout justify-space-around class="put-bottom">
+          <v-flex xs5>
+            <v-btn
+              large
+              block
+              round
+              color="gray"
+              class="mt-4"
+              @click="() => $router.back()"
+              >Volver</v-btn
+            >
+          </v-flex>
+          <v-flex xs5>
+            <v-btn
+              large
+              round
+              block
+              color="primary"
+              class="mt-4"
+              :disabled="$v.$invalid"
+              :class="$v.$invalid ? '' : 'white--text'"
+              @click="submit"
+              >Guardar</v-btn
+            >
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>

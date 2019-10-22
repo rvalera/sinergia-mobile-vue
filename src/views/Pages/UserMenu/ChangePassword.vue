@@ -1,11 +1,11 @@
 <template>
   <v-layout wrap>
     <v-flex xs12>
-      <v-layout align-center>
+      <v-layout>
         <v-flex xs12>
           <v-card flat height="480" class="margin-auto transparent" width="360">
             <v-container fill-height pa-0>
-              <v-layout align-center>
+              <v-layout>
                 <v-flex xs12>
                   <v-card-text>
                     <v-form
@@ -53,23 +53,19 @@
                               required
                             ></v-text-field>
                           </v-flex>
-                          <v-flex xs12>
-                            <v-layout row wrap text-xs-left>
-                              <!-- Login form submit -->
-                              <v-flex xs12 class="no-mrpd">
-                                <v-btn
-                                  :loading="loader"
-                                  color="act"
-                                  block
-                                  type="submit"
-                                  :disabled="$v.$invalid"
-                                  class="ml-0"
-                                  :class="$v.$invalid ? '' : 'white--text'"
-                                  >Guardar</v-btn
-                                >
-                              </v-flex>
-                            </v-layout>
-                          </v-flex>
+                          <div class="put-bottom">
+                            <v-btn
+                              :loading="loader"
+                              color="primary"
+                              block
+                              round
+                              type="submit"
+                              :disabled="$v.$invalid"
+                              class="ml-0"
+                              :class="$v.$invalid ? '' : 'white--text'"
+                              >Guardar</v-btn
+                            >
+                          </div>
                         </v-layout>
                       </v-container>
                     </v-form>

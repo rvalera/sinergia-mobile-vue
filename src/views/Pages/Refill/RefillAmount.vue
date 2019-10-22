@@ -33,7 +33,7 @@
           </v-form>
         </v-card>
       </v-flex>
-      <v-layout justify-space-around>
+      <v-layout justify-space-around class="put-bottom">
         <v-flex xs5>
           <v-btn
             large

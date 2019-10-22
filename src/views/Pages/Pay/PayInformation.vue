@@ -25,18 +25,7 @@
             {{ payData.concept }}
           </p>
         </v-card>
-        <v-layout justify-space-around>
-          <v-flex xs5>
-            <v-btn
-              large
-              block
-              round
-              color="primary"
-              class="mt-4"
-              @click="$emit('next')"
-              >Siguiente</v-btn
-            >
-          </v-flex>
+        <v-layout justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
               large
@@ -46,6 +35,17 @@
               class="mt-4"
               @click="$emit('back')"
               >Volver</v-btn
+            >
+          </v-flex>
+          <v-flex xs5>
+            <v-btn
+              large
+              block
+              round
+              color="primary"
+              class="mt-4"
+              @click="$emit('next')"
+              >Siguiente</v-btn
             >
           </v-flex>
         </v-layout>

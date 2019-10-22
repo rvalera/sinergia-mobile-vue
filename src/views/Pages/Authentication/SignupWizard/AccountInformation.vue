@@ -21,9 +21,9 @@
                         <v-layout wrap>
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong class="primary--text">
-                                Datos personales
-                              </strong>
+                              <strong class="primary--text"
+                                >Datos personales</strong
+                              >
                             </div>
                           </v-flex>
                           <v-flex xs12 pa-0>
@@ -97,24 +97,19 @@
                               </v-date-picker>
                             </v-dialog>
                           </v-flex>
-
-                          <v-flex xs12>
-                            <v-layout row wrap text-xs-left>
-                              <!-- Login form submit -->
-                              <v-flex xs12 class="no-mrpd">
-                                <v-btn
-                                  :loading="loader"
-                                  color="act"
-                                  block
-                                  type="submit"
-                                  :disabled="$v.$invalid"
-                                  class="ml-0"
-                                  :class="$v.$invalid ? '' : 'white--text'"
-                                  >Continue</v-btn
-                                >
-                              </v-flex>
-                            </v-layout>
-                          </v-flex>
+                          <div class="put-bottom">
+                            <v-btn
+                              :loading="loader"
+                              color="primary"
+                              block
+                              round
+                              type="submit"
+                              :disabled="$v.$invalid"
+                              class="ml-0"
+                              :class="$v.$invalid ? '' : 'white--text'"
+                              >Continue</v-btn
+                            >
+                          </div>
                         </v-layout>
                       </v-container>
                     </v-form>
