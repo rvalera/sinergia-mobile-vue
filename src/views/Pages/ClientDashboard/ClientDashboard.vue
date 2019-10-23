@@ -5,14 +5,14 @@
       <v-card elevation="0" class="text-xs-left pa-1">
         <v-flex>
           <mini-chart
-            v-if="this.activeGraph"
+            v-if="activeGraph"
             class="box-white-500-glow"
             type="line-chart"
             title="Balance"
             sub-title="to target"
             icon="trending_up"
             icon-color="success"
-            subtitle-large="45,00 VR"
+            :subtitle-large="balance.format() + ' Vr'"
             pre-subtitle="28%"
             :data="this.setGraphData.data"
             :option="this.setGraphData.option"
@@ -42,8 +42,9 @@ import { lineChartJs as lineChartData } from "@/data/ChartWidget";
 import { mapActions } from "vuex";
 import AppMovements from "../Global/AppMovements";
 import MovementFilter from "../Global/MovementFilter";
-import { getDashboardGraph } from "@/api/modules";
+//import { getDashboardGraph } from "@/api/modules";
 import DateFilter from "./DateFilter";
+//import "../../../assets/utils";
 export default {
   components: {
     MiniChart,
@@ -59,6 +60,7 @@ export default {
     return {
       height: window.innerHeight - 72, // 72 is stepper header size
       loader: false,
+      balance: 0,
       modal: false,
       lineChartData,
       activeGraph: false,
@@ -154,15 +156,45 @@ export default {
     },
 
     async getGraphData(person_id, filter = {}) {
-      var serviceResponse = await getDashboardGraph(person_id, filter);
-      let data = serviceResponse.data;
+      console.log(person_id + filter);
+      //var serviceResponse = await getDashboardGraph(person_id, filter);
+      //let data = serviceResponse.data;
+      //codigo piloto para data de api en progreso
+      var response = {
+        ok: 1,
+        data: {
+          current_balance: 850.36,
+          daily_balance: {
+            "18-10": 888.58,
+            "19-10": 718,
+            "20-10": 850.36,
+            "21-10": 878.58,
+            "22-10": 748,
+            "23-10": 850.36
+          }
+        }
+      };
+      //==================================================
+      let labels = [];
+      let datasets = [];
+      let data = response.data;
+      this.balance = data.current_balance;
+      for (let item in data.daily_balance) {
+        console.log(item + " " + data.daily_balance[item]);
+        labels.push(item.toString());
+        datasets.push(data.daily_balance[item]);
+      }
+
       //this is data to fill graph width
-      data.labels.push("");
-      data.labels.splice(0, 0, "");
-      data.values.push(data.values[data.values.length - 1]);
-      data.values.splice(0, 0, data.values[0]);
-      this.graphData.data.labels = data.labels;
-      this.graphData.data.datasets[0].data = data.values;
+      labels.push("");
+      labels.splice(0, 0, "");
+      datasets.push(datasets[datasets.length - 1]);
+      datasets.splice(0, 0, datasets[0]);
+
+      console.log(labels);
+      console.log(datasets);
+      this.graphData.data.labels = labels;
+      this.graphData.data.datasets[0].data = datasets;
       //=============================================
       this.activeGraph = true;
     },
