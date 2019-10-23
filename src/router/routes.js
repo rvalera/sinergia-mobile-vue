@@ -22,6 +22,7 @@ import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstru
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
 import ClientDashboard from "@/views/Pages/ClientDashboard/ClientDashboard";
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
+import LiquidationList from "@/views/Pages/Liquidation/LiquidationList";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -213,6 +214,20 @@ export const routes = [
       default: ChangeOperationKey,
       sidebar: AppSidebar,
       header: AppToolbar
+    }
+  },
+  {
+    path: "/liquidation",
+    name: "LiquidationList",
+    components: {
+      default: LiquidationList,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        title: "Liquidaciones"
+      }
     }
   },
   {

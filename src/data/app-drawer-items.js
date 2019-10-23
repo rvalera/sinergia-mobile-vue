@@ -35,7 +35,7 @@ export default [
       }
     ]
   },
-  { icon: "check", title: "Liquidaciones", name: "/Error404" },
+  { icon: "check", title: "Liquidaciones", name: "LiquidationList" },
   {
     icon: "airline_seat_recline_normal",
     title: "Operadores",
