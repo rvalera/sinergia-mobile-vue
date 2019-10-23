@@ -3,7 +3,15 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
-          <template v-for="(item, index) in paymentInstruments">
+          <template v-if="fetched && !paymentInstruments.length">
+            <v-alert :value="true" color="warning" icon="priority_high" outline>
+              <p class="title text-xs-center">No posee tarjetas aún</p>
+            </v-alert>
+          </template>
+          <template
+            v-else-if="fetched && paymentInstruments.length"
+            v-for="(item, index) in paymentInstruments"
+          >
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile
               :key="item.id"
@@ -46,6 +54,7 @@ import { getPaymentInstrumentApi } from "@/api/modules";
 export default {
   data: () => ({
     paymentInstruments: [],
+    fetched: false,
     paymentInsturmentImg: "static/paymentInstrument.png"
   }),
   methods: {
@@ -53,6 +62,7 @@ export default {
       var serviceResponse = await getPaymentInstrumentApi();
       if (serviceResponse.ok) {
         this.paymentInstruments = serviceResponse.data;
+        this.fetched = true;
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
