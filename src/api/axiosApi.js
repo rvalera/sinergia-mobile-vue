@@ -12,7 +12,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
 
   if (!options.hasOwnProperty("headers")) options.headers = defaultHeaders;
 
-  let serviceResponse = { ...customResponse };
+  let serviceResponse = {};
 
   method = method.toLowerCase();
   const servicePromise = axios({
@@ -25,9 +25,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
   try {
     window.getApp.$emit("LOADING", true);
     const [materializedPromise] = await Promise.all([servicePromise]);
-    serviceResponse.ok = materializedPromise.data.ok;
-    serviceResponse.data = materializedPromise.data.data;
-    serviceResponse.message = materializedPromise.data.message;
+    serviceResponse = { ...materializedPromise.data };
   } catch (error) {
     serviceResponse = buildErrorMessage(error);
   }
@@ -37,26 +35,25 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
 
 function buildErrorMessage(error) {
   console.error(error.response);
+  let errorResponse = {
+    ok: 0,
+    message: {
+      code: String,
+      text: String
+    }
+  };
   if (typeof error.response === "undefined")
-    customResponse.message.text = "Error General de la Aplicacion";
+    errorResponse.message.text = "Error General de la Aplicacion";
   else if (error.response.status == 401)
-    customResponse.message.text = "Credenciales incorrectas";
+    errorResponse.message.text = "Credenciales incorrectas";
   else if (error.response.status == 404)
-    customResponse.message.text = "Servicio no disponible";
+    errorResponse.message.text = "Servicio no disponible";
   else if (error.response.status == 500)
-    customResponse.message.text = "Error de conexión";
+    errorResponse.message.text = "Error de conexión";
   else if (error.response.status == 405 || error.response.status == 406)
-    customResponse.message.text = "Solicitud invalida";
-  else customResponse.message.text = error.response.data.message.text;
-  customResponse.ok = 0;
-  customResponse.message.code = "E999";
-  return customResponse;
+    errorResponse.message.text = "Solicitud invalida";
+  else errorResponse.message.text = error.response.data.message.text;
+  errorResponse.ok = 0;
+  errorResponse.message.code = "E999";
+  return errorResponse;
 }
-
-var customResponse = {
-  ok: 1,
-  message: {
-    code: String,
-    text: String
-  }
-};

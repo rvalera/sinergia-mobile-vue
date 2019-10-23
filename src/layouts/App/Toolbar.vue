@@ -99,10 +99,8 @@
         <v-card-text>¿Seguro que desea salir de la operación?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog = false"
-            >Cancelar</v-btn
-          >
-          <v-btn color="primary" flat @click.native="handleGoBackButton"
+          <v-btn color="primary" @click.native="dialog = false">Cancelar</v-btn>
+          <v-btn color="primary" @click.native="handleGoBackButton"
             >Aceptar</v-btn
           >
         </v-card-actions>
