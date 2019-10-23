@@ -54,9 +54,12 @@
           </template>
         </v-list>
       </v-card>
-      <v-flex xs12 sm6 class="text-xs-center">
-        <v-btn
-          v-if="activeButton"
+      <v-flex v-if="activeAutoScroll" xs12 sm6 class="text-xs-center">
+        <div v-if="this.arrLength != this.transactions_app.length">
+          <v-progress-circular indeterminate color="primary" class="bottom" />
+        </div>
+        <!-- <v-btn
+          v-if="activeAutoScroll"
           block
           color="primary"
           text-color="white"
@@ -65,7 +68,7 @@
           <v-icon class="paddingBottom: 10px" color="white"
             >mdi-chevron-double-down</v-icon
           >
-        </v-btn>
+        </v-btn> -->
       </v-flex>
       <mov-info ref="modal"></mov-info>
       <template v-if="hasFilterFab">
@@ -95,10 +98,6 @@ import "../../../assets/utils";
 
 export default {
   props: {
-    activeButton: {
-      type: Boolean,
-      default: true
-    },
     activeAutoScroll: {
       type: Boolean,
       default: true
@@ -113,7 +112,9 @@ export default {
     transactions: [],
     filter: {},
     person_id: localStorage.person_id,
-    type: "number"
+    type: "number",
+    bottom: false,
+    arrLength: 0 //this used where lengt in array transaccitons is equals to latest
   }),
   computed: {
     ...mapGetters(["transactions_app", "filter_app"]),
@@ -129,19 +130,31 @@ export default {
         easing: "easeInOutCubic"
       };
     },
-    setActiveButton() {
-      return this.activeButton;
+    setactiveAutoScroll() {
+      return this.activeAutoScroll;
     }
   },
-
+  watch: {
+    bottom(bottom) {
+      if (bottom) {
+        this.handleLoadMov();
+      }
+    }
+  },
   methods: {
     ...mapActions(["setTransactionsApp"]),
-
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
+    },
     async handleClick(data) {
       this.$refs.modal.show(data);
     },
     handleLoadMov() {
-      this.transactions = this.transactions_app;
+      this.arrLength = this.transactions_app.length;
       this.filter = this.filter_app;
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
@@ -155,10 +168,16 @@ export default {
     }
   },
   updated() {
-    if (this.activeAutoScroll) window.scrollTo(0, document.body.scrollHeight);
+    //if (this.activeAutoScroll) window.scrollTo(0, document.body.scrollHeight);
   },
   async mounted() {
+    console.log(this.activeAutoScroll);
     this.filter.page = 1;
+    //event to listen scroll botton
+    if (this.activeAutoScroll)
+      window.addEventListener("scroll", () => {
+        this.bottom = this.bottomVisible();
+      });
   }
 };
 </script>

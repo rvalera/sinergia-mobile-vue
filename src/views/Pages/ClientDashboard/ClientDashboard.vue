@@ -31,7 +31,6 @@
     </v-toolbar>
     <movement-filter ref="filter" />
     <app-movements
-      :activeButton="false"
       :activeAutoScroll="false"
       :hasFilterFab="false"
     ></app-movements>

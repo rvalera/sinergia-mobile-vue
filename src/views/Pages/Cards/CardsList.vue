@@ -132,7 +132,7 @@ export default {
     async showMovementsByCard(data) {
       let filter = {
         page: 1,
-        perPage: 5,
+        perPage: 10,
         id: data.id
       };
 
