@@ -9,7 +9,7 @@
           <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
             <v-text-field
               class="box-input"
-              placeholder="Ingrese su clave de operaciones"
+              :placeholder="$t('common.typeYourOperationKey')"
               type="password"
               v-model="operation_key"
               :error-messages="fieldErrors('operation_key')"
@@ -30,7 +30,7 @@
               color="gray"
               class="mt-4"
               @click="$emit('back')"
-              >Volver</v-btn
+              >{{ $t("common.goBack") }}</v-btn
             >
           </v-flex>
           <v-flex xs5>
@@ -53,14 +53,14 @@
 </template>
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 import { mapGetters } from "vuex";
 import md5 from "md5";
 export default {
   props: {
     operation_key_md5: String
   },
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     operation_key: {
       required,
@@ -69,8 +69,8 @@ export default {
   },
   validationMessages: {
     operation_key: {
-      required: "Clave requerida",
-      minLength: "Clave debe ser de 8 caracteres"
+      required: "validation.operationKey.required",
+      minLength: "validation.operationKey.minLength"
     }
   },
   data() {
@@ -86,7 +86,7 @@ export default {
       if (md5(this.operation_key) === this.operation_key_md5) {
         this.$emit("success");
       } else {
-        const params = { text: "Clave invalida" };
+        const params = { text: this.$t("message.invalidKey") };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     }

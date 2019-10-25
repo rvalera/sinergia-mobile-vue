@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n";
 import AppSidebar from "@/layouts/App/NavDrawer";
 import AppToolbar from "@/layouts/App/Toolbar";
 //import AppFooter from "@/layouts/App/Footer";
@@ -48,7 +49,7 @@ export const routes = [
     props: {
       header: {
         hasBackButton: true,
-        title: "Pago con QR"
+        title: i18n.t("toolbar.titles.payWithQr")
       }
     }
   },
@@ -100,7 +101,7 @@ export const routes = [
         logged: false,
         hasBackButton: true,
         goHome: false,
-        title: "Completar registro"
+        title: i18n.t("toolbar.titles.finishSignup")
       }
     }
   },
@@ -115,7 +116,7 @@ export const routes = [
     props: {
       header: {
         hasBackButton: true,
-        title: "Transferir saldo"
+        title: i18n.t("menu.transferBalance")
       }
     }
   },
@@ -129,7 +130,7 @@ export const routes = [
     },
     props: {
       header: {
-        title: "Tarjetas"
+        title: i18n.t("menu.card")
       }
     }
   },
@@ -144,7 +145,7 @@ export const routes = [
     props: {
       header: {
         hasBackButton: true,
-        title: "PIN"
+        title: i18n.t("menu.pin")
       }
     }
   },
@@ -158,7 +159,7 @@ export const routes = [
     },
     props: {
       header: {
-        title: "Movimientos"
+        title: i18n.t("menu.movements")
       }
     }
   },
@@ -172,7 +173,7 @@ export const routes = [
     },
     props: {
       header: {
-        title: "Medios de recarga"
+        title: i18n.t("menu.paymentInstruments")
       }
     }
   },
@@ -188,7 +189,7 @@ export const routes = [
       header: {
         hasBackButton: true,
         goHome: false,
-        title: "Medios de recarga"
+        title: i18n.t("menu.paymentInstruments")
       }
     }
   },
@@ -203,7 +204,7 @@ export const routes = [
     props: {
       header: {
         hasBackButton: true,
-        title: "Recargar saldo"
+        title: i18n.t("menu.refillBalance")
       }
     }
   },
@@ -226,7 +227,7 @@ export const routes = [
     },
     props: {
       header: {
-        title: "Liquidaciones"
+        title: i18n.t("menu.liquidations")
       }
     }
   },

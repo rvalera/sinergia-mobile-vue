@@ -1,78 +1,111 @@
+import { i18n } from "@/i18n";
 export default [
   { header: "Menu" },
   { icon: "bar_chart", title: "Dashboard Cliente", name: "ClientDashboard" },
   { icon: "bar_chart", title: "Dashboard Afiliado", name: "/Error404" },
   {
     icon: "credit_card",
-    title: "Tarjeta",
+    title: i18n.t("menu.card"),
     group: "",
     items: [
-      { prependIcon: "card_giftcard", title: "Solicitud ", name: "CardsList" },
+      {
+        prependIcon: "card_giftcard",
+        title: i18n.t("menu.cardList"),
+        name: "CardsList"
+      },
       {
         prependIcon: "verified_user",
-        title: "Activar",
+        title: i18n.t("menu.activate"),
         name: "Error404"
       },
-      { prependIcon: "lock", title: "Bloqueo/Desbloqueo", name: "Error404" },
-      { prependIcon: "fiber_pin", title: "PIN", name: "CardsPinStepper" }
+      {
+        prependIcon: "lock",
+        title: i18n.t("menu.lock_unlock"),
+        name: "Error404"
+      },
+      {
+        prependIcon: "fiber_pin",
+        title: i18n.t("menu.pin"),
+        name: "CardsPinStepper"
+      }
     ]
   },
   {
     icon: "phonelink_ring",
-    title: "Puntos de Venta",
+    title: i18n.t("menu.devices"),
     group: "",
     items: [
-      { prependIcon: "list", title: "Movimientos", name: "Error404" },
+      {
+        prependIcon: "list",
+        title: i18n.t("menu.movements"),
+        name: "Error404"
+      },
       {
         prependIcon: "phonelink_lock",
-        title: "Bloquear/Desbloquear",
+        title: i18n.t("menu.lock_unlock"),
         name: "Error404"
       },
       {
         prependIcon: "airline_seat_recline_normal",
-        title: "Asignar Operador",
+        title: i18n.t("menu.setOperator"),
         name: "Error404"
       }
     ]
   },
-  { icon: "check", title: "Liquidaciones", name: "LiquidationList" },
+  {
+    icon: "check",
+    title: i18n.t("menu.liquidations"),
+    name: "LiquidationList"
+  },
   {
     icon: "airline_seat_recline_normal",
-    title: "Operadores",
+    title: i18n.t("menu.operators"),
     name: "/Error404"
   },
   {
     icon: "attach_money",
-    title: "Transacciones",
+    title: i18n.t("menu.transactions"),
     group: "",
     items: [
-      { prependIcon: "local_atm", title: "Pago con QR", name: "PayStepper" },
+      {
+        prependIcon: "local_atm",
+        title: i18n.t("menu.qrPay"),
+        name: "PayStepper"
+      },
       {
         prependIcon: "speaker_phone",
-        title: "Pago Confiable",
+        title: i18n.t("menu.reliablePay"),
         name: "Error404"
       },
       {
         prependIcon: "arrow_forward",
-        title: "Transferir Saldo",
+        title: i18n.t("menu.transferBalance"),
         name: "TransferStepper"
       },
       {
         prependIcon: "arrow_back",
-        title: "Recargar Saldo",
+        title: i18n.t("menu.refillBalance"),
         name: "RefillStepper"
       },
       {
         prependIcon: "how_to_reg",
-        title: "Generar Pago Confiable",
+        title: i18n.t("menu.generateReliablePay"),
         name: "Error404"
       }
     ]
   },
-  { icon: "contacts", title: "Directorio", name: "/Error404" },
-  { icon: "360", title: "Medios de Recarga", name: "PaymentInstrumentList" },
-  { icon: "settings", title: "Configuración", name: "/Error404" },
-  { icon: "notifications", title: "Notificaciones", name: "/Error404" }
+  { icon: "contacts", title: i18n.t("menu.directory"), name: "/Error404" },
+  {
+    icon: "360",
+    title: i18n.t("menu.paymentInstruments"),
+    name: "PaymentInstrumentList"
+  },
+  { icon: "settings", title: i18n.t("menu.settings"), name: "/Error404" },
+  {
+    icon: "notifications",
+    title: i18n.t("menu.notifications"),
+    name: "/Error404"
+  }
   // {
   //   icon: "pages",
   //   title: "Seguridad",

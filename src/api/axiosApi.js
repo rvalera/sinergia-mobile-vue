@@ -1,4 +1,5 @@
 import axios from "axios";
+import { i18n } from "@/i18n";
 
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 
@@ -43,15 +44,15 @@ function buildErrorMessage(error) {
     }
   };
   if (typeof error.response === "undefined")
-    errorResponse.message.text = "Error General de la Aplicacion";
+    errorResponse.message.text = i18n.t("message.apiErrorUndefined");
   else if (error.response.status == 401)
-    errorResponse.message.text = "Credenciales incorrectas";
+    errorResponse.message.text = i18n.t("message.apiError401");
   else if (error.response.status == 404)
-    errorResponse.message.text = "Servicio no disponible";
+    errorResponse.message.text = i18n.t("message.apiError404");
   else if (error.response.status == 500)
-    errorResponse.message.text = "Error de conexión";
+    errorResponse.message.text = i18n.t("message.apiError500");
   else if (error.response.status == 405 || error.response.status == 406)
-    errorResponse.message.text = "Solicitud invalida";
+    errorResponse.message.text = i18n.t("message.apiError405_406");
   else errorResponse.message.text = error.response.data.message.text;
   errorResponse.ok = 0;
   errorResponse.message.code = "E999";

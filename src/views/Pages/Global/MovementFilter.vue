@@ -11,7 +11,9 @@
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Filtrar movimientos</v-toolbar-title>
+          <v-toolbar-title>{{
+            $t("movementsFilter.filterMovements")
+          }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fill-height>
@@ -34,7 +36,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="filter.start_date"
-                        label="Fecha Inicio"
+                        :label="$t('movementsFilter.startDate')"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -57,7 +59,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="filter.end_date"
-                        label="Fecha Fin"
+                        :label="$t('movementsFilter.endDate')"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -71,26 +73,26 @@
                   <v-select
                     :items="movementTypes"
                     color="primary"
-                    label="Tipo de movimiento"
+                    :label="$t('movementsFilter.movementType')"
                     v-model="filter.type"
                     class="box-input"
                   />
                   <v-text-field
                     color="primary"
-                    label="Monto desde"
+                    :label="$t('movementsFilter.startAmount')"
                     type="number"
                     v-model="filter.min_amount"
                   />
                   <v-text-field
                     color="primary"
-                    label="Monto hasta"
+                    :label="$t('movementsFilter.endAmount')"
                     type="number"
                     v-model="filter.max_amount"
                   />
                 </v-list>
-                <v-btn large round block color="primary" @click="makeFilter"
-                  >Filtrar</v-btn
-                >
+                <v-btn large round block color="primary" @click="makeFilter">{{
+                  $t("movementsFilter.filter")
+                }}</v-btn>
               </v-card>
             </v-flex>
           </v-layout>

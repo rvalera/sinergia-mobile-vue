@@ -7,11 +7,11 @@
             <v-icon x-large color="primary">receipt</v-icon>
           </div>
           <p class="subheading my-4">
-            <b>Destino:</b>
+            <b>{{ $t("pay.destination") }}:</b>
             {{ payData.target }}
           </p>
           <p class="subheading my-4">
-            <b>Monto:</b>
+            <b>{{ $t("common.amount") }}:</b>
             {{
               payData.amount
                 | currency("$", 2, {
@@ -21,7 +21,7 @@
             }}
           </p>
           <p class="subheading my-4">
-            <b>Concepto:</b>
+            <b>{{ $t("pay.concept") }}:</b>
             {{ payData.concept }}
           </p>
         </v-card>
@@ -34,7 +34,7 @@
               color="gray"
               class="mt-4"
               @click="$emit('back')"
-              >Volver</v-btn
+              >{{ $t("common.goBack") }}</v-btn
             >
           </v-flex>
           <v-flex xs5>
@@ -45,7 +45,7 @@
               color="primary"
               class="mt-4"
               @click="$emit('next')"
-              >Siguiente</v-btn
+              >{{ $t("common.next") }}</v-btn
             >
           </v-flex>
         </v-layout>

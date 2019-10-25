@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n";
 export const USER_STATUS_PENDING = "P";
 export const USER_TYPE_APP = "A";
 export const USER_TYPE_WORKSTATION = "W";
@@ -5,18 +6,23 @@ export const USER_TYPE_WORKSTATION = "W";
 export const movementTypes = [
   {
     value: "T",
-    text: "Todas "
+    text: i18n.t("constant.all")
   },
   {
     value: "A",
-    text: "Activación"
+    text: i18n.t("constant.activation")
   },
   {
     value: "R",
-    text: "Recarga"
+    text: i18n.t("constant.refill")
   },
   {
     value: "P",
-    text: "Pago"
+    text: i18n.t("constant.pay")
   }
+];
+
+export const genders = [
+  { text: i18n.t("constant.male"), value: "M" },
+  { text: i18n.t("constant.female"), value: "F" }
 ];

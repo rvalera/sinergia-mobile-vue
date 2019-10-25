@@ -11,7 +11,7 @@
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Detalle de la liquidación</v-toolbar-title>
+          <v-toolbar-title>{{ $t("liquidation.detail") }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fill-height>
@@ -22,31 +22,31 @@
                   <v-spacer></v-spacer>
                   <v-layout column v-if="liquidation">
                     <v-text-field
-                      label="Balance inicial"
+                      :label="$t('liquidation.initialBalance')"
                       v-model="liquidation.initial_balance"
                       filled
                       readonly
                     />
                     <v-text-field
-                      label="Balance final"
+                      :label="$t('liquidation.finalBalance')"
                       v-model="liquidation.final_balance"
                       filled
                       readonly
                     />
                     <v-text-field
-                      label="Fecha de creación"
+                      :label="$t('liquidation.creationDate')"
                       v-model="liquidation.creation_date"
                       filled
                       readonly
                     />
                     <v-text-field
-                      label="Tipo de liquidación"
+                      :label="$t('liquidation.liquidationType')"
                       v-model="liquidation.liquidation_type_str"
                       filled
                       readonly
                     />
                     <v-text-field
-                      label="Monto adeudado"
+                      :label="$t('liquidation.debtAmount')"
                       v-model="liquidation.debt_amount"
                       filled
                       readonly

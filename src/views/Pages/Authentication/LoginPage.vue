@@ -14,7 +14,7 @@
                   class="text-xs-center"
                   height="100"
                 />
-                <div class="headline">Iniciar sesión</div>
+                <div class="headline">{{ $t("login.title") }}</div>
                 <v-form
                   @submit.prevent="$v.$invalid ? null : submit()"
                   ref="form"
@@ -23,7 +23,7 @@
                     <v-flex xs12 pa-0>
                       <v-text-field
                         color="primary"
-                        label="Correo"
+                        :label="$t('common.email')"
                         v-model="form.email"
                         required
                         :error-messages="fieldErrors('form.email')"
@@ -32,7 +32,7 @@
 
                       <v-text-field
                         color="primary"
-                        label="Contraseña"
+                        :label="$t('common.password')"
                         v-model="form.password"
                         type="password"
                         required
@@ -51,7 +51,7 @@
                             :disabled="$v.$invalid"
                             block
                             :class="$v.$invalid ? '' : 'white--text'"
-                            >Login</v-btn
+                            >{{ $t("login.title") }}</v-btn
                           >
                         </v-flex>
                         <!-- Forgot password -->
@@ -61,7 +61,7 @@
                             tag="div"
                             class="grey--text cursor-pointer"
                           >
-                            <strong>¿Olvidaste la contraseña?</strong>
+                            <strong>{{ $t("forgotPassword.title") }}</strong>
                           </router-link>
                         </v-flex>
                         <!-- Sign up -->
@@ -71,7 +71,7 @@
                             tag="div"
                             class="grey--text cursor-pointer"
                           >
-                            <strong>¿No tienes una cuenta?</strong>
+                            <strong>{{ $t("login.dontHaveAccount") }}</strong>
                           </router-link>
                         </v-flex>
                       </v-layout>
@@ -88,30 +88,41 @@
 </template>
 
 <script>
-import { required, email, minLength } from "vuelidate/lib/validators";
+import {
+  required,
+  email,
+  minLength,
+  maxLength
+} from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 const defaultForm = {
   email: "",
   password: ""
 };
 export default {
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     form: {
       email: { required, email },
-      password: { required, minLength: minLength(5) }
+      password: {
+        required,
+        minLength: minLength(8),
+        maxLength: maxLength(32)
+      }
     }
   },
   validationMessages: {
     form: {
       email: {
-        required: "Por favor ingresa un correo",
-        email: "Correo debe ser valido"
+        required: "validation.email.required",
+        email: "validation.email.valid"
       },
       password: {
-        required: "Por favor ingresa la contraseña",
-        minLength: "Contraseña debe ser de al menos 6 caracteres"
+        required: "validation.password.required",
+        minLength: "validation.password.min",
+        maxLength: "validation.password.max",
+        validPassword: "validation.password.validPassword"
       }
     }
   },

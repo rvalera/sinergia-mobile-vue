@@ -24,7 +24,7 @@
           </v-list-tile>
           <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
             <money
-              label="Monto"
+              :label="$t('common.amount')"
               v-model="amount"
               v-bind="money"
               class="currencyInput"
@@ -42,7 +42,7 @@
             color="gray"
             class="mt-4"
             @click="$emit('back')"
-            >Volver</v-btn
+            >{{ $t("common.goBack") }}</v-btn
           >
         </v-flex>
         <v-flex xs5>
@@ -55,7 +55,7 @@
             :disabled="$v.$invalid || !paymentInstrumentSelected"
             :class="$v.$invalid ? '' : 'white--text'"
             @click="submit"
-            >Siguiente</v-btn
+            >{{ $t("common.next") }}</v-btn
           >
         </v-flex>
       </v-layout>
@@ -64,14 +64,14 @@
 </template>
 <script>
 import { minValue } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 import { Money } from "v-money";
 export default {
   components: { Money },
   props: {
     paymentInstrumentSelected: Object
   },
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     amount: {
       minValue: minValue(0.01)
@@ -79,7 +79,7 @@ export default {
   },
   validationMessages: {
     amount: {
-      minValue: "Monto es requerido"
+      required: "validation.fieldRequired"
     }
   },
   data() {

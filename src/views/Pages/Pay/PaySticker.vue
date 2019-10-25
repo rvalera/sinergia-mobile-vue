@@ -11,22 +11,22 @@
                 </div>
                 <v-layout wrap>
                   <p class="subheading my-4">
-                    <b>Destino:</b>
+                    <b>{{ $t("pay.destination") }}:</b>
                     {{ payData.target }}
                     <br />
                     <br />
-                    <b>Nombre:</b>
+                    <b>{{ $t("common.firstName") }}:</b>
                     {{ payData.target_name }}
                     <br />
                     <br />
-                    <b>Terminal:</b>
+                    <b>{{ $t("pay.device") }}:</b>
                     {{ payData.terminal }}
                   </p>
 
                   <v-flex xs12 pa-0>
                     <v-text-field
                       color="primary"
-                      label="Monto"
+                      :label="$t('common.amount')"
                       type="number"
                       v-model="form.amount"
                       required
@@ -35,7 +35,7 @@
                     ></v-text-field>
                     <v-text-field
                       color="primary"
-                      label="Concepto"
+                      :label="$t('pay.concept')"
                       v-model="form.description"
                       required
                       :error-messages="fieldErrors('form.description')"
@@ -56,7 +56,7 @@
                           :disabled="$v.$invalid"
                           class="ml-0"
                           :class="$v.$invalid ? '' : 'white--text'"
-                          >Continue</v-btn
+                          >{{ $t("common.next") }}</v-btn
                         >
                         <v-btn
                           large
@@ -65,7 +65,7 @@
                           color="gray"
                           class="mt-4"
                           @click="$emit('back')"
-                          >Volver</v-btn
+                          >{{ $t("common.goBack") }}</v-btn
                         >
                       </v-flex>
                     </v-layout>
@@ -82,7 +82,7 @@
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 const defaultForm = {
   description: null,
   amount: null
@@ -91,7 +91,7 @@ export default {
   props: {
     payData: Object
   },
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     form: {
       description: { required },
@@ -101,10 +101,10 @@ export default {
   validationMessages: {
     form: {
       description: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       amount: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       }
     }
   },

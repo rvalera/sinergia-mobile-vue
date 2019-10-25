@@ -16,9 +16,9 @@
       </v-container>
     </v-flex>
     <div class="put-bottom">
-      <v-btn color="primary" round block @click="$emit('next')" class="ml-0"
-        >Continue</v-btn
-      >
+      <v-btn color="primary" round block @click="$emit('next')" class="ml-0">{{
+        $t("common.continue")
+      }}</v-btn>
     </div>
   </v-layout>
 </template>

@@ -66,7 +66,7 @@
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Perfil de usuario</v-list-tile-title>
+          <v-list-tile-title>{{ $t("toolbar.profileUser") }}</v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           @click="() => $router.push({ name: 'ChangePasswordPage' })"
@@ -74,7 +74,9 @@
           <v-list-tile-avatar>
             <v-icon>vpn_key</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Cambiar contraseña</v-list-tile-title>
+          <v-list-tile-title>{{
+            $t("toolbar.changePassword")
+          }}</v-list-tile-title>
         </v-list-tile>
         <v-list-tile
           @click="() => $router.push({ name: '/ChangeOperationKey' })"
@@ -82,27 +84,31 @@
           <v-list-tile-avatar>
             <v-icon>person</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Clave de operaciones</v-list-tile-title>
+          <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">
           <v-list-tile-avatar>
             <v-icon>power_settings_new</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title>Cerrar sesión</v-list-tile-title>
+          <v-list-tile-title>{{ $t("toolbar.logout") }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">Cancelar operación</v-card-title>
-        <v-card-text>¿Seguro que desea salir de la operación?</v-card-text>
+        <v-card-title class="headline">{{
+          $t("common.cancelOperation")
+        }}</v-card-title>
+        <v-card-text>{{ $t("common.cancelOperationQuestion") }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click.native="dialog = false">Cancelar</v-btn>
-          <v-btn color="primary" @click.native="handleGoBackButton"
-            >Aceptar</v-btn
-          >
+          <v-btn color="primary" @click.native="dialog = false">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn color="primary" @click.native="handleGoBackButton">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

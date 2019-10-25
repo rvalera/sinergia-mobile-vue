@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       title: "500",
-      description: `Whoops! Internal Server Error`
+      description: this.$t("error500.description")
     };
   },
   components: {

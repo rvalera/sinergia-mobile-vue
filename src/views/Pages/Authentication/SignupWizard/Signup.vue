@@ -1,26 +1,32 @@
 <template>
   <v-layout column wrap class="pos-relative">
-    <!--     <v-toolbar dense flat class="transparent pos-top-1px">
-      <v-btn icon @click="() => $router.push({ name: 'LoginPage' })">
-        <v-icon> keyboard_backspace </v-icon> 
-      </v-btn>
-    </v-toolbar> -->
     <v-flex xs12>
       <v-stepper v-model="stage" non-linear>
         <v-stepper-header>
-          <v-stepper-step :editable="stage > 1" step="1" :complete="stage > 1"
-            >Bienvenido</v-stepper-step
+          <v-stepper-step
+            :editable="stage > 1"
+            step="1"
+            :complete="stage > 1"
+            >{{ $t("common.welcome") }}</v-stepper-step
           >
           <v-divider></v-divider>
-          <v-stepper-step :editable="stage > 2" step="2" :complete="stage > 2"
-            >Contraseña</v-stepper-step
+          <v-stepper-step
+            :editable="stage > 2"
+            step="2"
+            :complete="stage > 2"
+            >{{ $t("common.password") }}</v-stepper-step
           >
           <v-divider></v-divider>
-          <v-stepper-step :editable="stage > 3" step="3" :complete="stage > 3"
-            >Datos personales</v-stepper-step
+          <v-stepper-step
+            :editable="stage > 3"
+            step="3"
+            :complete="stage > 3"
+            >{{ $t("common.personalInformation") }}</v-stepper-step
           >
           <v-divider></v-divider>
-          <v-stepper-step step="4">Clave especial</v-stepper-step>
+          <v-stepper-step step="4">{{
+            $t("common.operationKey")
+          }}</v-stepper-step>
         </v-stepper-header>
 
         <v-stepper-content step="1" class="no-mrpd">

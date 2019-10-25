@@ -5,7 +5,7 @@
         <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
           <v-text-field
             class="box-input"
-            placeholder="Número de tarjeta"
+            :placeholder="$t('paymentInstrument.cardNumber')"
             v-model="form.number"
             :error-messages="fieldErrors('form.number')"
             @input="$v.form.number.$touch()"
@@ -15,7 +15,7 @@
           />
           <v-text-field
             class="box-input"
-            placeholder="Fecha de vencimiento"
+            :placeholder="$t('paymentInstrument.expiryDate')"
             v-model="form.expiry"
             :error-messages="fieldErrors('form.expiry')"
             @input="$v.form.expiry.$touch()"
@@ -26,7 +26,7 @@
           />
           <v-text-field
             class="box-input"
-            placeholder="CVC"
+            :placeholder="$t('paymentInstrument.cvc')"
             v-model="form.cvc"
             :error-messages="fieldErrors('form.cvc')"
             @input="$v.form.cvc.$touch()"
@@ -55,7 +55,7 @@
               color="gray"
               class="mt-4"
               @click="() => $router.back()"
-              >Volver</v-btn
+              >{{ $t("common.goBack") }}</v-btn
             >
           </v-flex>
           <v-flex xs5>
@@ -68,7 +68,7 @@
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
-              >Guardar</v-btn
+              >{{ $t("common.save") }}</v-btn
             >
           </v-flex>
         </v-layout>
@@ -80,7 +80,7 @@
 <script>
 import Card from "vuetify-credit-card";
 import { required } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 import { mapGetters } from "vuex";
 import { postPaymentInstrumentApi } from "@/api/modules";
 const defaultForm = {
@@ -93,7 +93,7 @@ export default {
   components: {
     Card
   },
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     form: {
       number: { required },
@@ -104,13 +104,13 @@ export default {
   validationMessages: {
     form: {
       number: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       expiry: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       cvc: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       }
     }
   },

@@ -16,15 +16,15 @@
                         <v-layout wrap>
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong class="primary--text"
-                                >Datos personales</strong
-                              >
+                              <strong class="primary--text">{{
+                                $t("common.personalInformation")
+                              }}</strong>
                             </div>
                           </v-flex>
                           <v-flex xs12 pa-0>
                             <v-text-field
                               color="purple darken-2"
-                              label="Nombres"
+                              :label="$t('common.names')"
                               v-model="form.first_name"
                               required
                               :error-messages="fieldErrors('form.first_name')"
@@ -32,7 +32,7 @@
                             ></v-text-field>
                             <v-text-field
                               color="purple darken-2"
-                              label="Apellidos"
+                              :label="$t('common.surnames')"
                               v-model="form.last_name"
                               required
                               :error-messages="fieldErrors('form.last_name')"
@@ -41,7 +41,7 @@
                             <v-select
                               :items="genders"
                               color="primary"
-                              label="Genero"
+                              :label="$t('common.gender')"
                               v-model="form.gender"
                               required
                               class="box-input"
@@ -50,7 +50,7 @@
                             ></v-select>
                             <v-text-field
                               color="primary"
-                              label="Teléfono"
+                              :label="$t('common.phone')"
                               v-model="form.phone_number"
                               required
                               mask="phone"
@@ -59,7 +59,7 @@
                             ></v-text-field>
                             <v-text-field
                               color="primary"
-                              label="Correo secundario"
+                              :label="$t('common.secondaryEmail')"
                               v-model="form.secondary_email"
                               required
                               :error-messages="
@@ -78,7 +78,7 @@
                               <template v-slot:activator="{ on }">
                                 <v-text-field
                                   v-model="form.birth_date"
-                                  label="Fecha de nacimiento"
+                                  :label="$t('common.birthdate')"
                                   prepend-icon="event"
                                   readonly
                                   v-on="on"
@@ -97,13 +97,13 @@
                                   flat
                                   color="primary"
                                   @click="modal = false"
-                                  >Cancel</v-btn
+                                  >{{ $t("common.cancel") }}</v-btn
                                 >
                                 <v-btn
                                   flat
                                   color="primary"
                                   @click="$refs.dialog.save(form.birth_date)"
-                                  >OK</v-btn
+                                  >{{ $t("common.ok") }}</v-btn
                                 >
                               </v-date-picker>
                             </v-dialog>
@@ -118,7 +118,7 @@
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Guardar</v-btn
+                              >{{ $t("common.save") }}</v-btn
                             >
                           </div>
                         </v-layout>
@@ -137,7 +137,8 @@
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
+import { genders } from "@/config/constants";
 import { mapGetters, mapActions } from "vuex";
 
 const defaultForm = {
@@ -149,7 +150,7 @@ const defaultForm = {
   secondary_email: null
 };
 export default {
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     form: {
       first_name: { required },
@@ -163,33 +164,30 @@ export default {
   validationMessages: {
     form: {
       first_name: {
-        required: "Por favor ingresa tus nombres"
+        required: "validation.fieldRequired"
       },
       last_name: {
-        required: "Por favor ingresa tus apellidos"
+        required: "validation.fieldRequired"
       },
       birth_date: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       gender: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       phone_number: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       secondary_email: {
-        required: "Por favor ingresa un correo",
-        email: "Correo debe ser valido"
+        required: "validation.email.required",
+        email: "validation.email.valid"
       }
     }
   },
   data() {
     return {
       form: Object.assign({}, defaultForm),
-      genders: [
-        { text: "Masculino", value: "M" },
-        { text: "Femenino", value: "F" }
-      ],
+      genders,
       loader: false,
       modal: false
     };

@@ -5,7 +5,9 @@
         <v-list two-line>
           <template v-if="fetched && !liquidations.length">
             <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center">No posee liquidaciones aún</p>
+              <p class="title text-xs-center">
+                {{ $t("liquidation.withoutLiquidations") }}
+              </p>
             </v-alert>
           </template>
           <template

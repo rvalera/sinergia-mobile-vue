@@ -1,13 +1,17 @@
 <template>
   <v-stepper v-model="stage" class="h-full">
     <v-stepper-header>
-      <v-stepper-step step="1" :complete="stage > 1">Camara</v-stepper-step>
+      <v-stepper-step step="1" :complete="stage > 1">{{
+        $t("pay.camera")
+      }}</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="2" :complete="stage > 2">Verificar</v-stepper-step>
+      <v-stepper-step step="2" :complete="stage > 2">{{
+        $t("pay.check")
+      }}</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3" :complete="stage > 3"
-        >Clave de operaciones</v-stepper-step
-      >
+      <v-stepper-step step="3" :complete="stage > 3">{{
+        $t("common.operationKey")
+      }}</v-stepper-step>
       <v-divider></v-divider>
       <v-stepper-step step="4">Comprobante</v-stepper-step>
     </v-stepper-header>
@@ -119,7 +123,7 @@ export default {
       };
       var serviceResponse = await createPaymentApi(body);
       if (serviceResponse.ok) {
-        const params = { text: "Pago realizado con éxito!" };
+        const params = { text: this.$t("message.succesfulPay") };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.receipt = serviceResponse.data;
         this.stage++;

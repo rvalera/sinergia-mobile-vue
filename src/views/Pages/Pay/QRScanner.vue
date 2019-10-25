@@ -5,11 +5,11 @@
         <v-card elevation="0" class="pa-3">
           <v-icon x-large color="primary">photo_camera</v-icon>
           <p class="title my-5 text-xs-center ">
-            Escanea el código QR para realizar pago
+            {{ $t("pay.scanQR") }}
           </p>
-          <v-btn round large block color="primary" @click="startCamera"
-            >Escanear</v-btn
-          >
+          <v-btn round large block color="primary" @click="startCamera">{{
+            $t("pay.scan")
+          }}</v-btn>
         </v-card>
       </v-flex>
     </v-layout>
@@ -47,7 +47,7 @@ export default {
           decodeResult
         });
       } catch (error) {
-        const params = { text: "QR inválido!" };
+        const params = { text: this.$t("pay.invalidQR") };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },
@@ -69,7 +69,7 @@ export default {
             showTorchButton: true, // iOS and Android
             torchOn: false, // Android, launch with the torch switched on (if available)
             saveHistory: true, // Android, save scan history (default false)
-            prompt: "Place a QR inside the scan area", // Android
+            prompt: this.$t("pay.cameraPrompt"), // Android
             resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
             formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
             orientation: "portrait", // Android only (portrait|landscape), default unset so it rotates with the device

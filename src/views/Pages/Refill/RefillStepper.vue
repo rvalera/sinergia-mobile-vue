@@ -1,15 +1,17 @@
 <template>
   <v-stepper v-model="stage" class="h-full">
     <v-stepper-header>
-      <v-stepper-step step="1" :complete="stage > 1"
-        >Seleccione una tarjeta</v-stepper-step
-      >
+      <v-stepper-step step="1" :complete="stage > 1">{{
+        $t("refill.selectInstrument")
+      }}</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="2" :complete="stage > 2">Monto</v-stepper-step>
+      <v-stepper-step step="2" :complete="stage > 2">{{
+        $t("common.amount")
+      }}</v-stepper-step>
       <v-divider></v-divider>
-      <v-stepper-step step="3" :complete="stage > 3"
-        >Clave de operaciones</v-stepper-step
-      >
+      <v-stepper-step step="3" :complete="stage > 3">{{
+        $t("common.operationKey")
+      }}</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-content step="1" class="no-mrpd h-full">

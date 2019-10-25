@@ -21,16 +21,16 @@
                         <v-layout wrap>
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong class="primary--text"
-                                >Datos personales</strong
-                              >
+                              <strong class="primary--text">{{
+                                $t("common.personalInformation")
+                              }}</strong>
                             </div>
                           </v-flex>
                           <v-flex xs12 pa-0>
                             <v-select
                               :items="genders"
                               color="primary"
-                              label="Genero"
+                              :label="$t('common.gender')"
                               v-model="form.gender"
                               required
                               class="box-input"
@@ -39,7 +39,7 @@
                             ></v-select>
                             <v-text-field
                               color="primary"
-                              label="Teléfono"
+                              :label="$t('common.phone')"
                               v-model="form.phone_number"
                               required
                               mask="phone"
@@ -48,7 +48,7 @@
                             ></v-text-field>
                             <v-text-field
                               color="primary"
-                              label="Correo secundario"
+                              :label="$t('common.secondaryEmail')"
                               v-model="form.secondary_email"
                               required
                               :error-messages="
@@ -67,7 +67,7 @@
                               <template v-slot:activator="{ on }">
                                 <v-text-field
                                   v-model="form.birth_date"
-                                  label="Fecha de nacimiento"
+                                  :label="$t('common.birthdate')"
                                   prepend-icon="event"
                                   readonly
                                   v-on="on"
@@ -86,13 +86,13 @@
                                   flat
                                   color="primary"
                                   @click="modal = false"
-                                  >Cancel</v-btn
+                                  >{{ $t("common.cancel") }}</v-btn
                                 >
                                 <v-btn
                                   flat
                                   color="primary"
                                   @click="$refs.dialog.save(form.birth_date)"
-                                  >OK</v-btn
+                                  >{{ $t("common.ok") }}</v-btn
                                 >
                               </v-date-picker>
                             </v-dialog>
@@ -107,7 +107,7 @@
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Continue</v-btn
+                              >{{ $t("common.continue") }}</v-btn
                             >
                           </div>
                         </v-layout>
@@ -126,7 +126,8 @@
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
+import { genders } from "@/config/constants";
 const defaultForm = {
   birth_date: null,
   gender: null,
@@ -134,7 +135,7 @@ const defaultForm = {
   secondary_email: null
 };
 export default {
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     form: {
       birth_date: { required },
@@ -146,17 +147,17 @@ export default {
   validationMessages: {
     form: {
       birth_date: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       gender: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       phone_number: {
-        required: "Campo requerido"
+        required: "validation.fieldRequired"
       },
       secondary_email: {
-        required: "Por favor ingresa un correo",
-        email: "Correo debe ser valido"
+        required: "validation.email.required",
+        email: "validation.email.valid"
       }
     }
   },
@@ -164,10 +165,7 @@ export default {
     return {
       height: window.innerHeight - 72, // 72 is stepper header size
       form: Object.assign({}, defaultForm),
-      genders: [
-        { text: "Masculino", value: "M" },
-        { text: "Femenino", value: "F" }
-      ],
+      genders,
       loader: false,
       modal: false
     };

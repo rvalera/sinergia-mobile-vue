@@ -22,7 +22,7 @@
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
                               <strong class="primary--text">
-                                Nueva contraseña
+                                {{ $t("changePassword.newPassword") }}
                               </strong>
                             </div>
                           </v-flex>
@@ -39,7 +39,7 @@
                             ></password>
                             <v-text-field
                               class="box-input"
-                              placeholder="Confirma contraseña"
+                              :placeholder="$t('changePassword.newPassword')"
                               type="password"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
@@ -58,7 +58,7 @@
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Continue</v-btn
+                              >{{ $t("common.continue") }}</v-btn
                             >
                           </div>
                         </v-layout>
@@ -78,10 +78,10 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import Password from "@/components/PasswordStrength.vue";
 import { required, sameAs } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 
 export default {
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     password: { required },
     repeatPassword: {
@@ -89,9 +89,9 @@ export default {
     }
   },
   validationMessages: {
-    password: { required: "Contraseña requerida" },
+    password: { required: "validation.password.required" },
     repeatPassword: {
-      sameAsPassword: "Contraseñas deben coincidir"
+      sameAsPassword: "validation.password.confirm"
     }
   },
   components: {

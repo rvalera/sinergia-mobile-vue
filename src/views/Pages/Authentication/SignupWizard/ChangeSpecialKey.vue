@@ -21,9 +21,9 @@
                         <v-layout wrap>
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong class="primary--text"
-                                >Clave de operaciones</strong
-                              >
+                              <strong class="primary--text">{{
+                                $t("common.operationKey")
+                              }}</strong>
                             </div>
                           </v-flex>
                           <v-flex xs12 px-0>
@@ -32,7 +32,7 @@
                           <v-flex xs12 pa-0>
                             <v-text-field
                               class="box-input"
-                              placeholder="Ingrese su clave de operaciones"
+                              :placeholder="$t('common.typeYourOperationKey')"
                               type="password"
                               v-model="password"
                               :error-messages="fieldErrors('password')"
@@ -44,7 +44,7 @@
                             ></v-text-field>
                             <v-text-field
                               class="box-input"
-                              placeholder="Confirma clave de operaciones"
+                              :placeholder="$t('changeOperationKey.confirm')"
                               type="password"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
@@ -65,7 +65,7 @@
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Continue</v-btn
+                              >{{ $t("common.continue") }}</v-btn
                             >
                           </div>
                         </v-layout>
@@ -84,10 +84,10 @@
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 
 export default {
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     password: { required, minLength: minLength(8) },
     repeatPassword: {
@@ -96,11 +96,11 @@ export default {
   },
   validationMessages: {
     password: {
-      required: "Clave requerida",
-      minLength: "Clave debe ser de 8 caracteres"
+      required: "validation.operationKey.required",
+      minLength: "validation.operationKey.minLength"
     },
     repeatPassword: {
-      sameAsPassword: "Claves deben coincidir"
+      sameAsPassword: "validation.operationKey.confirm"
     }
   },
   data() {

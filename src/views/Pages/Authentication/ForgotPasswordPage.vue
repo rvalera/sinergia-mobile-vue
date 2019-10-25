@@ -23,10 +23,11 @@
                           alt=""
                           height="145px"
                         />
-                        <div class="headline">¿Olvidaste la contraseña?</div>
+                        <div class="headline">
+                          {{ $t("forgotPassword.title") }}
+                        </div>
                         <p class="centered headline-caption-text mt-3 px-4">
-                          Provee tu correo de usuario para reiniciar tu
-                          contraseña
+                          {{ $t("forgotPassword.hint") }}
                         </p>
                       </v-flex>
                     </v-layout>
@@ -39,7 +40,7 @@
                           <v-flex xs12 pa-0>
                             <v-text-field
                               color="primary"
-                              label="Correo de usuario"
+                              :label="$t('common.userEmail')"
                               v-model="email"
                               required
                               :error-messages="fieldErrors('email')"
@@ -57,7 +58,9 @@
                                   :disabled="$v.$invalid"
                                   block
                                   :class="$v.$invalid ? '' : 'white--text'"
-                                  >Reiniciar contraseña</v-btn
+                                  >{{
+                                    $t("forgotPassword.resetPassword")
+                                  }}</v-btn
                                 >
                               </v-flex>
                             </v-layout>
@@ -78,17 +81,17 @@
 
 <script>
 import { required, email } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 
 export default {
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     email: { required, email }
   },
   validationMessages: {
     email: {
-      required: "Por favor ingresa un correo",
-      email: "Correo debe ser valido"
+      required: "validation.email.required",
+      email: "validation.email.valid"
     }
   },
   data() {

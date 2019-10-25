@@ -26,7 +26,7 @@
                     class="text-xs-center"
                     height="100"
                   />
-                  <div class="headline">Crear una cuenta</div>
+                  <div class="headline">{{ $t("signup.createAccount") }}</div>
                   <v-form
                     @submit.prevent="$v.$invalid ? null : submit()"
                     ref="form"
@@ -35,33 +35,15 @@
                       <v-flex xs12 pa-0>
                         <v-text-field
                           color="purple darken-2"
-                          label="Correo"
+                          :label="$t('common.email')"
                           v-model="form.email"
                           required
                           :error-messages="fieldErrors('form.email')"
                           @blur="$v.form.email.$touch()"
                         ></v-text-field>
-                        <v-select
-                          :items="types"
-                          color="primary"
-                          label="Tipo de persona"
-                          v-model="form.type"
-                          required
-                          class="box-input"
-                          :error-messages="fieldErrors('form.type')"
-                          @blur="$v.form.type.$touch()"
-                        ></v-select>
                         <v-text-field
                           color="purple darken-2"
-                          label="Identificación"
-                          v-model="form.id_number"
-                          required
-                          :error-messages="fieldErrors('form.id_number')"
-                          @blur="$v.form.id_number.$touch()"
-                        ></v-text-field>
-                        <v-text-field
-                          color="purple darken-2"
-                          label="Nombres"
+                          :label="$t('common.names')"
                           v-model="form.first_name"
                           required
                           :error-messages="fieldErrors('form.first_name')"
@@ -69,7 +51,7 @@
                         ></v-text-field>
                         <v-text-field
                           color="purple darken-2"
-                          label="Apellidos"
+                          :label="$t('common.surnames')"
                           v-model="form.last_name"
                           required
                           :error-messages="fieldErrors('form.last_name')"
@@ -88,9 +70,8 @@
                             >terms & privacy policy</v-btn-toggle
                           >.
                         </div>
-                      </v-checkbox> -->
+                        </v-checkbox>-->
                       </v-flex>
-
                       <v-flex xs12>
                         <v-layout row wrap text-xs-center>
                           <!-- Login form submit -->
@@ -101,7 +82,7 @@
                               :disabled="$v.$invalid"
                               block
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Registrarse</v-btn
+                              >{{ $t("signup.signup") }}</v-btn
                             >
                           </v-flex>
                           <v-flex xs12>
@@ -110,7 +91,7 @@
                               tag="div"
                               class="grey--text cursor-pointer"
                             >
-                              <strong>¿Ya tienes una cuenta?</strong>
+                              <strong>{{ $t("signup.haveAccount") }}</strong>
                             </router-link>
                           </v-flex>
                         </v-layout>
@@ -130,54 +111,40 @@
 <script>
 import { required, email } from "vuelidate/lib/validators";
 import { createUserApi } from "@/api/modules";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 const defaultForm = {
   first_name: "",
   last_name: "",
   email: "",
-  id_number: "",
-  agreeToPolicy: false,
-  type: ""
+  agreeToPolicy: false
 };
 export default {
-  mixins: [validationMixin],
+  mixins: [validationLangMixin],
   validations: {
     form: {
       first_name: { required },
       last_name: { required },
-      id_number: { required },
       email: { required, email },
-      agreeToPolicy: { required },
-      type: { required }
+      agreeToPolicy: { required }
     }
   },
   validationMessages: {
     form: {
       first_name: {
-        required: "Por favor ingresa tus nombres"
+        required: "validation.fieldRequired"
       },
       last_name: {
-        required: "Por favor ingresa tus apellidos"
-      },
-      type: {
-        required: "Por favor ingresa el tipo de persona"
+        required: "validation.fieldRequired"
       },
       email: {
-        required: "Por favor ingresa un correo",
-        email: "Correo debe ser valido"
-      },
-      id_number: {
-        required: "Por favor ingresa tu identificación"
+        required: "validation.email.required",
+        email: "validation.email.valid"
       }
     }
   },
   data() {
     return {
       form: Object.assign({}, defaultForm),
-      types: [
-        { text: "Natural", value: "N" },
-        { text: "Jurídico", value: "J" }
-      ],
       dialog: true,
       backgroundImg: "static/doc-images/HexesisMaterial01.png"
     };

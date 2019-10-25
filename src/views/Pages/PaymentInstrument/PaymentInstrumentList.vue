@@ -5,7 +5,9 @@
         <v-list two-line>
           <template v-if="fetched && !paymentInstruments.length">
             <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center">No posee tarjetas aún</p>
+              <p class="title text-xs-center">
+                {{ $t("paymentInstrument.withoutCards") }}
+              </p>
             </v-alert>
           </template>
           <template
@@ -36,12 +38,16 @@
                   <v-list>
                     <v-list-tile
                       v-if="item.default !== '1'"
-                      @click="handleUseDefault(item.id)"
+                      @click="handleuseByDefault(item.id)"
                     >
-                      <v-list-tile-title>Usar por defecto</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("paymentInstrument.useByDefault")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile @click="handleDelete(item.id)">
-                      <v-list-tile-title>Eliminar</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("common.delete")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -89,7 +95,7 @@ export default {
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },
-    async handleUseDefault(id) {
+    async handleuseByDefault(id) {
       var serviceResponse = await putDefaultPaymentInstrumentApi(id);
       if (serviceResponse.ok) {
         this.getPaymentInstruments();

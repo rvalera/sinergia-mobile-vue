@@ -17,7 +17,7 @@
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
                               <strong class="primary--text">
-                                Nueva contraseña
+                                {{ $t("changePassword.newPassword") }}
                               </strong>
                             </div>
                           </v-flex>
@@ -27,7 +27,9 @@
                           <v-flex xs12 pa-0>
                             <v-text-field
                               class="box-input"
-                              placeholder="Contraseña actual"
+                              :placeholder="
+                                $t('changePassword.currentPassword')
+                              "
                               type="password"
                               v-model="currentPassword"
                               :error-messages="fieldErrors('currentPassword')"
@@ -44,7 +46,9 @@
                             ></password>
                             <v-text-field
                               class="box-input"
-                              placeholder="Confirma contraseña"
+                              :placeholder="
+                                $t('changePassword.confirmPassword')
+                              "
                               type="password"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
@@ -63,7 +67,7 @@
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
-                              >Guardar</v-btn
+                              >{{ $t("common.save") }}</v-btn
                             >
                           </div>
                         </v-layout>
@@ -83,11 +87,11 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import Password from "@/components/PasswordStrength.vue";
 import { required, sameAs } from "vuelidate/lib/validators";
-import validationMixin from "@/mixins/validationMixin";
+import validationLangMixin from "@/mixins/validationLangMixin";
 import { changePassUserApi } from "@/api/modules";
 
 export default {
-  mixins: [validationMixin, ResizeMixin],
+  mixins: [validationLangMixin, ResizeMixin],
   validations: {
     currentPassword: {
       required,
@@ -99,13 +103,13 @@ export default {
     }
   },
   validationMessages: {
-    password: { required: "Contraseña requerida" },
+    password: { required: "validation.password.required" },
     currentPassword: {
-      required: "Contraseña requerida",
-      sameAsRealPassword: "Contraseña no coincide"
+      required: "validation.password.required",
+      sameAsRealPassword: "validation.password.confirm"
     },
     repeatPassword: {
-      sameAsPassword: "Contraseñas deben coincidir"
+      sameAsPassword: "validation.password.confirm"
     }
   },
   components: {

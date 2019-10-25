@@ -10,7 +10,7 @@
               <v-icon x-large class="mb-2" color="green"
                 >check_circle_outline</v-icon
               >
-              Transacción exitosa
+              {{ $t("pay.succesfulTransaction") }}
             </p>
           </div>
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
@@ -26,25 +26,25 @@
             {{ receipt.execution_date }}
           </p>
           <v-text-field
-            label="Origen"
+            :label="$t('pay.origin')"
             v-model="receipt.source_description"
             filled
             readonly
           />
           <v-text-field
-            label="Destino"
+            :label="$t('pay.destination')"
             v-model="receipt.target_description"
             filled
             readonly
           />
           <v-text-field
-            label="Concepto"
+            :label="$t('pay.concept')"
             v-model="receipt.observation"
             filled
             readonly
           />
           <v-text-field
-            label="Referencia"
+            :label="$t('pay.reference')"
             v-model="receipt.ref_number"
             filled
             readonly
@@ -54,13 +54,13 @@
           <v-flex xs5>
             <v-btn large round block color="primary">
               <v-icon left>share</v-icon>
-              Compartir
+              {{ $t("pay.sharing") }}
             </v-btn>
           </v-flex>
           <v-flex xs5>
-            <v-btn large round block color="primary" @click="$emit('finish')"
-              >Finalizar</v-btn
-            >
+            <v-btn large round block color="primary" @click="$emit('finish')">{{
+              $t("common.finish")
+            }}</v-btn>
           </v-flex>
         </v-layout>
       </v-flex>
