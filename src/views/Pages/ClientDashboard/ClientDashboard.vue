@@ -42,7 +42,7 @@ import { lineChartJs as lineChartData } from "@/data/ChartWidget";
 import { mapActions } from "vuex";
 import AppMovements from "../Global/AppMovements";
 import MovementFilter from "../Global/MovementFilter";
-//import { getDashboardGraph } from "@/api/modules";
+import { getDashboardGraph } from "@/api/modules";
 import DateFilter from "./DateFilter";
 //import "../../../assets/utils";
 export default {
@@ -106,6 +106,9 @@ export default {
               bottom: 10
             }
           },
+          animation: {
+            duration: 0
+          },
           scales: {
             xAxes: [
               {
@@ -157,33 +160,34 @@ export default {
 
     async getGraphData(person_id, filter = {}) {
       console.log(person_id + filter);
-      //var serviceResponse = await getDashboardGraph(person_id, filter);
-      //let data = serviceResponse.data;
-      //codigo piloto para data de api en progreso
-      var response = {
-        ok: 1,
-        data: {
-          current_balance: 850.36,
-          daily_balance: {
-            "18-10": 888.58,
-            "19-10": 718,
-            "20-10": 850.36,
-            "21-10": 878.58,
-            "22-10": 748,
-            "23-10": 850.36
-          }
-        }
-      };
+      var serviceResponse = await getDashboardGraph(person_id, filter);
+      console.log(serviceResponse);
+      let data = serviceResponse.data;
+
+      // var response = {
+      //   ok: 1,
+      //   data: {
+      //     current_balance: 850.36,
+      //     daily_balance: {
+      //       "18-10": 888.58,
+      //       "19-10": 718,
+      //       "20-10": 850.36,
+      //       "21-10": 878.58,
+      //       "22-10": 748,
+      //       "23-10": 850.36
+      //     }
+      //   }
+      // };
       //==================================================
-      let labels = [];
-      let datasets = [];
-      let data = response.data;
+
+      let labels = Object.keys(data.daily_balance);
+      let datasets = Object.values(data.daily_balance);
       this.balance = data.current_balance;
-      for (let item in data.daily_balance) {
-        console.log(item + " " + data.daily_balance[item]);
-        labels.push(item.toString());
-        datasets.push(data.daily_balance[item]);
-      }
+      // for (let item in data.daily_balance) {
+      //   console.log(item + " " + data.daily_balance[item]);
+      //   labels.push(item.toString());
+      //   datasets.push(data.daily_balance[item]);
+      // }
 
       //this is data to fill graph width
       labels.push("");

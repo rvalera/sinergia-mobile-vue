@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center-top justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-1">
+        <v-card elevation="0" class="text-xs-left pa-3">
           <div class="text-xs-center">
             <v-icon x-large color="primary">email</v-icon>
           </div>
@@ -33,8 +33,9 @@
                           :disabled="$v.$invalid"
                           class="mt-4"
                           :class="$v.$invalid ? '' : 'white--text'"
-                          >Continue</v-btn
                         >
+                          {{ $t("common.next") }}
+                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </v-flex>

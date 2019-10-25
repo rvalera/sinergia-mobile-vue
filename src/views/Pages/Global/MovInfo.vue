@@ -24,16 +24,22 @@
                   </div> -->
                   <v-spacer></v-spacer>
                   <v-layout row>
-                    <v-text-field
-                      label="Fecha"
-                      v-model="mov.execution_date"
-                      filled
-                      readonly
-                    ></v-text-field>
-                    <v-label>
-                      {{
-                        amount + " " + (mov.coin ? mov.coin.diminutive : " ")
-                      }}</v-label
+                    <v-flex xs6 sm6>
+                      <v-text-field
+                        label="Fecha"
+                        v-model="mov.execution_date"
+                        filled
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 sm6>
+                      <span
+                        class=" headline font-weight-black green--text darken-4"
+                      >
+                        {{
+                          amount + " " + (mov.coin ? mov.coin.diminutive : " ")
+                        }}</span
+                      ></v-flex
                     >
                   </v-layout>
 

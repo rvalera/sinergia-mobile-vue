@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-3">
+        <v-card elevation="0" class="text-xs-left pa-3">
           <div class="text-xs-center">
             <v-icon x-large color="primary">vpn_key</v-icon>
           </div>

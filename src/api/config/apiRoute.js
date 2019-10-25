@@ -12,5 +12,5 @@ export const appCardsUnblock = `/v2/card/unblock`;
 export const appMovements = `/v2/transaction`;
 export const paymentInstrumentPath = `/v2/payment_instrument`;
 export const refillPath = `${appPersonData}/refill`;
-export const dashboardGraphPath = `/v2/dashboard/user`;
+export const dashboardGraphPath = `/v2/wallet/dashboard`;
 export const personliquidationPath = `/v2/personliquidation`;

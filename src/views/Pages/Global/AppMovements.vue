@@ -55,7 +55,7 @@
         </v-list>
       </v-card>
       <v-flex v-if="activeAutoScroll" xs12 sm6 class="text-xs-center">
-        <div v-if="this.arrLength != this.transactions_app.length">
+        <div v-if="setActiveProgres">
           <v-progress-circular indeterminate color="primary" class="bottom" />
         </div>
         <!-- <v-btn
@@ -114,7 +114,8 @@ export default {
     person_id: localStorage.person_id,
     type: "number",
     bottom: false,
-    arrLength: 0 //this used where lengt in array transaccitons is equals to latest
+    arrLength: 0,
+    activeProgres: true //this used where lengt in array transaccitons is equals to latest
   }),
   computed: {
     ...mapGetters(["transactions_app", "filter_app"]),
@@ -132,13 +133,17 @@ export default {
     },
     setactiveAutoScroll() {
       return this.activeAutoScroll;
+    },
+    setActiveProgres() {
+      return this.activeProgres;
     }
   },
   watch: {
     bottom(bottom) {
-      if (bottom) {
+      if (bottom && this.getValidateBottom()) {
+        this.activeProgres = true;
         this.handleLoadMov();
-      }
+      } else this.activeProgres = false;
     }
   },
   methods: {
@@ -158,6 +163,10 @@ export default {
       this.filter = this.filter_app;
       this.filter.perPage = this.filter.perPage + 5;
       this.setTransactionsApp(this.filter);
+    },
+    getValidateBottom() {
+      if (this.arrLength != this.transactions_app.length) return true;
+      else return false;
     },
     getSource(id) {
       if (this.person_id.toString() === id.toString()) return true;

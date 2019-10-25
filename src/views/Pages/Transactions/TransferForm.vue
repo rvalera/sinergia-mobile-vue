@@ -1,8 +1,8 @@
 <template>
   <v-container fill-height>
-    <v-layout row wrap align-content-center-top justify-center>
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="4" class="text-xs-left pa-1">
+        <v-card elevation="0" class="text-xs-left pa-3">
           <v-card-text>
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <v-container grid-list-xl fluid>
@@ -39,21 +39,8 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-layout row wrap text-xs-left>
-                      <!-- Login form submit -->
-                      <v-flex xs12 class="no-mrpd">
-                        <v-btn
-                          :loading="loader"
-                          color="primary"
-                          large
-                          block
-                          round
-                          type="submit"
-                          :disabled="$v.$invalid"
-                          class="ml-0"
-                          :class="$v.$invalid ? '' : 'white--text'"
-                          >Continue</v-btn
-                        >
+                    <v-layout justify-space-around class="put-bottom">
+                      <v-flex xs5>
                         <v-btn
                           large
                           block
@@ -61,7 +48,20 @@
                           color="gray"
                           class="mt-4"
                           @click="$emit('back')"
-                          >Volver</v-btn
+                          >{{ $t("common.goBack") }}</v-btn
+                        >
+                      </v-flex>
+                      <v-flex xs5>
+                        <v-btn
+                          large
+                          round
+                          block
+                          color="primary"
+                          class="mt-4"
+                          type="submit"
+                          :disabled="$v.$invalid"
+                          :class="$v.$invalid ? '' : 'white--text'"
+                          >{{ $t("common.next") }}</v-btn
                         >
                       </v-flex>
                     </v-layout>
