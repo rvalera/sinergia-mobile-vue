@@ -8,7 +8,17 @@
         </v-toolbar>-->
 
         <v-list two-line>
-          <template v-for="(item, index) in cards">
+          <template v-if="fetched && !cards.length">
+            <v-alert :value="true" color="warning" icon="priority_high" outline>
+              <p class="title text-xs-center">
+                {{ $t("paymentInstrument.withoutCards") }}
+              </p>
+            </v-alert>
+          </template>
+          <template
+            v-else-if="fetched && cards.length"
+            v-for="(item, index) in cards"
+          >
             <v-divider :inset="true" :key="index"></v-divider>
             <v-list-tile :key="item.validation_number" avatar>
               <v-list-tile-avatar
@@ -116,7 +126,8 @@ export default {
       { title: "Movimientos" },
       { title: "Cambio de Pin" },
       { title: "Bloqueo/Desbloqueo" }
-    ]
+    ],
+    fetched: false
   }),
   computed: {
     ...mapGetters(["user"])
@@ -190,8 +201,14 @@ export default {
     },
     async getCards() {
       const { person_id } = localStorage;
-      let data = await getAppCardsData(person_id);
-      this.cards = data.data.cards;
+      let serviceResponse = await getAppCardsData(person_id);
+      if (serviceResponse.ok) {
+        this.cards = serviceResponse.data.cards;
+        this.fetched = true;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   },
   async mounted() {
