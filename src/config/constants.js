@@ -5,6 +5,25 @@ export const USER_TYPE_WORKSTATION = "W";
 export const USER_TYPE_AFFILIATE = "A";
 export const USER_TYPE_CLIENT = "C";
 
+export const TERMINAL_TYPE_WORKSTATION = "W";
+export const TERMINAL_TYPE_POS = "P";
+
+export const TERMINAL_TYPES_ICONS = {
+  [TERMINAL_TYPE_WORKSTATION]: "laptop",
+  [TERMINAL_TYPE_POS]: "smartphone"
+};
+
+export const TERMINAL_TYPES = [
+  {
+    value: TERMINAL_TYPE_WORKSTATION,
+    text: i18n.t("constant.workstation")
+  },
+  {
+    value: TERMINAL_TYPE_POS,
+    text: i18n.t("constant.pos")
+  }
+];
+
 export const movementTypes = [
   {
     value: "T",

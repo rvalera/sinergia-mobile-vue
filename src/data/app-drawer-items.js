@@ -33,7 +33,8 @@ export default [
   {
     icon: "phonelink_ring",
     title: i18n.t("menu.devices"),
-    group: "",
+    name: "TerminalList"
+    /*group: "",
     items: [
       {
         prependIcon: "list",
@@ -50,7 +51,7 @@ export default [
         title: i18n.t("menu.setOperator"),
         name: "Error404"
       }
-    ]
+    ]*/
   },
   {
     icon: "check",

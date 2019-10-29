@@ -45,7 +45,9 @@ export default {
     female: "Femenino",
     male: "Masculino",
     pay: "Pago",
-    refill: "Recarga"
+    pos: "Punto de venta",
+    refill: "Recarga",
+    workstation: "Estación"
   },
   error404: {
     description:
@@ -141,6 +143,17 @@ export default {
     createAccount: "Crear una cuenta",
     haveAccount: "¿Ya tienes una cuenta?",
     signup: "Registrarse"
+  },
+  terminal: {
+    detail: "Detalle del terminal",
+    deviceName: "Nombre del dispositivo",
+    deviceSerial: "Serial del dispositivo",
+    newTerminal: "Nuevo terminal",
+    quantity: "Cantidad de terminales",
+    status: "Estado del terminal",
+    type: "Tipo de terminal",
+    validationCode: "Código de validación",
+    withoutTerminals: "No posee terminales aún"
   },
   toolbar: {
     becomeAffiliate: "¡Hazte un afiliado!",

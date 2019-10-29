@@ -14,16 +14,6 @@
                     >
                       <v-container grid-list-xl fluid>
                         <v-layout wrap>
-                          <v-flex xs12 px-0>
-                            <div class="dialog-title">
-                              <strong class="primary--text">
-                                {{ $t("changePassword.newPassword") }}
-                              </strong>
-                            </div>
-                          </v-flex>
-                          <v-flex xs12 px-0>
-                            <v-divider class="section-spacer"></v-divider>
-                          </v-flex>
                           <v-flex xs12 pa-0>
                             <v-text-field
                               class="box-input"
@@ -57,7 +47,7 @@
                               required
                             ></v-text-field>
                           </v-flex>
-                          <div class="put-bottom">
+                          <div class=" put-bottom px-3">
                             <v-btn
                               :loading="loader"
                               color="primary"

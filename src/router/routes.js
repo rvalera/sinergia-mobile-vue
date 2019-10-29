@@ -1,7 +1,7 @@
 import { i18n } from "@/i18n";
 import AppSidebar from "@/layouts/App/NavDrawer";
 import AppToolbar from "@/layouts/App/Toolbar";
-//import AppFooter from "@/layouts/App/Footer";
+import AppFooter from "@/layouts/App/Footer";
 
 import Error404 from "@/views/Pages/Errors/Error404";
 import Error500 from "@/views/Pages/Errors/Error500";
@@ -25,6 +25,8 @@ import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstru
 import ClientDashboard from "@/views/Pages/ClientDashboard/ClientDashboard";
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 import LiquidationList from "@/views/Pages/Liquidation/LiquidationList";
+import TerminalList from "@/views/Pages/Terminal/TerminalList";
+import TerminalForm from "@/views/Pages/Terminal/TerminalForm";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -34,8 +36,8 @@ export const routes = [
     components: {
       default: ClientDashboard,
       sidebar: AppSidebar,
-      header: AppToolbar
-      //footer: AppFooter
+      header: AppToolbar,
+      footer: AppFooter
     }
   },
   {
@@ -62,6 +64,12 @@ export const routes = [
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("changePassword.newPassword")
+      }
     }
   },
   {
@@ -72,6 +80,12 @@ export const routes = [
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.personalInformation")
+      }
     }
   },
   {
@@ -216,6 +230,12 @@ export const routes = [
       default: ChangeOperationKey,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.operationKey")
+      }
     }
   },
   {
@@ -243,6 +263,36 @@ export const routes = [
     props: {
       header: {
         title: i18n.t("menu.liquidations")
+      }
+    }
+  },
+  {
+    path: "/terminal",
+    name: "TerminalList",
+    components: {
+      default: TerminalList,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        title: i18n.t("menu.devices")
+      }
+    }
+  },
+  {
+    path: "/terminal/new",
+    name: "TerminalForm",
+    components: {
+      default: TerminalForm,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        goHome: false,
+        title: i18n.t("terminal.newTerminal")
       }
     }
   },

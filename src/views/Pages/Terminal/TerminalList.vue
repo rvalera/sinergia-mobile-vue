@@ -3,29 +3,28 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-list two-line>
-          <template v-if="fetched && !paymentInstruments.length">
+          <template v-if="fetched && !terminals.length">
             <v-alert :value="true" color="warning" icon="priority_high" outline>
               <p class="title text-xs-center no-mrpd">
-                {{ $t("paymentInstrument.withoutCards") }}
+                {{ $t("terminal.withoutTerminals") }}
               </p>
             </v-alert>
           </template>
           <template
-            v-else-if="fetched && paymentInstruments.length"
-            v-for="(item, index) in paymentInstruments"
+            v-else-if="fetched && terminals.length"
+            v-for="(item, index) in terminals"
           >
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
-              <v-list-tile-avatar width="60px" class="avatarCard" tile>
-                <v-img width="60px" :src="paymentInsturmentImg"></v-img>
+              <v-list-tile-avatar tile @click="handleClick(item)">
+                <v-icon x-large>{{ terminalIcon(item.type) }}</v-icon>
               </v-list-tile-avatar>
-
-              <v-list-tile-content>
+              <v-list-tile-content @click="handleClick(item)">
                 <v-list-tile-title
-                  v-html="item.payment_medium.name"
+                  v-html="item.validation_code"
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
-                  v-html="'**** **** **** ' + item.last4"
+                  v-html="item.named_status"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
@@ -36,18 +35,10 @@
                     </v-btn>
                   </template>
                   <v-list>
-                    <v-list-tile
-                      v-if="item.default !== '1'"
-                      @click="handleuseByDefault(item.id)"
-                    >
-                      <v-list-tile-title>{{
-                        $t("paymentInstrument.useByDefault")
-                      }}</v-list-tile-title>
-                    </v-list-tile>
                     <v-list-tile @click="handleDelete(item.id)">
-                      <v-list-tile-title>{{
-                        $t("common.delete")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("common.delete") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -65,51 +56,58 @@
       fixed
       color="primary"
       class="fab-btn"
-      @click="() => $router.push({ name: 'PaymentInstrumentForm' })"
+      @click="() => $router.push({ name: 'TerminalForm' })"
     >
       <v-icon>add</v-icon>
     </v-btn>
+    <terminal-info ref="modal" />
   </v-layout>
 </template>
 
 <script>
-import {
-  getPaymentInstrumentApi,
-  putDefaultPaymentInstrumentApi,
-  deletePaymentInstrumentApi
-} from "@/api/modules";
+import { getTerminalsApi, deleteTerminalApi } from "@/api/modules";
+import TerminalInfo from "./TerminalInfo";
+import { TERMINAL_TYPES_ICONS } from "@/config/constants";
 export default {
+  components: { TerminalInfo },
   data: () => ({
-    paymentInstruments: [],
-    paymentInsturmentImg: "static/paymentInstrument.png",
-    fetched: false
+    terminals: [],
+    fetched: false,
+    filter: {
+      person_id: localStorage.person_id
+    },
+    page: 0,
+    perPage: 5,
+    total: 0
   }),
   methods: {
-    async getPaymentInstruments() {
-      var serviceResponse = await getPaymentInstrumentApi();
+    async handleClick(data) {
+      this.$refs.modal.show(data);
+    },
+    terminalIcon(type) {
+      return TERMINAL_TYPES_ICONS[type];
+    },
+    async getTerminals() {
+      const { filter, page, perPage } = this;
+      const start = 0;
+      const end = (page + 1) * perPage;
+      const params = {
+        filter,
+        range: JSON.stringify([start, end])
+      };
+      var serviceResponse = await getTerminalsApi(params);
       if (serviceResponse.ok) {
-        this.paymentInstruments = serviceResponse.data;
+        this.terminals = serviceResponse.data;
         this.fetched = true;
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },
-    async handleuseByDefault(id) {
-      var serviceResponse = await putDefaultPaymentInstrumentApi(id);
-      if (serviceResponse.ok) {
-        this.getPaymentInstruments();
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_MESSAGE", params);
-      } else {
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_ERROR", params);
-      }
-    },
     async handleDelete(id) {
-      var serviceResponse = await deletePaymentInstrumentApi(id);
+      var serviceResponse = await deleteTerminalApi(id);
       if (serviceResponse.ok) {
-        this.getPaymentInstruments();
+        this.getTerminals();
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
@@ -119,7 +117,7 @@ export default {
     }
   },
   async mounted() {
-    this.getPaymentInstruments();
+    this.getTerminals();
   }
 };
 </script>
