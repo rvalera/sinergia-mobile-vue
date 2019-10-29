@@ -97,7 +97,7 @@
                               </v-date-picker>
                             </v-dialog>
                           </v-flex>
-                          <div class="put-bottom">
+                          <div class=" put-bottom px-3">
                             <v-btn
                               :loading="loader"
                               color="primary"

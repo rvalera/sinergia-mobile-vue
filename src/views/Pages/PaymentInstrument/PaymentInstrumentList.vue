@@ -5,7 +5,7 @@
         <v-list two-line>
           <template v-if="fetched && !paymentInstruments.length">
             <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center">
+              <p class="title text-xs-center no-mrpd">
                 {{ $t("paymentInstrument.withoutCards") }}
               </p>
             </v-alert>

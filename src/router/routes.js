@@ -62,6 +62,12 @@ export const routes = [
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("changePassword.newPassword")
+      }
     }
   },
   {
@@ -72,6 +78,12 @@ export const routes = [
       sidebar: AppSidebar,
       header: AppToolbar
       //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.personalInformation")
+      }
     }
   },
   {
@@ -216,6 +228,12 @@ export const routes = [
       default: ChangeOperationKey,
       sidebar: AppSidebar,
       header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.operationKey")
+      }
     }
   },
   {
