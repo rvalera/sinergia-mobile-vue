@@ -9,12 +9,19 @@
             <v-layout align-center justify-center row fill-height wrap>
               <v-flex xs12 class="text-xs-center mt-3">
                 <img
-                  src="static/vuse-circle-white.svg"
+                  src="static/virpei_icon.png"
                   alt="Vuse"
                   class="text-xs-center"
-                  height="100"
+                  width="30%"
                 />
-                <div class="headline">{{ $t("login.title") }}</div>
+                <br />
+                <img
+                  src="static/virpei.png"
+                  alt="Vuse"
+                  class="text-xs-center"
+                  width="60%"
+                />
+                <!-- <div class="headline">{{ $t("login.title") }}</div> -->
                 <v-form
                   @submit.prevent="$v.$invalid ? null : submit()"
                   ref="form"
