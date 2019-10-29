@@ -35,7 +35,9 @@ export default {
     surnames: "Surnames",
     typeYourOperationKey: "Type your operation key",
     userEmail: "User email",
-    welcome: "Welcome"
+    welcome: "Welcome",
+    activity: "Activity",
+    balance: "Balance"
   },
   constant: {
     activation: "Activation",

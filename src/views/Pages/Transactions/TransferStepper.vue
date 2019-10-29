@@ -37,7 +37,7 @@
     </v-stepper-content>
 
     <v-stepper-content step="4" class="no-mrpd h-full">
-      <pay-receipt :receipt="receipt" @finish="stage = 1"></pay-receipt>
+      <pay-receipt :receipt="receipt" @finish="goToDashboard"></pay-receipt>
     </v-stepper-content>
   </v-stepper>
 </template>
@@ -111,6 +111,25 @@ export default {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+      //this.resetValues();
+    },
+    goToDashboard() {
+      this.$store.dispatch("toggleDrawer", false);
+      this.$router.push({
+        name: "Home"
+      });
+    },
+    resetValues() {
+      this.decodeResult = {};
+      this.receipt = {};
+      this.destinyUser = {};
+      this.transferData = {
+        source_id: null,
+        target_id: null,
+        amount: null,
+        concept: null,
+        datetime: null
+      };
     }
   }
 };

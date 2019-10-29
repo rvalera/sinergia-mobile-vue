@@ -11,7 +11,9 @@
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Filter</v-toolbar-title>
+          <v-toolbar-title>{{
+            $t("movementsFilter.filterMovements")
+          }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fill-height>
@@ -20,7 +22,7 @@
               <v-card elevation="0" class="pa-3">
                 <v-list>
                   <div class="text-xs-center">
-                    <v-icon x-large color="primary">mdi-calendar</v-icon>
+                    <v-icon x-large color="primary">mdi-filter</v-icon>
                   </div>
                   <v-spacer></v-spacer>
                   <v-menu
@@ -34,7 +36,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Fecha Inicio"
+                        :label="$t('movementsFilter.startDate')"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -57,7 +59,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date2"
-                        label="Fecha Fin"
+                        :label="$t('movementsFilter.endDate')"
                         prepend-icon="event"
                         readonly
                         v-on="on"
@@ -74,7 +76,7 @@
                   color="primary"
                   text-color="white"
                   @click="filterDate"
-                  >Filtrar</v-btn
+                  >{{ $t("movementsFilter.filter") }}</v-btn
                 >
               </v-card>
             </v-flex>

@@ -35,7 +35,9 @@ export default {
     surnames: "Apellidos",
     typeYourOperationKey: "Ingrese su clave de operaciones",
     userEmail: "Correo de usuario",
-    welcome: "Bienvenido"
+    welcome: "Bienvenido",
+    activity: "Actividad",
+    balance: "Saldo"
   },
   constant: {
     activation: "Activación",
