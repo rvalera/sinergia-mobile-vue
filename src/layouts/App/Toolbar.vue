@@ -86,15 +86,17 @@
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
-        <v-divider></v-divider>
-        <v-list-tile @click="() => $router.push({ name: 'BecomeAffiliate' })">
-          <v-list-tile-avatar>
-            <v-icon>person</v-icon>
-          </v-list-tile-avatar>
-          <v-list-tile-title>{{
-            $t("toolbar.becomeAffiliate")
-          }}</v-list-tile-title>
-        </v-list-tile>
+        <template v-if="isClient">
+          <v-divider></v-divider>
+          <v-list-tile @click="() => $router.push({ name: 'BecomeAffiliate' })">
+            <v-list-tile-avatar>
+              <v-icon>person</v-icon>
+            </v-list-tile-avatar>
+            <v-list-tile-title>{{
+              $t("toolbar.becomeAffiliate")
+            }}</v-list-tile-title>
+          </v-list-tile>
+        </template>
         <v-divider></v-divider>
         <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">
           <v-list-tile-avatar>
@@ -125,6 +127,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { USER_TYPE_CLIENT } from "@/config/constants";
 
 export default {
   props: {
@@ -159,7 +162,10 @@ export default {
       toolbar: "toolbarVisibility",
       navToolbarScheme: "navToolbarScheme",
       navMiniVarient: "navMiniVarient"
-    })
+    }),
+    isClient() {
+      return USER_TYPE_CLIENT === localStorage.userType;
+    }
   },
   methods: {
     toggleMiniVariantMode() {

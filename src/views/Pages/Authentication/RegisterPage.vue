@@ -1,6 +1,6 @@
 <template>
   <v-img :src="backgroundImg" class="page-vimg with-header">
-    <v-dialog v-model="dialog" max-width="320">
+    <v-dialog v-model="dialog" persistent max-width="320">
       <v-container fill-height pa-0>
         <v-layout align-center>
           <v-flex xs12>

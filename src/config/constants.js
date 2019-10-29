@@ -2,6 +2,8 @@ import { i18n } from "@/i18n";
 export const USER_STATUS_PENDING = "P";
 export const USER_TYPE_APP = "A";
 export const USER_TYPE_WORKSTATION = "W";
+export const USER_TYPE_AFFILIATE = "A";
+export const USER_TYPE_CLIENT = "C";
 
 export const movementTypes = [
   {

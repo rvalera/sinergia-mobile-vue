@@ -56,6 +56,7 @@ const actions = {
         localStorage.setItem("user_id", serviceResponse.data.id);
         localStorage.setItem("email", serviceResponse.data.email);
         localStorage.setItem("password", payload.password);
+        localStorage.setItem("userType", serviceResponse.data.type);
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
         else {
