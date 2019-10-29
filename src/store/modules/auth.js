@@ -38,15 +38,24 @@ const mutations = {
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
       ...state.user.person,
-      ...payload,
-      fullname: payload.first_name + " " + payload.last_name
+      ...payload
+      //fullname: payload.first_name + " " + payload.last_name
     };
+  }
+};
+
+const savePersonId = async email => {
+  console.log(email);
+  let serviceResponsePerson = await getAppPersonApi(email);
+  if (serviceResponsePerson.ok) {
+    localStorage.setItem("person_id", serviceResponsePerson.data.id);
+    router.push({ name: "Home" });
   }
 };
 
 const actions = {
   async loginAction({ commit, dispatch }, payload) {
-    var serviceResponse = await loginApi(payload);
+    let serviceResponse = await loginApi(payload);
     if (serviceResponse.ok) {
       if (serviceResponse.data.type === USER_TYPE_WORKSTATION) {
         const params = { text: "Credenciales Incorrectas" };
@@ -60,14 +69,7 @@ const actions = {
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
         else {
-          var serviceResponsePerson = await getAppPersonApi(
-            serviceResponse.data.email
-          );
-          if (serviceResponsePerson.ok) {
-            //console.log(serviceResponsePerson.data.id);
-            localStorage.setItem("person_id", serviceResponsePerson.data.id);
-            router.push({ name: "Home" });
-          }
+          await savePersonId(serviceResponse.data.email);
         }
         dispatch("getAppToken");
       }
@@ -85,7 +87,7 @@ const actions = {
   },
   async updatePersonAction({ commit, state }, payload) {
     const { id } = state.user;
-    var serviceResponse = await updateUserApi(id, payload);
+    let serviceResponse = await updateUserApi(id, payload);
     if (serviceResponse.ok) {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_MESSAGE", params);
@@ -98,9 +100,10 @@ const actions = {
   },
   async createAppPersonAction({ commit, state }, payload) {
     const { id } = state.user;
-    var serviceResponse = await createAppPersonApi(id, payload);
+    let serviceResponse = await createAppPersonApi(id, payload);
     if (serviceResponse.ok) {
       localStorage.setItem("password", payload.password);
+      await savePersonId(state.user.email);
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_MESSAGE", params);
       commit(UPDATE_PERSON, payload);
