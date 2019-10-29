@@ -90,9 +90,16 @@
                     v-model="filter.max_amount"
                   />
                 </v-list>
-                <v-btn large round block color="primary" @click="makeFilter">{{
-                  $t("movementsFilter.filter")
-                }}</v-btn>
+                <div class=" put-bottom px-3">
+                  <v-btn
+                    large
+                    round
+                    block
+                    color="primary"
+                    @click="makeFilter"
+                    >{{ $t("movementsFilter.filter") }}</v-btn
+                  >
+                </div>
               </v-card>
             </v-flex>
           </v-layout>
