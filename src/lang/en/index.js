@@ -139,6 +139,15 @@ export default {
     haveAccount: "Do you already have an account?",
     signup: "Sign up"
   },
+  terminal: {
+    detail: "Terminal detail",
+    deviceName: "Device name",
+    deviceSerial: "Device serial",
+    status: "Terminal status",
+    type: "Terminal type",
+    validationCode: "Validation code",
+    withoutTerminals: "You do not have terminals yet"
+  },
   toolbar: {
     becomeAffiliate: "Become an affiliate!",
     changePassword: "Change password",

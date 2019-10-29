@@ -140,6 +140,15 @@ export default {
     haveAccount: "¿Ya tienes una cuenta?",
     signup: "Registrarse"
   },
+  terminal: {
+    detail: "Detalle del terminal",
+    deviceName: "Nombre del dispositivo",
+    deviceSerial: "Serial del dispositivo",
+    status: "Estado del terminal",
+    type: "Tipo de terminal",
+    validationCode: "Código de validación",
+    withoutTerminals: "No posee terminales aún"
+  },
   toolbar: {
     becomeAffiliate: "¡Hazte un afiliado!",
     changePassword: "Cambiar contraseña",
