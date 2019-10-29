@@ -26,6 +26,7 @@ import ClientDashboard from "@/views/Pages/ClientDashboard/ClientDashboard";
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 import LiquidationList from "@/views/Pages/Liquidation/LiquidationList";
 import TerminalList from "@/views/Pages/Terminal/TerminalList";
+import TerminalForm from "@/views/Pages/Terminal/TerminalForm";
 //import App from "@/App";
 export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
@@ -276,6 +277,22 @@ export const routes = [
     props: {
       header: {
         title: i18n.t("menu.devices")
+      }
+    }
+  },
+  {
+    path: "/terminal/new",
+    name: "TerminalForm",
+    components: {
+      default: TerminalForm,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        goHome: false,
+        title: i18n.t("terminal.newTerminal")
       }
     }
   },

@@ -43,7 +43,9 @@ export default {
     female: "Female",
     male: "Male",
     pay: "Pay",
-    refill: "Recharge"
+    pos: "Point of sale",
+    refill: "Recharge",
+    workstation: "Workstation"
   },
   error404: {
     description: "Sorry but we could not find the page <br>you are looking for"
@@ -143,6 +145,8 @@ export default {
     detail: "Terminal detail",
     deviceName: "Device name",
     deviceSerial: "Device serial",
+    newTerminal: "New terminal",
+    quantity: "Quantity of terminals",
     status: "Terminal status",
     type: "Terminal type",
     validationCode: "Validation code",

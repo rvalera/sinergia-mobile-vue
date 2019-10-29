@@ -13,6 +13,17 @@ export const TERMINAL_TYPES_ICONS = {
   [TERMINAL_TYPE_POS]: "smartphone"
 };
 
+export const TERMINAL_TYPES = [
+  {
+    value: TERMINAL_TYPE_WORKSTATION,
+    text: i18n.t("constant.workstation")
+  },
+  {
+    value: TERMINAL_TYPE_POS,
+    text: i18n.t("constant.pos")
+  }
+];
+
 export const movementTypes = [
   {
     value: "T",
