@@ -140,6 +140,7 @@ export default {
     signup: "Sign up"
   },
   toolbar: {
+    becomeAffiliate: "Become an affiliate!",
     changePassword: "Change password",
     logout: "Log out",
     profileUser: "Profile user",

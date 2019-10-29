@@ -13,6 +13,7 @@ import Signup from "@/views/Pages/Authentication/SignupWizard/Signup";
 import ChangePassword from "@/views/Pages/UserMenu/ChangePassword";
 import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 import ChangeOperationKey from "@/views/Pages/UserMenu/ChangeOperationKey";
+import BecomeAffiliate from "@/views/Pages/UserMenu/BecomeAffiliate";
 
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
@@ -215,6 +216,20 @@ export const routes = [
       default: ChangeOperationKey,
       sidebar: AppSidebar,
       header: AppToolbar
+    }
+  },
+  {
+    path: "/BecomeAffiliate",
+    name: "BecomeAffiliate",
+    components: {
+      default: BecomeAffiliate,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        title: i18n.t("toolbar.becomeAffiliate")
+      }
     }
   },
   {

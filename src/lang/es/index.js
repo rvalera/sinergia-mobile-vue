@@ -141,6 +141,7 @@ export default {
     signup: "Registrarse"
   },
   toolbar: {
+    becomeAffiliate: "¡Hazte un afiliado!",
     changePassword: "Cambiar contraseña",
     logout: "Cerrar sesión",
     profileUser: "Perfil de usuario",

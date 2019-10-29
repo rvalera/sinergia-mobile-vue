@@ -3,10 +3,14 @@ import {
   mobileUserPath,
   userPath,
   appPersonPath,
-  appPersonData
+  appPersonData,
+  appCardsData
 } from "../config/apiRoute.js";
 
 export const createUserApi = body => apiHttp("POST", `${mobileUserPath}`, body);
+
+export const becomeAffiliateApi = person_id =>
+  apiHttp("PUT", `${appCardsData}/request/${person_id}`);
 
 export const createAppPersonApi = (userId, body) =>
   apiHttp("POST", `${appPersonPath}/${userId}`, body);

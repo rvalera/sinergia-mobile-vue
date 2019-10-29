@@ -87,6 +87,15 @@
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
         <v-divider></v-divider>
+        <v-list-tile @click="() => $router.push({ name: 'BecomeAffiliate' })">
+          <v-list-tile-avatar>
+            <v-icon>person</v-icon>
+          </v-list-tile-avatar>
+          <v-list-tile-title>{{
+            $t("toolbar.becomeAffiliate")
+          }}</v-list-tile-title>
+        </v-list-tile>
+        <v-divider></v-divider>
         <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">
           <v-list-tile-avatar>
             <v-icon>power_settings_new</v-icon>
