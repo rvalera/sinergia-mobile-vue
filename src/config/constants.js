@@ -24,6 +24,16 @@ export const TERMINAL_TYPES = [
   }
 ];
 
+export const TERMINAL_STATUS_LOCK = "L";
+export const TERMINAL_STATUS_ACTIVE = "A";
+export const TERMINAL_STATUS_GENERATED = "G";
+
+export const TERMINAL_STATUS_COLORS = {
+  [TERMINAL_STATUS_LOCK]: "red",
+  [TERMINAL_STATUS_ACTIVE]: "green",
+  [TERMINAL_STATUS_GENERATED]: "yellow"
+};
+
 export const movementTypes = [
   {
     value: "T",

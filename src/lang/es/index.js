@@ -10,7 +10,9 @@ export default {
   },
   common: {
     accept: "Aceptar",
+    activity: "Actividad",
     amount: "Monto",
+    balance: "Saldo",
     birthdate: "Fecha de nacimiento",
     cancel: "Cancelar",
     cancelOperation: "Cancelar operación",
@@ -23,6 +25,7 @@ export default {
     gender: "Género",
     goBack: "Volver",
     goHome: "Ir al inicio",
+    lock: "Bloquear",
     names: "Nombres",
     next: "Siguiente",
     ok: "Ok",
@@ -32,12 +35,14 @@ export default {
     phone: "Teléfono",
     save: "Guardar",
     secondaryEmail: "Correo secundario",
+    seeMovements: "Ver movimientos",
+    sureWannaLock: "¿Estás seguro que deseas bloquearlo?",
+    sureWannaUnlock: "¿Estás seguro que deseas desbloquearlo?",
     surnames: "Apellidos",
     typeYourOperationKey: "Ingrese su clave de operaciones",
+    unlock: "Desbloquear",
     userEmail: "Correo de usuario",
-    welcome: "Bienvenido",
-    activity: "Actividad",
-    balance: "Saldo"
+    welcome: "Bienvenido"
   },
   constant: {
     activation: "Activación",

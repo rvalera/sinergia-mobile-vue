@@ -3,16 +3,23 @@
     <v-layout row wrap>
       <v-flex xs12 md6 offset-sm3>
         <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
-          <v-text-field
-            class="box-input mt-4"
-            :placeholder="$t('terminal.quantity')"
-            v-model="form.quantity"
-            :error-messages="fieldErrors('form.quantity')"
-            @input="$v.form.quantity.$touch()"
-            @blur="$v.form.quantity.$touch()"
-            required
-            type="number"
-          />
+          <v-layout justify-center align-center>
+            <v-btn
+              icon
+              @click="form.quantity--"
+              :disabled="form.quantity === 1"
+            >
+              <v-icon color="red">remove</v-icon>
+            </v-btn>
+            <p class="no-mrpd title">{{ form.quantity }}</p>
+            <v-btn
+              icon
+              @click="form.quantity++"
+              :disabled="form.quantity === 5"
+            >
+              <v-icon color="green">add</v-icon>
+            </v-btn>
+          </v-layout>
           <v-select
             :items="TERMINAL_TYPES"
             color="primary"
@@ -21,7 +28,7 @@
             @input="$v.form.type.$touch()"
             @blur="$v.form.type.$touch()"
             v-model="form.type"
-            class="box-input"
+            class="box-input mt-4"
           />
         </v-form>
         <v-layout justify-space-around class="put-bottom">
@@ -57,29 +64,24 @@
 
 <script>
 import { TERMINAL_TYPES } from "@/config/constants";
-import { required, minValue } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { postTerminalApi } from "@/api/modules";
 const defaultForm = {
   type: "",
-  quantity: ""
+  quantity: 1
 };
 export default {
   mixins: [validationLangMixin],
   validations: {
     form: {
-      type: { required },
-      quantity: { required, minValue: minValue(1) }
+      type: { required }
     }
   },
   validationMessages: {
     form: {
       type: {
         required: "validation.fieldRequired"
-      },
-      quantity: {
-        required: "validation.fieldRequired",
-        minValue: "validation.fieldRequired"
       }
     }
   },
