@@ -9,11 +9,11 @@
 
         <v-list two-line>
           <template v-if="fetched && !cards.length">
-            <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center">
-                {{ $t("paymentInstrument.withoutCards") }}
-              </p>
-            </v-alert>
+            <v-flex xs12 sm6 class="text-xs-center pa-4">
+              <v-alert :value="true" dense type="info" outline>
+                <strong> {{ $t("paymentInstrument.withoutCards") }}</strong>
+              </v-alert>
+            </v-flex>
           </template>
           <template
             v-else-if="fetched && cards.length"

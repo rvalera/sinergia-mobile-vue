@@ -35,9 +35,15 @@ export default {
     surnames: "Apellidos",
     typeYourOperationKey: "Ingrese su clave de operaciones",
     userEmail: "Correo de usuario",
-    welcome: "Bienvenido",
+    welcome: "Bienvenido"
+  },
+  dashboard: {
     activity: "Actividad",
-    balance: "Saldo"
+    balance: "Saldo",
+    withoutInfo: "No hay datos para mostrar"
+  },
+  movements: {
+    withoutMov: "No hay movimientos para mostrar"
   },
   constant: {
     activation: "Activación",

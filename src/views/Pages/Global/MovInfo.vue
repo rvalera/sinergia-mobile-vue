@@ -15,66 +15,55 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fill-height>
-          <v-layout row wrap align-content-center justify-center>
-            <v-flex xs12 sm6 class="text-xs-center">
-              <v-card elevation="0" class="pa-3">
-                <v-list>
-                  <!-- <div class="text-xs-center">
-                    <v-icon x-large color="primary">mdi-coin</v-icon>
-                  </div> -->
-                  <v-spacer></v-spacer>
-                  <v-layout row>
-                    <v-flex xs6 sm6>
-                      <v-text-field
-                        label="Fecha"
-                        v-model="mov.execution_date"
-                        filled
-                        readonly
-                      ></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 sm6>
-                      <span
-                        class=" headline font-weight-black green--text darken-4"
-                      >
-                        {{
-                          amount + " " + (mov.coin ? mov.coin.diminutive : " ")
-                        }}</span
-                      ></v-flex
-                    >
-                  </v-layout>
-
-                  <v-text-field
-                    label="Origen"
-                    v-model="mov.source_description"
-                    filled
-                    readonly
-                  ></v-text-field>
-
-                  <v-text-field
-                    label="Destino"
-                    v-model="mov.target_description"
-                    filled
-                    readonly
-                  ></v-text-field>
-
-                  <v-text-field
-                    label="Tipo"
-                    v-model="mov.type"
-                    filled
-                    readonly
-                  ></v-text-field>
-                </v-list>
-                <v-layout row class="mt-4">
-                  <v-flex xs12>
-                    <v-btn large round block color="primary">
-                      <v-icon left>share</v-icon>
-                      Compartir
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
-              </v-card>
-            </v-flex>
-          </v-layout>
+          <v-flex xs12 sm6 class="text-xs-center">
+            <v-card elevation="0" class="text-xs-left px-3">
+              <p class="display-1 mb-0 font-weight-bold text-xs-center">
+                {{
+                  mov.amount
+                    | currency(mov.coin ? mov.coin.diminutive + " " : " ", 2, {
+                      thousandsSeparator: ".",
+                      decimalSeparator: ","
+                    })
+                }}
+              </p>
+              <p class="body-1 mb-3 text-xs-center">
+                {{ mov.execution_date }}
+              </p>
+              <v-text-field
+                :label="$t('pay.origin')"
+                v-model="mov.source_description"
+                filled
+                readonly
+              />
+              <v-text-field
+                :label="$t('pay.destination')"
+                v-model="mov.target_description"
+                filled
+                readonly
+              />
+              <v-text-field
+                :label="$t('pay.concept')"
+                v-model="mov.observation"
+                filled
+                readonly
+              />
+              <v-text-field
+                :label="$t('pay.reference')"
+                v-model="mov.ref_number"
+                filled
+                readonly
+              />
+            </v-card>
+            <v-layout justify-space-around>
+              <v-flex xs5>
+                <v-btn large round block color="primary">
+                  <v-icon left>share</v-icon>
+                  {{ $t("pay.sharing") }}
+                </v-btn>
+              </v-flex>
+              <v-flex xs5> </v-flex>
+            </v-layout>
+          </v-flex>
         </v-container>
       </v-card>
     </v-dialog>

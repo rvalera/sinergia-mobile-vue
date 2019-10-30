@@ -4,11 +4,29 @@
     <v-flex xs12 sm6 class="text-xs-center">
       <v-card elevation="0" class="text-xs-left pa-1">
         <v-flex>
+          <template v-if="!activeGraph">
+            <v-card-text class="textAlign">
+              <p class="subheading my-0 grey--text text-right">
+                {{ $t("dashboard.balance") }}
+              </p>
+              <span class="display-1 font-weight-black green--text darken-4"
+                >0,00 Vr</span
+              >
+            </v-card-text>
+            <v-flex xs12 sm6 class="text-xs-center pa-3">
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <hr />
+            </v-flex>
+          </template>
           <mini-chart
             v-if="activeGraph"
             class="box-white-500-glow"
             type="line-chart"
-            title="Balance"
+            :title="$t('dashboard.balance')"
             sub-title="to target"
             icon="trending_up"
             icon-color="success"
@@ -25,8 +43,8 @@
     <v-toolbar color="primary" dark>
       <v-toolbar-title>Actividad</v-toolbar-title>
       <v-spacer />
-      <v-btn @click="handleShowFilter" color="white" small icon fab light>
-        <v-icon medium color="primary">mdi-filter</v-icon>
+      <v-btn @click="handleShowMovements" color="white" small icon fab light>
+        <v-icon medium color="primary">mdi-magnify</v-icon>
       </v-btn>
     </v-toolbar>
     <movement-filter ref="filter" />
@@ -148,10 +166,10 @@ export default {
       this.activeGraph = false;
       this.getGraphData(person_id, data);
     },
-    async showMovements(person_id) {
+    async showMovements(person_id, pages = 5) {
       let filter = {
         page: 1,
-        perPage: 5,
+        perPage: pages,
         id: person_id
       };
 
@@ -164,32 +182,10 @@ export default {
       console.log(serviceResponse);
       let data = serviceResponse.data;
 
-      // var response = {
-      //   ok: 1,
-      //   data: {
-      //     current_balance: 850.36,
-      //     daily_balance: {
-      //       "18-10": 888.58,
-      //       "19-10": 718,
-      //       "20-10": 850.36,
-      //       "21-10": 878.58,
-      //       "22-10": 748,
-      //       "23-10": 850.36
-      //     }
-      //   }
-      // };
-      //==================================================
-
       let labels = Object.keys(data.daily_balance);
       let datasets = Object.values(data.daily_balance);
       this.balance = data.current_balance;
-      // for (let item in data.daily_balance) {
-      //   console.log(item + " " + data.daily_balance[item]);
-      //   labels.push(item.toString());
-      //   datasets.push(data.daily_balance[item]);
-      // }
 
-      //this is data to fill graph width
       labels.push("");
       labels.splice(0, 0, "");
       datasets.push(datasets[datasets.length - 1]);
@@ -202,8 +198,14 @@ export default {
       //=============================================
       this.activeGraph = true;
     },
-    handleShowFilter() {
-      this.$refs.filter.show();
+    handleShowMovements() {
+      this.$router.push({
+        name: "/AppMovements"
+      });
+      const { person_id } = localStorage;
+      this.showMovements(person_id, 10);
+
+      //this.$refs.filter.show();
     }
   },
   mounted() {
