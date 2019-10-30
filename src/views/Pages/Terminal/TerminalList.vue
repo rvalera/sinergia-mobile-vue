@@ -44,8 +44,11 @@
                   </template>
                   <v-list>
                     <v-list-tile
-                      v-if="item.status === TERMINAL_STATUS_ACTIVE"
-                      @click="showMovements(item.id)"
+                      v-if="
+                        item.status === TERMINAL_STATUS_ACTIVE &&
+                          item.hasOwnProperty('device')
+                      "
+                      @click="showMovements(item.device.id)"
                     >
                       <v-list-tile-title>
                         {{ $t("common.seeMovements") }}
