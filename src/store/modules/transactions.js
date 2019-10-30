@@ -35,7 +35,7 @@ const actions = {
         type: payload.type,
         start_date: payload.start_date,
         end_date: payload.end_date,
-        blockchain_id: payload.id
+        [payload.field]: payload.id //blockchain_id or device_id
       }
     };
     const query = {

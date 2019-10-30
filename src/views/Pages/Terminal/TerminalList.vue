@@ -6,7 +6,7 @@
           <template v-if="fetched && !terminals.length">
             <v-flex xs12 sm6 class="text-xs-center pa-4">
               <v-alert :value="true" dense type="info" outline>
-                <strong> {{ $t("terminal.withoutTerminals") }}</strong>
+                <strong>{{ $t("terminal.withoutTerminals") }}</strong>
               </v-alert>
             </v-flex>
           </template>
@@ -44,28 +44,36 @@
                   </template>
                   <v-list>
                     <v-list-tile
+                      v-if="item.status === TERMINAL_STATUS_ACTIVE"
+                      @click="showMovements(item.id)"
+                    >
+                      <v-list-tile-title>
+                        {{ $t("common.seeMovements") }}
+                      </v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile
                       @click="handleDelete(item.id)"
                       v-if="item.status === TERMINAL_STATUS_GENERATED"
                     >
-                      <v-list-tile-title>{{
-                        $t("common.delete")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("common.delete") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === TERMINAL_STATUS_ACTIVE"
                       @click="askLockUnlock(item)"
                     >
-                      <v-list-tile-title>{{
-                        $t("common.lock")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("common.lock") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === TERMINAL_STATUS_LOCK"
                       @click="askLockUnlock(item)"
                     >
-                      <v-list-tile-title>{{
-                        $t("common.unlock")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("common.unlock") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -94,12 +102,12 @@
         <v-card-text>{{ dialog.body }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog.flag = false">{{
-            $t("common.cancel")
-          }}</v-btn>
-          <v-btn color="primary" flat @click.native="handleLockUnlock">{{
-            $t("common.accept")
-          }}</v-btn>
+          <v-btn color="primary" flat @click.native="dialog.flag = false">
+            {{ $t("common.cancel") }}
+          </v-btn>
+          <v-btn color="primary" flat @click.native="handleLockUnlock">
+            {{ $t("common.accept") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -121,6 +129,7 @@ import {
   TERMINAL_STATUS_GENERATED,
   TERMINAL_STATUS_LOCK
 } from "@/config/constants";
+import { mapActions } from "vuex";
 export default {
   components: { TerminalInfo },
   data: () => ({
@@ -143,6 +152,7 @@ export default {
     total: 0
   }),
   methods: {
+    ...mapActions(["setTransactionsApp"]),
     async handleClick(data) {
       this.$refs.modal.show(data);
     },
@@ -211,6 +221,20 @@ export default {
         this.dialog.body = this.$t("common.sureWannaUnlock");
       }
       this.dialog.flag = true;
+    },
+    async showMovements(device_id) {
+      let filter = {
+        page: 1,
+        perPage: 10,
+        id: device_id,
+        field: "device_id"
+      };
+
+      this.setTransactionsApp(filter);
+
+      this.$router.push({
+        name: "/AppMovements"
+      });
     }
   },
   async mounted() {
