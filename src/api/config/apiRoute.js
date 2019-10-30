@@ -14,5 +14,4 @@ export const paymentInstrumentPath = `/v2/payment_instrument`;
 export const refillPath = `${appPersonData}/refill`;
 export const dashboardGraphPath = `/v2/wallet/dashboard`;
 export const personliquidationPath = `/v2/personliquidation`;
-export const v2terminalPath = `/v2/terminal`;
-export const terminalPath = `/terminal`;
+export const terminalPath = `/v2/terminal`;

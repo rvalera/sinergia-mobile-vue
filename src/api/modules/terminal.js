@@ -1,17 +1,16 @@
 import { apiHttp } from "../axiosApi.js";
-import { v2terminalPath, terminalPath } from "../config/apiRoute.js";
+import { terminalPath } from "../config/apiRoute.js";
 
 export const getTerminalsApi = params =>
-  apiHttp("GET", `${v2terminalPath}`, {}, { params });
+  apiHttp("GET", `${terminalPath}`, {}, { params });
 
-export const postTerminalApi = body =>
-  apiHttp("POST", `${v2terminalPath}`, body);
+export const postTerminalApi = body => apiHttp("POST", `${terminalPath}`, body);
 
 export const lockTerminalApi = body =>
-  apiHttp("PUT", `${v2terminalPath}/lock`, body);
+  apiHttp("PUT", `${terminalPath}/lock`, body);
 
 export const unlockTerminalApi = body =>
-  apiHttp("PUT", `${v2terminalPath}/unlock`, body);
+  apiHttp("PUT", `${terminalPath}/unlock`, body);
 
-export const deleteTerminalApi = body =>
-  apiHttp("DELETE", `${terminalPath}`, body);
+export const deleteTerminalApi = id =>
+  apiHttp("DELETE", `${terminalPath}/${id}`);

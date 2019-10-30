@@ -4,11 +4,11 @@
       <v-card>
         <v-list two-line>
           <template v-if="fetched && !terminals.length">
-            <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center no-mrpd">
-                {{ $t("terminal.withoutTerminals") }}
-              </p>
-            </v-alert>
+            <v-flex xs12 sm6 class="text-xs-center pa-4">
+              <v-alert :value="true" dense type="info" outline>
+                <strong> {{ $t("terminal.withoutTerminals") }}</strong>
+              </v-alert>
+            </v-flex>
           </template>
           <template
             v-else-if="fetched && terminals.length"
