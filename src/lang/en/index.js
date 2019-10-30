@@ -44,6 +44,14 @@ export default {
     userEmail: "User email",
     welcome: "Welcome"
   },
+  dashboard: {
+    activity: "Activity",
+    balance: "Balance",
+    withoutInfo: "No data to show"
+  },
+  movements: {
+    withoutMov: "There are no movements to show"
+  },
   constant: {
     activation: "Activation",
     all: "All",

@@ -3,6 +3,13 @@
     <v-flex xs12 sm6 offset-sm3>
       <v-card elevation="0">
         <v-list two-line>
+          <template v-if="!transactions_app.length">
+            <v-flex xs12 sm6 class="text-xs-center pa-3">
+              <v-alert :value="true" dense type="info" outline>
+                <strong>{{ $t("movements.withoutMov") }}</strong>
+              </v-alert>
+            </v-flex>
+          </template>
           <template v-for="(item, index) in transactions_app">
             <v-divider :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
