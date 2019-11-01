@@ -71,13 +71,17 @@
                     ></v-date-picker>
                   </v-menu>
                 </v-list>
-                <v-btn
-                  block
-                  color="primary"
-                  text-color="white"
-                  @click="filterDate"
-                  >{{ $t("movementsFilter.filter") }}</v-btn
-                >
+
+                <div class=" put-bottom px-3">
+                  <v-btn
+                    large
+                    round
+                    block
+                    color="primary"
+                    @click="filterDate"
+                    >{{ $t("movementsFilter.filter") }}</v-btn
+                  >
+                </div>
               </v-card>
             </v-flex>
           </v-layout>
