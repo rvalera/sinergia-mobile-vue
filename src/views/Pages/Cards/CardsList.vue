@@ -144,7 +144,8 @@ export default {
       let filter = {
         page: 1,
         perPage: 10,
-        id: data.id
+        id: data.id,
+        field: "blockchain_id"
       };
 
       this.setTransactionsApp(filter);

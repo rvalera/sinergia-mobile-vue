@@ -4,11 +4,11 @@
       <v-card elevation="0">
         <v-list two-line>
           <template v-if="fetched && !liquidations.length">
-            <v-alert :value="true" color="warning" icon="priority_high" outline>
-              <p class="title text-xs-center no-mrpd">
-                {{ $t("liquidation.withoutLiquidations") }}
-              </p>
-            </v-alert>
+            <v-flex xs12 sm6 class="text-xs-center pa-4">
+              <v-alert :value="true" dense type="info" outline>
+                <strong> {{ $t("liquidation.withoutLiquidations") }}</strong>
+              </v-alert>
+            </v-flex>
           </template>
           <template
             v-else-if="fetched && liquidations.length"

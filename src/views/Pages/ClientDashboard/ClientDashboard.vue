@@ -170,7 +170,8 @@ export default {
       let filter = {
         page: 1,
         perPage: pages,
-        id: person_id
+        id: person_id,
+        field: "blockchain_id"
       };
 
       this.setTransactionsApp(filter);
