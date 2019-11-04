@@ -41,7 +41,7 @@
                     <v-layout wrap row pa-4>
                       <v-flex xs12 pa-0>
                         <v-text-field
-                          color="purple darken-2"
+                          color="primary"
                           :label="$t('common.email')"
                           v-model="form.email"
                           required
@@ -49,7 +49,7 @@
                           @blur="$v.form.email.$touch()"
                         ></v-text-field>
                         <v-text-field
-                          color="purple darken-2"
+                          color="primary"
                           :label="$t('common.names')"
                           v-model="form.first_name"
                           required
@@ -57,7 +57,7 @@
                           @blur="$v.form.first_name.$touch()"
                         ></v-text-field>
                         <v-text-field
-                          color="purple darken-2"
+                          color="primary"
                           :label="$t('common.surnames')"
                           v-model="form.last_name"
                           required
