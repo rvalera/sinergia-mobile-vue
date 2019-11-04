@@ -25,7 +25,7 @@ export const getAppPersonApi = userName =>
   apiHttp("GET", `${appPersonData}/${userName}/A`);
 
 export const loginApi = ({ email, password }) => {
-  return apiHttp("GET", `${userPath}/detail`, null, {
+  return apiHttp("GET", `/v2${userPath}/detail`, null, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

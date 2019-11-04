@@ -38,8 +38,8 @@ const mutations = {
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
       ...state.user.person,
-      ...payload
-      //fullname: payload.first_name + " " + payload.last_name
+      ...payload,
+      fullname: payload.first_name + " " + payload.last_name
     };
   }
 };
@@ -49,6 +49,7 @@ const savePersonId = async email => {
   let serviceResponsePerson = await getAppPersonApi(email);
   if (serviceResponsePerson.ok) {
     localStorage.setItem("person_id", serviceResponsePerson.data.id);
+    localStorage.setItem("userType", serviceResponsePerson.data.person_type);
     router.push({ name: "Home" });
   }
 };
@@ -65,11 +66,12 @@ const actions = {
         localStorage.setItem("user_id", serviceResponse.data.id);
         localStorage.setItem("email", serviceResponse.data.email);
         localStorage.setItem("password", payload.password);
-        localStorage.setItem("userType", serviceResponse.data.type);
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
         else {
-          await savePersonId(serviceResponse.data.email);
+          localStorage.setItem("userType", serviceResponse.data.affiliate.type);
+          localStorage.setItem("person_id", serviceResponse.data.affiliate.id);
+          router.push({ name: "Home" });
         }
         dispatch("getAppToken");
       }
@@ -103,11 +105,10 @@ const actions = {
     let serviceResponse = await createAppPersonApi(id, payload);
     if (serviceResponse.ok) {
       localStorage.setItem("password", payload.password);
-      await savePersonId(state.user.email);
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_MESSAGE", params);
       commit(UPDATE_PERSON, payload);
-      router.push({ name: "Home" });
+      await savePersonId(state.user.email);
     } else {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);

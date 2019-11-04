@@ -16,7 +16,7 @@
                         <v-layout wrap>
                           <v-flex xs12 pa-0>
                             <v-text-field
-                              color="purple darken-2"
+                              color="primary"
                               :label="$t('common.names')"
                               v-model="form.first_name"
                               required
@@ -24,7 +24,7 @@
                               @blur="$v.form.first_name.$touch()"
                             ></v-text-field>
                             <v-text-field
-                              color="purple darken-2"
+                              color="primary"
                               :label="$t('common.surnames')"
                               v-model="form.last_name"
                               required
