@@ -2,7 +2,9 @@
   <v-container fill-height>
     <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="0" class="text-xs-left pa-3">
+        <v-card elevation="0" class="text-xs-left ">
+          <br />
+          <br />
           <div class="text-xs-center">
             <v-icon x-large color="primary">email</v-icon>
           </div>
@@ -20,25 +22,23 @@
                       @blur="$v.form.destiny_email.$touch()"
                     ></v-text-field>
                   </v-flex>
-                  <v-flex xs12>
-                    <v-layout row wrap text-xs-left>
-                      <!-- Login form submit -->
-                      <v-flex xs12 class="no-mrpd">
-                        <v-btn
-                          :loading="loader"
-                          color="primary"
-                          round
-                          block
-                          type="submit"
-                          :disabled="$v.$invalid"
-                          class="mt-4"
-                          :class="$v.$invalid ? '' : 'white--text'"
-                        >
-                          {{ $t("common.next") }}
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                  </v-flex>
+
+                  <div class=" put-bottom px-3">
+                    <!-- Login form submit -->
+
+                    <v-btn
+                      :loading="loader"
+                      color="primary"
+                      round
+                      block
+                      type="submit"
+                      :disabled="$v.$invalid"
+                      class="mt-4"
+                      :class="$v.$invalid ? '' : 'white--text'"
+                    >
+                      {{ $t("common.next") }}
+                    </v-btn>
+                  </div>
                 </v-layout>
               </v-container>
             </v-form>

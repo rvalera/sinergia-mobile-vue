@@ -12,7 +12,7 @@
                 <p class="subheading my-4">
                   <b>Destino:</b>
                   {{ transferData.email }}
-                  <br />
+
                   <br />
                   <b>Nombre:</b>
                   {{ transferData.fullname }}
@@ -31,6 +31,7 @@
                       @blur="$v.form.amount.$touch()"
                     />
                   </v-form>
+                  <br />
                   <v-text-field
                     color="primary"
                     label="Concepto"
@@ -65,6 +66,7 @@
             color="primary"
             class="mt-4"
             type="submit"
+            @click="submit"
             :disabled="$v.$invalid"
             :class="$v.$invalid ? '' : 'white--text'"
             >{{ $t("common.next") }}</v-btn

@@ -61,11 +61,11 @@
           </template>
         </v-list>
       </v-card>
-      <v-flex v-if="activeAutoScroll" xs12 sm6 class="text-xs-center">
+      <!-- <v-flex v-if="activeAutoScroll" xs12 sm6 class="text-xs-center">
         <div v-if="setActiveProgres">
           <v-progress-circular indeterminate color="primary" class="bottom" />
-        </div>
-        <!-- <v-btn
+        </div> -->
+      <!-- <v-btn
           v-if="activeAutoScroll"
           block
           color="primary"
@@ -76,7 +76,7 @@
             >mdi-chevron-double-down</v-icon
           >
         </v-btn> -->
-      </v-flex>
+      <!-- </v-flex> -->
       <mov-info ref="modal"></mov-info>
       <template v-if="hasFilterFab">
         <movement-filter ref="filter" />
