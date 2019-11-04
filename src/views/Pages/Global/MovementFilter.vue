@@ -45,6 +45,7 @@
                     <v-date-picker
                       v-model="filter.start_date"
                       @input="menu = false"
+                      :max="new Date().toISOString().substr(0, 10)"
                       range
                     ></v-date-picker>
                   </v-menu>
@@ -68,6 +69,7 @@
                     <v-date-picker
                       v-model="filter.end_date"
                       @input="menu2 = false"
+                      :max="new Date().toISOString().substr(0, 10)"
                     ></v-date-picker>
                   </v-menu>
                   <v-select

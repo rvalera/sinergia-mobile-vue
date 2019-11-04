@@ -41,16 +41,12 @@
                               color="primary"
                               :label="$t('common.phone')"
                               v-model="form.phone_number"
-                              required
                               mask="phone"
-                              :error-messages="fieldErrors('form.phone_number')"
-                              @blur="$v.form.phone_number.$touch()"
                             ></v-text-field>
                             <v-text-field
                               color="primary"
                               :label="$t('common.secondaryEmail')"
                               v-model="form.secondary_email"
-                              required
                               :error-messages="
                                 fieldErrors('form.secondary_email')
                               "
@@ -79,7 +75,9 @@
                               </template>
                               <v-date-picker
                                 v-model="form.birth_date"
+                                ref="picker"
                                 scrollable
+                                :max="new Date().toISOString().substr(0, 10)"
                               >
                                 <v-spacer></v-spacer>
                                 <v-btn
@@ -140,8 +138,7 @@ export default {
     form: {
       birth_date: { required },
       gender: { required },
-      phone_number: { required },
-      secondary_email: { required, email }
+      secondary_email: { email }
     }
   },
   validationMessages: {
@@ -152,11 +149,7 @@ export default {
       gender: {
         required: "validation.fieldRequired"
       },
-      phone_number: {
-        required: "validation.fieldRequired"
-      },
       secondary_email: {
-        required: "validation.email.required",
         email: "validation.email.valid"
       }
     }
@@ -169,6 +162,11 @@ export default {
       loader: false,
       modal: false
     };
+  },
+  watch: {
+    modal(val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+    }
   },
   methods: {
     submit() {
