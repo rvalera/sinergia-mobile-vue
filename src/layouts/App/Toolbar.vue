@@ -3,7 +3,7 @@
     :fixed="fixedToolbar"
     v-if="toolbar"
     :clipped-left="toolbarClippedLeft"
-    color="primary"
+    class="navbar-bg"
     :dark="true"
     app
     flat
@@ -181,3 +181,11 @@ export default {
   }
 };
 </script>
+
+<style>
+.navbar-bg {
+  background-image: url("../../assets/images/navbar.png");
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+</style>
