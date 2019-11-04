@@ -145,7 +145,7 @@ export default {
   paymentInstrument: {
     cardNumber: "Número de tarjeta",
     cvc: "CVC",
-    expiryDate: "Fechad de vencimiento",
+    expiryDate: "Fecha de vencimiento",
     useByDefault: "Usar por defecto",
     withoutCards: "No posee tarjetas aún"
   },

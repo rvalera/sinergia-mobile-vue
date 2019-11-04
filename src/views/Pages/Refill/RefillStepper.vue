@@ -75,6 +75,7 @@ export default {
       var serviceResponse = await postRefillApi(body);
       const params = { text: serviceResponse.message.text };
       if (serviceResponse.ok) {
+        this.$router.push({ name: "Home" });
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
         window.getApp.$emit("SHOW_ERROR", params);

@@ -13,6 +13,7 @@
         right
         :color="snackbar.color"
         v-model="snackbar.show"
+        multi-line
       >
         {{ snackbar.text }}
         <v-btn dark flat @click.native="snackbar.show = false" icon>
