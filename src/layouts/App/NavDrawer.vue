@@ -201,18 +201,20 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import appDrawerItems from "@/data/app-drawer-items";
+import { clientMenu, affiliateMenu } from "@/data/menu";
 import { camel } from "@/utils/helpers";
+import { USER_TYPE_CLIENT } from "@/config/constants";
 
 export default {
   data() {
     return {
-      items: appDrawerItems,
+      items: [],
       dark: false,
       logo: "/static/vuse-circle-white.svg"
     };
   },
   mounted() {
+    this.setMenu();
     this.keepLogin();
     const ps = document.getElementById("app-drawer");
     ps.addEventListener("mouseenter", this.miniEnterVariantHandler);
@@ -300,6 +302,11 @@ export default {
         if (email && password) this.loginAction({ email, password });
         else this.$router.push({ name: "LoginPage" });
       }
+    },
+    setMenu() {
+      const userType = localStorage.userType;
+      this.items = userType === USER_TYPE_CLIENT ? clientMenu : affiliateMenu;
+      console.log(this.items);
     }
   }
 };

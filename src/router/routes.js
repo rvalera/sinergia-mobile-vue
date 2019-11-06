@@ -22,7 +22,7 @@ import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
 import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
-import ClientDashboard from "@/views/Pages/ClientDashboard/ClientDashboard";
+import Dashboard from "@/views/Pages/Dashboard/Dashboard";
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 import LiquidationList from "@/views/Pages/Liquidation/LiquidationList";
 import TerminalList from "@/views/Pages/Terminal/TerminalList";
@@ -32,9 +32,9 @@ export const routes = [
   { name: "Home", path: "/", redirect: "/dashboard" },
   {
     path: "/dashboard",
-    name: "ClientDashboard",
+    name: "Dashboard",
     components: {
-      default: ClientDashboard,
+      default: Dashboard,
       sidebar: AppSidebar,
       header: AppToolbar,
       footer: AppFooter
@@ -137,7 +137,7 @@ export const routes = [
   },
   {
     path: "/cards",
-    name: "/CardsList",
+    name: "CardsList",
     components: {
       default: CardsList,
       sidebar: AppSidebar,
@@ -254,7 +254,7 @@ export const routes = [
   },
   {
     path: "/liquidation",
-    name: "LiquidationList",
+    name: "/LiquidationList",
     components: {
       default: LiquidationList,
       sidebar: AppSidebar,
@@ -268,7 +268,7 @@ export const routes = [
   },
   {
     path: "/terminal",
-    name: "TerminalList",
+    name: "/TerminalList",
     components: {
       default: TerminalList,
       sidebar: AppSidebar,
