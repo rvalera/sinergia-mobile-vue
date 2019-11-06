@@ -7,9 +7,11 @@
           <p class="title my-5 text-xs-center ">
             {{ $t("pay.scanQR") }}
           </p>
-          <v-btn round large block color="primary" @click="startCamera">{{
-            $t("pay.scan")
-          }}</v-btn>
+          <div class="put-bottom px-3">
+            <v-btn round large block color="primary" @click="startCamera">{{
+              $t("pay.scan")
+            }}</v-btn>
+          </div>
         </v-card>
       </v-flex>
     </v-layout>

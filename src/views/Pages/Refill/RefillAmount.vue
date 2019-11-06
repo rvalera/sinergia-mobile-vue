@@ -89,7 +89,7 @@ export default {
       money: {
         decimal: ",",
         thousands: ".",
-        prefix: "ARS ",
+        suffix: " ARS",
         precision: 2,
         masked: false
       }

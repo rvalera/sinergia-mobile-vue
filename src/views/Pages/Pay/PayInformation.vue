@@ -6,24 +6,29 @@
           <div class="text-xs-center">
             <v-icon x-large color="primary">receipt</v-icon>
           </div>
-          <p class="subheading my-4">
-            <b>{{ $t("pay.destination") }}:</b>
-            {{ payData.target }}
-          </p>
-          <p class="subheading my-4">
-            <b>{{ $t("common.amount") }}:</b>
+          <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               payData.amount
-                | currency("$", 2, {
+                | currency(coin, 2, {
                   thousandsSeparator: ".",
-                  decimalSeparator: ","
+                  decimalSeparator: ",",
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
                 })
             }}
           </p>
-          <p class="subheading my-4">
-            <b>{{ $t("pay.concept") }}:</b>
-            {{ payData.concept }}
-          </p>
+          <v-text-field
+            :label="$t('pay.destination')"
+            v-model="payData.target"
+            filled
+            readonly
+          />
+          <v-text-field
+            :label="$t('pay.concept')"
+            v-model="payData.concept"
+            filled
+            readonly
+          />
         </v-card>
         <v-layout justify-space-around class="put-bottom">
           <v-flex xs5>
@@ -57,6 +62,11 @@
 export default {
   props: {
     payData: Object
+  },
+  data() {
+    return {
+      coin: localStorage.coin
+    };
   }
 };
 </script>

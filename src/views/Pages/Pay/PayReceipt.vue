@@ -16,9 +16,11 @@
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               receipt.amount
-                | currency("$", 2, {
+                | currency(coin, 2, {
                   thousandsSeparator: ".",
-                  decimalSeparator: ","
+                  decimalSeparator: ",",
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
                 })
             }}
           </p>
@@ -71,6 +73,11 @@
 export default {
   props: {
     receipt: Object
+  },
+  data() {
+    return {
+      coin: localStorage.coin
+    };
   }
 };
 </script>
