@@ -20,9 +20,11 @@
                 <v-list-tile-title style="font-size:20px">
                   {{
                     item.final_balance
-                      | currency(item.coin.diminutive + " ", 2, {
+                      | currency(coin, 2, {
                         thousandsSeparator: ".",
-                        decimalSeparator: ","
+                        decimalSeparator: ",",
+                        symbolOnLeft: false,
+                        spaceBetweenAmountAndSymbol: true
                       })
                   }}
                 </v-list-tile-title>
@@ -59,6 +61,7 @@ import LiquidationInfo from "./LiquidationInfo";
 export default {
   components: { LiquidationInfo },
   data: () => ({
+    coin: localStorage.coin,
     fetched: false,
     liquidations: [],
     filter: {

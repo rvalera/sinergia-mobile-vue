@@ -16,15 +16,12 @@
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               receipt.amount
-                | currency(
-                  receipt.coin ? " " + receipt.coin.diminutive : " ",
-                  2,
-                  {
-                    thousandsSeparator: ".",
-                    decimalSeparator: ",",
-                    symbolOnLeft: false
-                  }
-                )
+                | currency(receipt.coin ? receipt.coin.diminutive : " ", 2, {
+                  thousandsSeparator: ".",
+                  decimalSeparator: ",",
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
+                })
             }}
           </p>
           <p class="body-1 mb-3 text-xs-center">
@@ -76,6 +73,11 @@
 export default {
   props: {
     receipt: Object
+  },
+  data() {
+    return {
+      coin: localStorage.coin
+    };
   }
 };
 </script>
