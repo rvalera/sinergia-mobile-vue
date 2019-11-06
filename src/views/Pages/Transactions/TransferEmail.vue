@@ -15,7 +15,7 @@
                   <v-flex xs12 pa-0>
                     <v-text-field
                       color="primary"
-                      label="Correo Destino"
+                      :label="$t('common.destinyEmail')"
                       v-model="form.destiny_email"
                       required
                       :error-messages="fieldErrors('form.destiny_email')"
@@ -80,9 +80,15 @@ export default {
   },
   methods: {
     submit() {
-      this.$emit("next", {
-        destiny_email: this.form.destiny_email
-      });
+      const { email } = localStorage;
+      console.log(email);
+      if (email === this.form.destiny_email) {
+        const params = { text: this.$t("message.myEmail") };
+        window.getApp.$emit("SHOW_ERROR", params);
+      } else
+        this.$emit("next", {
+          destiny_email: this.form.destiny_email
+        });
     }
   }
 };

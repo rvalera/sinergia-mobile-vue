@@ -20,9 +20,10 @@
               <p class="display-1 mb-0 font-weight-bold text-xs-center">
                 {{
                   mov.amount
-                    | currency(mov.coin ? mov.coin.diminutive + " " : " ", 2, {
+                    | currency(mov.coin ? " " + mov.coin.diminutive : " ", 2, {
                       thousandsSeparator: ".",
-                      decimalSeparator: ","
+                      decimalSeparator: ",",
+                      symbolOnLeft: false
                     })
                 }}
               </p>
