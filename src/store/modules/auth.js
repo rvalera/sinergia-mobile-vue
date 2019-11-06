@@ -71,6 +71,10 @@ const actions = {
         else {
           localStorage.setItem("userType", serviceResponse.data.affiliate.type);
           localStorage.setItem("person_id", serviceResponse.data.affiliate.id);
+          localStorage.setItem(
+            "affiliation_request",
+            serviceResponse.data.affiliate.affiliation_request
+          );
           router.push({ name: "Home" });
         }
         dispatch("getAppToken");
