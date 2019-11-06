@@ -18,9 +18,12 @@ export default {
     cancelOperation: "Cancelar operación",
     cancelOperationQuestion: "¿Seguro que desea salir de la operación?",
     continue: "Continuar",
+    concept: "Concepto",
     delete: "Eliminar",
+    destinyEmail: "Correo Destino",
     email: "Correo",
     finish: "Finalizar",
+    name: "Nombre",
     firstName: "Nombre",
     gender: "Género",
     goBack: "Volver",
@@ -117,7 +120,8 @@ export default {
     apiError500: "Error de conexión",
     apiErrorUndefined: "Error General de la Aplicacion",
     invalidKey: "Clave inválida",
-    succesfulPay: "¡Pago realizado con éxito!"
+    succesfulPay: "¡Pago realizado con éxito!",
+    myEmail: "Dirección de correo Inválida"
   },
   movementsFilter: {
     endAmount: "Monto hasta",

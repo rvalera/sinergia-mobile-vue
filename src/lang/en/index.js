@@ -18,9 +18,12 @@ export default {
     cancelOperation: "Cancel operation",
     cancelOperationQuestion: "Are you sure you want to exit the operation?",
     continue: "Continue",
+    concept: "Concept",
     delete: "Delete",
+    destinyEmail: "Destiny Email",
     email: "Email",
     finish: "Finish",
+    name: "Name",
     firstName: "First name",
     gender: "Gender",
     goBack: "Go back",
@@ -116,7 +119,8 @@ export default {
     apiError500: "Connection error",
     apiErrorUndefined: "General Application Error",
     invalidKey: "Invalid key",
-    succesfulPay: "Succesful pay!"
+    succesfulPay: "Succesful pay!",
+    myEmail: "Invalid email address"
   },
   movementsFilter: {
     endAmount: "End amount",

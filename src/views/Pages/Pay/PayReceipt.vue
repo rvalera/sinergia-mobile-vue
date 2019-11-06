@@ -16,10 +16,15 @@
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               receipt.amount
-                | currency("$", 2, {
-                  thousandsSeparator: ".",
-                  decimalSeparator: ","
-                })
+                | currency(
+                  receipt.coin ? " " + receipt.coin.diminutive : " ",
+                  2,
+                  {
+                    thousandsSeparator: ".",
+                    decimalSeparator: ",",
+                    symbolOnLeft: false
+                  }
+                )
             }}
           </p>
           <p class="body-1 mb-3 text-xs-center">

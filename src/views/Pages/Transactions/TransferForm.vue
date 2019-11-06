@@ -9,14 +9,18 @@
                 <v-icon x-large color="primary">receipt</v-icon>
               </div>
               <v-layout wrap>
-                <p class="subheading my-4">
-                  <b>Destino:</b>
-                  {{ transferData.email }}
-
-                  <br />
-                  <b>Nombre:</b>
-                  {{ transferData.fullname }}
-                </p>
+                <v-text-field
+                  color="primary"
+                  :label="$t('common.email')"
+                  v-model="transferData.email"
+                  readonly
+                ></v-text-field>
+                <v-text-field
+                  color="primary"
+                  :label="$t('common.name')"
+                  v-model="transferData.fullname"
+                  readonly
+                ></v-text-field>
 
                 <v-flex xs12 pa-0>
                   <v-form
@@ -34,7 +38,7 @@
                   <br />
                   <v-text-field
                     color="primary"
-                    label="Concepto"
+                    :label="$t('common.concept')"
                     v-model="form.description"
                     required
                     :error-messages="fieldErrors('form.description')"
