@@ -50,6 +50,10 @@ const savePersonId = async email => {
   if (serviceResponsePerson.ok) {
     localStorage.setItem("person_id", serviceResponsePerson.data.id);
     localStorage.setItem("userType", serviceResponsePerson.data.person_type);
+    localStorage.setItem(
+      "affiliation_request",
+      serviceResponsePerson.data.affiliate.affiliation_request
+    );
     router.push({ name: "Home" });
   }
 };

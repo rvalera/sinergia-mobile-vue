@@ -49,6 +49,7 @@ export default {
       var serviceResponse = await becomeAffiliateApi(person_id);
       if (serviceResponse.ok) {
         const params = { text: serviceResponse.message.text };
+        localStorage.setItem("affiliation_request", "Y");
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.$router.push({ name: "Home" });
       } else {

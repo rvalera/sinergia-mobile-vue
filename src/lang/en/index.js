@@ -96,6 +96,7 @@ export default {
     liquidations: "Liquidations",
     lock_unlock: "Lock/unlock",
     movements: "Movements",
+    myBusiness: "My business",
     notifications: "Notifications",
     operators: "Operators",
     paymentInstruments: "Recharge means",

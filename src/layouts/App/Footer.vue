@@ -5,41 +5,65 @@
         <v-icon>add</v-icon>
       </v-btn>
     </template>
-    <v-list>
-      <v-subheader>Open in</v-subheader>
+    <v-list subheader>
+      <v-subheader>{{ $t("menu.transactions") }}</v-subheader>
       <v-list-tile
-        v-for="tile in tiles"
+        v-for="tile in clientFabMenu"
         :key="tile.title"
-        @click="sheet = false"
+        @click="
+          () => {
+            $router.push({ name: tile.name });
+            sheet = false;
+          }
+        "
       >
         <v-list-tile-avatar>
           <v-avatar size="32px" tile>
-            <img
-              :src="
-                `https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`
-              "
-              :alt="tile.title"
-            />
+            <v-icon x-large>{{ tile.icon }}</v-icon>
           </v-avatar>
         </v-list-tile-avatar>
         <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
       </v-list-tile>
     </v-list>
+    <template v-if="isAffiliate">
+      <v-divider />
+      <v-list subheader>
+        <v-subheader>{{ $t("menu.myBusiness") }}</v-subheader>
+        <v-list-tile
+          v-for="tile in affiliateFabMenu"
+          :key="tile.title"
+          @click="
+            () => {
+              $router.push({ name: tile.name });
+              sheet = false;
+            }
+          "
+        >
+          <v-list-tile-avatar>
+            <v-avatar size="32px" tile>
+              <v-icon x-large>{{ tile.icon }}</v-icon>
+            </v-avatar>
+          </v-list-tile-avatar>
+          <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </template>
   </v-bottom-sheet>
 </template>
 <script>
+import { clientFabMenu, affiliateFabMenu } from "@/data/menu";
+import { USER_TYPE_AFFILIATE } from "@/config/constants";
 export default {
   data: () => ({
     sheet: false,
-    tiles: [
-      { img: "keep.png", title: "Pagar Factura QR" },
-      { img: "inbox.png", title: "Realizar Pago Confiable" },
-      { img: "hangouts.png", title: "Transferir Saldo" },
-      { img: "messenger.png", title: "Recargar Saldo" },
-      { img: "google.png", title: "Generar Pago Confiable" },
-      { img: "inbox.png", title: "Solicitar Liquidación" }
-    ]
-  })
+    clientFabMenu,
+    affiliateFabMenu
+  }),
+  computed: {
+    isAffiliate() {
+      return USER_TYPE_AFFILIATE === localStorage.userType;
+    }
+  }
 };
 </script>
 

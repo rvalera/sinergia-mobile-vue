@@ -37,7 +37,7 @@ export const affiliateMenu = [
   },
   {
     icon: "pages",
-    title: "Mi Negocio",
+    title: i18n.t("menu.myBusiness"),
     group: "",
     items: [
       {
@@ -88,5 +88,27 @@ export const clientMenu = [
     icon: "360",
     title: i18n.t("menu.paymentInstruments"),
     name: "PaymentInstrumentList"
+  }
+];
+
+export const clientFabMenu = [
+  {
+    icon: "arrow_back",
+    title: i18n.t("menu.refillBalance"),
+    name: "/RefillStepper"
+  },
+  { icon: "local_atm", title: i18n.t("menu.qrPay"), name: "/PayStepper" },
+  {
+    icon: "arrow_forward",
+    title: i18n.t("menu.transferBalance"),
+    name: "/TransferStepper"
+  }
+];
+
+export const affiliateFabMenu = [
+  {
+    icon: "phonelink_ring",
+    title: i18n.t("menu.devices"),
+    name: "/TerminalList"
   }
 ];
