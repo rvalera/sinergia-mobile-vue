@@ -103,6 +103,7 @@ import {
 } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import validationLangMixin from "@/mixins/validationLangMixin";
+import { getCoinApi } from "@/api/modules";
 const defaultForm = {
   email: "",
   password: ""
@@ -139,13 +140,23 @@ export default {
       backgroundImg: "static/doc-images/HexesisMaterial01.png"
     };
   },
-  mounted() {
-    this.logoutAction();
+  async mounted() {
+    await this.logoutAction();
+    this.getCoin();
   },
   methods: {
     ...mapActions(["loginAction", "logoutAction"]),
     submit() {
       this.loginAction(this.form);
+    },
+    async getCoin() {
+      const serviceResponse = await getCoinApi();
+      if (serviceResponse.ok)
+        localStorage.coin = serviceResponse.data.diminutive;
+      else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     }
   }
 };

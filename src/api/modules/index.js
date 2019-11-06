@@ -8,3 +8,4 @@ export * from "./refill";
 export * from "./dashboard";
 export * from "./liquidation";
 export * from "./terminal";
+export * from "./coin";
