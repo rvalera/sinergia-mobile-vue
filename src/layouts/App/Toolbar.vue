@@ -133,7 +133,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Mark One"
+      default: "Virpei Cashless"
     },
     hasBackButton: {
       //it has back button or menu button
