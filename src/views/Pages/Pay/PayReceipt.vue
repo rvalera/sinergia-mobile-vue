@@ -16,7 +16,7 @@
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
             {{
               receipt.amount
-                | currency(receipt.coin ? receipt.coin.diminutive : " ", 2, {
+                | currency(receipt.coin ? receipt.coin.diminutive : coin, 2, {
                   thousandsSeparator: ".",
                   decimalSeparator: ",",
                   symbolOnLeft: false,
