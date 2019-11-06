@@ -1,4 +1,9 @@
-import { LOGIN_USER, LOGOUT_USER, UPDATE_PERSON } from "../mutation-types";
+import {
+  LOGIN_USER,
+  LOGOUT_USER,
+  UPDATE_PERSON,
+  UPDATE_AFFILIATE_REQUEST
+} from "../mutation-types";
 
 import {
   loginApi,
@@ -14,7 +19,8 @@ const initialState = {
   user: {
     person: {}
   },
-  logged: false
+  logged: false,
+  hasPendingRequest: false
 };
 
 const state = {
@@ -23,23 +29,29 @@ const state = {
 
 const getters = {
   user: state => state.user,
-  logged: state => state.logged
+  logged: state => state.logged,
+  hasPendingRequest: state => state.hasPendingRequest
 };
 
 const mutations = {
   [LOGIN_USER]: (state, payload) => {
     state.user = payload;
     state.logged = true;
+    if (payload.hasOwnProperty("affiliate"))
+      state.hasPendingRequest = payload.affiliate.affiliation_request === "Y";
   },
   [LOGOUT_USER]: state => {
     state.user = initialState.user;
     state.logged = initialState.logged;
+    state.hasPendingRequest = initialState.hasPendingRequest;
+  },
+  [UPDATE_AFFILIATE_REQUEST]: (state, payload) => {
+    state.hasPendingRequest = payload;
   },
   [UPDATE_PERSON]: (state, payload) => {
     state.user.person = {
       ...state.user.person,
-      ...payload,
-      fullname: payload.first_name + " " + payload.last_name
+      ...payload
     };
   }
 };
@@ -50,10 +62,6 @@ const savePersonId = async email => {
   if (serviceResponsePerson.ok) {
     localStorage.setItem("person_id", serviceResponsePerson.data.id);
     localStorage.setItem("userType", serviceResponsePerson.data.person_type);
-    localStorage.setItem(
-      "affiliation_request",
-      serviceResponsePerson.data.affiliate.affiliation_request
-    );
     router.push({ name: "Home" });
   }
 };
@@ -75,10 +83,6 @@ const actions = {
         else {
           localStorage.setItem("userType", serviceResponse.data.affiliate.type);
           localStorage.setItem("person_id", serviceResponse.data.affiliate.id);
-          localStorage.setItem(
-            "affiliation_request",
-            serviceResponse.data.affiliate.affiliation_request
-          );
           router.push({ name: "Home" });
         }
         dispatch("getAppToken");
@@ -95,12 +99,16 @@ const actions = {
     dispatch("cleanApp");
     //router.push({ name: "LoginPage" });
   },
+  updateAffiliateRequest({ commit }, payload) {
+    commit(UPDATE_AFFILIATE_REQUEST, payload);
+  },
   async updatePersonAction({ commit, state }, payload) {
     const { id } = state.user;
     let serviceResponse = await updateUserApi(id, payload);
     if (serviceResponse.ok) {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_MESSAGE", params);
+      payload.fullname = payload.first_name + " " + payload.last_name;
       commit(UPDATE_PERSON, payload);
       router.push({ name: "Home" });
     } else {

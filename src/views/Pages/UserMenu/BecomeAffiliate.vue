@@ -40,16 +40,18 @@
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { becomeAffiliateApi } from "@/api/modules";
+import { mapActions } from "vuex";
 
 export default {
   mixins: [ResizeMixin],
   methods: {
+    ...mapActions(["updateAffiliateRequest"]),
     async submit() {
       const { person_id } = localStorage;
       var serviceResponse = await becomeAffiliateApi(person_id);
       if (serviceResponse.ok) {
         const params = { text: serviceResponse.message.text };
-        localStorage.setItem("affiliation_request", "Y");
+        this.updateAffiliateRequest("Y");
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.$router.push({ name: "Home" });
       } else {

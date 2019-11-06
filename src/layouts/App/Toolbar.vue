@@ -86,7 +86,7 @@
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
-        <template v-if="isClient && hasPendingRequest">
+        <template v-if="isClient && !hasPendingRequest">
           <v-divider></v-divider>
           <v-list-tile @click="() => $router.push({ name: 'BecomeAffiliate' })">
             <v-list-tile-avatar>
@@ -155,6 +155,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
+      hasPendingRequest: "hasPendingRequest",
       user: "user",
       navDrawer: "navDrawer",
       toolbarClippedLeft: "toolbarClippedLeft",
@@ -165,9 +166,6 @@ export default {
     }),
     isClient() {
       return USER_TYPE_CLIENT === localStorage.userType;
-    },
-    hasPendingRequest() {
-      return localStorage.affiliation_request === "Y";
     }
   },
   methods: {
