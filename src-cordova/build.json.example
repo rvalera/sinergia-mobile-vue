@@ -1,0 +1,18 @@
+{
+  "android": {
+    "debug": {
+      "keystore": "./virpei.jks",
+      "storePassword": "vir@%^@bs@2019$",
+      "alias": "virpeialias",
+      "password" : "vir@%^@bs@2019$",
+      "keystoreType": "jks"
+    },
+    "release": {
+      "keystore": "./virpei.jks",
+      "storePassword": "vir@%^@bs@2019$",
+      "alias": "virpeialias",
+      "password" : "vir@%^@bs@2019$",
+      "keystoreType": "jks"
+    }
+  }
+}

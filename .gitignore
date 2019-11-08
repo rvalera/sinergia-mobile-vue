@@ -64,3 +64,7 @@ yarn-error.log*
 /src-cordova/platforms
 /src-cordova/plugins
 /public/cordova.js
+
+# Signed apk
+/src-cordova/*.jks
+/src-cordova/build.json
