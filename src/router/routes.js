@@ -20,6 +20,7 @@ import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
 import CardsPinStepper from "@/views/Pages/Cards/CardsPinStepper";
 import AppMovements from "@/views/Pages/Global/AppMovements";
+import MovementContainer from "@/views/Pages/Global/MovementContainer";
 import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
 import Dashboard from "@/views/Pages/Dashboard/Dashboard";
@@ -169,6 +170,20 @@ export const routes = [
     name: "/AppMovements",
     components: {
       default: AppMovements,
+      sidebar: AppSidebar,
+      header: AppToolbar
+    },
+    props: {
+      header: {
+        title: i18n.t("menu.movements")
+      }
+    }
+  },
+  {
+    path: "/appMovc",
+    name: "/MovementContainer",
+    components: {
+      default: MovementContainer,
       sidebar: AppSidebar,
       header: AppToolbar
     },

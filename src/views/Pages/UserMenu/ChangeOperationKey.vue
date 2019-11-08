@@ -46,31 +46,45 @@
             ></v-text-field>
           </v-form>
         </v-card>
-        <v-btn
-          large
-          round
-          block
-          color="primary"
-          class="mt-4"
-          :disabled="$v.$invalid"
-          :class="$v.$invalid ? '' : 'white--text'"
-          @click="submit"
-          >Cambiar Clave de Operaciones</v-btn
-        >
-        <v-btn
-          large
-          round
-          block
-          color="primary"
-          class="mt-4"
-          :disabled="$v.$invalid"
-          :class="$v.$invalid ? '' : 'white--text'"
-          @click="submit"
-          >Reiniciar Clave de Operaciones</v-btn
-        >
-        <v-btn large block round color="gray" class="mt-4" @click="backToList"
-          >Volver</v-btn
-        >
+        <v-layout justify-space-around class="put-bottom">
+          <v-flex xs3>
+            <v-btn
+              large
+              round
+              block
+              color="primary"
+              class="mt-4"
+              :disabled="$v.$invalid"
+              :class="$v.$invalid ? '' : 'white--text'"
+              @click="submit"
+              >Cambiar
+            </v-btn>
+          </v-flex>
+          <v-flex xs3>
+            <v-btn
+              large
+              round
+              block
+              color="primary"
+              class="mt-4"
+              :disabled="$v.$invalid"
+              :class="$v.$invalid ? '' : 'white--text'"
+              @click="submit"
+              >Reiniciar
+            </v-btn>
+          </v-flex>
+          <v-flex xs3>
+            <v-btn
+              large
+              block
+              round
+              color="gray"
+              class="mt-4"
+              @click="backToList"
+              >Volver</v-btn
+            ></v-flex
+          >
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>

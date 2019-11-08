@@ -9,6 +9,11 @@ export const affiliateMenu = [
     name: "CardsList"
   },
   {
+    icon: "format_list_bulleted",
+    title: i18n.t("menu.movements"),
+    name: "/MovementContainer"
+  },
+  {
     icon: "attach_money",
     title: i18n.t("menu.transactions"),
     group: "",
@@ -61,6 +66,11 @@ export const clientMenu = [
     icon: "credit_card",
     title: i18n.t("menu.card"),
     name: "CardsList"
+  },
+  {
+    icon: "format_list_bulleted",
+    title: i18n.t("menu.movements"),
+    name: "/MovementContainer"
   },
   {
     icon: "attach_money",

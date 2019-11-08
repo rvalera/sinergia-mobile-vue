@@ -120,7 +120,7 @@ export default {
       money: {
         decimal: ",",
         thousands: ".",
-        prefix: "Vr ",
+        suffix: " Vr",
         precision: 2,
         masked: false
       }
