@@ -2,6 +2,7 @@ import axios from "axios";
 import { i18n } from "@/i18n";
 
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
+const AXIOS_TIMEOUT_MS = process.env.VUE_APP_AXIOS_TIMEOUT_MS;
 
 export const apiHttp = async (method, endpoint, data, options = {}) => {
   const { email, password } = localStorage;
@@ -20,6 +21,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
     method,
     url: `${API_URL_BACKEND}${endpoint}`,
     data,
+    timeout: AXIOS_TIMEOUT_MS,
     ...options
   });
 
