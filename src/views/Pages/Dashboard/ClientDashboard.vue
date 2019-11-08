@@ -201,10 +201,10 @@ export default {
     },
     handleShowMovements() {
       this.$router.push({
-        name: "/AppMovements"
+        name: "/MovementContainer"
       });
-      const { person_id } = localStorage;
-      this.showMovements(person_id, 10);
+      // const { person_id } = localStorage;
+      // this.showMovements(person_id, 10);
 
       //this.$refs.filter.show();
     }
