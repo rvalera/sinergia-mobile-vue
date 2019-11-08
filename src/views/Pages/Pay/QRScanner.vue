@@ -49,6 +49,7 @@ export default {
           decodeResult
         });
       } catch (error) {
+        console.log(error);
         const params = { text: this.$t("pay.invalidQR") };
         window.getApp.$emit("SHOW_ERROR", params);
       }
@@ -57,7 +58,7 @@ export default {
       if (typeof cordova === "undefined")
         this.descryptToken({
           text:
-            "RH3aqd8G6aoDzTl/tHJbGLG1yx1oaeA9Vfs/r6+DxDaIBqxMKlL7w+np+n3XiI4Cp78ziqfqtfdP83zFkwyFNBgG1eS/R1UdW9Lyusb6inF3ORTQGyffWnYrSEJyJ2osIKTTzX/D7qVGkNwWf1fit7rAobIhX/FhdNFjsIJDkAfxwxNOX3QCqA1EshowFeV+"
+            "ziSfokQ8b50Vs+rzfBb5kwUqM/svQva/LtQQ0p4kEKlEBeHY28UHr73+KKcWCsc4/trmsPJ56DFu9ad00FTtN8fRNc6iCWV0vfAgF5Ada8/BdM0h+wX0Cxl8l+711J1w1YUiyf/cmicrw4Iap+TZWh7VDX8tx179oHh/36lWTr+01jbujOBPNOKDkruKh07B"
         });
       /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(

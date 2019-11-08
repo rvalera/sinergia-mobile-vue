@@ -69,9 +69,9 @@
               round
               color="primary"
               class="mt-4"
-              type="submit"
+              @click="submit"
               :disabled="$v.$invalid"
-              @click="$emit('next')"
+              :class="$v.$invalid ? '' : 'white--text'"
               >{{ $t("common.next") }}</v-btn
             >
           </v-flex>
