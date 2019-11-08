@@ -20,17 +20,22 @@
                               :placeholder="
                                 $t('changePassword.currentPassword')
                               "
-                              type="password"
+                              :append-icon="
+                                showPassword ? 'visibility' : 'visibility_off'
+                              "
+                              :type="showPassword ? 'text' : 'password'"
+                              @click:append="showPassword = !showPassword"
                               v-model="currentPassword"
                               :error-messages="fieldErrors('currentPassword')"
                               @input="$v.currentPassword.$touch()"
                               @blur="$v.currentPassword.$touch()"
+                              style="margin-bottom: 30px"
                               required
                             ></v-text-field>
                             <password
                               v-model="password"
                               :badge="false"
-                              hint=""
+                              hint
                               @next="handlePasswordScoreEvent"
                               required
                             ></password>
@@ -39,7 +44,11 @@
                               :placeholder="
                                 $t('changePassword.confirmPassword')
                               "
-                              type="password"
+                              :append-icon="
+                                showPassword2 ? 'visibility' : 'visibility_off'
+                              "
+                              :type="showPassword2 ? 'text' : 'password'"
+                              @click:append="showPassword2 = !showPassword2"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
                               @input="$v.repeatPassword.$touch()"
@@ -47,7 +56,7 @@
                               required
                             ></v-text-field>
                           </v-flex>
-                          <div class=" put-bottom px-3">
+                          <div class="put-bottom px-3">
                             <v-btn
                               :loading="loader"
                               color="primary"
@@ -112,7 +121,9 @@ export default {
       password: null,
       repeatPassword: null,
       passwordScore: 0,
-      loader: false
+      loader: false,
+      showPassword: false,
+      showPassword2: false
     };
   },
   methods: {

@@ -33,7 +33,11 @@
                             <v-text-field
                               class="box-input"
                               :placeholder="$t('common.typeYourOperationKey')"
-                              type="password"
+                              :append-icon="
+                                showPassword ? 'visibility' : 'visibility_off'
+                              "
+                              :type="showPassword ? 'text' : 'password'"
+                              @click:append="showPassword = !showPassword"
                               v-model="password"
                               :error-messages="fieldErrors('password')"
                               @input="$v.password.$touch()"
@@ -45,7 +49,11 @@
                             <v-text-field
                               class="box-input"
                               :placeholder="$t('changeOperationKey.confirm')"
-                              type="password"
+                              :append-icon="
+                                showPassword2 ? 'visibility' : 'visibility_off'
+                              "
+                              :type="showPassword2 ? 'text' : 'password'"
+                              @click:append="showPassword2 = !showPassword2"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
                               @input="$v.repeatPassword.$touch()"
@@ -109,7 +117,9 @@ export default {
       password: null,
       repeatPassword: null,
       passwordScore: 0,
-      loader: false
+      loader: false,
+      showPassword: false,
+      showPassword2: false
     };
   },
   methods: {

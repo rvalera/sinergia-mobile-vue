@@ -10,7 +10,9 @@
             <v-text-field
               class="box-input"
               :placeholder="$t('common.typeYourOperationKey')"
-              type="password"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
               v-model="operation_key"
               :error-messages="fieldErrors('operation_key')"
               @input="$v.operation_key.$touch()"
@@ -75,7 +77,8 @@ export default {
   },
   data() {
     return {
-      operation_key: ""
+      operation_key: "",
+      showPassword: false
     };
   },
   computed: {

@@ -198,7 +198,7 @@ export default {
       confirm: "Contraseña no coincide",
       max: "Máximo 32 caracteres",
       min: "Al menos 8 caracteres son requeridos",
-      required: "Contraseña requeridad",
+      required: "Contraseña requerida",
       validPassword:
         "Contraseña debe tener [A-Z], [a-z], [0-9] y un carácter especial"
     }

@@ -21,9 +21,9 @@
                         <v-layout wrap>
                           <v-flex xs12 px-0>
                             <div class="dialog-title">
-                              <strong class="primary--text">
-                                {{ $t("changePassword.newPassword") }}
-                              </strong>
+                              <strong class="primary--text">{{
+                                $t("changePassword.newPassword")
+                              }}</strong>
                             </div>
                           </v-flex>
                           <v-flex xs12 px-0>
@@ -33,14 +33,20 @@
                             <password
                               v-model="password"
                               :badge="false"
-                              hint=""
+                              hint
                               @next="handlePasswordScoreEvent"
                               required
                             ></password>
                             <v-text-field
                               class="box-input"
-                              :placeholder="$t('changePassword.newPassword')"
-                              type="password"
+                              :placeholder="
+                                $t('changePassword.confirmPassword')
+                              "
+                              :append-icon="
+                                showPassword ? 'visibility' : 'visibility_off'
+                              "
+                              :type="showPassword ? 'text' : 'password'"
+                              @click:append="showPassword = !showPassword"
                               v-model="repeatPassword"
                               :error-messages="fieldErrors('repeatPassword')"
                               @input="$v.repeatPassword.$touch()"
@@ -48,7 +54,7 @@
                               required
                             ></v-text-field>
                           </v-flex>
-                          <div class=" put-bottom px-3">
+                          <div class="put-bottom px-3">
                             <v-btn
                               :loading="loader"
                               color="primary"
@@ -103,7 +109,8 @@ export default {
       password: null,
       repeatPassword: null,
       passwordScore: 0,
-      loader: false
+      loader: false,
+      showPassword: false
     };
   },
   methods: {

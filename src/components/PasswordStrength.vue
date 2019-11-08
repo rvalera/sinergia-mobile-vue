@@ -4,7 +4,7 @@
       <v-text-field
         ref="input"
         :name="name"
-        :hint="hint"
+        :hint="$t('validation.password.min')"
         :label="label"
         v-model="password"
         v-bind:value="value"
@@ -15,8 +15,10 @@
         :required="required"
         class="box-input white-bg box-z-index"
         :class="[defaultClass]"
-        :placeholder="placeholder"
-        :type="showpass ? 'password' : 'text'"
+        :placeholder="$t('changePassword.newPassword')"
+        :type="showpass ? 'text' : 'password'"
+        :append-icon="showpass ? 'visibility' : 'visibility_off'"
+        @click:append="showpass = !showpass"
         :error="error"
       ></v-text-field>
     </div>
@@ -59,17 +61,9 @@ export default {
       type: String,
       default: ""
     },
-    hint: {
-      type: String,
-      default: "At least 8 characters"
-    },
     id: {
       type: String,
       default: "password"
-    },
-    placeholder: {
-      type: String,
-      default: "Please enter your Password"
     },
     value: {
       type: String
@@ -124,7 +118,7 @@ export default {
     return {
       popover: false,
       error: false,
-      showpass: true,
+      showpass: false,
       password: null,
       query: false,
       show: true,

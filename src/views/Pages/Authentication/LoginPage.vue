@@ -41,7 +41,11 @@
                         color="primary"
                         :label="$t('common.password')"
                         v-model="form.password"
-                        type="password"
+                        :append-icon="
+                          showPassword ? 'visibility' : 'visibility_off'
+                        "
+                        :type="showPassword ? 'text' : 'password'"
+                        @click:append="showPassword = !showPassword"
                         required
                         :error-messages="fieldErrors('form.password')"
                         @blur="$v.form.password.$touch()"
@@ -137,7 +141,8 @@ export default {
   data() {
     return {
       form: Object.assign({}, defaultForm),
-      backgroundImg: "static/doc-images/HexesisMaterial01.png"
+      backgroundImg: "static/doc-images/HexesisMaterial01.png",
+      showPassword: false
     };
   },
   async mounted() {

@@ -10,7 +10,9 @@
             <v-text-field
               class="box-input"
               placeholder="Ingrese su PIN actual"
-              type="password"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
               v-model="old_pin"
               :error-messages="fieldErrors('old_pin')"
               @input="$v.old_pin.$touch()"
@@ -23,7 +25,9 @@
             <v-text-field
               class="box-input"
               placeholder="Ingrese su nuevo PIN"
-              type="password"
+              :append-icon="showPassword2 ? 'visibility' : 'visibility_off'"
+              :type="showPassword2 ? 'text' : 'password'"
+              @click:append="showPassword2 = !showPassword2"
               v-model="new_pin"
               :error-messages="fieldErrors('new_pin')"
               @input="$v.new_pin.$touch()"
@@ -35,7 +39,9 @@
             <v-text-field
               class="box-input"
               placeholder="Confirme su nuevo PIN"
-              type="password"
+              :append-icon="showPassword3 ? 'visibility' : 'visibility_off'"
+              :type="showPassword3 ? 'text' : 'password'"
+              @click:append="showPassword3 = !showPassword3"
               v-model="new_pin_confirm"
               :error-messages="fieldErrors('new_pin_confirm')"
               @input="$v.new_pin_confirm.$touch()"
@@ -117,7 +123,10 @@ export default {
       operation_key: "",
       old_pin: "",
       new_pin: "",
-      new_pin_confirm: ""
+      new_pin_confirm: "",
+      showPassword: false,
+      showPassword2: false,
+      showPassword3: false
     };
   },
   methods: {

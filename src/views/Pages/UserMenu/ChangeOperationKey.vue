@@ -10,7 +10,9 @@
             <v-text-field
               class="box-input"
               placeholder="Ingrese su clave actual"
-              type="password"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
               v-model="old_key"
               :error-messages="fieldErrors('old_key')"
               @input="$v.old_key.$touch()"
@@ -23,7 +25,9 @@
             <v-text-field
               class="box-input"
               placeholder="Ingrese su nueva clave "
-              type="password"
+              :append-icon="showPassword2 ? 'visibility' : 'visibility_off'"
+              :type="showPassword2 ? 'text' : 'password'"
+              @click:append="showPassword2 = !showPassword2"
               v-model="new_key"
               :error-messages="fieldErrors('new_key')"
               @input="$v.new_key.$touch()"
@@ -35,7 +39,9 @@
             <v-text-field
               class="box-input"
               placeholder="Confirme su nueva clave "
-              type="password"
+              :append-icon="showPassword3 ? 'visibility' : 'visibility_off'"
+              :type="showPassword3 ? 'text' : 'password'"
+              @click:append="showPassword3 = !showPassword3"
               v-model="new_key_confirm"
               :error-messages="fieldErrors('new_key_confirm')"
               @input="$v.new_key_confirm.$touch()"
@@ -57,8 +63,8 @@
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
-              >Cambiar
-            </v-btn>
+              >Cambiar</v-btn
+            >
           </v-flex>
           <v-flex xs3>
             <v-btn
@@ -70,8 +76,8 @@
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
-              >Reiniciar
-            </v-btn>
+              >Reiniciar</v-btn
+            >
           </v-flex>
           <v-flex xs3>
             <v-btn
@@ -82,8 +88,8 @@
               class="mt-4"
               @click="backToList"
               >Volver</v-btn
-            ></v-flex
-          >
+            >
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -130,7 +136,10 @@ export default {
       operation_key: "",
       old_key: "",
       new_key: "",
-      new_key_confirm: ""
+      new_key_confirm: "",
+      showPassword: false,
+      showPassword2: false,
+      showPassword3: false
     };
   },
   methods: {
