@@ -36,6 +36,7 @@ export default {
     password: "Contraseña",
     personalInformation: "Datos personales",
     phone: "Teléfono",
+    quantity: "Cantidad",
     save: "Guardar",
     secondaryEmail: "Correo secundario",
     seeMovements: "Ver movimientos",

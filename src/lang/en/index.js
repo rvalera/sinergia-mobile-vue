@@ -36,6 +36,7 @@ export default {
     password: "Password",
     personalInformation: "Personal information",
     phone: "Phone",
+    quantity: "Quantity",
     save: "Save",
     secondaryEmail: "Secondary email",
     seeMovements: "See movements",

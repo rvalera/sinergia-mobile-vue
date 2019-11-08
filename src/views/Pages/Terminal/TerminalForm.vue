@@ -2,10 +2,16 @@
   <v-container>
     <v-layout row wrap>
       <v-flex xs12 md6 offset-sm3>
-        <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
-          <v-layout justify-center align-center>
+        <v-form
+          class="pt-2"
+          @submit.prevent="$v.$invalid ? null : submit()"
+          ref="form"
+        >
+          <p class="no-mrpd caption">{{ $t("common.quantity") }}</p>
+          <v-layout justify-left align-center>
             <v-btn
               icon
+              class="no-mrpd"
               @click="form.quantity--"
               :disabled="form.quantity === 1"
             >
@@ -14,6 +20,7 @@
             <p class="no-mrpd title">{{ form.quantity }}</p>
             <v-btn
               icon
+              class="no-mrpd"
               @click="form.quantity++"
               :disabled="form.quantity === 5"
             >

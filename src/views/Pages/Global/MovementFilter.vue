@@ -77,7 +77,7 @@
                     color="primary"
                     :label="$t('movementsFilter.movementType')"
                     v-model="filter.type"
-                    class="box-input"
+                    class="box-input pt-3"
                   />
                   <v-text-field
                     color="primary"

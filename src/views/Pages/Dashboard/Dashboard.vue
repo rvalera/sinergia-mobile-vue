@@ -4,14 +4,14 @@
       <client-dashboard />
     </template>
     <template v-else>
-      <affiliate-dashboard />
+      <client-dashboard />
     </template>
   </div>
 </template>
 
 <script>
 import ClientDashboard from "./ClientDashboard";
-import AffiliateDashboard from "./AffiliateDashboard";
+//import AffiliateDashboard from "./AffiliateDashboard";
 import { USER_TYPE_CLIENT } from "@/config/constants";
 export default {
   data() {
@@ -21,8 +21,8 @@ export default {
     };
   },
   components: {
-    ClientDashboard,
-    AffiliateDashboard
+    ClientDashboard
+    //  AffiliateDashboard
   }
 };
 </script>
