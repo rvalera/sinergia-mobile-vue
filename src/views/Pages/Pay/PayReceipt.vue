@@ -7,10 +7,7 @@
             <p
               class="title mb-3 green--text font-weight-bold d-flex headerSuccess"
             >
-              <v-icon x-large class="mb-2" color="green"
-                >check_circle_outline</v-icon
-              >
-              {{ $t("pay.succesfulTransaction") }}
+              <v-icon x-large color="green">check_circle_outline</v-icon>
             </p>
           </div>
           <p class="display-1 mb-0 font-weight-bold text-xs-center">
@@ -26,6 +23,8 @@
           </p>
           <p class="body-1 mb-3 text-xs-center">
             {{ receipt.execution_date }}
+            <br />
+            {{ receipt.ref_number }}
           </p>
           <v-text-field
             :label="$t('pay.origin')"
@@ -45,14 +44,8 @@
             filled
             readonly
           />
-          <v-text-field
-            :label="$t('pay.reference')"
-            v-model="receipt.ref_number"
-            filled
-            readonly
-          />
         </v-card>
-        <v-layout justify-space-around>
+        <v-layout justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn large round block color="primary">
               <v-icon left>share</v-icon>

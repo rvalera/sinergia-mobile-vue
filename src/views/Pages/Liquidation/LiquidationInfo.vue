@@ -72,6 +72,10 @@ export default {
   methods: {
     show(data) {
       this.liquidation = data;
+      this.liquidation.initial_balance =
+        this.liquidation.initial_balance.format() + " " + localStorage.coin;
+      this.liquidation.final_balance =
+        this.liquidation.final_balance.format() + " " + localStorage.coin;
       this.dialog = true;
     },
     hide() {

@@ -12,6 +12,7 @@
             @blur="$v.form.number.$touch()"
             required
             maxlength="19"
+            mask="#### #### #### ####"
           />
           <v-text-field
             class="box-input"
@@ -23,6 +24,7 @@
             required
             counter
             maxlength="9"
+            mask="## / ####"
           />
           <v-text-field
             class="box-input"
@@ -37,6 +39,7 @@
             @focus="invertedCard = true"
             required
             counter
+            mask="###"
             maxlength="3"
           />
         </v-form>

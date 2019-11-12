@@ -1,4 +1,5 @@
 import "babel-polyfill";
+
 import Vue from "vue";
 import "./plugins/vuetify";
 import "./plugins/vuse";
@@ -6,6 +7,7 @@ import App from "./App.vue";
 import router from "./router";
 import { store } from "./store";
 import { createI18n } from "./i18n/index";
+import "./assets/utils";
 
 import VuetifyConfirm from "vuetify-confirm";
 import Vue2Filters from "vue2-filters";

@@ -44,7 +44,10 @@
     </v-stepper-content>
 
     <v-stepper-content step="4" class="no-mrpd h-full">
-      <pay-receipt :receipt="receipt" @finish="stage = 1"></pay-receipt>
+      <pay-receipt
+        :receipt="receipt"
+        @finish="$router.push({ name: 'Home' })"
+      ></pay-receipt>
     </v-stepper-content>
   </v-stepper>
 </template>
