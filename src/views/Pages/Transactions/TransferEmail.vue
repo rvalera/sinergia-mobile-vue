@@ -4,10 +4,21 @@
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="0" class="text-xs-left ">
           <br />
-          <br />
+
           <div class="text-xs-center">
             <v-icon x-large color="primary">email</v-icon>
           </div>
+          <v-card-text class="textAlign">
+            <p class="title font-weight-black">
+              {{
+                $t("dashboard.balance") +
+                  " " +
+                  this.balanceWallet +
+                  " " +
+                  this.coin
+              }}
+            </p>
+          </v-card-text>
           <v-card-text>
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <v-container grid-list-xl fluid>
@@ -56,6 +67,12 @@ const defaultForm = {
   destiny_email: null
 };
 export default {
+  props: {
+    balanceWallet: {
+      type: String,
+      default: ""
+    }
+  },
   mixins: [validationMixin, ResizeMixin],
   validations: {
     form: {
@@ -75,7 +92,8 @@ export default {
       height: window.innerHeight - 72, // 72 is stepper header size
       form: Object.assign({}, defaultForm),
       loader: false,
-      modal: false
+      modal: false,
+      coin: localStorage.getItem("coin")
     };
   },
   methods: {
@@ -93,3 +111,9 @@ export default {
   }
 };
 </script>
+<style>
+.textAlign {
+  text-align: center;
+  padding-bottom: 0px !important;
+}
+</style>
