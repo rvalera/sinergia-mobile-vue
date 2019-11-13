@@ -92,6 +92,11 @@ export default {
         const params = { text: this.$t("message.invalidKey") };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    handlePersonIdChange(e) {
+      if (e.target.value.match("^[0-9]*$") != null) {
+        console.log(e.target.value);
+      }
     }
   }
 };

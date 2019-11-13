@@ -106,6 +106,12 @@ export default {
     hide() {
       this.dialog = false;
     }
+    // onBackKeyDown() {
+    //  this.dialog=false;
+    // }
+  },
+  mounted() {
+    //document.addEventListener("backbutton", this.onBackKeyDown, false);
   }
 };
 </script>
