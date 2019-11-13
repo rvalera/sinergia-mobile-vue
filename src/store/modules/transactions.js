@@ -1,9 +1,14 @@
-import { TRANSACTIONS_APP, FILTER_APP } from "../mutation-types";
+import {
+  TRANSACTIONS_APP,
+  FILTER_APP,
+  BALANCE_WALLET
+} from "../mutation-types";
 import { getMovements } from "@/api/modules";
 
 const initialState = {
   transactions_app: [],
-  filter_app: {}
+  filter_app: {},
+  balance_wallet: 0
 };
 
 const state = {
@@ -12,7 +17,8 @@ const state = {
 
 const getters = {
   transactions_app: state => state.transactions_app,
-  filter_app: state => state.filter_app
+  filter_app: state => state.filter_app,
+  balance_wallet: state => state.balance_wallet
 };
 
 const mutations = {
@@ -21,6 +27,9 @@ const mutations = {
   },
   [FILTER_APP]: (state, payload) => {
     state.filter_app = payload;
+  },
+  [BALANCE_WALLET]: (state, payload) => {
+    state.balance_wallet = payload;
   }
 };
 
@@ -46,6 +55,9 @@ const actions = {
     var response = await getMovements(query);
     console.log(response);
     commit(TRANSACTIONS_APP, response.data);
+  },
+  setBalanceWallet({ commit }, payload) {
+    commit(BALANCE_WALLET, payload);
   }
 };
 

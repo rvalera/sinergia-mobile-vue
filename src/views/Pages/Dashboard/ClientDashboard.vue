@@ -157,7 +157,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setTransactionsApp"]),
+    ...mapActions(["setTransactionsApp", "setBalanceWallet"]),
     showModal() {
       this.$refs.modal.show();
     },
@@ -186,7 +186,7 @@ export default {
       let labels = Object.keys(data.daily_balance);
       let datasets = Object.values(data.daily_balance);
       this.balance = data.current_balance;
-
+      this.setBalanceWallet(data.current_balance);
       labels.push("");
       labels.splice(0, 0, "");
       datasets.push(datasets[datasets.length - 1]);

@@ -32,3 +32,4 @@ export const TITLE_BUTTON = "TITLE_BUTTON";
 //Transactions
 export const TRANSACTIONS_APP = "TRANSACTIONS_APP";
 export const FILTER_APP = "FILTER_APP";
+export const BALANCE_WALLET = "BALANCE_WALLET";
