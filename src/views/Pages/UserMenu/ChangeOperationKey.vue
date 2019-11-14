@@ -19,7 +19,7 @@
               @blur="$v.old_key.$touch()"
               required
               counter
-              maxlength="4"
+              maxlength="6"
             ></v-text-field>
 
             <v-text-field
@@ -34,7 +34,7 @@
               @blur="$v.new_key.$touch()"
               required
               counter
-              maxlength="4"
+              maxlength="6"
             ></v-text-field>
             <v-text-field
               class="box-input"
@@ -45,10 +45,13 @@
               v-model="new_key_confirm"
               :error-messages="fieldErrors('new_key_confirm')"
               @input="$v.new_key_confirm.$touch()"
-              @blur="$v.new_key_confirm.$touch()"
+              @blur="
+                $v.new_key_confirm.$touch();
+                handleChange($event);
+              "
               required
               counter
-              maxlength="4"
+              maxlength="6"
             ></v-text-field>
           </v-form>
         </v-card>
@@ -59,7 +62,7 @@
               round
               block
               color="primary"
-              class="mt-4"
+              class="mt-"
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
@@ -72,7 +75,7 @@
               round
               block
               color="primary"
-              class="mt-4"
+              class="mt-"
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
@@ -85,7 +88,7 @@
               block
               round
               color="gray"
-              class="mt-4"
+              class="mt-"
               @click="backToList"
               >Volver</v-btn
             >
@@ -106,11 +109,11 @@ export default {
   validations: {
     new_key: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(6)
     },
     old_key: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(6)
     },
     new_key_confirm: {
       sameAsPassword: sameAs("new_key")
@@ -119,15 +122,15 @@ export default {
   validationMessages: {
     new_key: {
       required: "clave requerida",
-      minLength: "la clave debe ser de 8 caracteres"
+      minLength: "la clave debe ser de 6 caracteres"
     },
     old_key: {
       required: "clave requerida",
-      minLength: "la clave debe ser de 8 caracteres"
+      minLength: "la clave debe ser de 6 caracteres"
     },
     new_key_confirm: {
       required: "clave requerida",
-      minLength: "la clave debe ser de 8 caracteres",
+      minLength: "la clave debe ser de 6 caracteres",
       sameAsPassword: "la clave debe coincidir"
     }
   },
@@ -160,6 +163,11 @@ export default {
       this.$router.push({
         name: "/CardsList"
       });
+    },
+    handleChange(e) {
+      if (e.target.value.match("^[0-9]*$") != null) {
+        console.log(e.target.value);
+      }
     }
   }
 };
