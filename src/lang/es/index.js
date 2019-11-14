@@ -8,6 +8,24 @@ export default {
     currentPassword: "Contraseña actual",
     newPassword: "Contraseña nueva"
   },
+  cards: {
+    validatioNumber: "Numero de Validación",
+    activationDate: "Dia de activación",
+    disabledDate: "Dia de Inactivación",
+    status: "Estatus",
+    active: "Activa",
+    block: "Bloqueada",
+    unblock: "Desbloquear",
+    information: "Información de Tarjeta",
+    pin: "Cambio de Pin",
+    activate: "Activar",
+    blockA: "Bloquear",
+    pinA: "Pin Actual",
+    pinConfirm: "Confirme Su Nuevo PIN",
+    pinNew: "Ingrese su nuevo PIN",
+    pinChange: "Cambio de PIN",
+    movements: "Movimientos"
+  },
   common: {
     accept: "Aceptar",
     activity: "Actividad",

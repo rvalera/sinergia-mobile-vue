@@ -11,7 +11,7 @@
           <v-btn icon dark @click.native="dialog = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Card Information</v-toolbar-title>
+          <v-toolbar-title>{{ $t("cards.information") }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container fill-height>
@@ -24,26 +24,26 @@
                   </div>
                   <v-spacer></v-spacer>
                   <v-text-field
-                    label="Numero de validación"
+                    :label="$t('cards.validationNumber')"
                     v-model="card.validation_number"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    label="Dia de activación"
+                    :label="$t('cards.activationDate')"
                     v-model="card.activation_date"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
                     v-if="card.status != 'A'"
-                    label="Dia de inactivación:"
+                    :label="$t('cards.disabledDate')"
                     v-model="card.inactivation_date"
                     filled
                     readonly
                   ></v-text-field>
                   <v-text-field
-                    label="Estatus:"
+                    :label="$t('cards.status')"
                     v-model="status"
                     filled
                     readonly

@@ -28,9 +28,9 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="primary" flat @click.native="handleCloseDialog"
-            >Aceptar</v-btn
-          >
+          <v-btn color="primary" flat @click.native="handleCloseDialog">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

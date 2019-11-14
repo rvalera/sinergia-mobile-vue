@@ -42,12 +42,12 @@
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-avatar tile>
-                <v-chip v-if="item.status === 'A'" color="green" outline
-                  >Activa</v-chip
-                >
-                <v-chip v-if="item.status != 'A'" color="red" outline
-                  >Bloqueada</v-chip
-                >
+                <v-chip v-if="item.status === 'A'" color="green" outline>{{
+                  $t("cards.active")
+                }}</v-chip>
+                <v-chip v-if="item.status != 'A'" color="red" outline>{{
+                  $t("cards.block")
+                }}</v-chip>
               </v-list-tile-avatar>
               <v-list-tile-action>
                 <v-menu bottom left>
@@ -59,25 +59,33 @@
 
                   <v-list>
                     <v-list-tile @click="showMovementsByCard(item)">
-                      <v-list-tile-title>Movimientos</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("cards.movements")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === 'A'"
                       @click="showPinChange(item)"
                     >
-                      <v-list-tile-title>Cambio de PIN</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("cards.pinChange")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === 'A'"
                       @click="showLockCard(item)"
                     >
-                      <v-list-tile-title>Bloquear</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("cards.blockA")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === 'L'"
                       @click="showLockCard(item)"
                     >
-                      <v-list-tile-title>Desbloquear</v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("cards.unblock")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -95,12 +103,12 @@
           <v-card-text>{{ textDialog.body }}</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.native="dialog = false"
-              >Cancelar</v-btn
-            >
-            <v-btn color="primary" flat @click.native="handleLookCard"
-              >Aceptar</v-btn
-            >
+            <v-btn color="primary" flat @click.native="dialog = false">{{
+              $t("common.cancel")
+            }}</v-btn>
+            <v-btn color="primary" flat @click.native="handleLookCard">{{
+              $t("common.accept")
+            }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

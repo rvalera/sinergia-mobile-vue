@@ -9,7 +9,7 @@
           <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
             <v-text-field
               class="box-input"
-              placeholder="Ingrese su PIN actual"
+              :placeholder="$t('cards.pin')"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
@@ -24,7 +24,7 @@
 
             <v-text-field
               class="box-input"
-              placeholder="Ingrese su nuevo PIN"
+              :placeholder="$t('cards.pinNew')"
               :append-icon="showPassword2 ? 'visibility' : 'visibility_off'"
               :type="showPassword2 ? 'text' : 'password'"
               @click:append="showPassword2 = !showPassword2"
@@ -38,7 +38,7 @@
             ></v-text-field>
             <v-text-field
               class="box-input"
-              placeholder="Confirme su nuevo PIN"
+              :placeholder="$t('cards.pinConfirm')"
               :append-icon="showPassword3 ? 'visibility' : 'visibility_off'"
               :type="showPassword3 ? 'text' : 'password'"
               @click:append="showPassword3 = !showPassword3"

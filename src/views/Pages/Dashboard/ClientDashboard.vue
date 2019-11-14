@@ -10,7 +10,7 @@
                 {{ $t("dashboard.balance") }}
               </p>
               <span class="display-1 font-weight-black green--text darken-4"
-                >0,00 Vr</span
+                >0,00 {{ coin }}</span
               >
             </v-card-text>
             <v-flex xs12 sm6 class="text-xs-center pa-3">
@@ -30,7 +30,7 @@
             sub-title="to target"
             icon="trending_up"
             icon-color="success"
-            :subtitle-large="balance.format() + ' Vr'"
+            :subtitle-large="balance.format() + ' ' + coin"
             pre-subtitle="28%"
             :data="this.setGraphData.data"
             :option="this.setGraphData.option"
@@ -62,6 +62,7 @@ import AppMovements from "../Global/AppMovements";
 import MovementFilter from "../Global/MovementFilter";
 import { getDashboardGraph } from "@/api/modules";
 import DateFilter from "./DateFilter";
+//import { labeledStatement } from "babel-types";
 //import "../../../assets/utils";
 export default {
   components: {
@@ -78,6 +79,7 @@ export default {
     return {
       height: window.innerHeight - 72, // 72 is stepper header size
       loader: false,
+      coin: localStorage.getItem("coin"),
       balance: 0,
       modal: false,
       lineChartData,
@@ -183,7 +185,12 @@ export default {
       console.log(serviceResponse);
       let data = serviceResponse.data;
 
-      let labels = Object.keys(data.daily_balance);
+      let labels = [];
+      let keys = Object.keys(data.daily_balance);
+
+      keys.map(item => {
+        labels.push(item.substr(5));
+      });
       let datasets = Object.values(data.daily_balance);
       this.balance = data.current_balance;
       this.setBalanceWallet(data.current_balance);

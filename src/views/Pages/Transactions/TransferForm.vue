@@ -117,10 +117,11 @@ export default {
       form: Object.assign({}, defaultForm),
       loader: false,
       modal: false,
+      coin: localStorage.getItem("coin"),
       money: {
         decimal: ",",
         thousands: ".",
-        suffix: " Vr",
+        suffix: " " + localStorage.getItem("coin"),
         precision: 2,
         masked: false
       }
