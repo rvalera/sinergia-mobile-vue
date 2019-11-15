@@ -153,6 +153,12 @@ export default {
   data: () => ({
     dialog: false
   }),
+  watch: {
+    hasBackButton(val) {
+      if (val) document.addEventListener("backbutton", this.show, false);
+      else document.removeEventListener("backbutton", this.show);
+    }
+  },
   computed: {
     ...mapGetters({
       hasPendingRequest: "hasPendingRequest",
@@ -178,6 +184,9 @@ export default {
       this.$store.dispatch("toggleDrawer", false);
       if (this.goHome) this.$router.push({ name: "Home" });
       else this.$router.back();
+    },
+    show() {
+      this.dialog = true;
     }
   }
 };

@@ -137,6 +137,10 @@ export default {
   },
   mounted() {
     console.log(this.balance_wallet);
+    // document.addEventListener("backbutton", this.hide, false);
+  },
+  beforeDestroy() {
+    //document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>

@@ -105,13 +105,16 @@ export default {
     },
     hide() {
       this.dialog = false;
+    },
+    onBackKeyDown() {
+      this.dialog = false;
     }
-    // onBackKeyDown() {
-    //  this.dialog=false;
-    // }
   },
   mounted() {
-    //document.addEventListener("backbutton", this.onBackKeyDown, false);
+    document.addEventListener("backbutton", this.hide, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>
