@@ -150,6 +150,18 @@ export default {
     startAmount: "Start amount",
     startDate: "Start date"
   },
+  operationKey: {
+    title: "Operation Key",
+    new: "New Operation Key",
+    confirm: "Confirm New Operation Key",
+    dialog: "¿Reset Operation Key?",
+    message: "New key send to email",
+    reset: "forgot my password",
+    required: "Key required",
+    minLenght: "Min lenght 6",
+    equal: "The keys must match",
+    change: "Key updated"
+  },
   pay: {
     camera: "Camera",
     cameraPrompt: "Place a QR inside the scan area",

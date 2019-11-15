@@ -9,7 +9,7 @@
           <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
             <v-text-field
               class="box-input"
-              :placeholder="$t('cards.pin')"
+              :placeholder="$t('cards.pinA')"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
@@ -144,7 +144,7 @@ export default {
     },
     backToList() {
       this.$router.push({
-        name: "/CardsList"
+        name: "Dashboard"
       });
     }
   }
