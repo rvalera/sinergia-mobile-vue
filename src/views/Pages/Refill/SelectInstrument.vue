@@ -25,7 +25,9 @@
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title
-                  v-html="item.payment_medium.name"
+                  v-html="
+                    `${item.payment_medium.name} - ${item.exp_month}/${item.exp_year}`
+                  "
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
                   v-html="'**** **** **** ' + item.last4"
