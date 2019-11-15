@@ -12,6 +12,8 @@
       <v-stepper-step step="3" :complete="stage > 3">{{
         $t("common.operationKey")
       }}</v-stepper-step>
+      <v-divider></v-divider>
+      <v-stepper-step step="4">Comprobante</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-content step="1" class="no-mrpd h-full">
@@ -31,10 +33,14 @@
         :operation_key_md5="user.operation_key"
       ></operation-key>
     </v-stepper-content>
+    <v-stepper-content step="4" class="no-mrpd h-full">
+      <pay-receipt :receipt="receipt" @finish="goToDashboard"></pay-receipt>
+    </v-stepper-content>
   </v-stepper>
 </template>
 <script>
 import OperationKey from "../Pay/OperationKey";
+import PayReceipt from "../Pay/PayReceipt";
 import RefillAmount from "./RefillAmount";
 import SelectInstrument from "./SelectInstrument";
 import { mapGetters } from "vuex";
@@ -44,7 +50,8 @@ export default {
   components: {
     RefillAmount,
     OperationKey,
-    SelectInstrument
+    SelectInstrument,
+    PayReceipt
   },
   data() {
     return {
@@ -52,7 +59,8 @@ export default {
       refillData: {
         paymentInstrumentSelected: null,
         amount: null
-      }
+      },
+      receipt: {}
     };
   },
   computed: {
@@ -75,11 +83,25 @@ export default {
       var serviceResponse = await postRefillApi(body);
       const params = { text: serviceResponse.message.text };
       if (serviceResponse.ok) {
-        this.$router.push({ name: "Home" });
+        this.stage++;
+        this.receipt = {
+          amount: body.amount,
+          source_description: `**** **** **** ${this.refillData.paymentInstrumentSelected.last4} (${this.refillData.paymentInstrumentSelected.payment_medium.name})`,
+          target_description: this.refillData.paymentInstrumentSelected.person
+            .email,
+          execution_date: new Date().toLocaleString(),
+          observation: this.$t("constant.refill")
+        };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    goToDashboard() {
+      this.$store.dispatch("toggleDrawer", false);
+      this.$router.push({
+        name: "Home"
+      });
     }
   }
 };
