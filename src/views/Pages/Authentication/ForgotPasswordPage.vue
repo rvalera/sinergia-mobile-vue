@@ -82,7 +82,7 @@
 <script>
 import { required, email } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
-
+import { resetPasswordByType } from "@/api/modules";
 export default {
   mixins: [validationLangMixin],
   validations: {
@@ -102,15 +102,20 @@ export default {
     };
   },
   methods: {
-    submit() {
-      setTimeout(() => {
-        window.getApp.$emit("SHOW_MESSAGE", {
-          text: "Revisa tu bandeja de entrada"
-        });
-        this.$router.push({
-          name: "LoginPage"
-        });
-      }, 2000);
+    async submit() {
+      let body = {
+        password_type: "U"
+      };
+      let serviceResponse = await resetPasswordByType(this.email, body);
+      const params = { text: serviceResponse.message.text };
+      if (serviceResponse.ok) {
+        console.log(serviceResponse);
+      } else {
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
+      this.$router.push({
+        name: "LoginPage"
+      });
     }
   }
 };
