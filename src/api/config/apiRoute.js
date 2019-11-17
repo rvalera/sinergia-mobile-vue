@@ -16,3 +16,6 @@ export const dashboardGraphPath = `/v2/wallet/dashboard`;
 export const personliquidationPath = `/v2/personliquidation`;
 export const terminalPath = `/v2/terminal`;
 export const coinPath = `/v2/coin`;
+export const resetPassword = `/v2/user/reset_password`;
+export const changePassword = `/v2/user/password`;
+export const changeOperatioKey = `/v2/user/operation_key`;

@@ -13,7 +13,9 @@
 
             <v-list-tile-content class="pl-4">
               <v-list-tile-title
-                v-html="paymentInstrumentSelected.payment_medium.name"
+                v-html="
+                  `${paymentInstrumentSelected.payment_medium.name} - ${paymentInstrumentSelected.exp_month}/${paymentInstrumentSelected.exp_year}`
+                "
                 class="title"
               ></v-list-tile-title>
               <v-list-tile-sub-title

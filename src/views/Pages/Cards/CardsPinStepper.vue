@@ -23,7 +23,7 @@
     </v-stepper-content>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{ textDialog.title }}</v-card-title>
+        <v-card-title class="title">{{ textDialog.title }}</v-card-title>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -93,7 +93,7 @@ export default {
     handleCloseDialog() {
       this.dialog = false;
       this.$router.push({
-        name: "/CardsList"
+        name: "Dashboard"
       });
     },
     beforeDestroy() {

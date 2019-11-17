@@ -19,7 +19,7 @@
               @blur="$v.operation_key.$touch()"
               required
               counter
-              maxlength="8"
+              maxlength="6"
             ></v-text-field>
           </v-form>
         </v-card>
@@ -66,7 +66,7 @@ export default {
   validations: {
     operation_key: {
       required,
-      minLength: minLength(8)
+      minLength: minLength(6)
     }
   },
   validationMessages: {

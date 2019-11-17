@@ -4,10 +4,22 @@ import {
   userPath,
   appPersonPath,
   appPersonData,
-  appCardsData
+  appCardsData,
+  resetPassword,
+  changeOperatioKey,
+  changePassword
 } from "../config/apiRoute.js";
 
 export const createUserApi = body => apiHttp("POST", `${mobileUserPath}`, body);
+
+export const resetPasswordByType = (username, body) =>
+  apiHttp("POST", `${resetPassword}/${username}`, body);
+
+export const changeOpeKey = (person_id, body) =>
+  apiHttp("PUT", `${changeOperatioKey}/${person_id}`, body);
+
+export const changePass = (person_id, body) =>
+  apiHttp("PUT", `${changePassword}/${person_id}`, body);
 
 export const becomeAffiliateApi = person_id =>
   apiHttp("PUT", `${appCardsData}/request/${person_id}`);

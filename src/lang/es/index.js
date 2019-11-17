@@ -151,6 +151,18 @@ export default {
     startAmount: "Monto desde",
     startDate: "Fecha inicio"
   },
+  operationKey: {
+    title: "Clave de Operaciones",
+    new: "Nueva clave de operaciones",
+    confirm: "Confirme nueva clave",
+    dialog: "¿Seguro que desea reiniciar su clave de operaciones?",
+    message: "Su nueva clave de operaciones ha sido enviada a su correo",
+    reset: "Olvide mi clave",
+    required: "Clave requerida",
+    minLenght: "La clave debe ser de 6 caracteres",
+    equal: "Las claves deben coincidir",
+    change: "Clave modificada con exito"
+  },
   pay: {
     camera: "Cámara",
     cameraPrompt: "Coloque un QR dentro del área de escaneo",

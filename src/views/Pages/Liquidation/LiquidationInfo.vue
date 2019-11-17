@@ -76,6 +76,8 @@ export default {
         this.liquidation.initial_balance.format() + " " + localStorage.coin;
       this.liquidation.final_balance =
         this.liquidation.final_balance.format() + " " + localStorage.coin;
+      this.liquidation.debt_amount =
+        this.liquidation.debt_amount.format() + " " + localStorage.coin;
       this.dialog = true;
     },
     hide() {

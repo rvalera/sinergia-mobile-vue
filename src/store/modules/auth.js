@@ -2,7 +2,8 @@ import {
   LOGIN_USER,
   LOGOUT_USER,
   UPDATE_PERSON,
-  UPDATE_AFFILIATE_REQUEST
+  UPDATE_AFFILIATE_REQUEST,
+  UPDATE_OPERATION_KEY
 } from "../mutation-types";
 
 import {
@@ -17,6 +18,7 @@ import { USER_STATUS_PENDING, USER_TYPE_WORKSTATION } from "@/config/constants";
 
 const initialState = {
   user: {
+    operation_key: "",
     person: {}
   },
   logged: false,
@@ -53,6 +55,9 @@ const mutations = {
       ...state.user.person,
       ...payload
     };
+  },
+  [UPDATE_OPERATION_KEY]: (state, payload) => {
+    state.user.operation_key = payload;
   }
 };
 
@@ -74,6 +79,7 @@ const actions = {
         const params = { text: "Credenciales Incorrectas" };
         window.getApp.$emit("SHOW_ERROR", params);
       } else {
+        console.log(serviceResponse.data);
         commit(LOGIN_USER, serviceResponse.data);
         localStorage.setItem("user_id", serviceResponse.data.id);
         localStorage.setItem("email", serviceResponse.data.email);
@@ -129,6 +135,9 @@ const actions = {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
     }
+  },
+  updateOperationKey({ commit }, payload) {
+    commit(UPDATE_OPERATION_KEY, payload);
   }
 };
 
