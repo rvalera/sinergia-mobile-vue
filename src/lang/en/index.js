@@ -75,7 +75,8 @@ export default {
   dashboard: {
     activity: "Activity",
     balance: "Balance",
-    withoutInfo: "No data to show"
+    withoutInfo: "No data to show",
+    confirm: "Exit app?"
   },
   movements: {
     withoutMov: "There are no movements to show"

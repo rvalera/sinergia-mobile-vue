@@ -149,15 +149,15 @@ export default {
   validationMessages: {
     new_key: {
       required: i18n.t("operationKey.required"),
-      minLength: i18n.t("operationKey.minLenght")
+      minLength: i18n.t("operationKey.minLength")
     },
     old_key: {
       required: i18n.t("operationKey.required"),
-      minLength: i18n.t("operationKey.minLenght")
+      minLength: i18n.t("operationKey.minLength")
     },
     new_key_confirm: {
       required: i18n.t("operationKey.required"),
-      minLength: i18n.t("operationKey.minLenght"),
+      minLength: i18n.t("operationKey.minLength"),
       sameAsPassword: i18n.t("operationKey.equal")
     }
   },
