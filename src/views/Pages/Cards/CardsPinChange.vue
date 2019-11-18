@@ -20,6 +20,8 @@
               required
               counter
               maxlength="4"
+              pattern="[0-9]*"
+              decimal="true"
             ></v-text-field>
 
             <v-text-field
@@ -56,7 +58,7 @@
             <strong @click="dialog = true">{{ $t("cards.reset") }}</strong>
           </v-flex>
         </v-card>
-        <v-layout justify-space-around class="put-bottom">
+        <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
               large
@@ -118,6 +120,7 @@ import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 import { resetPasswordByType } from "@/api/modules";
 import { i18n } from "@/i18n";
+import { mapGetters } from "vuex";
 export default {
   props: {
     pin_card: Object
@@ -165,6 +168,9 @@ export default {
       textDialogC: "",
       email: localStorage.getItem("email")
     };
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     submit() {

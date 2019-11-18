@@ -100,7 +100,8 @@ export default {
   forgotPassword: {
     hint: "Provide your user email to reset your password",
     resetPassword: "Reset password",
-    title: "Forgot your password?"
+    title: "Forgot your password?",
+    message: "Password send to email"
   },
   liquidation: {
     creationDate: "Creation date",

@@ -25,6 +25,7 @@
                 <v-layout wrap>
                   <v-flex xs12 pa-0>
                     <v-text-field
+                      type="email"
                       color="primary"
                       :label="$t('common.destinyEmail')"
                       v-model="form.destiny_email"
@@ -34,7 +35,7 @@
                     ></v-text-field>
                   </v-flex>
 
-                  <div v-if="!keyboardIsUp" class=" put-bottom px-2">
+                  <div v-if="!keyboardIsUp" class="put-bottom px-3">
                     <!-- Login form submit -->
 
                     <v-btn

@@ -29,6 +29,7 @@
                   <v-layout wrap row pa-4>
                     <v-flex xs12 pa-0>
                       <v-text-field
+                        type="email"
                         color="primary"
                         :label="$t('common.email')"
                         v-model="form.email"

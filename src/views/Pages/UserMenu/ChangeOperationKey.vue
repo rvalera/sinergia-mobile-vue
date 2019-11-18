@@ -11,7 +11,7 @@
               class="box-input"
               :placeholder="$t('operationKey.title')"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-              :type="showPassword ? 'text' : 'password'"
+              :type="showPassword ? 'number' : 'password'"
               @click:append="showPassword = !showPassword"
               v-model="old_key"
               :error-messages="fieldErrors('old_key')"
@@ -62,7 +62,7 @@
             }}</strong>
           </v-flex>
         </v-card>
-        <v-layout justify-space-around class="put-bottom">
+        <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
               large
@@ -127,7 +127,8 @@ import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
 import { resetPasswordByType, changeOpeKey } from "@/api/modules";
 import { i18n } from "@/i18n";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   props: {
     key_card: Object
@@ -176,6 +177,9 @@ export default {
       dialogC: false,
       textDialogC: ""
     };
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     ...mapActions(["updateOperationKey"]),

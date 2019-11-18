@@ -40,7 +40,11 @@
               required
             ></v-text-field>
 
-            <v-layout justify-space-around class="put-bottom">
+            <v-layout
+              v-if="!keyboardIsUp"
+              justify-space-around
+              class="put-bottom"
+            >
               <v-flex xs5>
                 <v-btn
                   large
@@ -92,6 +96,7 @@ import { required, sameAs } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { changePass } from "@/api/modules";
 import { i18n } from "@/i18n";
+import { mapGetters } from "vuex";
 export default {
   mixins: [validationLangMixin, ResizeMixin],
   validations: {
@@ -116,6 +121,9 @@ export default {
   components: {
     Password
   },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
+  },
   data() {
     return {
       realPassword: localStorage.password,
@@ -131,6 +139,7 @@ export default {
       textDialogC: ""
     };
   },
+
   methods: {
     handlePasswordScoreEvent(data) {
       this.passwordScore = data.score;
@@ -147,6 +156,7 @@ export default {
       if (serviceResponse.ok) {
         this.dialogC = true;
         this.textDialogC = i18n.t("operationKey.change");
+        localStorage.setItem("password", this.password);
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);

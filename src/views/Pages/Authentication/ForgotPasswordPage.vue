@@ -83,6 +83,7 @@
 import { required, email } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { resetPasswordUser } from "@/api/modules";
+import { i18n } from "@/i18n";
 export default {
   mixins: [validationLangMixin],
   validations: {
@@ -107,11 +108,14 @@ export default {
         password_type: "U"
       };
       let serviceResponse = await resetPasswordUser(this.email, body);
-      const params = { text: serviceResponse.message.text };
+
       if (serviceResponse.ok) {
         console.log(serviceResponse);
-        window.getApp.$emit("SHOW_MESSAGE", params);
+        window.getApp.$emit("SHOW_MESSAGE", {
+          text: i18n.t("forgotPassword.message")
+        });
       } else {
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
       this.$router.push({

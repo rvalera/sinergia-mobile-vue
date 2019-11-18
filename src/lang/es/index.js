@@ -101,7 +101,8 @@ export default {
   forgotPassword: {
     hint: "Provee tu correo de usuario para reiniciar tu contraseña",
     resetPassword: "Reiniciar contraseña",
-    title: "¿Olvidaste la contraseña?"
+    title: "¿Olvidaste la contraseña?",
+    message: "Contraseña enviada a su correo"
   },
   liquidation: {
     creationDate: "Fecha de creación",
