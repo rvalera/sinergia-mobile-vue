@@ -23,7 +23,7 @@
     </v-stepper-content>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{ textDialog.title }}</v-card-title>
+        <v-card-title class="title">{{ textDialog.title }}</v-card-title>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -42,7 +42,7 @@ import CardsPinChange from "./CardsPinChange";
 import { mapGetters } from "vuex";
 import { updatePinCard } from "@/api/modules";
 import { mapActions } from "vuex";
-
+import { i18n } from "@/i18n";
 export default {
   components: {
     CardsPinChange,
@@ -93,12 +93,12 @@ export default {
     handleCloseDialog() {
       this.dialog = false;
       this.$router.push({
-        name: "/CardsList"
+        name: "Dashboard"
       });
-    },
-    beforeDestroy() {
-      this.setTitleButton("Pagar");
     }
+  },
+  beforeDestroy() {
+    this.setTitleButton(i18n.t("common.continue"));
   }
 };
 </script>

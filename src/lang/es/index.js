@@ -9,22 +9,28 @@ export default {
     newPassword: "Contraseña nueva"
   },
   cards: {
-    validatioNumber: "Numero de Validación",
+    validationNumber: "Numero de Validación",
     activationDate: "Dia de activación",
     disabledDate: "Dia de Inactivación",
+    dialog: "¿Seguro que desea reiniciar su PIN de tarjeta NFC?",
     status: "Estatus",
     active: "Activa",
     block: "Bloqueada",
+    message: "Su nuevo PIN ha sido enviado a su correo",
     unblock: "Desbloquear",
     information: "Información de Tarjeta",
     pin: "Cambio de Pin",
     activate: "Activar",
     blockA: "Bloquear",
-    pinA: "Pin Actual",
-    pinConfirm: "Confirme Su Nuevo PIN",
+    pinA: "PIN Actual",
+    pinConfirm: "Confirme su nuevo PIN",
     pinNew: "Ingrese su nuevo PIN",
     pinChange: "Cambio de PIN",
-    movements: "Movimientos"
+    movements: "Movimientos",
+    reset: "Olvide mi PIN",
+    required: "PIN requerido",
+    minLength: "PIN debe ser 4 caracteres",
+    equal: "Losn PIN deben coincidir"
   },
   common: {
     accept: "Aceptar",
@@ -69,7 +75,8 @@ export default {
   dashboard: {
     activity: "Actividad",
     balance: "Saldo",
-    withoutInfo: "No hay datos para mostrar"
+    withoutInfo: "No hay datos para mostrar",
+    confirm: "¿Seguro que desea salir de la aplicacion?"
   },
   movements: {
     withoutMov: "No hay movimientos para mostrar"
@@ -150,6 +157,18 @@ export default {
     movementType: "Tipo de movimiento",
     startAmount: "Monto desde",
     startDate: "Fecha inicio"
+  },
+  operationKey: {
+    title: "Clave de Operaciones",
+    new: "Nueva clave de operaciones",
+    confirm: "Confirme nueva clave",
+    dialog: "¿Seguro que desea reiniciar su clave de operaciones?",
+    message: "Su nueva clave de operaciones ha sido enviada a su correo",
+    reset: "Olvide mi clave",
+    required: "Clave requerida",
+    minLength: "La clave debe ser de 6 caracteres",
+    equal: "Las claves deben coincidir",
+    change: "Clave modificada con exito"
   },
   pay: {
     camera: "Cámara",

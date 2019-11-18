@@ -34,7 +34,7 @@
                     ></v-text-field>
                   </v-flex>
 
-                  <div v-if="!keyboardIsUp" class=" put-bottom px-3">
+                  <div v-if="!keyboardIsUp" class=" put-bottom px-2">
                     <!-- Login form submit -->
 
                     <v-btn

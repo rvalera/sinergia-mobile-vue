@@ -79,6 +79,12 @@ export default {
     hide() {
       this.dialog = false;
     }
+  },
+  mounted() {
+    document.addEventListener("backbutton", this.hide, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>

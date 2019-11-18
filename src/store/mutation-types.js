@@ -22,6 +22,7 @@ export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 export const UPDATE_PERSON = "UPDATE_PERSON";
 export const UPDATE_AFFILIATE_REQUEST = "UPDATE_AFFILIATE_REQUEST";
+export const UPDATE_OPERATION_KEY = "UPDATE_OPERATION_KEY";
 
 //App
 export const SET_APP = "SET_APP";

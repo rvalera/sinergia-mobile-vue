@@ -1,100 +1,102 @@
 <template>
-  <v-layout wrap>
-    <v-flex xs12>
-      <v-layout>
-        <v-flex xs12>
-          <v-card flat height="480" class="margin-auto transparent" width="360">
-            <v-container fill-height pa-0>
-              <v-layout>
-                <v-flex xs12>
-                  <v-card-text>
-                    <v-form
-                      @submit.prevent="$v.$invalid ? null : submit()"
-                      ref="form"
-                    >
-                      <v-container grid-list-xl fluid>
-                        <v-layout wrap>
-                          <v-flex xs12 pa-0>
-                            <v-text-field
-                              class="box-input"
-                              :placeholder="
-                                $t('changePassword.currentPassword')
-                              "
-                              :append-icon="
-                                showPassword ? 'visibility' : 'visibility_off'
-                              "
-                              :type="showPassword ? 'text' : 'password'"
-                              @click:append="showPassword = !showPassword"
-                              v-model="currentPassword"
-                              :error-messages="fieldErrors('currentPassword')"
-                              @input="$v.currentPassword.$touch()"
-                              @blur="$v.currentPassword.$touch()"
-                              style="margin-bottom: 30px"
-                              required
-                            ></v-text-field>
-                            <password
-                              v-model="password"
-                              :badge="false"
-                              hint
-                              @next="handlePasswordScoreEvent"
-                              required
-                            ></password>
-                            <v-text-field
-                              class="box-input"
-                              :placeholder="
-                                $t('changePassword.confirmPassword')
-                              "
-                              :append-icon="
-                                showPassword2 ? 'visibility' : 'visibility_off'
-                              "
-                              :type="showPassword2 ? 'text' : 'password'"
-                              @click:append="showPassword2 = !showPassword2"
-                              v-model="repeatPassword"
-                              :error-messages="fieldErrors('repeatPassword')"
-                              @input="$v.repeatPassword.$touch()"
-                              @blur="$v.repeatPassword.$touch()"
-                              required
-                            ></v-text-field>
-                          </v-flex>
-                          <div class="put-bottom px-3">
-                            <v-btn
-                              :loading="loader"
-                              color="primary"
-                              block
-                              round
-                              type="submit"
-                              :disabled="$v.$invalid"
-                              class="ml-0"
-                              :class="$v.$invalid ? '' : 'white--text'"
-                              >{{ $t("common.save") }}</v-btn
-                            >
-                          </div>
-                        </v-layout>
-                      </v-container>
-                    </v-form>
-                  </v-card-text>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-flex>
-  </v-layout>
+  <v-container fill-height>
+    <v-layout row wrap>
+      <v-flex xs12 sm6 class="text-xs-center">
+        <v-card elevation="0" class="text-xs-left pa-3">
+          <div class="text-xs-center">
+            <v-icon x-large color="primary">vpn_key</v-icon>
+          </div>
+          <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
+            <v-text-field
+              class="box-input"
+              :placeholder="$t('changePassword.currentPassword')"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword"
+              v-model="currentPassword"
+              :error-messages="fieldErrors('currentPassword')"
+              @input="$v.currentPassword.$touch()"
+              @blur="$v.currentPassword.$touch()"
+              style="margin-bottom: 30px"
+              required
+            ></v-text-field>
+            <password
+              v-model="password"
+              :badge="false"
+              hint
+              @next="handlePasswordScoreEvent"
+              required
+            ></password>
+            <v-text-field
+              class="box-input"
+              :placeholder="$t('changePassword.confirmPassword')"
+              :append-icon="showPassword2 ? 'visibility' : 'visibility_off'"
+              :type="showPassword2 ? 'text' : 'password'"
+              @click:append="showPassword2 = !showPassword2"
+              v-model="repeatPassword"
+              :error-messages="fieldErrors('repeatPassword')"
+              @input="$v.repeatPassword.$touch()"
+              @blur="$v.repeatPassword.$touch()"
+              required
+            ></v-text-field>
+
+            <v-layout justify-space-around class="put-bottom">
+              <v-flex xs5>
+                <v-btn
+                  large
+                  round
+                  block
+                  color="gray"
+                  class="mt-4"
+                  @click="backToDashboard"
+                  >{{ $t("common.cancel") }}</v-btn
+                >
+              </v-flex>
+              <v-flex xs5>
+                <v-btn
+                  large
+                  round
+                  block
+                  color="primary"
+                  class="mt-4"
+                  :disabled="$v.$invalid"
+                  :class="$v.$invalid ? '' : 'white--text'"
+                  @click="submit"
+                  >{{ $t("common.accept") }}</v-btn
+                >
+              </v-flex>
+            </v-layout>
+          </v-form>
+        </v-card>
+      </v-flex>
+    </v-layout>
+    <v-dialog v-model="dialogC" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{ textDialogC }}</v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" flat @click.native="backToDashboard">{{
+            $t("common.accept")
+          }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
 </template>
 <script>
 import ResizeMixin from "@/mixins/ResizeMixin";
 import Password from "@/components/PasswordStrength.vue";
 import { required, sameAs } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
-import { changePassUserApi } from "@/api/modules";
-
+import { changePass } from "@/api/modules";
+import { i18n } from "@/i18n";
 export default {
   mixins: [validationLangMixin, ResizeMixin],
   validations: {
     currentPassword: {
-      required,
-      sameAsRealPassword: sameAs("realPassword")
+      required
     },
     password: { required },
     repeatPassword: {
@@ -123,7 +125,10 @@ export default {
       passwordScore: 0,
       loader: false,
       showPassword: false,
-      showPassword2: false
+      showPassword2: false,
+      user_id: localStorage.getItem("user_id"),
+      dialogC: false,
+      textDialogC: ""
     };
   },
   methods: {
@@ -131,17 +136,27 @@ export default {
       this.passwordScore = data.score;
     },
     async submit() {
-      const { user_id } = localStorage;
-      var serviceResponse = await changePassUserApi(user_id, this.password);
+      console.log(this.password);
+      console.log(this.currentPassword);
+      let body = {
+        password: this.password,
+        old_password: this.currentPassword
+      };
+      let serviceResponse = await changePass(this.user_id, body);
+      console.log(serviceResponse);
       if (serviceResponse.ok) {
-        localStorage.password = this.password;
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_MESSAGE", params);
-        this.$router.push({ name: "Home" });
+        this.dialogC = true;
+        this.textDialogC = i18n.t("operationKey.change");
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    backToDashboard() {
+      this.dialogC = false;
+      this.$router.push({
+        name: "Dashboard"
+      });
     }
   }
 };

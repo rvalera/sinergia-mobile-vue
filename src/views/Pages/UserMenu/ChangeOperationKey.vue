@@ -9,7 +9,7 @@
           <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
             <v-text-field
               class="box-input"
-              placeholder="Ingrese su clave actual"
+              :placeholder="$t('operationKey.title')"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
@@ -24,7 +24,7 @@
 
             <v-text-field
               class="box-input"
-              placeholder="Ingrese su nueva clave "
+              :placeholder="$t('operationKey.new')"
               :append-icon="showPassword2 ? 'visibility' : 'visibility_off'"
               :type="showPassword2 ? 'text' : 'password'"
               @click:append="showPassword2 = !showPassword2"
@@ -38,7 +38,7 @@
             ></v-text-field>
             <v-text-field
               class="box-input"
-              placeholder="Confirme su nueva clave "
+              :placeholder="$t('operationKey.confirm')"
               :append-icon="showPassword3 ? 'visibility' : 'visibility_off'"
               :type="showPassword3 ? 'text' : 'password'"
               @click:append="showPassword3 = !showPassword3"
@@ -54,53 +54,80 @@
               maxlength="6"
             ></v-text-field>
           </v-form>
+
+          <v-flex xs12 class="text-xs-right">
+            <br />
+            <strong @click="dialog = true">{{
+              $t("operationKey.reset")
+            }}</strong>
+          </v-flex>
         </v-card>
         <v-layout justify-space-around class="put-bottom">
-          <v-flex xs3>
+          <v-flex xs5>
             <v-btn
               large
               round
               block
-              color="primary"
-              class="mt-"
-              :disabled="$v.$invalid"
-              :class="$v.$invalid ? '' : 'white--text'"
-              @click="submit"
-              >Cambiar</v-btn
-            >
-          </v-flex>
-          <v-flex xs3>
-            <v-btn
-              large
-              round
-              block
-              color="primary"
-              class="mt-"
-              :disabled="$v.$invalid"
-              :class="$v.$invalid ? '' : 'white--text'"
-              @click="submit"
-              >Reiniciar</v-btn
-            >
-          </v-flex>
-          <v-flex xs3>
-            <v-btn
-              large
-              block
-              round
               color="gray"
-              class="mt-"
-              @click="backToList"
-              >Volver</v-btn
+              class="mt-4"
+              @click="backToDashboard"
+              >{{ $t("common.cancel") }}</v-btn
+            >
+          </v-flex>
+          <v-flex xs5>
+            <v-btn
+              large
+              round
+              block
+              color="primary"
+              class="mt-4"
+              :disabled="$v.$invalid"
+              :class="$v.$invalid ? '' : 'white--text'"
+              @click="submit"
+              >{{ $t("common.accept") }}</v-btn
             >
           </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{
+          $t("operationKey.dialog")
+        }}</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.native="dialog = false">
+            {{ $t("common.cancel") }}
+          </v-btn>
+          <v-btn color="primary" flat @click.native="forgotPassword">
+            {{ $t("common.accept") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="dialogC" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{ textDialogC }}</v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" flat @click.native="backToDashboard">{{
+            $t("common.accept")
+          }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import { resetPasswordByType, changeOpeKey } from "@/api/modules";
+import { i18n } from "@/i18n";
+import { mapActions } from "vuex";
 export default {
   props: {
     key_card: Object
@@ -121,17 +148,17 @@ export default {
   },
   validationMessages: {
     new_key: {
-      required: "clave requerida",
-      minLength: "la clave debe ser de 6 caracteres"
+      required: i18n.t("operationKey.required"),
+      minLength: i18n.t("operationKey.minLength")
     },
     old_key: {
-      required: "clave requerida",
-      minLength: "la clave debe ser de 6 caracteres"
+      required: i18n.t("operationKey.required"),
+      minLength: i18n.t("operationKey.minLength")
     },
     new_key_confirm: {
-      required: "clave requerida",
-      minLength: "la clave debe ser de 6 caracteres",
-      sameAsPassword: "la clave debe coincidir"
+      required: i18n.t("operationKey.required"),
+      minLength: i18n.t("operationKey.minLength"),
+      sameAsPassword: i18n.t("operationKey.equal")
     }
   },
   data() {
@@ -142,32 +169,66 @@ export default {
       new_key_confirm: "",
       showPassword: false,
       showPassword2: false,
-      showPassword3: false
+      showPassword3: false,
+      email: localStorage.getItem("email"),
+      user_id: localStorage.getItem("user_id"),
+      dialog: false,
+      dialogC: false,
+      textDialogC: ""
     };
   },
   methods: {
-    submit() {
-      if (this.new_key === this.new_key_confirm) {
-        console.log("paso");
-        // this.$emit("next", {
-        //   new_key_card: this.new_key,
-        //   old_key_card: this.old_key,
-        //   card_id: this.$route.params.card.id
-        // });
+    ...mapActions(["updateOperationKey"]),
+    async submit() {
+      let body = {
+        operation_key: this.new_key,
+        old_operation_key: this.old_key
+      };
+      let serviceResponse = await changeOpeKey(this.user_id, body);
+      console.log(serviceResponse);
+      if (serviceResponse.ok) {
+        this.updateOperationKey(serviceResponse.data.operation_key);
+        this.dialogC = true;
+        this.textDialogC = i18n.t("operationKey.change");
       } else {
-        const params = { text: "Clave invalida" };
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },
     backToList() {
       this.$router.push({
-        name: "/CardsList"
+        name: "CardsList"
       });
     },
     handleChange(e) {
       if (e.target.value.match("^[0-9]*$") != null) {
         console.log(e.target.value);
       }
+    },
+    async forgotPassword() {
+      console.log(this.email);
+      this.dialog = false;
+      let body = {
+        password_type: "O"
+      };
+      let serviceResponse = await resetPasswordByType(this.email, body);
+      console.log(serviceResponse.data);
+      //const params = { text: this.$t('operationKey.message') };
+      if (serviceResponse.ok) {
+        this.updateOperationKey(serviceResponse.data.operation_key);
+        this.textDialogC = i18n.t("operationKey.message");
+        this.dialogC = true;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
+    },
+
+    backToDashboard() {
+      this.dialogC = false;
+      this.$router.push({
+        name: "Dashboard"
+      });
     }
   }
 };

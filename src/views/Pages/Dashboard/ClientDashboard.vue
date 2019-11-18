@@ -52,6 +52,20 @@
       :activeAutoScroll="false"
       :hasFilterFab="false"
     ></app-movements>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{ $t("dashboard.confirm") }}</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click.native="dialog = false">
+            {{ $t("common.cancel") }}
+          </v-btn>
+          <v-btn color="primary" @click.native="exitApp">
+            {{ $t("common.accept") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 <script>
@@ -79,6 +93,7 @@ export default {
     return {
       height: window.innerHeight - 72, // 72 is stepper header size
       loader: false,
+      dialog: false,
       coin: localStorage.getItem("coin"),
       balance: 0,
       modal: false,
@@ -159,7 +174,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setTransactionsApp", "setBalanceWallet"]),
+    ...mapActions(["setTransactionsApp", "setBalanceWallet", "logoutAction"]),
     showModal() {
       this.$refs.modal.show();
     },
@@ -214,6 +229,13 @@ export default {
       // this.showMovements(person_id, 10);
 
       //this.$refs.filter.show();
+    },
+    openDialogExit() {
+      this.dialog = true;
+    },
+    async exitApp() {
+      await this.logoutAction();
+      navigator.app.exitApp();
     }
   },
   mounted() {
@@ -221,6 +243,10 @@ export default {
     this.showMovements(person_id);
     // window.getApp.$emit("LOADING", true);
     this.getGraphData(person_id);
+    document.addEventListener("backbutton", this.openDialogExit, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.openDialogExit);
   }
 };
 </script>

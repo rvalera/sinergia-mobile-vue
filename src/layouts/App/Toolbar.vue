@@ -82,7 +82,7 @@
           @click="() => $router.push({ name: '/ChangeOperationKey' })"
         >
           <v-list-tile-avatar>
-            <v-icon>person</v-icon>
+            <v-icon>vpn_key</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
@@ -153,6 +153,12 @@ export default {
   data: () => ({
     dialog: false
   }),
+  watch: {
+    hasBackButton(val) {
+      if (val) document.addEventListener("backbutton", this.show, false);
+      else document.removeEventListener("backbutton", this.show);
+    }
+  },
   computed: {
     ...mapGetters({
       hasPendingRequest: "hasPendingRequest",
@@ -178,6 +184,9 @@ export default {
       this.$store.dispatch("toggleDrawer", false);
       if (this.goHome) this.$router.push({ name: "Home" });
       else this.$router.back();
+    },
+    show() {
+      this.dialog = true;
     }
   }
 };

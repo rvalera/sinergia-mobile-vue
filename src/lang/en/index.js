@@ -9,12 +9,14 @@ export default {
     newPassword: "New password"
   },
   cards: {
-    validatioNumber: "Validation Number",
+    validationNumber: "Validation Number",
     activationDate: "Activation Date",
     disabledDate: "Disabled Date",
+    dialog: "Are you sure you want to reset your NFC card PIN?",
     status: "Status",
     active: "Active",
     block: "Block",
+    message: "New pin send your Email",
     unblock: "Unblock",
     information: "Card Information",
     pin: "Pin Change",
@@ -24,7 +26,11 @@ export default {
     pinConfirm: "Confirm New PIN",
     pinNew: "New PIN",
     pinChange: "PIN Change",
-    movements: "Movements"
+    movements: "Movements",
+    reset: "reset PIN",
+    required: "PIN required",
+    minLength: "PIN min length 4 character",
+    equal: "The keys must match"
   },
   common: {
     accept: "Accept",
@@ -69,7 +75,8 @@ export default {
   dashboard: {
     activity: "Activity",
     balance: "Balance",
-    withoutInfo: "No data to show"
+    withoutInfo: "No data to show",
+    confirm: "Exit app?"
   },
   movements: {
     withoutMov: "There are no movements to show"
@@ -149,6 +156,18 @@ export default {
     movementType: "Movement type",
     startAmount: "Start amount",
     startDate: "Start date"
+  },
+  operationKey: {
+    title: "Operation Key",
+    new: "New Operation Key",
+    confirm: "Confirm New Operation Key",
+    dialog: "¿Reset Operation Key?",
+    message: "New key send to email",
+    reset: "forgot my password",
+    required: "Key required",
+    minLength: "Min length 6",
+    equal: "The keys must match",
+    change: "Key updated"
   },
   pay: {
     camera: "Camera",
