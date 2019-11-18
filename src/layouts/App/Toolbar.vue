@@ -82,7 +82,7 @@
           @click="() => $router.push({ name: '/ChangeOperationKey' })"
         >
           <v-list-tile-avatar>
-            <v-icon>person</v-icon>
+            <v-icon>vpn_key</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>

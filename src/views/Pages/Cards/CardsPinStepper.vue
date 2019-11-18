@@ -42,7 +42,7 @@ import CardsPinChange from "./CardsPinChange";
 import { mapGetters } from "vuex";
 import { updatePinCard } from "@/api/modules";
 import { mapActions } from "vuex";
-
+import { i18n } from "@/i18n";
 export default {
   components: {
     CardsPinChange,
@@ -95,10 +95,10 @@ export default {
       this.$router.push({
         name: "Dashboard"
       });
-    },
-    beforeDestroy() {
-      this.setTitleButton("Pagar");
     }
+  },
+  beforeDestroy() {
+    this.setTitleButton(i18n.t("common.continue"));
   }
 };
 </script>

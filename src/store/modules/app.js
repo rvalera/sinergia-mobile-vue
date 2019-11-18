@@ -1,11 +1,11 @@
 import { SET_APP, CLEAN_APP, TITLE_APP, TITLE_BUTTON } from "../mutation-types";
 
 import { getAppToken } from "@/api/modules";
-
+import { i18n } from "@/i18n";
 const initialState = {
   data: {},
   app_title: "Mark-One",
-  app_button_label: "Pagar"
+  app_button_label: i18n.t("common.continue")
 };
 
 const state = {

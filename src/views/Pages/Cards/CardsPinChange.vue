@@ -51,6 +51,10 @@
               maxlength="4"
             ></v-text-field>
           </v-form>
+          <v-flex xs12 class="text-xs-right">
+            <br />
+            <strong @click="dialog = true">{{ $t("cards.reset") }}</strong>
+          </v-flex>
         </v-card>
         <v-layout justify-space-around class="put-bottom">
           <v-flex xs5>
@@ -61,7 +65,7 @@
               color="gray"
               class="mt-4"
               @click="backToList"
-              >{{ $t("common.goBack") }}</v-btn
+              >{{ $t("common.cancel") }}</v-btn
             >
           </v-flex>
           <v-flex xs5>
@@ -74,17 +78,46 @@
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
-              >{{ $t("common.next") }}</v-btn
+              >{{ $t("common.accept") }}</v-btn
             >
           </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{ $t("cards.dialog") }}</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click.native="dialog = false">
+            {{ $t("common.cancel") }}
+          </v-btn>
+          <v-btn color="primary" flat @click.native="forgotPassword">
+            {{ $t("common.accept") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogC" persistent max-width="290">
+      <v-card>
+        <v-card-title class="title">{{ textDialogC }}</v-card-title>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" flat @click.native="backToList">{{
+            $t("common.accept")
+          }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import { resetPasswordByType } from "@/api/modules";
+import { i18n } from "@/i18n";
 export default {
   props: {
     pin_card: Object
@@ -105,17 +138,17 @@ export default {
   },
   validationMessages: {
     new_pin: {
-      required: "PIN requerido",
-      minLength: "PIN debe ser de 4 caracteres"
+      required: i18n.t("cards.required"),
+      minLength: i18n.t("cards.minLength")
     },
     old_pin: {
-      required: "PIN requerido",
-      minLength: "PIN debe ser de 4 caracteres"
+      required: i18n.t("cards.required"),
+      minLength: i18n.t("cards.minLength")
     },
     new_pin_confirm: {
-      required: "PIN requerido",
-      minLength: "Clave debe ser de 4 caracteres",
-      sameAsPassword: "PIN debe coincidir"
+      required: i18n.t("cards.required"),
+      minLength: i18n.t("cards.minLength"),
+      sameAsPassword: i18n.t("cards.equal")
     }
   },
   data() {
@@ -126,7 +159,11 @@ export default {
       new_pin_confirm: "",
       showPassword: false,
       showPassword2: false,
-      showPassword3: false
+      showPassword3: false,
+      dialog: false,
+      dialogC: false,
+      textDialogC: "",
+      email: localStorage.getItem("email")
     };
   },
   methods: {
@@ -139,6 +176,24 @@ export default {
         });
       } else {
         const params = { text: "Clave invalida" };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
+    },
+    async forgotPassword() {
+      console.log(this.email);
+      this.dialog = false;
+      let body = {
+        password_type: "P"
+      };
+      let serviceResponse = await resetPasswordByType(this.email, body);
+      console.log(serviceResponse.data);
+      //const params = { text: this.$t('operationKey.message') };
+      if (serviceResponse.ok) {
+        // this.updateOperationKey(serviceResponse.data.operation_key);
+        this.textDialogC = i18n.t("cards.message");
+        this.dialogC = true;
+      } else {
+        const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
     },

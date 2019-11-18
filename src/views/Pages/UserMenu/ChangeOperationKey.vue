@@ -71,7 +71,7 @@
               color="gray"
               class="mt-4"
               @click="backToDashboard"
-              >{{ $t("common.goBack") }}</v-btn
+              >{{ $t("common.cancel") }}</v-btn
             >
           </v-flex>
           <v-flex xs5>
@@ -84,7 +84,7 @@
               :disabled="$v.$invalid"
               :class="$v.$invalid ? '' : 'white--text'"
               @click="submit"
-              >{{ $t("common.next") }}</v-btn
+              >{{ $t("common.accept") }}</v-btn
             >
           </v-flex>
         </v-layout>
@@ -181,7 +181,8 @@ export default {
     ...mapActions(["updateOperationKey"]),
     async submit() {
       let body = {
-        operation_key: this.new_key
+        operation_key: this.new_key,
+        old_operation_key: this.old_key
       };
       let serviceResponse = await changeOpeKey(this.user_id, body);
       console.log(serviceResponse);
