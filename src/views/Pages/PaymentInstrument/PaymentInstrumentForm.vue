@@ -49,7 +49,7 @@
           format-data
           :invert-card.sync="invertedCard"
         />
-        <v-layout justify-space-around class="put-bottom">
+        <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
               large
@@ -122,7 +122,7 @@ export default {
     invertedCard: false
   }),
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user", "keyboardIsUp"])
   },
   mounted() {
     this.form.name = this.user.person.fullname;

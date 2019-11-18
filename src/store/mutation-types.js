@@ -28,6 +28,7 @@ export const SET_APP = "SET_APP";
 export const CLEAN_APP = "CLEAN_APP";
 export const TITLE_APP = "TITLE_APP";
 export const TITLE_BUTTON = "TITLE_BUTTON";
+export const KEYBOARD = "KEYBOARD";
 
 //Transactions
 export const TRANSACTIONS_APP = "TRANSACTIONS_APP";

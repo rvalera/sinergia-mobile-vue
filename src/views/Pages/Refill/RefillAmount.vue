@@ -35,7 +35,7 @@
           </v-form>
         </v-card>
       </v-flex>
-      <v-layout justify-space-around class="put-bottom">
+      <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
         <v-flex xs5>
           <v-btn
             large
@@ -67,6 +67,7 @@
 <script>
 import { minValue } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
+import { mapGetters } from "vuex";
 import { Money } from "v-money";
 export default {
   components: { Money },
@@ -96,6 +97,9 @@ export default {
         masked: false
       }
     };
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     submit() {

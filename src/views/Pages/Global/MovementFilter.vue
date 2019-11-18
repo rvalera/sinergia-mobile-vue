@@ -92,7 +92,7 @@
                     v-model="filter.max_amount"
                   />
                 </v-list>
-                <div class=" put-bottom px-3">
+                <div v-if="!keyboardIsUp" class=" put-bottom px-3">
                   <v-btn
                     large
                     round
@@ -130,7 +130,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["filter_app"])
+    ...mapGetters(["filter_app", "keyboardIsUp"])
   },
   methods: {
     ...mapActions(["setTransactionsApp"]),

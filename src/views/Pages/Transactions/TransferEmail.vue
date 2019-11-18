@@ -34,7 +34,7 @@
                     ></v-text-field>
                   </v-flex>
 
-                  <div class=" put-bottom px-3">
+                  <div v-if="!keyboardIsUp" class=" put-bottom px-3">
                     <!-- Login form submit -->
 
                     <v-btn
@@ -63,6 +63,7 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import { mapGetters } from "vuex";
 const defaultForm = {
   destiny_email: null
 };
@@ -95,6 +96,9 @@ export default {
       modal: false,
       coin: localStorage.getItem("coin")
     };
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     submit() {

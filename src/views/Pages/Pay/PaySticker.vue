@@ -50,7 +50,7 @@
             </v-form>
           </v-card-text>
         </v-card>
-        <v-layout justify-space-around class="put-bottom">
+        <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
               large
@@ -84,6 +84,7 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, minValue } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
+import { mapGetters } from "vuex";
 import { Money } from "v-money";
 const defaultForm = {
   description: null,
@@ -133,6 +134,9 @@ export default {
         amount: this.form.amount
       });
     }
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   }
 };
 </script>

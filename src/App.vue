@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Events from "./events/event";
 export default {
   data() {
@@ -42,11 +42,21 @@ export default {
       this.$on(item.name, item.callback);
     });
     window.getApp = this;
+    window.addEventListener("keyboardDidHide", () => {
+      this.handleKeyboard(false);
+    });
+
+    window.addEventListener("keyboardDidShow", () => {
+      this.handleKeyboard(true);
+    });
   },
   computed: {
     ...mapGetters({
       colorScheme: "colorScheme"
     })
+  },
+  methods: {
+    ...mapActions(["handleKeyboard"])
   }
 };
 </script>
