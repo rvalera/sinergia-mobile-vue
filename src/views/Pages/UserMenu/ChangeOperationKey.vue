@@ -20,6 +20,7 @@
               required
               counter
               maxlength="6"
+              mask="######"
             ></v-text-field>
 
             <v-text-field
@@ -35,6 +36,7 @@
               required
               counter
               maxlength="6"
+              mask="######"
             ></v-text-field>
             <v-text-field
               class="box-input"
@@ -52,6 +54,7 @@
               required
               counter
               maxlength="6"
+              mask="######"
             ></v-text-field>
           </v-form>
 

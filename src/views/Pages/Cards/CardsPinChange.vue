@@ -20,8 +20,7 @@
               required
               counter
               maxlength="4"
-              pattern="[0-9]*"
-              decimal="true"
+              mask="####"
             ></v-text-field>
 
             <v-text-field
@@ -37,6 +36,7 @@
               required
               counter
               maxlength="4"
+              mask="####"
             ></v-text-field>
             <v-text-field
               class="box-input"
@@ -51,6 +51,7 @@
               required
               counter
               maxlength="4"
+              mask="####"
             ></v-text-field>
           </v-form>
           <v-flex xs12 class="text-xs-right">

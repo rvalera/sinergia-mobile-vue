@@ -20,6 +20,7 @@
               required
               counter
               maxlength="6"
+              mask="######"
             ></v-text-field>
           </v-form>
         </v-card>
