@@ -84,6 +84,7 @@ const actions = {
         localStorage.setItem("user_id", serviceResponse.data.id);
         localStorage.setItem("email", serviceResponse.data.email);
         localStorage.setItem("password", payload.password);
+        localStorage.setItem("lastEmailLogged", payload.email);
         if (serviceResponse.data.status === USER_STATUS_PENDING)
           router.push({ name: "SignupPage" });
         else {
@@ -100,7 +101,9 @@ const actions = {
     }
   },
   logoutAction({ commit, dispatch }) {
+    const lastEmailLogged = localStorage.lastEmailLogged || "";
     localStorage.clear();
+    localStorage.setItem("lastEmailLogged", lastEmailLogged);
     commit(LOGOUT_USER);
     dispatch("cleanApp");
     //router.push({ name: "LoginPage" });
