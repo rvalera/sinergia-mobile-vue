@@ -36,6 +36,7 @@
                         required
                         :error-messages="fieldErrors('form.email')"
                         @blur="$v.form.email.$touch()"
+                        clearable
                       ></v-text-field>
 
                       <v-text-field
@@ -109,10 +110,7 @@ import {
 import { mapActions } from "vuex";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { getCoinApi } from "@/api/modules";
-const defaultForm = {
-  email: "",
-  password: ""
-};
+
 export default {
   mixins: [validationLangMixin],
   validations: {
@@ -141,12 +139,17 @@ export default {
   },
   data() {
     return {
-      form: Object.assign({}, defaultForm),
+      form: {},
       backgroundImg: "static/doc-images/HexesisMaterial01.png",
       showPassword: false
     };
   },
   async mounted() {
+    const defaultForm = {
+      email: localStorage.lastEmailLogged || "",
+      password: ""
+    };
+    this.form = Object.assign({}, defaultForm);
     await this.logoutAction();
     this.getCoin();
   },
