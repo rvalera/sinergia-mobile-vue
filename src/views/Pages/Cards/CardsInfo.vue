@@ -77,7 +77,11 @@ export default {
       else this.status = "Inactiva";
     },
     hide() {
-      this.dialog = false;
+      if (this.dialog) this.dialog = false;
+      else
+        this.$router.push({
+          name: "Dashboard"
+        });
     }
   },
   mounted() {

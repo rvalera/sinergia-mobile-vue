@@ -104,10 +104,11 @@ export default {
       this.dialog = true;
     },
     hide() {
-      this.dialog = false;
-    },
-    onBackKeyDown() {
-      this.dialog = false;
+      if (this.dialog) this.dialog = false;
+      else
+        this.$router.push({
+          name: "Dashboard"
+        });
     }
   },
   mounted() {
