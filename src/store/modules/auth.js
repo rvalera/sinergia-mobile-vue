@@ -101,7 +101,7 @@ const actions = {
     }
   },
   logoutAction({ commit, dispatch }) {
-    const lastEmailLogged = localStorage.lastEmailLogged;
+    const lastEmailLogged = localStorage.lastEmailLogged || "";
     localStorage.clear();
     localStorage.setItem("lastEmailLogged", lastEmailLogged);
     commit(LOGOUT_USER);
