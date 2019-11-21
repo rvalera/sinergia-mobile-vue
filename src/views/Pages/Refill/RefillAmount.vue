@@ -8,18 +8,25 @@
           </div>
           <v-list-tile class="pb-5" avatar v-if="paymentInstrumentSelected">
             <v-list-tile-avatar width="60px" tile>
-              <v-img width="60px" :src="paymentInsturmentImg"></v-img>
+              <v-img
+                width="60px"
+                :src="
+                  CREDIT_TYPES_ICONS(
+                    paymentInstrumentSelected.payment_medium.name
+                  )
+                "
+              ></v-img>
             </v-list-tile-avatar>
 
             <v-list-tile-content class="pl-4">
               <v-list-tile-title
-                v-html="
-                  `${paymentInstrumentSelected.payment_medium.name} - ${paymentInstrumentSelected.exp_month}/${paymentInstrumentSelected.exp_year}`
-                "
+                v-html="'**** **** **** ' + paymentInstrumentSelected.last4"
                 class="title"
               ></v-list-tile-title>
               <v-list-tile-sub-title
-                v-html="'**** **** **** ' + paymentInstrumentSelected.last4"
+                v-html="
+                  `${paymentInstrumentSelected.exp_month}/${paymentInstrumentSelected.exp_year}`
+                "
                 class="title"
               ></v-list-tile-sub-title>
             </v-list-tile-content>
@@ -68,6 +75,7 @@
 import { minValue } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { mapGetters } from "vuex";
+import { CREDIT_TYPES_ICONS } from "@/config/constants";
 import { Money } from "v-money";
 export default {
   components: { Money },
@@ -95,7 +103,8 @@ export default {
         suffix: " ARS",
         precision: 2,
         masked: false
-      }
+      },
+      CREDIT_TYPES_ICONS
     };
   },
   computed: {

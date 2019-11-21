@@ -23,7 +23,7 @@
             @blur="$v.form.expiry.$touch()"
             required
             counter
-            maxlength="9"
+            maxlength="6"
             mask="## / ####"
           />
           <v-text-field
@@ -43,12 +43,7 @@
             maxlength="3"
           />
         </v-form>
-        <Card
-          class="pt-3"
-          v-model="form"
-          format-data
-          :invert-card.sync="invertedCard"
-        />
+        <Card class="pt-3" v-model="form" :invert-card.sync="invertedCard" />
         <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
           <v-flex xs5>
             <v-btn
@@ -130,12 +125,11 @@ export default {
   methods: {
     async submit() {
       console.log(this.form);
-      const expiry = this.form.expiry.split(" ");
       const body = {
         card_number: this.form.number.replace(/ /g, ""),
         cvc: this.form.cvc,
-        exp_month: Number(expiry[0]),
-        exp_year: Number(expiry[2])
+        exp_month: this.form.expiry.slice(0, 2),
+        exp_year: this.form.expiry.slice(-4)
       };
       console.log(body);
       var serviceResponse = await postPaymentInstrumentApi(body);

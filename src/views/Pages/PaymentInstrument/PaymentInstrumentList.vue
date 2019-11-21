@@ -6,7 +6,7 @@
           <template v-if="fetched && !paymentInstruments.length">
             <v-flex xs12 sm6 class="text-xs-center pa-4">
               <v-alert :value="true" dense type="info" outline>
-                <strong> {{ $t("paymentInstrument.withoutCards") }}</strong>
+                <strong>{{ $t("paymentInstrument.withoutCards") }}</strong>
               </v-alert>
             </v-flex>
           </template>
@@ -17,16 +17,17 @@
             <v-divider :inset="true" :key="index + 'e'"></v-divider>
             <v-list-tile :key="item.id" avatar>
               <v-list-tile-avatar width="60px" class="avatarCard" tile>
-                <v-img width="60px" :src="paymentInsturmentImg"></v-img>
+                <v-img
+                  width="60px"
+                  :src="CREDIT_TYPES_ICONS(item.payment_medium.name)"
+                ></v-img>
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title
-                  v-html="
-                    `${item.payment_medium.name} - ${item.exp_month}/${item.exp_year}`
-                  "
+                  v-html="'**** **** **** ' + item.last4"
                 ></v-list-tile-title>
                 <v-list-tile-sub-title
-                  v-html="'**** **** **** ' + item.last4"
+                  v-html="`${item.exp_month}/${item.exp_year}`"
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
@@ -41,14 +42,14 @@
                       v-if="item.default !== '1'"
                       @click="handleuseByDefault(item.id)"
                     >
-                      <v-list-tile-title>{{
-                        $t("paymentInstrument.useByDefault")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("paymentInstrument.useByDefault") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile @click="handleDelete(item.id)">
-                      <v-list-tile-title>{{
-                        $t("common.delete")
-                      }}</v-list-tile-title>
+                      <v-list-tile-title>
+                        {{ $t("common.delete") }}
+                      </v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -79,10 +80,11 @@ import {
   putDefaultPaymentInstrumentApi,
   deletePaymentInstrumentApi
 } from "@/api/modules";
+import { CREDIT_TYPES_ICONS } from "@/config/constants";
 export default {
   data: () => ({
     paymentInstruments: [],
-    paymentInsturmentImg: "static/paymentInstrument.png",
+    CREDIT_TYPES_ICONS,
     fetched: false
   }),
   methods: {

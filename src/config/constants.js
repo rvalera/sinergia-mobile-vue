@@ -57,3 +57,10 @@ export const genders = [
   { text: i18n.t("constant.male"), value: "M" },
   { text: i18n.t("constant.female"), value: "F" }
 ];
+
+export const CREDIT_TYPES_ICONS = name => {
+  if (name === "VISA") return "static/visa.svg";
+  else if (name === "AMERICAN EXPRESS") return "static/amex.svg";
+  else if (name === "MASTERCARD") return "static/mastercard.svg";
+  else return "static/default.svg";
+};
