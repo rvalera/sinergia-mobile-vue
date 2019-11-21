@@ -4,8 +4,20 @@
       <v-flex xs12 sm6 offset-sm3 class="text-xs-center">
         <v-card elevation="0" class="text-xs-left pa-3">
           <div class="text-xs-center">
-            <v-icon x-large color="primary">attach_money</v-icon>
+            <v-icon x-large color="primary">receipt</v-icon>
           </div>
+          <p class="title text-xs-center font-weight-black">
+            {{ $t("dashboard.balance") }}
+            {{
+              balance_wallet
+                | currency(coin, 2, {
+                  thousandsSeparator: ".",
+                  decimalSeparator: ",",
+                  symbolOnLeft: false,
+                  spaceBetweenAmountAndSymbol: true
+                })
+            }}
+          </p>
           <v-list-tile class="pb-5" avatar v-if="paymentInstrumentSelected">
             <v-list-tile-avatar width="60px" tile>
               <v-img
@@ -97,6 +109,7 @@ export default {
     return {
       amount: 0,
       paymentInsturmentImg: "static/paymentInstrument.png",
+      coin: localStorage.getItem("coin"),
       money: {
         decimal: ",",
         thousands: ".",
@@ -108,7 +121,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["keyboardIsUp"])
+    ...mapGetters(["keyboardIsUp", "balance_wallet"])
   },
   methods: {
     submit() {

@@ -17,10 +17,7 @@
     </v-stepper-header>
 
     <v-stepper-content step="1" class="no-mrpd h-full">
-      <transfer-email
-        :balanceWallet="this.balance_wallet.format()"
-        @next="goToSearchEmail"
-      ></transfer-email>
+      <transfer-email @next="goToSearchEmail"></transfer-email>
     </v-stepper-content>
     <v-stepper-content step="2" class="no-mrpd h-full">
       <transfer-form

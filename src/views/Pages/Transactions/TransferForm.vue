@@ -2,39 +2,50 @@
   <v-container fill-height>
     <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
-        <v-card elevation="0" class="text-xs-left">
-          <v-card-text>
+        <v-card elevation="0" class="text-xs-lef  pa-1">
+          <v-card-text class="pa-0">
             <v-form @submit.prevent="$v.$invalid ? null : submit()" ref="form">
               <div class="text-xs-center">
                 <v-icon x-large color="primary">receipt</v-icon>
               </div>
-              <v-layout wrap>
-                <v-text-field
-                  color="primary"
-                  :label="$t('common.email')"
-                  v-model="transferData.email"
-                  readonly
-                ></v-text-field>
-                <v-text-field
-                  color="primary"
-                  :label="$t('common.name')"
-                  v-model="transferData.fullname"
-                  readonly
-                ></v-text-field>
+              <p class="title text-xs-center font-weight-black">
+                {{ $t("dashboard.balance") }}
+                {{
+                  balance_wallet
+                    | currency(coin, 2, {
+                      thousandsSeparator: ".",
+                      decimalSeparator: ",",
+                      symbolOnLeft: false,
+                      spaceBetweenAmountAndSymbol: true
+                    })
+                }}
+              </p>
+              <v-list-tile class="pb-5" avatar>
+                <v-list-tile-avatar tile>
+                  <v-icon x-large color="black">person</v-icon>
+                </v-list-tile-avatar>
 
+                <v-list-tile-content>
+                  <v-list-tile-title
+                    v-html="transferData.email"
+                    class="body-1"
+                  ></v-list-tile-title>
+                  <v-list-tile-sub-title
+                    v-html="transferData.fullname"
+                    class="body-1"
+                  ></v-list-tile-sub-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-layout wrap>
                 <v-flex xs12 pa-0>
-                  <v-form
-                    @submit.prevent="$v.$invalid ? null : submit()"
-                    ref="form"
-                  >
-                    <money
-                      :label="$t('common.amount')"
-                      v-model="form.amount"
-                      v-bind="money"
-                      class="currencyInput"
-                      @blur="$v.form.amount.$touch()"
-                    />
-                  </v-form>
+                  <money
+                    :label="$t('common.amount')"
+                    v-model="form.amount"
+                    v-bind="money"
+                    disabled
+                    class="currencyInput mb-4"
+                    @blur="$v.form.amount.$touch()"
+                  />
                   <br />
                   <v-text-field
                     color="primary"
@@ -84,6 +95,7 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, minValue } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
+import { mapGetters } from "vuex";
 import { Money } from "v-money";
 const defaultForm = {
   description: null,
@@ -126,6 +138,9 @@ export default {
         masked: false
       }
     };
+  },
+  computed: {
+    ...mapGetters(["balance_wallet"])
   },
   methods: {
     submit() {
