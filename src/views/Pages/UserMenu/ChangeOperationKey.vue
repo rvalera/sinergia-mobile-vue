@@ -11,7 +11,7 @@
               class="box-input"
               :placeholder="$t('operationKey.title')"
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-              :type="showPassword ? 'number' : 'password'"
+              type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
               v-model="old_key"
               :error-messages="fieldErrors('old_key')"

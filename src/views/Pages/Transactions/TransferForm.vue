@@ -38,14 +38,19 @@
               </v-list-tile>
               <v-layout wrap>
                 <v-flex xs12 pa-0>
-                  <money
-                    :label="$t('common.amount')"
-                    v-model="form.amount"
-                    v-bind="money"
-                    disabled
-                    class="currencyInput mb-4"
-                    @blur="$v.form.amount.$touch()"
-                  />
+                  <v-form
+                    @submit.prevent="$v.$invalid ? null : submit()"
+                    ref="form"
+                  >
+                    <money
+                      :label="$t('common.amount')"
+                      v-model="form.amount"
+                      v-bind="money"
+                      class="currencyInput"
+                      @blur="$v.form.amount.$touch()"
+                    />
+                  </v-form>
+
                   <br />
                   <v-text-field
                     color="primary"
