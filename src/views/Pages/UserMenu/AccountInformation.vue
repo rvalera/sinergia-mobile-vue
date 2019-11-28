@@ -101,7 +101,8 @@
                               </v-date-picker>
                             </v-dialog>
                           </v-flex>
-                          <div class=" put-bottom px-3">
+
+                          <!-- <div class=" put-bottom px-3">
                             <v-btn
                               :loading="loader"
                               color="primary"
@@ -113,9 +114,39 @@
                               :class="$v.$invalid ? '' : 'white--text'"
                               >{{ $t("common.save") }}</v-btn
                             >
-                          </div>
+                          </div>-->
                         </v-layout>
                       </v-container>
+                      <v-layout
+                        v-if="!keyboardIsUp"
+                        justify-space-around
+                        class="put-bottom"
+                      >
+                        <v-flex xs5>
+                          <v-btn
+                            large
+                            round
+                            block
+                            color="gray"
+                            class="mt-4"
+                            @click="backToDashboard"
+                            >{{ $t("common.cancel") }}</v-btn
+                          >
+                        </v-flex>
+                        <v-flex xs5>
+                          <v-btn
+                            large
+                            round
+                            block
+                            color="primary"
+                            class="mt-4"
+                            :disabled="$v.$invalid"
+                            :class="$v.$invalid ? '' : 'white--text'"
+                            type="submit"
+                            >{{ $t("common.accept") }}</v-btn
+                          >
+                        </v-flex>
+                      </v-layout>
                     </v-form>
                   </v-card-text>
                 </v-flex>
@@ -186,7 +217,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["user"])
+    ...mapGetters(["user", "keyboardIsUp"])
   },
   mounted() {
     this.form = Object.assign({}, this.user.person);
@@ -195,6 +226,11 @@ export default {
     ...mapActions(["updatePersonAction"]),
     submit() {
       this.updatePersonAction(this.form);
+    },
+    backToDashboard() {
+      this.$router.push({
+        name: "Dashboard"
+      });
     }
   }
 };
