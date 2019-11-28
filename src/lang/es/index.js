@@ -6,7 +6,7 @@ export default {
   changePassword: {
     confirmPassword: "Confirmar contraseña",
     currentPassword: "Contraseña actual",
-    newPassword: "Contraseña nueva"
+    newPassword: "Contraseña de Usuario"
   },
   cards: {
     validationNumber: "Numero de Validación",
@@ -24,7 +24,7 @@ export default {
     blockA: "Bloquear",
     pinA: "PIN Actual",
     pinConfirm: "Confirme su nuevo PIN",
-    pinNew: "Ingrese su nuevo PIN",
+    pinNew: "Nuevo PIN",
     pinChange: "Cambio de PIN",
     movements: "Movimientos",
     reset: "Olvide mi PIN",
@@ -56,7 +56,7 @@ export default {
     names: "Nombres",
     next: "Siguiente",
     ok: "Ok",
-    operationKey: "Clave de operaciones",
+    operationKey: "Clave de Operaciones",
     password: "Contraseña",
     personalInformation: "Datos personales",
     phone: "Teléfono",
@@ -131,7 +131,7 @@ export default {
     notifications: "Notificaciones",
     operators: "Operadores",
     paymentInstruments: "Medios de Recarga",
-    pin: "PIN",
+    pin: "PIN Tarjeta NFC",
     qrPay: "Pago con QR",
     refillBalance: "Recargar Saldo",
     reliablePay: "Pago Confiable",

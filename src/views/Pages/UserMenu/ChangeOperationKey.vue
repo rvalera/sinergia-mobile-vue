@@ -1,6 +1,6 @@
 <template>
-  <v-container fill-height>
-    <v-layout row wrap>
+  <v-container class="backgroundC" fill-height>
+    <v-layout class="backgroundC" row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="0" class="text-xs-left pa-3">
           <div class="text-xs-center">
@@ -240,3 +240,8 @@ export default {
   }
 };
 </script>
+<style>
+.backgroundC {
+  background: white !important;
+}
+</style>

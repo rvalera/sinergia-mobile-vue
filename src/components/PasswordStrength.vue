@@ -32,7 +32,7 @@
       {{ passwordAccesive }}/32
     </div>
 
-    <div class="password-progress mb-3">
+    <div v-if="password.length" class="password-progress mb-3">
       <v-progress-linear
         class="progress-bar"
         v-bind:indeterminate="query"
@@ -119,7 +119,7 @@ export default {
       popover: false,
       error: false,
       showpass: false,
-      password: null,
+      password: "",
       query: false,
       show: true,
       progress: 0,

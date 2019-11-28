@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-container class="backgroundC" fill-height>
     <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center">
         <v-card elevation="0" class="text-xs-left pa-3">
@@ -17,7 +17,6 @@
               :error-messages="fieldErrors('currentPassword')"
               @input="$v.currentPassword.$touch()"
               @blur="$v.currentPassword.$touch()"
-              style="margin-bottom: 30px"
               required
             ></v-text-field>
             <password
@@ -171,3 +170,8 @@ export default {
   }
 };
 </script>
+<style>
+.backgroundC {
+  background: white;
+}
+</style>

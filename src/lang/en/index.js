@@ -130,7 +130,7 @@ export default {
     notifications: "Notifications",
     operators: "Operators",
     paymentInstruments: "Recharge means",
-    pin: "PIN",
+    pin: "PIN Card NFC",
     qrPay: "Pay with QR",
     refillBalance: "Recharge balance",
     reliablePay: "Reliable pay",
