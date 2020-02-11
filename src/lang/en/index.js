@@ -64,6 +64,7 @@ export default {
     save: "Save",
     secondaryEmail: "Secondary email",
     seeMovements: "See movements",
+    selectAnApp: "Select an application",
     sureWannaLock: "Are you sure you want to lock it?",
     sureWannaUnlock: "Are you sure you want to unlock it?",
     surnames: "Surnames",
