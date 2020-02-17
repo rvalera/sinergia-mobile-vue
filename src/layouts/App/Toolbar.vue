@@ -111,13 +111,15 @@
         <v-card-title class="headline">{{
           $t("common.cancelOperation")
         }}</v-card-title>
-        <v-card-text>{{ $t("common.cancelOperationQuestion") }}</v-card-text>
+        <v-card-text class="text-xs-center">{{
+          $t("common.cancelOperationQuestion")
+        }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click.native="dialog = false">{{
+          <v-btn round color="primary" @click.native="dialog = false">{{
             $t("common.cancel")
           }}</v-btn>
-          <v-btn color="primary" @click.native="handleGoBackButton">{{
+          <v-btn round color="primary" @click.native="handleGoBackButton">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>

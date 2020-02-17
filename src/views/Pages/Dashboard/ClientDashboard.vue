@@ -54,13 +54,15 @@
     ></app-movements>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="title">{{ $t("dashboard.confirm") }}</v-card-title>
+        <v-card-title class="headline">{{
+          $t("dashboard.confirm")
+        }}</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click.native="dialog = false">
+          <v-btn round color="primary" @click.native="dialog = false">
             {{ $t("common.cancel") }}
           </v-btn>
-          <v-btn color="primary" @click.native="exitApp">
+          <v-btn round color="primary" @click.native="exitApp">
             {{ $t("common.accept") }}
           </v-btn>
         </v-card-actions>
