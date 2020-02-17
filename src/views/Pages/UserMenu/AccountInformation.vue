@@ -156,6 +156,17 @@
         </v-flex>
       </v-layout>
     </v-flex>
+    <v-dialog v-model="dialogC" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">{{ textDialogC }}</v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn round color="primary" @click.native="backToDashboard">{{
+            $t("common.accept")
+          }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 <script>
@@ -208,7 +219,9 @@ export default {
       form: Object.assign({}, defaultForm),
       genders,
       loader: false,
-      modal: false
+      modal: false,
+      dialogC: false,
+      textDialogC: ""
     };
   },
   watch: {
@@ -224,8 +237,12 @@ export default {
   },
   methods: {
     ...mapActions(["updatePersonAction"]),
-    submit() {
-      this.updatePersonAction(this.form);
+    async submit() {
+      const serviceResponse = await this.updatePersonAction(this.form);
+      if (serviceResponse.ok) {
+        this.dialogC = true;
+        this.textDialogC = this.$t("message.changeInformationSuccess");
+      }
     },
     backToDashboard() {
       this.$router.push({

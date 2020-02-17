@@ -60,9 +60,9 @@
 
           <v-flex xs12 class="text-xs-right">
             <br />
-            <strong @click="dialog = true">{{
-              $t("operationKey.reset")
-            }}</strong>
+            <strong @click="dialog = true">
+              {{ $t("operationKey.reset") }}
+            </strong>
           </v-flex>
         </v-card>
         <v-layout v-if="!keyboardIsUp" justify-space-around class="put-bottom">
@@ -95,31 +95,31 @@
     </v-layout>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="title">{{
-          $t("operationKey.dialog")
-        }}</v-card-title>
+        <v-card-title class="title">
+          {{ $t("operationKey.dialog") }}
+        </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog = false">
-            {{ $t("common.cancel") }}
-          </v-btn>
-          <v-btn color="primary" flat @click.native="forgotPassword">
-            {{ $t("common.accept") }}
-          </v-btn>
+          <v-btn color="primary" flat @click.native="dialog = false">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn color="primary" flat @click.native="forgotPassword">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="dialogC" persistent max-width="290">
       <v-card>
-        <v-card-title class="title">{{ textDialogC }}</v-card-title>
+        <v-card-title class="headline">{{ textDialogC }}</v-card-title>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="primary" flat @click.native="backToDashboard">{{
-            $t("common.accept")
-          }}</v-btn>
+          <v-btn round color="primary" @click.native="backToDashboard">
+            {{ $t("common.accept") }}
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -75,12 +75,10 @@
     </v-layout>
     <v-dialog v-model="dialogC" persistent max-width="290">
       <v-card>
-        <v-card-title class="title">{{ textDialogC }}</v-card-title>
-
+        <v-card-title class="headline">{{ textDialogC }}</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-
-          <v-btn color="primary" flat @click.native="backToDashboard">{{
+          <v-btn round color="primary" @click.native="backToDashboard">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>

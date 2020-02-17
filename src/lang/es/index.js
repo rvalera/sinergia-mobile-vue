@@ -147,6 +147,7 @@ export default {
     apiError405_406: "Solicitud inválida",
     apiError500: "Error de conexión",
     apiErrorUndefined: "Error General de la Aplicacion",
+    changeInformationSuccess: "¡Información actualizada con éxito!",
     invalidKey: "Clave inválida",
     succesfulPay: "¡Pago realizado con éxito!",
     myEmail: "Dirección de correo Inválida"

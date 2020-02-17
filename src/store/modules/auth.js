@@ -115,15 +115,13 @@ const actions = {
     const { id } = state.user;
     let serviceResponse = await updateUserApi(id, payload);
     if (serviceResponse.ok) {
-      const params = { text: serviceResponse.message.text };
-      window.getApp.$emit("SHOW_MESSAGE", params);
       payload.fullname = payload.first_name + " " + payload.last_name;
       commit(UPDATE_PERSON, payload);
-      router.push({ name: "Home" });
     } else {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
     }
+    return serviceResponse;
   },
   async createAppPersonAction({ commit, state }, payload) {
     const { id } = state.user;
