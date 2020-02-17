@@ -108,7 +108,7 @@ export default {
   liquidation: {
     creationDate: "Fecha de creación",
     debtAmount: "Monto adeudado",
-    detail: "Detalle de la liquidación",
+    detail: "Detalle Liquidación",
     finalBalance: "Balance final",
     initialBalance: "Balance inicial",
     liquidationType: "Tipo de liquidación",
@@ -204,7 +204,7 @@ export default {
     signup: "Registrarse"
   },
   terminal: {
-    detail: "Detalle del terminal",
+    detail: "Detalle Terminal",
     deviceName: "Nombre del dispositivo",
     deviceSerial: "Serial del dispositivo",
     newTerminal: "Nuevo terminal",

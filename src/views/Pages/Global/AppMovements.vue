@@ -12,13 +12,8 @@
           </template>
           <template v-for="(item, index) in transactions_app">
             <v-divider :key="index + 'e'"></v-divider>
-            <v-list-tile :key="item.id" avatar>
-              <v-list-tile-avatar
-                width="60px"
-                class="avatarCard"
-                tile
-                @click="handleClick(item)"
-              >
+            <v-list-tile :key="item.id" avatar @click="handleClick(item)">
+              <v-list-tile-avatar width="60px" class="avatarCard" tile>
                 <v-img
                   :src="
                     getSource(item.source.id)
@@ -28,7 +23,7 @@
                 ></v-img>
               </v-list-tile-avatar>
 
-              <v-list-tile-content @click="handleClick(item)">
+              <v-list-tile-content>
                 <v-list-tile-title
                   :class="
                     getSource(item.source.id) ? 'red--text' : 'green--text'

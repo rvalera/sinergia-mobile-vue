@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     show(data) {
-      this.liquidation = data;
+      this.liquidation = Object.assign({}, data);
       this.liquidation.initial_balance =
         this.liquidation.initial_balance.format() + " " + localStorage.coin;
       this.liquidation.final_balance =

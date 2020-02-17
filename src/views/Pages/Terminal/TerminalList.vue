@@ -31,6 +31,7 @@
                 <div class="text-xs-center">
                   <v-chip
                     outline
+                    @click="handleClick(item)"
                     :color="terminalColor(item.status)"
                     class="max-width-chip"
                     >{{ item.named_status }}</v-chip
