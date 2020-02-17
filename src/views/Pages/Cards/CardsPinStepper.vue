@@ -23,12 +23,12 @@
     </v-stepper-content>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="title">{{ textDialog.title }}</v-card-title>
+        <v-card-title class="headline">{{ textDialog.title }}</v-card-title>
 
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="primary" flat @click.native="handleCloseDialog">{{
+          <v-btn round color="primary" @click.native="handleCloseDialog">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>
@@ -63,7 +63,7 @@ export default {
   methods: {
     ...mapActions(["setTitleButton"]),
     goToOperationKey(data = null) {
-      this.setTitleButton("Cambiar Pin");
+      this.setTitleButton(this.$t("common.accept"));
       if (data != null) {
         this.decodeResult.new_pin_card = data.new_pin_card;
         this.decodeResult.old_pin_card = data.old_pin_card;
