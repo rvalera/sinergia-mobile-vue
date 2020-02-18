@@ -44,7 +44,7 @@
                               @blur="$v.password.$touch()"
                               required
                               counter
-                              maxlength="8"
+                              maxlength="6"
                             ></v-text-field>
                             <v-text-field
                               class="box-input"
@@ -60,7 +60,7 @@
                               @blur="$v.repeatPassword.$touch()"
                               required
                               counter
-                              maxlength="8"
+                              maxlength="6"
                             ></v-text-field>
                           </v-flex>
                           <div class=" put-bottom px-3">
@@ -70,6 +70,7 @@
                               block
                               round
                               type="submit"
+                              v-if="!keyboardIsUp"
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
@@ -93,11 +94,12 @@
 import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
+import { mapGetters } from "vuex";
 
 export default {
   mixins: [validationLangMixin, ResizeMixin],
   validations: {
-    password: { required, minLength: minLength(8) },
+    password: { required, minLength: minLength(6) },
     repeatPassword: {
       sameAsPassword: sameAs("password")
     }
@@ -121,6 +123,9 @@ export default {
       showPassword: false,
       showPassword2: false
     };
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     handlePasswordScoreEvent(data) {

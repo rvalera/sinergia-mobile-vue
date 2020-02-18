@@ -102,6 +102,7 @@
                               block
                               round
                               type="submit"
+                              v-if="!keyboardIsUp"
                               :disabled="$v.$invalid"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
@@ -126,6 +127,7 @@ import ResizeMixin from "@/mixins/ResizeMixin";
 import { required, email } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { genders } from "@/config/constants";
+import { mapGetters } from "vuex";
 const defaultForm = {
   birth_date: null,
   gender: null,
@@ -167,6 +169,9 @@ export default {
     modal(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   methods: {
     submit() {

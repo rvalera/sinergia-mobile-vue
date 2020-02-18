@@ -10,7 +10,7 @@
               class="text-xs-center"
               height="300"
             />
-            <div class="body-2 white--text">Bienvenido a CryptoPos blabla</div>
+            <div class="body-2 white--text">Bienvenido a CryptoPos</div>
           </v-flex>
         </v-layout>
       </v-container>

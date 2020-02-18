@@ -62,6 +62,7 @@
                               round
                               type="submit"
                               :disabled="$v.$invalid"
+                              v-if="!keyboardIsUp"
                               class="ml-0"
                               :class="$v.$invalid ? '' : 'white--text'"
                               >{{ $t("common.continue") }}</v-btn
@@ -85,6 +86,7 @@ import ResizeMixin from "@/mixins/ResizeMixin";
 import Password from "@/components/PasswordStrength.vue";
 import { required, sameAs } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
+import { mapGetters } from "vuex";
 
 export default {
   mixins: [validationLangMixin, ResizeMixin],
@@ -102,6 +104,9 @@ export default {
   },
   components: {
     Password
+  },
+  computed: {
+    ...mapGetters(["keyboardIsUp"])
   },
   data() {
     return {

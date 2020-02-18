@@ -232,7 +232,7 @@ export default {
     fieldRequired: "Campo requerido",
     operationKey: {
       confirm: "Claves deben coincidir",
-      minLength: "Clave debe ser de 8 caracteres",
+      minLength: "Clave debe ser de 6 caracteres",
       required: "Clave requerida"
     },
     password: {

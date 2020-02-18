@@ -231,7 +231,7 @@ export default {
     fieldRequired: "Field required",
     operationKey: {
       confirm: "Keys must match",
-      minLength: "Password must be 8 characters",
+      minLength: "Password must be 6 characters",
       required: "Key is required"
     },
     password: {
