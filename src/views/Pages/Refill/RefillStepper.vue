@@ -77,6 +77,8 @@ export default {
     },
     async submitAll() {
       const body = {
+        fiat_coin_symbol: localStorage.fiat,
+        crypto_coin_symbol: localStorage.coin,
         amount: this.refillData.amount,
         payment_instrument_id: this.refillData.paymentInstrumentSelected.id
       };

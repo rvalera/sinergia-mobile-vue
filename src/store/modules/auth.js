@@ -10,7 +10,6 @@ import {
   loginApi,
   updateUserApi,
   createAppPersonApi,
-  getCoinApi,
   getMemberProfileApi
 } from "@/api/modules";
 
@@ -71,15 +70,6 @@ const savePersonId = async () => {
   }
 };
 
-const getCoint = async () => {
-  const serviceResponse = await getCoinApi();
-  if (serviceResponse.ok) localStorage.coin = serviceResponse.data.diminutive;
-  else {
-    const params = { text: serviceResponse.message.text };
-    window.getApp.$emit("SHOW_ERROR", params);
-  }
-};
-
 const actions = {
   async loginAction({ commit, dispatch }, payload) {
     let serviceResponse = await loginApi(payload);
@@ -87,7 +77,6 @@ const actions = {
       localStorage.setItem("lastEmailLogged", payload.email);
       localStorage.setItem("access_token", serviceResponse.data.access_token);
       localStorage.setItem("refresh_token", serviceResponse.data.refresh_token);
-      await getCoint();
       dispatch("getAppToken");
       let serviceResponsePerson = await getMemberProfileApi();
       if (serviceResponsePerson.ok) {

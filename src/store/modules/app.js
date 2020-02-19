@@ -47,6 +47,8 @@ const actions = {
     if (serviceResponse.ok) {
       localStorage.app_key = serviceResponse.data.app_key;
       localStorage.app_iv = serviceResponse.data.app_iv;
+      localStorage.fiat = serviceResponse.data.fiat_coin.diminutive;
+      localStorage.coin = serviceResponse.data.crypto_coin.diminutive;
     } else {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
