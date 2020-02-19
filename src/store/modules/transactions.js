@@ -50,9 +50,12 @@ const actions = {
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       filter
     };
-    var response = await getMovements(query);
-    console.log(response);
-    commit(TRANSACTIONS_APP, response.data);
+    var serviceResponse = await getMovements(query);
+    if (serviceResponse.ok) commit(TRANSACTIONS_APP, serviceResponse.data);
+    else {
+      const params = { text: serviceResponse.message.text };
+      window.getApp.$emit("SHOW_ERROR", params);
+    }
   },
   setBalanceWallet({ commit }, payload) {
     commit(BALANCE_WALLET, payload);

@@ -126,7 +126,7 @@ export default {
       };
       var serviceResponse = await createPaymentApi(body);
       if (serviceResponse.ok) {
-        const params = { text: this.$t("message.succesfulPay") };
+        const params = { text: this.$t("message.successfulPay") };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.receipt = serviceResponse.data;
         this.stage++;

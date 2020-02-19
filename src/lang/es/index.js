@@ -151,7 +151,8 @@ export default {
     invalidKey: "Clave inválida",
     successfullyLocked: "¡Bloqueado exitosamente!",
     successfullyUnlocked: "¡Desloqueado exitosamente!",
-    succesfulPay: "¡Pago realizado con éxito!",
+    successfulPay: "¡Pago realizado con éxito!",
+    successfulTransfer: "¡Transferencia realizada con éxito!",
     myEmail: "Dirección de correo Inválida"
   },
   movementsFilter: {

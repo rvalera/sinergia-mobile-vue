@@ -86,9 +86,8 @@ export default {
   },
   methods: {
     submit() {
-      const { email } = localStorage;
-      console.log(email);
-      if (email === this.form.destiny_email) {
+      const { lastEmailLogged } = localStorage;
+      if (lastEmailLogged === this.form.destiny_email) {
         const params = { text: this.$t("message.myEmail") };
         window.getApp.$emit("SHOW_ERROR", params);
       } else

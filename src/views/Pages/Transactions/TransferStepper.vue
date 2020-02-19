@@ -59,7 +59,6 @@ export default {
   data() {
     return {
       stage: 1,
-      decodeResult: {},
       receipt: {},
       destinyUser: {},
       transferData: {
@@ -87,23 +86,20 @@ export default {
     },
     goToTransferInformation(data) {
       let datetime = new Date();
-      const {
-        person: { id: source_id }
-      } = this.user;
       //data to transfer wallet to wallet
       this.transferData = {
-        source_id: source_id,
-        target_id: this.destinyUser.id,
+        coin_symbol: localStorage.coin,
+        target: this.destinyUser.email,
         amount: parseFloat(data.amount),
         concept: data.description,
-        datetime: datetime.getTime()
+        datetime: datetime.getTime().toString()
       };
       this.stage = 3;
     },
     async submitAll() {
       var serviceResponse = await createTransferApi(this.transferData);
       if (serviceResponse.ok) {
-        const params = { text: "Transferencia realizada con éxito!" };
+        const params = { text: this.$t("message.successfulTransfer") };
         window.getApp.$emit("SHOW_MESSAGE", params);
         this.receipt = serviceResponse.data;
         this.stage++;
@@ -111,33 +107,13 @@ export default {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
-      //this.resetValues();
     },
     goToDashboard() {
       this.$store.dispatch("toggleDrawer", false);
       this.$router.push({
         name: "Home"
       });
-    },
-    resetValues() {
-      this.decodeResult = {};
-      this.receipt = {};
-      this.destinyUser = {};
-      this.transferData = {
-        source_id: null,
-        target_id: null,
-        amount: null,
-        concept: null,
-        datetime: null
-      };
     }
-  },
-  mounted() {
-    console.log(this.balance_wallet);
-    // document.addEventListener("backbutton", this.hide, false);
-  },
-  beforeDestroy() {
-    //document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>

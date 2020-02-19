@@ -150,7 +150,8 @@ export default {
     invalidKey: "Invalid key",
     successfullyLocked: "Successfully locked!",
     successfullyUnlocked: "Successfully unlocked!",
-    succesfulPay: "Succesful pay!",
+    successfulPay: "Successful pay!",
+    succesfulTransfer: "Successful transfer!",
     myEmail: "Invalid email address"
   },
   movementsFilter: {
