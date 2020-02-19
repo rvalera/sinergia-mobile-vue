@@ -10,11 +10,12 @@ import {
   loginApi,
   updateUserApi,
   createAppPersonApi,
-  getAppPersonApi
+  getCoinApi,
+  getMemberProfile
 } from "@/api/modules";
 
 import router from "@/router";
-import { USER_STATUS_PENDING, USER_TYPE_WORKSTATION } from "@/config/constants";
+import { USER_TYPE_WORKSTATION } from "@/config/constants";
 
 const initialState = {
   user: {
@@ -61,9 +62,8 @@ const mutations = {
   }
 };
 
-const savePersonId = async email => {
-  console.log(email);
-  let serviceResponsePerson = await getAppPersonApi(email);
+const savePersonId = async () => {
+  let serviceResponsePerson = await getMemberProfile();
   if (serviceResponsePerson.ok) {
     localStorage.setItem("person_id", serviceResponsePerson.data.id);
     localStorage.setItem("userType", serviceResponsePerson.data.person_type);
@@ -71,28 +71,44 @@ const savePersonId = async email => {
   }
 };
 
+const getCoint = async () => {
+  const serviceResponse = await getCoinApi();
+  if (serviceResponse.ok) localStorage.coin = serviceResponse.data.diminutive;
+  else {
+    const params = { text: serviceResponse.message.text };
+    window.getApp.$emit("SHOW_ERROR", params);
+  }
+};
+
 const actions = {
   async loginAction({ commit, dispatch }, payload) {
     let serviceResponse = await loginApi(payload);
     if (serviceResponse.ok) {
-      if (serviceResponse.data.type === USER_TYPE_WORKSTATION) {
-        const params = { text: "Credenciales Incorrectas" };
-        window.getApp.$emit("SHOW_ERROR", params);
-      } else {
-        console.log(serviceResponse.data);
-        commit(LOGIN_USER, serviceResponse.data);
-        localStorage.setItem("user_id", serviceResponse.data.id);
-        localStorage.setItem("email", serviceResponse.data.email);
-        localStorage.setItem("password", payload.password);
-        localStorage.setItem("lastEmailLogged", payload.email);
-        if (serviceResponse.data.status === USER_STATUS_PENDING)
-          router.push({ name: "SignupPage" });
-        else {
-          localStorage.setItem("userType", serviceResponse.data.affiliate.type);
-          localStorage.setItem("person_id", serviceResponse.data.affiliate.id);
+      localStorage.setItem("lastEmailLogged", payload.email);
+      localStorage.setItem("access_token", serviceResponse.data.access_token);
+      localStorage.setItem("refress_token", serviceResponse.data.refress_token);
+      await getCoint();
+      dispatch("getAppToken");
+      let serviceResponsePerson = await getMemberProfile();
+      if (serviceResponsePerson.ok) {
+        if (serviceResponsePerson.data.type === USER_TYPE_WORKSTATION) {
+          const params = { text: "Credenciales Incorrectas" };
+          window.getApp.$emit("SHOW_ERROR", params);
+        } else {
+          commit(LOGIN_USER, serviceResponsePerson.data);
+          localStorage.setItem("user_id", serviceResponsePerson.data.id);
+          localStorage.setItem(
+            "userType",
+            serviceResponsePerson.data.affiliate.type
+          );
+          localStorage.setItem(
+            "person_id",
+            serviceResponsePerson.data.affiliate.id
+          );
           router.push({ name: "Home" });
         }
-        dispatch("getAppToken");
+      } else {
+        router.push({ name: "SignupPage" });
       }
     } else {
       const params = { text: serviceResponse.message.text };
@@ -127,7 +143,6 @@ const actions = {
     const { id } = state.user;
     let serviceResponse = await createAppPersonApi(id, payload);
     if (serviceResponse.ok) {
-      localStorage.setItem("password", payload.password);
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_MESSAGE", params);
       commit(UPDATE_PERSON, payload);

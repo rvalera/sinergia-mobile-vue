@@ -109,7 +109,6 @@ import {
 } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import validationLangMixin from "@/mixins/validationLangMixin";
-import { getCoinApi } from "@/api/modules";
 
 export default {
   mixins: [validationLangMixin],
@@ -151,21 +150,11 @@ export default {
     };
     this.form = Object.assign({}, defaultForm);
     await this.logoutAction();
-    this.getCoin();
   },
   methods: {
     ...mapActions(["loginAction", "logoutAction"]),
     submit() {
       this.loginAction(this.form);
-    },
-    async getCoin() {
-      const serviceResponse = await getCoinApi();
-      if (serviceResponse.ok)
-        localStorage.coin = serviceResponse.data.diminutive;
-      else {
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_ERROR", params);
-      }
     }
   }
 };

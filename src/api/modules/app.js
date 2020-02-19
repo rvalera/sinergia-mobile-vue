@@ -1,4 +1,4 @@
 import { apiHttp } from "../axiosApi.js";
-import { appPath } from "../config/apiRoute.js";
+import { applicationPath } from "../config/apiRoute.js";
 
-export const getAppToken = () => apiHttp("GET", `${appPath}/token`);
+export const getAppToken = () => apiHttp("GET", `${applicationPath}/`);

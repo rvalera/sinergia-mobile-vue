@@ -20,3 +20,6 @@ export const resetPassword = `/v2/user/reset_password`;
 export const changePassword = `/v2/user/password`;
 export const changeOperatioKey = `/v2/user/operation_key`;
 export const resetUserPassword = `/v2/user/reset_user_password`;
+
+export const memberPath = `/member`;
+export const applicationPath = `/application`;

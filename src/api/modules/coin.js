@@ -1,4 +1,4 @@
 import { apiHttp } from "../axiosApi.js";
-import { coinPath } from "../config/apiRoute.js";
+import { applicationPath } from "../config/apiRoute.js";
 
-export const getCoinApi = () => apiHttp("GET", `${coinPath}/active`);
+export const getCoinApi = () => apiHttp("GET", `${applicationPath}/coin`);

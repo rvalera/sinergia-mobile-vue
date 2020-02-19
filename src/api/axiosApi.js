@@ -5,11 +5,11 @@ export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 const AXIOS_TIMEOUT_MS = process.env.VUE_APP_AXIOS_TIMEOUT_MS;
 
 export const apiHttp = async (method, endpoint, data, options = {}) => {
-  const { email, password } = localStorage;
+  const { access_token } = localStorage;
   const defaultHeaders = {
     Accept: "application/json",
     "Content-Type": "application/json",
-    Authorization: "Basic " + btoa(`${email}:${password}`)
+    Authorization: `Bearer ${access_token}`
   };
 
   if (!options.hasOwnProperty("headers")) options.headers = defaultHeaders;
@@ -37,7 +37,7 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
 };
 
 function buildErrorMessage(error) {
-  console.error(error.response);
+  console.error(error);
   let errorResponse = {
     ok: 0,
     message: {
