@@ -215,7 +215,6 @@ export default {
   },
   mounted() {
     this.setMenu();
-    this.keepLogin();
     const ps = document.getElementById("app-drawer");
     ps.addEventListener("mouseenter", this.miniEnterVariantHandler);
     ps.addEventListener("mouseleave", this.miniLeaveVariantHandler);
@@ -229,7 +228,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      logged: "logged",
       clipped: "navClipped",
       navDrawer: "navDrawer",
       navMiniVarient: "navMiniVarient",
@@ -295,18 +293,9 @@ export default {
       // console.log({ name: `${item.group}/${camel(subItem.name)}` })
       return { name: `${item.group}/${camel(subItem.name)}` };
     },
-    keepLogin() {
-      //Auto login for keep sign in
-      if (!this.logged) {
-        const { email, password } = localStorage;
-        if (email && password) this.loginAction({ email, password });
-        else this.$router.push({ name: "LoginPage" });
-      }
-    },
     setMenu() {
       const userType = localStorage.userType;
       this.items = userType === USER_TYPE_CLIENT ? clientMenu : affiliateMenu;
-      console.log(this.items);
     }
   }
 };

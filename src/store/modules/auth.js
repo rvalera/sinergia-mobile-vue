@@ -95,6 +95,10 @@ const actions = {
           const params = { text: "Credenciales Incorrectas" };
           window.getApp.$emit("SHOW_ERROR", params);
         } else {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(serviceResponsePerson.data)
+          );
           commit(LOGIN_USER, serviceResponsePerson.data);
           localStorage.setItem("user_id", serviceResponsePerson.data.id);
           localStorage.setItem(
@@ -153,6 +157,9 @@ const actions = {
   },
   updateOperationKey({ commit }, payload) {
     commit(UPDATE_OPERATION_KEY, payload);
+  },
+  keepSignin({ commit }) {
+    commit(LOGIN_USER, JSON.parse(localStorage.user));
   }
 };
 

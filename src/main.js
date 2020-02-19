@@ -5,7 +5,7 @@ import "./plugins/vuetify";
 import "./plugins/vuse";
 import App from "./App.vue";
 import router from "./router";
-import { store } from "./store";
+import store from "./store";
 import { createI18n } from "./i18n/index";
 import "./assets/utils";
 

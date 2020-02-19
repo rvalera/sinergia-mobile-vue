@@ -34,6 +34,7 @@ export const routes = [
   {
     path: "/dashboard",
     name: "Dashboard",
+    meta: { requiresAuth: true },
     components: {
       default: Dashboard,
       sidebar: AppSidebar,
@@ -44,6 +45,7 @@ export const routes = [
   {
     path: "/pay",
     name: "/PayStepper",
+    meta: { requiresAuth: true },
     components: {
       default: PayStepper,
       //sidebar: AppSidebar,
@@ -60,6 +62,7 @@ export const routes = [
   {
     path: "/change-password",
     name: "ChangePasswordPage",
+    meta: { requiresAuth: true },
     components: {
       default: ChangePassword,
       sidebar: AppSidebar,
@@ -76,6 +79,7 @@ export const routes = [
   {
     path: "/profile",
     name: "AccountInformationPage",
+    meta: { requiresAuth: true },
     components: {
       default: AccountInformation,
       sidebar: AppSidebar,
@@ -124,6 +128,7 @@ export const routes = [
   {
     path: "/transfer",
     name: "/TransferStepper",
+    meta: { requiresAuth: true },
     components: {
       default: TransferStepper,
       //sidebar: AppSidebar,
@@ -139,6 +144,7 @@ export const routes = [
   {
     path: "/cards",
     name: "CardsList",
+    meta: { requiresAuth: true },
     components: {
       default: CardsList,
       sidebar: AppSidebar,
@@ -153,6 +159,7 @@ export const routes = [
   {
     path: "/cardsPin",
     name: "/CardsPinStepper",
+    meta: { requiresAuth: true },
     components: {
       default: CardsPinStepper,
       //sidebar: AppSidebar,
@@ -168,6 +175,7 @@ export const routes = [
   {
     path: "/appMov",
     name: "/AppMovements",
+    meta: { requiresAuth: true },
     components: {
       default: AppMovements,
       sidebar: AppSidebar,
@@ -182,6 +190,7 @@ export const routes = [
   {
     path: "/appMovc",
     name: "/MovementContainer",
+    meta: { requiresAuth: true },
     components: {
       default: MovementContainer,
       sidebar: AppSidebar,
@@ -196,6 +205,7 @@ export const routes = [
   {
     path: "/payment-instrument",
     name: "PaymentInstrumentList",
+    meta: { requiresAuth: true },
     components: {
       default: PaymentInstrumentList,
       sidebar: AppSidebar,
@@ -210,6 +220,7 @@ export const routes = [
   {
     path: "/payment-instrument/new",
     name: "PaymentInstrumentForm",
+    meta: { requiresAuth: true },
     components: {
       default: PaymentInstrumentForm,
       sidebar: AppSidebar,
@@ -226,6 +237,7 @@ export const routes = [
   {
     path: "/refill",
     name: "/RefillStepper",
+    meta: { requiresAuth: true },
     components: {
       default: RefillStepper,
       sidebar: AppSidebar,
@@ -241,6 +253,7 @@ export const routes = [
   {
     path: "/appChangeOperationKey",
     name: "/ChangeOperationKey",
+    meta: { requiresAuth: true },
     components: {
       default: ChangeOperationKey,
       sidebar: AppSidebar,
@@ -256,6 +269,7 @@ export const routes = [
   {
     path: "/BecomeAffiliate",
     name: "BecomeAffiliate",
+    meta: { requiresAuth: true },
     components: {
       default: BecomeAffiliate,
       sidebar: AppSidebar,
@@ -270,6 +284,7 @@ export const routes = [
   {
     path: "/liquidation",
     name: "/LiquidationList",
+    meta: { requiresAuth: true },
     components: {
       default: LiquidationList,
       sidebar: AppSidebar,
@@ -284,6 +299,7 @@ export const routes = [
   {
     path: "/terminal",
     name: "/TerminalList",
+    meta: { requiresAuth: true },
     components: {
       default: TerminalList,
       sidebar: AppSidebar,
@@ -298,6 +314,7 @@ export const routes = [
   {
     path: "/terminal/new",
     name: "TerminalForm",
+    meta: { requiresAuth: true },
     components: {
       default: TerminalForm,
       sidebar: AppSidebar,

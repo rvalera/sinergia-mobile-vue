@@ -26,13 +26,13 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
   });
 
   try {
-    window.getApp.$emit("LOADING", true);
+    window.getApp.$loading(true);
     const [materializedPromise] = await Promise.all([servicePromise]);
     serviceResponse = { ...materializedPromise.data };
   } catch (error) {
     serviceResponse = buildErrorMessage(error);
   }
-  window.getApp.$emit("LOADING", false);
+  window.getApp.$loading(false);
   return serviceResponse;
 };
 
