@@ -181,56 +181,57 @@ export default {
       this.$refs.modal.show();
     },
     setFilter(data) {
-      const { person_id } = localStorage;
       this.activeGraph = false;
-      this.getGraphData(person_id, data);
+      this.getGraphData(data);
     },
-    async showMovements(person_id, pages = 5) {
+    async showMovements(pages = 5) {
       let filter = {
         page: 1,
         perPage: pages,
-        id: person_id,
         field: "blockchain_id"
       };
 
       this.setTransactionsApp(filter);
     },
 
-    async getGraphData(person_id, filter = {}) {
-      console.log(person_id + filter);
-      var serviceResponse = await getDashboardGraph(person_id, filter);
+    async getGraphData(filter = {}) {
+      const params = {
+        filter
+      };
+      var serviceResponse = await getDashboardGraph(params);
       console.log(serviceResponse);
-      let data = serviceResponse.data;
+      if (serviceResponse.ok) {
+        let data = serviceResponse.data;
 
-      let labels = [];
-      let keys = Object.keys(data.daily_balance);
+        let labels = [];
+        let keys = Object.keys(data.daily_balance);
 
-      keys.map(item => {
-        labels.push(item.substr(5));
-      });
-      let datasets = Object.values(data.daily_balance);
-      this.balance = data.current_balance;
-      this.setBalanceWallet(data.current_balance);
-      labels.push("");
-      labels.splice(0, 0, "");
-      datasets.push(datasets[datasets.length - 1]);
-      datasets.splice(0, 0, datasets[0]);
+        keys.map(item => {
+          labels.push(item.substr(5));
+        });
+        let datasets = Object.values(data.daily_balance);
+        this.balance = data.current_balance;
+        this.setBalanceWallet(data.current_balance);
+        labels.push("");
+        labels.splice(0, 0, "");
+        datasets.push(datasets[datasets.length - 1]);
+        datasets.splice(0, 0, datasets[0]);
 
-      console.log(labels);
-      console.log(datasets);
-      this.graphData.data.labels = labels;
-      this.graphData.data.datasets[0].data = datasets;
-      //=============================================
-      this.activeGraph = true;
+        console.log(labels);
+        console.log(datasets);
+        this.graphData.data.labels = labels;
+        this.graphData.data.datasets[0].data = datasets;
+        //=============================================
+        this.activeGraph = true;
+      } else {
+        const params = { text: serviceResponse.message.text };
+        window.getApp.$emit("SHOW_ERROR", params);
+      }
     },
     handleShowMovements() {
       this.$router.push({
         name: "/MovementContainer"
       });
-      // const { person_id } = localStorage;
-      // this.showMovements(person_id, 10);
-
-      //this.$refs.filter.show();
     },
     openDialogExit() {
       this.dialog = true;
@@ -241,10 +242,8 @@ export default {
     }
   },
   mounted() {
-    const { person_id } = localStorage;
-    this.showMovements(person_id);
-    // window.getApp.$emit("LOADING", true);
-    this.getGraphData(person_id);
+    this.showMovements();
+    this.getGraphData();
     document.addEventListener("backbutton", this.openDialogExit, false);
   },
   beforeDestroy() {

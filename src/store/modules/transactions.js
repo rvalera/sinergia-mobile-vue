@@ -38,19 +38,17 @@ const actions = {
     commit(FILTER_APP, payload);
     const { page, perPage } = { page: payload.page, perPage: payload.perPage };
     const { field, order } = { field: "execution_date", order: "DESC" };
-    const { filter } = {
-      filter: {
-        description: payload.description,
-        type: payload.type,
-        start_date: payload.start_date,
-        end_date: payload.end_date,
-        [payload.field]: payload.id //blockchain_id or device_id
-      }
+    const filter = {
+      description: payload.description,
+      type: payload.type,
+      start_date: payload.start_date,
+      end_date: payload.end_date,
+      [payload.field]: payload.id //blockchain_id or device_id
     };
     const query = {
       sort: JSON.stringify([field, order]),
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-      filter: JSON.stringify({ filter })
+      filter
     };
     var response = await getMovements(query);
     console.log(response);
