@@ -81,16 +81,34 @@ import {
   deletePaymentInstrumentApi
 } from "@/api/modules";
 import { CREDIT_TYPES_ICONS } from "@/config/constants";
+const PER_PAGE = 8;
 export default {
   data: () => ({
     paymentInstruments: [],
+    totalPaymentInstruments: 0,
     CREDIT_TYPES_ICONS,
-    fetched: false
+    fetched: false,
+    page: 1,
+    bottom: true
   }),
+  watch: {
+    bottom(bottom) {
+      if (bottom && this.getValidateBottom()) {
+        this.page++;
+        this.getPaymentInstruments();
+      }
+    }
+  },
   methods: {
     async getPaymentInstruments() {
-      var serviceResponse = await getPaymentInstrumentApi();
+      const start = 0;
+      const end = this.page * PER_PAGE;
+      const params = {
+        range: JSON.stringify([start, end])
+      };
+      var serviceResponse = await getPaymentInstrumentApi(params);
       if (serviceResponse.ok) {
+        this.totalPaymentInstruments = serviceResponse.total;
         this.paymentInstruments = serviceResponse.data;
         this.fetched = true;
       } else {
@@ -119,10 +137,23 @@ export default {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
+    },
+    getValidateBottom() {
+      return this.paymentInstruments.length != this.totalPaymentInstruments;
     }
   },
   async mounted() {
     this.getPaymentInstruments();
+    window.addEventListener("scroll", () => {
+      this.bottom = this.bottomVisible();
+    });
   }
 };
 </script>

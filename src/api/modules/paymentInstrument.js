@@ -1,14 +1,14 @@
 import { apiHttp } from "../axiosApi.js";
-import { paymentInstrumentPath } from "../config/apiRoute.js";
+import { memberPath } from "../config/apiRoute.js";
 
-export const getPaymentInstrumentApi = () =>
-  apiHttp("GET", `${paymentInstrumentPath}`);
+export const getPaymentInstrumentApi = params =>
+  apiHttp("GET", `${memberPath}/paymentInstrument`, {}, { params });
 
 export const postPaymentInstrumentApi = body =>
-  apiHttp("POST", `${paymentInstrumentPath}`, body);
+  apiHttp("POST", `${memberPath}/paymentInstrument`, body);
 
 export const deletePaymentInstrumentApi = id =>
-  apiHttp("DELETE", `${paymentInstrumentPath}/${id}`);
+  apiHttp("DELETE", `${memberPath}/paymentInstrument/${id}`);
 
 export const putDefaultPaymentInstrumentApi = id =>
-  apiHttp("PUT", `${paymentInstrumentPath}/default/${id}`);
+  apiHttp("PUT", `${memberPath}/paymentInstrument/${id}/default`);
