@@ -64,9 +64,6 @@ export default {
     coin: localStorage.coin,
     fetched: false,
     liquidations: [],
-    filter: {
-      person_id: localStorage.person_id
-    },
     page: 0,
     perPage: 5,
     total: 0
@@ -82,8 +79,8 @@ export default {
     },
     async getLiquidations() {
       const { filter, page, perPage } = this;
-      const start = 0;
-      const end = (page + 1) * perPage;
+      const start = page * perPage;
+      const end = start + perPage - 1;
       const params = {
         filter,
         range: JSON.stringify([start, end])
@@ -91,7 +88,7 @@ export default {
       var serviceResponse = await getLiquidationsApi(params);
       this.fetched = true;
       if (serviceResponse.ok) {
-        this.liquidations = serviceResponse.data;
+        this.liquidations = [...this.liquidations, ...serviceResponse.data];
         this.page++;
         this.total = serviceResponse.total;
       } else {
