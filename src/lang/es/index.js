@@ -149,6 +149,8 @@ export default {
     apiErrorUndefined: "Error General de la Aplicacion",
     changeInformationSuccess: "¡Información actualizada con éxito!",
     invalidKey: "Clave inválida",
+    successfullyLocked: "¡Bloqueado exitosamente!",
+    successfullyUnlocked: "¡Desloqueado exitosamente!",
     succesfulPay: "¡Pago realizado con éxito!",
     myEmail: "Dirección de correo Inválida"
   },

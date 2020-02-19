@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
-      <v-card elevation="0">
+      <v-card>
         <v-list two-line>
           <template v-if="fetched && !liquidations.length">
             <v-flex xs12 sm6 class="text-xs-center pa-4">
@@ -43,13 +43,6 @@
           </template>
         </v-list>
       </v-card>
-      <v-flex v-if="moreLiquidations" xs12 sm6 class="text-xs-center">
-        <v-btn fab color="primary" text-color="white" @click="getLiquidations">
-          <v-icon class="paddingBottom: 10px" color="white"
-            >mdi-chevron-double-down</v-icon
-          >
-        </v-btn>
-      </v-flex>
     </v-flex>
     <liquidation-info ref="modal" />
   </v-layout>
@@ -58,19 +51,21 @@
 <script>
 import { getLiquidationsApi } from "@/api/modules";
 import LiquidationInfo from "./LiquidationInfo";
+const PER_PAGE = 10;
 export default {
   components: { LiquidationInfo },
   data: () => ({
     coin: localStorage.coin,
     fetched: false,
     liquidations: [],
-    page: 0,
-    perPage: 5,
-    total: 0
+    totalLiquidations: 0,
+    page: 0
   }),
-  computed: {
-    moreLiquidations() {
-      return this.liquidations.length < this.total;
+  watch: {
+    bottom(bottom) {
+      if (bottom && this.getValidateBottom()) {
+        this.getLiquidations();
+      }
     }
   },
   methods: {
@@ -78,11 +73,9 @@ export default {
       this.$refs.modal.show(data);
     },
     async getLiquidations() {
-      const { filter, page, perPage } = this;
-      const start = page * perPage;
-      const end = start + perPage - 1;
+      const start = this.page * PER_PAGE;
+      const end = start + PER_PAGE - 1;
       const params = {
-        filter,
         range: JSON.stringify([start, end])
       };
       var serviceResponse = await getLiquidationsApi(params);
@@ -90,15 +83,22 @@ export default {
       if (serviceResponse.ok) {
         this.liquidations = [...this.liquidations, ...serviceResponse.data];
         this.page++;
-        this.total = serviceResponse.total;
+        this.totalLiquidations = serviceResponse.total;
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
       }
+    },
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
+    },
+    getValidateBottom() {
+      return this.liquidations.length != this.totalLiquidations;
     }
-  },
-  updated() {
-    window.scrollTo(0, document.body.scrollHeight);
   },
   mounted() {
     this.getLiquidations();

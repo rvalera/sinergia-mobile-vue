@@ -148,6 +148,8 @@ export default {
     apiErrorUndefined: "General Application Error",
     changeInformationSuccess: "Information updated successfully!",
     invalidKey: "Invalid key",
+    successfullyLocked: "Successfully locked!",
+    successfullyUnlocked: "Successfully unlocked!",
     succesfulPay: "Succesful pay!",
     myEmail: "Invalid email address"
   },

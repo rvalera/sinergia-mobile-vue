@@ -70,12 +70,12 @@
 </template>
 
 <script>
-import { TERMINAL_TYPES } from "@/config/constants";
+import { TERMINAL_TYPES, TERMINAL_TYPE_POS } from "@/config/constants";
 import { required } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
 import { postTerminalApi } from "@/api/modules";
 const defaultForm = {
-  type: "",
+  type: TERMINAL_TYPE_POS,
   quantity: 1
 };
 export default {
@@ -98,7 +98,6 @@ export default {
   }),
   methods: {
     async submit() {
-      this.form.person_id = localStorage.person_id;
       var serviceResponse = await postTerminalApi(this.form);
       console.log(serviceResponse);
       if (serviceResponse.ok) {

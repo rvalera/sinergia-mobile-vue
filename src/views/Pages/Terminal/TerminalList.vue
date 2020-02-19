@@ -51,33 +51,33 @@
                       "
                       @click="showMovements(item.device.id)"
                     >
-                      <v-list-tile-title>
-                        {{ $t("common.seeMovements") }}
-                      </v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("common.seeMovements")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       @click="handleDelete(item.id)"
                       v-if="item.status === TERMINAL_STATUS_GENERATED"
                     >
-                      <v-list-tile-title>
-                        {{ $t("common.delete") }}
-                      </v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("common.delete")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === TERMINAL_STATUS_ACTIVE"
                       @click="askLockUnlock(item)"
                     >
-                      <v-list-tile-title>
-                        {{ $t("common.lock") }}
-                      </v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("common.lock")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile
                       v-if="item.status === TERMINAL_STATUS_LOCK"
                       @click="askLockUnlock(item)"
                     >
-                      <v-list-tile-title>
-                        {{ $t("common.unlock") }}
-                      </v-list-tile-title>
+                      <v-list-tile-title>{{
+                        $t("common.unlock")
+                      }}</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
@@ -106,12 +106,12 @@
         <v-card-text>{{ dialog.body }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog.flag = false">
-            {{ $t("common.cancel") }}
-          </v-btn>
-          <v-btn color="primary" flat @click.native="handleLockUnlock">
-            {{ $t("common.accept") }}
-          </v-btn>
+          <v-btn color="primary" flat @click.native="dialog.flag = false">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn color="primary" flat @click.native="handleLockUnlock">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -134,6 +134,7 @@ import {
   TERMINAL_STATUS_LOCK
 } from "@/config/constants";
 import { mapActions } from "vuex";
+const PER_PAGE = 10;
 export default {
   components: { TerminalInfo },
   data: () => ({
@@ -147,14 +148,19 @@ export default {
     TERMINAL_STATUS_LOCK,
     TERMINAL_STATUS_GENERATED,
     terminals: [],
+    totalTerminals: 0,
     fetched: false,
-    filter: {
-      person_id: localStorage.person_id
-    },
     page: 0,
-    perPage: 5,
+    bottom: true,
     total: 0
   }),
+  watch: {
+    bottom(bottom) {
+      if (bottom && this.getValidateBottom()) {
+        this.getTerminals();
+      }
+    }
+  },
   methods: {
     ...mapActions(["setTransactionsApp"]),
     async handleClick(data) {
@@ -167,16 +173,16 @@ export default {
       return TERMINAL_STATUS_COLORS[status];
     },
     async getTerminals() {
-      const { filter, page, perPage } = this;
-      const start = 0;
-      const end = (page + 1) * perPage;
+      const start = this.page * PER_PAGE;
+      const end = start + PER_PAGE - 1;
       const params = {
-        filter,
         range: JSON.stringify([start, end])
       };
       var serviceResponse = await getTerminalsApi(params);
       if (serviceResponse.ok) {
-        this.terminals = serviceResponse.data;
+        this.terminals = [...this.terminals, ...serviceResponse.data];
+        this.page++;
+        this.totalTerminals = serviceResponse.total;
         this.fetched = true;
       } else {
         const params = { text: serviceResponse.message.text };
@@ -186,7 +192,7 @@ export default {
     async handleDelete(id) {
       var serviceResponse = await deleteTerminalApi(id);
       if (serviceResponse.ok) {
-        this.getTerminals();
+        this.resetTerminals();
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
@@ -197,18 +203,20 @@ export default {
     async handleLockUnlock() {
       this.dialog.flag = false;
       const item = this.dialog.data;
-      const body = {
-        terminal_id: item.id
-      };
       let serviceResponse;
       if (item.status === TERMINAL_STATUS_ACTIVE) {
-        serviceResponse = await lockTerminalApi(body);
+        serviceResponse = await lockTerminalApi(item.id);
       } else if (item.status === TERMINAL_STATUS_LOCK) {
-        serviceResponse = await unlockTerminalApi(body);
+        serviceResponse = await unlockTerminalApi(item.id);
       }
       if (serviceResponse.ok) {
-        this.getTerminals();
-        const params = { text: serviceResponse.message.text };
+        this.resetTerminals();
+        let params;
+        if (item.status === TERMINAL_STATUS_ACTIVE) {
+          params = { text: this.$t("message.successfullyLocked") };
+        } else if (item.status === TERMINAL_STATUS_LOCK) {
+          params = { text: this.$t("message.successfullyUnlocked") };
+        }
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
         const params = { text: serviceResponse.message.text };
@@ -239,10 +247,30 @@ export default {
       this.$router.push({
         name: "/AppMovements"
       });
+    },
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
+    },
+    getValidateBottom() {
+      return this.terminals.length != this.totalTerminals;
+    },
+    resetTerminals() {
+      this.page = 0;
+      this.terminals = [];
+      this.totalTerminals = 0;
+      this.fetched = false;
+      this.getTerminals();
     }
   },
   async mounted() {
     this.getTerminals();
+    window.addEventListener("scroll", () => {
+      this.bottom = this.bottomVisible();
+    });
   }
 };
 </script>

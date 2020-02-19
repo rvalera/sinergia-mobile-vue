@@ -81,35 +81,38 @@ import {
   deletePaymentInstrumentApi
 } from "@/api/modules";
 import { CREDIT_TYPES_ICONS } from "@/config/constants";
-const PER_PAGE = 8;
+const PER_PAGE = 10;
 export default {
   data: () => ({
     paymentInstruments: [],
     totalPaymentInstruments: 0,
     CREDIT_TYPES_ICONS,
     fetched: false,
-    page: 1,
+    page: 0,
     bottom: true
   }),
   watch: {
     bottom(bottom) {
       if (bottom && this.getValidateBottom()) {
-        this.page++;
         this.getPaymentInstruments();
       }
     }
   },
   methods: {
     async getPaymentInstruments() {
-      const start = 0;
-      const end = this.page * PER_PAGE;
+      const start = this.page * PER_PAGE;
+      const end = start + PER_PAGE - 1;
       const params = {
         range: JSON.stringify([start, end])
       };
       var serviceResponse = await getPaymentInstrumentApi(params);
       if (serviceResponse.ok) {
         this.totalPaymentInstruments = serviceResponse.total;
-        this.paymentInstruments = serviceResponse.data;
+        this.paymentInstruments = [
+          ...this.paymentInstruments,
+          ...serviceResponse.data
+        ];
+        this.page++;
         this.fetched = true;
       } else {
         const params = { text: serviceResponse.message.text };
@@ -119,7 +122,7 @@ export default {
     async handleuseByDefault(id) {
       var serviceResponse = await putDefaultPaymentInstrumentApi(id);
       if (serviceResponse.ok) {
-        this.getPaymentInstruments();
+        this.resetPaymentInstruments();
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
@@ -130,7 +133,7 @@ export default {
     async handleDelete(id) {
       var serviceResponse = await deletePaymentInstrumentApi(id);
       if (serviceResponse.ok) {
-        this.getPaymentInstruments();
+        this.resetPaymentInstruments();
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
@@ -147,6 +150,13 @@ export default {
     },
     getValidateBottom() {
       return this.paymentInstruments.length != this.totalPaymentInstruments;
+    },
+    resetPaymentInstruments() {
+      this.page = 0;
+      this.paymentInstruments = [];
+      this.totalPaymentInstruments = 0;
+      this.fetched = false;
+      this.getPaymentInstruments();
     }
   },
   async mounted() {
