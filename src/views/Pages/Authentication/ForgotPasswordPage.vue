@@ -82,7 +82,7 @@
 <script>
 import { required, email } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
-import { resetPasswordUser } from "@/api/modules";
+import { forgotPasswordUserApi } from "@/api/modules";
 import { i18n } from "@/i18n";
 export default {
   mixins: [validationLangMixin],
@@ -107,7 +107,7 @@ export default {
       let body = {
         email: this.email
       };
-      let serviceResponse = await resetPasswordUser(body);
+      let serviceResponse = await forgotPasswordUserApi(body);
 
       if (serviceResponse.ok) {
         console.log(serviceResponse);

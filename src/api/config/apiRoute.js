@@ -23,3 +23,4 @@ export const resetUserPassword = `/v2/user/reset_user_password`;
 
 export const memberPath = `/member`;
 export const applicationPath = `/application`;
+export const affiliatePath = `/affiliate`;

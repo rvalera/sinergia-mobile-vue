@@ -103,7 +103,7 @@
           <v-btn color="primary" flat @click.native="dialog = false">{{
             $t("common.cancel")
           }}</v-btn>
-          <v-btn color="primary" flat @click.native="forgotPassword">{{
+          <v-btn color="primary" flat @click.native="forgotOpeKey">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>
@@ -128,7 +128,7 @@
 <script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
-import { resetPasswordByType, changeOpeKey } from "@/api/modules";
+import { forgotOpeKeyUserApi, changeOpeKeyApi } from "@/api/modules";
 import { i18n } from "@/i18n";
 import { mapActions, mapGetters } from "vuex";
 
@@ -174,8 +174,6 @@ export default {
       showPassword: false,
       showPassword2: false,
       showPassword3: false,
-      email: localStorage.getItem("email"),
-      user_id: localStorage.getItem("user_id"),
       dialog: false,
       dialogC: false,
       textDialogC: ""
@@ -188,10 +186,10 @@ export default {
     ...mapActions(["updateOperationKey"]),
     async submit() {
       let body = {
-        operation_key: this.new_key,
+        new_operation_key: this.new_key,
         old_operation_key: this.old_key
       };
-      let serviceResponse = await changeOpeKey(this.user_id, body);
+      let serviceResponse = await changeOpeKeyApi(body);
       console.log(serviceResponse);
       if (serviceResponse.ok) {
         this.updateOperationKey(serviceResponse.data.operation_key);
@@ -212,15 +210,10 @@ export default {
         console.log(e.target.value);
       }
     },
-    async forgotPassword() {
-      console.log(this.email);
+    async forgotOpeKey() {
       this.dialog = false;
-      let body = {
-        password_type: "O"
-      };
-      let serviceResponse = await resetPasswordByType(this.email, body);
+      let serviceResponse = await forgotOpeKeyUserApi();
       console.log(serviceResponse.data);
-      //const params = { text: this.$t('operationKey.message') };
       if (serviceResponse.ok) {
         this.updateOperationKey(serviceResponse.data.operation_key);
         this.textDialogC = i18n.t("operationKey.message");

@@ -91,7 +91,7 @@ import ResizeMixin from "@/mixins/ResizeMixin";
 import Password from "@/components/PasswordStrength.vue";
 import { required, sameAs } from "vuelidate/lib/validators";
 import validationLangMixin from "@/mixins/validationLangMixin";
-import { changePass } from "@/api/modules";
+import { changePassApi } from "@/api/modules";
 import { i18n } from "@/i18n";
 import { mapGetters } from "vuex";
 export default {
@@ -131,7 +131,6 @@ export default {
       loader: false,
       showPassword: false,
       showPassword2: false,
-      user_id: localStorage.getItem("user_id"),
       dialogC: false,
       textDialogC: ""
     };
@@ -142,18 +141,15 @@ export default {
       this.passwordScore = data.score;
     },
     async submit() {
-      console.log(this.password);
-      console.log(this.currentPassword);
       let body = {
-        password: this.password,
+        new_password: this.password,
         old_password: this.currentPassword
       };
-      let serviceResponse = await changePass(this.user_id, body);
+      let serviceResponse = await changePassApi(body);
       console.log(serviceResponse);
       if (serviceResponse.ok) {
         this.dialogC = true;
         this.textDialogC = i18n.t("operationKey.change");
-        localStorage.setItem("password", this.password);
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);

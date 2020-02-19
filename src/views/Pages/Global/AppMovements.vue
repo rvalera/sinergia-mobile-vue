@@ -178,9 +178,6 @@ export default {
       this.$refs.filter.show();
     }
   },
-  updated() {
-    //if (this.activeAutoScroll) window.scrollTo(0, document.body.scrollHeight);
-  },
   async mounted() {
     console.log(this.activeAutoScroll);
     this.filter.page = 1;

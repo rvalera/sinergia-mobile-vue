@@ -47,8 +47,7 @@ export default {
   methods: {
     ...mapActions(["updateAffiliateRequest"]),
     async submit() {
-      const { person_id } = localStorage;
-      var serviceResponse = await becomeAffiliateApi(person_id);
+      var serviceResponse = await becomeAffiliateApi();
       if (serviceResponse.ok) {
         const params = { text: serviceResponse.message.text };
         this.updateAffiliateRequest("Y");

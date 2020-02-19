@@ -9,3 +9,4 @@ export * from "./dashboard";
 export * from "./liquidation";
 export * from "./terminal";
 export * from "./coin";
+export * from "./affiliate";

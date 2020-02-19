@@ -11,7 +11,7 @@ import {
   updateUserApi,
   createAppPersonApi,
   getCoinApi,
-  getMemberProfile
+  getMemberProfileApi
 } from "@/api/modules";
 
 import router from "@/router";
@@ -63,7 +63,7 @@ const mutations = {
 };
 
 const savePersonId = async () => {
-  let serviceResponsePerson = await getMemberProfile();
+  let serviceResponsePerson = await getMemberProfileApi();
   if (serviceResponsePerson.ok) {
     localStorage.setItem("person_id", serviceResponsePerson.data.id);
     localStorage.setItem("userType", serviceResponsePerson.data.person_type);
@@ -86,10 +86,10 @@ const actions = {
     if (serviceResponse.ok) {
       localStorage.setItem("lastEmailLogged", payload.email);
       localStorage.setItem("access_token", serviceResponse.data.access_token);
-      localStorage.setItem("refress_token", serviceResponse.data.refress_token);
+      localStorage.setItem("refresh_token", serviceResponse.data.refresh_token);
       await getCoint();
       dispatch("getAppToken");
-      let serviceResponsePerson = await getMemberProfile();
+      let serviceResponsePerson = await getMemberProfileApi();
       if (serviceResponsePerson.ok) {
         if (serviceResponsePerson.data.type === USER_TYPE_WORKSTATION) {
           const params = { text: "Credenciales Incorrectas" };
@@ -127,9 +127,8 @@ const actions = {
   updateAffiliateRequest({ commit }, payload) {
     commit(UPDATE_AFFILIATE_REQUEST, payload);
   },
-  async updatePersonAction({ commit, state }, payload) {
-    const { id } = state.user;
-    let serviceResponse = await updateUserApi(id, payload);
+  async updatePersonAction({ commit }, payload) {
+    let serviceResponse = await updateUserApi(payload);
     if (serviceResponse.ok) {
       payload.fullname = payload.first_name + " " + payload.last_name;
       commit(UPDATE_PERSON, payload);
