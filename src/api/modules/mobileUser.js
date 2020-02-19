@@ -6,19 +6,13 @@ import {
   appPersonData,
   appCardsData,
   resetPassword,
-  resetUserPassword,
   changeOperatioKey,
   changePassword,
   memberPath
 } from "../config/apiRoute.js";
 
-export const createUserApi = body => apiHttp("POST", `${mobileUserPath}`, body);
-
 export const resetPasswordByType = (username, body) =>
   apiHttp("POST", `${resetPassword}/${username}`, body);
-
-export const resetPasswordUser = (username, body) =>
-  apiHttp("POST", `${resetUserPassword}/${username}`, body);
 
 export const changeOpeKey = (person_id, body) =>
   apiHttp("PUT", `${changeOperatioKey}/${person_id}`, body);
@@ -45,4 +39,12 @@ export const loginApi = ({ email: username, password }) => {
   return apiHttp("POST", `${memberPath}/login`, { username, password });
 };
 
+//new endpoints
+
 export const getMemberProfile = () => apiHttp("GET", `${memberPath}/profile`);
+
+export const createUserApi = body =>
+  apiHttp("POST", `${memberPath}/signup`, body);
+
+export const resetPasswordUser = body =>
+  apiHttp("POST", `${memberPath}/password/reset`, body);

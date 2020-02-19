@@ -105,9 +105,9 @@ export default {
   methods: {
     async submit() {
       let body = {
-        password_type: "U"
+        email: this.email
       };
-      let serviceResponse = await resetPasswordUser(this.email, body);
+      let serviceResponse = await resetPasswordUser(body);
 
       if (serviceResponse.ok) {
         console.log(serviceResponse);
