@@ -17,6 +17,20 @@ export const loginApi = ({ email: username, password }) => {
   return apiHttp("POST", `${memberPath}/login`, { username, password });
 };
 
+export const refreshTokenApi = refresh_token =>
+  apiHttp(
+    "POST",
+    `${memberPath}/token/refresh`,
+    {},
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${refresh_token}`
+      }
+    }
+  );
+
 export const getMemberProfileApi = () =>
   apiHttp("GET", `${memberPath}/profile`);
 
