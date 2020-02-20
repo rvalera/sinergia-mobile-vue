@@ -40,7 +40,7 @@
 import OperationKey from "../Pay/OperationKey";
 import CardsPinChange from "./CardsPinChange";
 import { mapGetters } from "vuex";
-import { updatePinCard } from "@/api/modules";
+import { updatePinCardApi } from "@/api/modules";
 import { mapActions } from "vuex";
 import { i18n } from "@/i18n";
 export default {
@@ -65,15 +65,15 @@ export default {
     goToOperationKey(data = null) {
       this.setTitleButton(this.$t("common.accept"));
       if (data != null) {
-        this.decodeResult.new_pin_card = data.new_pin_card;
-        this.decodeResult.old_pin_card = data.old_pin_card;
+        this.decodeResult.new_pin = data.new_pin_card;
+        this.decodeResult.old_pin = data.old_pin_card;
         this.card_id = data.card_id;
       }
       this.stage = 2;
     },
 
     async submitAll() {
-      var serviceResponse = await updatePinCard(
+      var serviceResponse = await updatePinCardApi(
         this.card_id,
         this.decodeResult
       );

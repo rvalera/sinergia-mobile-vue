@@ -119,7 +119,7 @@
 <script>
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 import validationMixin from "@/mixins/validationMixin";
-import { resetPasswordByType } from "@/api/modules";
+import { resetPinCardApi } from "@/api/modules";
 import { i18n } from "@/i18n";
 import { mapGetters } from "vuex";
 export default {
@@ -187,16 +187,10 @@ export default {
       }
     },
     async forgotPassword() {
-      console.log(this.email);
       this.dialog = false;
-      let body = {
-        password_type: "P"
-      };
-      let serviceResponse = await resetPasswordByType(this.email, body);
+      let serviceResponse = await resetPinCardApi(this.$route.params.card.id);
       console.log(serviceResponse.data);
-      //const params = { text: this.$t('operationKey.message') };
       if (serviceResponse.ok) {
-        // this.updateOperationKey(serviceResponse.data.operation_key);
         this.textDialogC = i18n.t("cards.message");
         this.dialogC = true;
       } else {

@@ -77,7 +77,7 @@ const actions = {
       localStorage.setItem("lastEmailLogged", payload.email);
       localStorage.setItem("access_token", serviceResponse.data.access_token);
       localStorage.setItem("refresh_token", serviceResponse.data.refresh_token);
-      dispatch("getAppToken");
+      await dispatch("getAppToken");
       let serviceResponsePerson = await getMemberProfileApi();
       if (serviceResponsePerson.ok) {
         if (serviceResponsePerson.data.type === USER_TYPE_WORKSTATION) {

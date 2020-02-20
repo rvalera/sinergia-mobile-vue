@@ -22,15 +22,13 @@
             <v-divider :inset="true" :key="index"></v-divider>
             <v-list-tile :key="item.validation_number" avatar>
               <v-list-tile-avatar
-                width="60px"
                 class="avatarCard"
                 tile
                 @click="handleClick(item)"
               >
-                <v-img
-                  width="60px"
-                  :src="item.status === 'A' ? avatarActive : avatarDisabled"
-                ></v-img>
+                <v-icon :disabled="item.status !== 'A'" x-large
+                  >far fa-credit-card</v-icon
+                >
               </v-list-tile-avatar>
 
               <v-list-tile-content @click="handleClick(item)">
@@ -42,12 +40,20 @@
                 ></v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-avatar tile>
-                <v-chip v-if="item.status === 'A'" color="green" outline>{{
-                  $t("cards.active")
-                }}</v-chip>
-                <v-chip v-if="item.status != 'A'" color="red" outline>{{
-                  $t("cards.block")
-                }}</v-chip>
+                <v-chip
+                  @click="handleClick(item)"
+                  v-if="item.status === 'A'"
+                  color="green"
+                  outline
+                  >{{ $t("cards.active") }}</v-chip
+                >
+                <v-chip
+                  @click="handleClick(item)"
+                  v-if="item.status != 'A'"
+                  color="red"
+                  outline
+                  >{{ $t("cards.block") }}</v-chip
+                >
               </v-list-tile-avatar>
               <v-list-tile-action>
                 <v-menu bottom left>
@@ -117,16 +123,12 @@
 </template>
 
 <script>
-import { getAppCardsData, blockCard, unblockCard } from "@/api/modules";
+import { getCardsApi, lockCardApi, unlockCardApi } from "@/api/modules";
 import CardsInfo from "./CardsInfo";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: { CardsInfo },
   data: () => ({
-    avatarActive:
-      "https://www.trzcacak.rs/myfile/full/367-3670440_credit-card.png",
-    avatarDisabled:
-      "https://www.trzcacak.rs/myfile/full/149-1497778_card-back-png-transparent-background-credit-card-icon.png",
     cards: {},
     dialog: false,
     textDialog: {},
@@ -189,8 +191,8 @@ export default {
     async handleLookCard() {
       let serviceResponse;
       if (this.textDialog.data.status === "A")
-        serviceResponse = await blockCard(this.textDialog.data.id);
-      else serviceResponse = await unblockCard(this.textDialog.data.id);
+        serviceResponse = await lockCardApi(this.textDialog.data.id);
+      else serviceResponse = await unlockCardApi(this.textDialog.data.id);
 
       if (serviceResponse.ok) {
         const params = { text: serviceResponse.message.text };
@@ -209,10 +211,9 @@ export default {
       //=======================================
     },
     async getCards() {
-      const { person_id } = localStorage;
-      let serviceResponse = await getAppCardsData(person_id);
+      let serviceResponse = await getCardsApi();
       if (serviceResponse.ok) {
-        this.cards = serviceResponse.data.cards;
+        this.cards = serviceResponse.data;
         this.fetched = true;
       } else {
         const params = { text: serviceResponse.message.text };

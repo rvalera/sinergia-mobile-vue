@@ -1,23 +1,20 @@
 import { apiHttp } from "../axiosApi.js";
-import {
-  appCardsData,
-  memberPath,
-  appCardsPin,
-  appCardsUnblock,
-  appCardsBlock
-} from "../config/apiRoute.js";
+import { memberPath } from "../config/apiRoute.js";
 
-export const getAppCardsData = affiliateId =>
-  apiHttp("GET", `${appCardsData}/${affiliateId}`);
+export const getCardsApi = params =>
+  apiHttp("GET", `${memberPath}/card`, {}, { params });
 
-export const getMovements = params =>
+export const getMovementsApi = params =>
   apiHttp("GET", `${memberPath}/transaction`, {}, { params });
 
-export const updatePinCard = (cardId, body) =>
-  apiHttp("PUT", `${appCardsPin}/${cardId}`, body);
+export const updatePinCardApi = (cardId, body) =>
+  apiHttp("PUT", `${memberPath}/card/${cardId}/pin`, body);
 
-export const blockCard = (cardId, body = {}) =>
-  apiHttp("PUT", `${appCardsBlock}/${cardId}`, body);
+export const lockCardApi = cardId =>
+  apiHttp("PUT", `${memberPath}/card/${cardId}/lock`);
 
-export const unblockCard = (cardId, body = {}) =>
-  apiHttp("PUT", `${appCardsUnblock}/${cardId}`, body);
+export const unlockCardApi = cardId =>
+  apiHttp("PUT", `${memberPath}/card/${cardId}/unlock`);
+
+export const resetPinCardApi = cardId =>
+  apiHttp("POST", `${memberPath}/card/${cardId}/pin/reset`);

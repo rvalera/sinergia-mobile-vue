@@ -3,7 +3,7 @@ import {
   FILTER_APP,
   BALANCE_WALLET
 } from "../mutation-types";
-import { getMovements } from "@/api/modules";
+import { getMovementsApi } from "@/api/modules";
 
 const initialState = {
   transactions_app: [],
@@ -50,7 +50,7 @@ const actions = {
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
       filter
     };
-    var serviceResponse = await getMovements(query);
+    var serviceResponse = await getMovementsApi(query);
     if (serviceResponse.ok) commit(TRANSACTIONS_APP, serviceResponse.data);
     else {
       const params = { text: serviceResponse.message.text };
