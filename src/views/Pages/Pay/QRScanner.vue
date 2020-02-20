@@ -19,19 +19,15 @@
 </template>
 <script>
 import * as crypto from "crypto";
-import { mapGetters } from "vuex";
 
 export default {
-  computed: {
-    ...mapGetters(["app_iv", "app_key"])
-  },
   methods: {
     descryptToken(resultQR) {
       try {
         var decipher = crypto.createDecipheriv(
             "aes-256-cbc",
-            this.app_key,
-            this.app_iv
+            localStorage.app_key,
+            localStorage.app_iv
           ),
           buffer = Buffer.concat([
             decipher.update(Buffer.from(resultQR.text, "base64")),
@@ -59,6 +55,8 @@ export default {
         this.descryptToken({
           text:
             "ziSfokQ8b50Vs+rzfBb5kwUqM/svQva/LtQQ0p4kEKlEBeHY28UHr73+KKcWCsc4/trmsPJ56DFu9ad00FTtN8fRNc6iCWV0vfAgF5Ada8/BdM0h+wX0Cxl8l+711J1w1YUiyf/cmicrw4Iap+TZWh7VDX8tx179oHh/36lWTr+01jbujOBPNOKDkruKh07B"
+          //text: "08mSPIBxAaMFKQscDjkUjwYK0tiVnksuS8bT01U1KAWLncRnLzL7P+ms0kBQkrn3qebKXgKUPgM35j3s+emKsCjcATL1KjGhn9MICGGMN53a7VWsCgTapvwldoQWNe+Zh89hvNYPJNjv8js75IiFKA1V5frlZTGhIqzE/xEUVpU="
+          //text: "858dxpn7adELRBlcKYbK0zEw1/8Kckn6sdfPkyzLmSm9k1y4lylc4hKk6ClH3R96j6LLFdU6tKOa+gew8y8f3RF5AKNjt77vW115u2mMJjZe+qoXMrlPGR/R4vC98uQQOxJzhAqafywO2GyGEnZRyQGqWOnU7ofzCRBREB3Ttj+SFkGYtKxGJpvO3ijqa4tTnwLxS9eJPv0gjy9rK2ZbRg=="
         });
       /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(

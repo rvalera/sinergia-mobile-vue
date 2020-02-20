@@ -59,7 +59,6 @@ import PaySticker from "./PaySticker";
 import PayReceipt from "./PayReceipt";
 import { mapGetters } from "vuex";
 import { createPaymentApi } from "@/api/modules";
-import * as crypto from "crypto";
 
 export default {
   components: {
@@ -83,6 +82,7 @@ export default {
   },
   methods: {
     goToPayInformation(data) {
+      console.log(data);
       this.resultQR = data.resultQR;
       this.decodeResult = data.decodeResult;
       if (!this.decodeResult.amount) this.typePay = false;
@@ -100,29 +100,14 @@ export default {
       }
       this.stage = 3;
     },
-    encryptToken(obj) {
-      const key = this.user.operation_key;
-      const iv = key.substr(0, 16);
-      var jsonString = JSON.stringify(obj)
-        .split("")
-        .reverse()
-        .join("");
-      var encipher = crypto.createCipheriv("aes-256-cbc", key, iv),
-        buffer = Buffer.concat([encipher.update(jsonString), encipher.final()]);
-      return buffer.toString("base64");
-    },
     async submitAll() {
-      const jsonToEncrypt = {
-        ...this.decodeResult,
-        qr: this.resultQR.text
-      };
-      const data = this.encryptToken(jsonToEncrypt);
-      const {
-        person: { id: source_id }
-      } = this.user;
       const body = {
-        data,
-        source_id
+        terminal_code: this.decodeResult.terminal,
+        type: this.decodeResult.type,
+        amount: this.decodeResult.amount,
+        coin_symbol: localStorage.coin,
+        concept: this.decodeResult.concept,
+        datetime: this.decodeResult.datetime
       };
       var serviceResponse = await createPaymentApi(body);
       if (serviceResponse.ok) {
