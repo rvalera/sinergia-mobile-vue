@@ -122,3 +122,20 @@ export async function refreshToken() {
     window.getApp.$emit("SHOW_ERROR", params);
   }
 }
+
+function getCurrentPosition(options = {}) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+export const getLatAndLongGeolocation = async () => {
+  try {
+    const { coords } = await getCurrentPosition();
+    const { latitude, longitude } = coords;
+    return [latitude, longitude];
+    // Handle coordinates
+  } catch (error) {
+    console.error(error);
+  }
+};

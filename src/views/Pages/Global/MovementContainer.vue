@@ -8,18 +8,12 @@ import { mapActions } from "vuex";
 
 export default {
   components: { AppMovements },
-  data: () => ({
-    person_id: localStorage.person_id
-  }),
-
   methods: {
     ...mapActions(["setTransactionsApp"]),
-    async showMovements(person_id, pages = 5) {
+    async showMovements(pages = 5) {
       let filter = {
         page: 1,
-        perPage: pages,
-        id: person_id,
-        field: "blockchain_id"
+        perPage: pages
       };
 
       this.setTransactionsApp(filter);
@@ -27,7 +21,7 @@ export default {
   },
 
   async created() {
-    this.showMovements(this.person_id, 10);
+    this.showMovements(10);
   }
 };
 </script>

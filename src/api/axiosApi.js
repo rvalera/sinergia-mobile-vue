@@ -3,19 +3,25 @@ import router from "@/router";
 import { i18n } from "@/i18n";
 import { refreshTokenApi } from "./modules";
 import { CODES_RESPONSE_TOKEN_EXPIRED } from "@/config/constants";
+import { getLatAndLongGeolocation } from "@/utils/helpers";
 
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 const AXIOS_TIMEOUT_MS = process.env.VUE_APP_AXIOS_TIMEOUT_MS;
 
 export const apiHttp = async (method, endpoint, data, options = {}) => {
   const { access_token } = localStorage;
+  const geolocation = await getLatAndLongGeolocation();
   const defaultHeaders = {
+    "Geo-Location": geolocation,
     Accept: "application/json",
     "Content-Type": "application/json",
     Authorization: `Bearer ${access_token}`
   };
 
-  if (!options.hasOwnProperty("headers")) options.headers = defaultHeaders;
+  options.headers = {
+    ...defaultHeaders,
+    ...options.headers
+  };
 
   let serviceResponse = {};
 

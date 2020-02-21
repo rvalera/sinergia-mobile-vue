@@ -12,8 +12,6 @@ export const refreshTokenApi = refresh_token =>
     {},
     {
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: `Bearer ${refresh_token}`
       }
     }
