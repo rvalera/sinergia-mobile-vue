@@ -1,3 +1,5 @@
+import { refreshTokenApi } from "@/api/modules";
+
 export function camel(str) {
   const camel = (str || "").replace(/-([^-])/g, g => g[1].toUpperCase());
 
@@ -107,4 +109,16 @@ export function getCardType(number) {
   if (number.match(re) != null) return "Visa Electron";
 
   return "";
+}
+
+export async function refreshToken() {
+  const { refresh_token } = localStorage;
+  let serviceResponse = await refreshTokenApi(refresh_token);
+  console.log(serviceResponse);
+  if (serviceResponse.ok) {
+    localStorage.access_token = serviceResponse.data.access_token;
+  } else {
+    const params = { text: serviceResponse.message.text };
+    window.getApp.$emit("SHOW_ERROR", params);
+  }
 }

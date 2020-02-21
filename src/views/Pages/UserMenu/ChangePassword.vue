@@ -94,6 +94,7 @@ import validationLangMixin from "@/mixins/validationLangMixin";
 import { changePassApi } from "@/api/modules";
 import { i18n } from "@/i18n";
 import { mapGetters } from "vuex";
+import { refreshToken } from "@/utils/helpers";
 export default {
   mixins: [validationLangMixin, ResizeMixin],
   validations: {
@@ -148,6 +149,7 @@ export default {
       let serviceResponse = await changePassApi(body);
       console.log(serviceResponse);
       if (serviceResponse.ok) {
+        await refreshToken();
         this.dialogC = true;
         this.textDialogC = i18n.t("operationKey.change");
       } else {

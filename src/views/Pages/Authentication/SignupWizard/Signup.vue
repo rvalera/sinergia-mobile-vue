@@ -56,7 +56,8 @@ import ChangeSpecialKey from "./ChangeSpecialKey";
 import AccountInformation from "./AccountInformation";
 import Presentation from "./Presentation";
 import { mapActions, mapGetters } from "vuex";
-import { finishSignupApi, refreshTokenApi } from "@/api/modules";
+import { finishSignupApi } from "@/api/modules";
+import { refreshToken } from "@/utils/helpers";
 export default {
   components: {
     ChangePassword,
@@ -102,19 +103,8 @@ export default {
       let serviceResponse = await finishSignupApi(this.data);
       console.log(serviceResponse);
       if (serviceResponse.ok) {
-        await this.refreshToken();
+        await refreshToken();
         this.getProfileAction();
-      } else {
-        const params = { text: serviceResponse.message.text };
-        window.getApp.$emit("SHOW_ERROR", params);
-      }
-    },
-    async refreshToken() {
-      const { refresh_token } = localStorage;
-      let serviceResponse = await refreshTokenApi(refresh_token);
-      console.log(serviceResponse);
-      if (serviceResponse.ok) {
-        localStorage.access_token = serviceResponse.data.access_token;
       } else {
         const params = { text: serviceResponse.message.text };
         window.getApp.$emit("SHOW_ERROR", params);
