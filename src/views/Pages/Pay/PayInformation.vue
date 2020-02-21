@@ -28,7 +28,11 @@
                 class="body-1"
               ></v-list-tile-title>
               <v-list-tile-sub-title
-                v-html="payData.concept"
+                v-html="payData.target_name"
+                class="body-1"
+              ></v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                v-html="payData.terminal"
                 class="body-1"
               ></v-list-tile-sub-title>
             </v-list-tile-content>

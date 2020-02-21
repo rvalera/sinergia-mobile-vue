@@ -107,7 +107,7 @@ export default {
         amount: this.decodeResult.amount,
         coin_symbol: localStorage.coin,
         concept: this.decodeResult.concept,
-        datetime: this.decodeResult.datetime
+        created_at: this.decodeResult.datetime.toString()
       };
       var serviceResponse = await createPaymentApi(body);
       if (serviceResponse.ok) {

@@ -92,7 +92,7 @@ export default {
         target: this.destinyUser.email,
         amount: parseFloat(data.amount),
         concept: data.description,
-        datetime: datetime.getTime().toString()
+        created_at: datetime.getTime().toString()
       };
       this.stage = 3;
     },
