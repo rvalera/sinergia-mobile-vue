@@ -3,7 +3,8 @@ import {
   LOGOUT_USER,
   UPDATE_PERSON,
   UPDATE_AFFILIATE_REQUEST,
-  UPDATE_OPERATION_KEY
+  UPDATE_OPERATION_KEY,
+  BALANCE_WALLET
 } from "../mutation-types";
 
 import { loginApi, updateUserApi, getMemberProfileApi } from "@/api/modules";
@@ -126,6 +127,7 @@ const actions = {
     commit(UPDATE_OPERATION_KEY, payload);
   },
   keepSignin({ commit }) {
+    commit(BALANCE_WALLET, localStorage.balance);
     commit(LOGIN_USER, JSON.parse(localStorage.user));
   }
 };

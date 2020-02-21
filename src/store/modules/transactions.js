@@ -58,6 +58,7 @@ const actions = {
     }
   },
   setBalanceWallet({ commit }, payload) {
+    localStorage.balance = payload;
     commit(BALANCE_WALLET, payload);
   }
 };
