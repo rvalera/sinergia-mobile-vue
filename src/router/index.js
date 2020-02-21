@@ -22,19 +22,19 @@ const router = new Router({
 
 const keepSignin = async () => {
   const { logged } = store.getters;
-  const { access_token } = localStorage;
+  const { user } = localStorage;
   if (!logged) {
-    if (access_token) store.dispatch("keepSignin");
+    if (user) store.dispatch("keepSignin");
   }
 };
 
 router.beforeEach(async (to, from, next) => {
   await keepSignin();
-  const { access_token } = localStorage;
+  const { user } = localStorage;
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!access_token) {
+    if (!user) {
       next({
         path: "/login",
         query: { redirect: to.fullPath }

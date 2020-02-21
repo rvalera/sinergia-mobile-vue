@@ -6,15 +6,10 @@ import {
   UPDATE_OPERATION_KEY
 } from "../mutation-types";
 
-import {
-  loginApi,
-  updateUserApi,
-  createAppPersonApi,
-  getMemberProfileApi
-} from "@/api/modules";
+import { loginApi, updateUserApi, getMemberProfileApi } from "@/api/modules";
 
 import router from "@/router";
-import { USER_TYPE_WORKSTATION } from "@/config/constants";
+import { USER_TYPE_WORKSTATION, USER_STATUS_PENDING } from "@/config/constants";
 
 const initialState = {
   user: {
@@ -61,52 +56,19 @@ const mutations = {
   }
 };
 
-const savePersonId = async () => {
-  let serviceResponsePerson = await getMemberProfileApi();
-  if (serviceResponsePerson.ok) {
-    localStorage.setItem("person_id", serviceResponsePerson.data.id);
-    localStorage.setItem("userType", serviceResponsePerson.data.person_type);
-    router.push({ name: "Home" });
-  }
-};
-
 const actions = {
-  async loginAction({ commit, dispatch }, payload) {
+  async loginAction({ dispatch }, payload) {
     let serviceResponse = await loginApi(payload);
     if (serviceResponse.ok) {
       localStorage.setItem("lastEmailLogged", payload.email);
       localStorage.setItem("access_token", serviceResponse.data.access_token);
       localStorage.setItem("refresh_token", serviceResponse.data.refresh_token);
-      await dispatch("getAppToken");
-      let serviceResponsePerson = await getMemberProfileApi();
-      if (serviceResponsePerson.ok) {
-        if (serviceResponsePerson.data.type === USER_TYPE_WORKSTATION) {
-          const params = { text: "Credenciales Incorrectas" };
-          window.getApp.$emit("SHOW_ERROR", params);
-        } else {
-          localStorage.setItem(
-            "user",
-            JSON.stringify(serviceResponsePerson.data)
-          );
-          commit(LOGIN_USER, serviceResponsePerson.data);
-          localStorage.setItem("user_id", serviceResponsePerson.data.id);
-          localStorage.setItem(
-            "userType",
-            serviceResponsePerson.data.affiliate.type
-          );
-          localStorage.setItem(
-            "person_id",
-            serviceResponsePerson.data.affiliate.id
-          );
-          router.push({ name: "Home" });
-        }
-      } else {
+      if (serviceResponse.data.extra_info.status === USER_STATUS_PENDING)
         router.push({ name: "SignupPage" });
-      }
+      else dispatch("getProfileAction");
     } else {
       const params = { text: serviceResponse.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
-      router.push({ name: "LoginPage" });
     }
   },
   logoutAction({ commit, dispatch }) {
@@ -131,16 +93,32 @@ const actions = {
     }
     return serviceResponse;
   },
-  async createAppPersonAction({ commit, state }, payload) {
-    const { id } = state.user;
-    let serviceResponse = await createAppPersonApi(id, payload);
-    if (serviceResponse.ok) {
-      const params = { text: serviceResponse.message.text };
-      window.getApp.$emit("SHOW_MESSAGE", params);
-      commit(UPDATE_PERSON, payload);
-      await savePersonId(state.user.email);
+  async getProfileAction({ commit, dispatch }) {
+    let serviceResponsePerson = await getMemberProfileApi();
+    if (serviceResponsePerson.ok) {
+      if (serviceResponsePerson.data.type === USER_TYPE_WORKSTATION) {
+        const params = { text: "Credenciales Incorrectas" };
+        window.getApp.$emit("SHOW_ERROR", params);
+      } else {
+        await dispatch("getAppToken");
+        localStorage.setItem(
+          "user",
+          JSON.stringify(serviceResponsePerson.data)
+        );
+        commit(LOGIN_USER, serviceResponsePerson.data);
+        localStorage.setItem("user_id", serviceResponsePerson.data.id);
+        localStorage.setItem(
+          "userType",
+          serviceResponsePerson.data.affiliate.type
+        );
+        localStorage.setItem(
+          "person_id",
+          serviceResponsePerson.data.affiliate.id
+        );
+        router.push({ name: "Home" });
+      }
     } else {
-      const params = { text: serviceResponse.message.text };
+      const params = { text: serviceResponsePerson.message.text };
       window.getApp.$emit("SHOW_ERROR", params);
     }
   },

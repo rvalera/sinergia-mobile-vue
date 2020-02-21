@@ -60,7 +60,10 @@ function buildErrorMessage(error) {
   };
   if (typeof error.response === "undefined")
     errorResponse.message.text = i18n.t("message.apiErrorUndefined");
-  else if (error.response.hasOwnProperty("data")) {
+  else if (
+    error.response.hasOwnProperty("data") &&
+    error.response.data.hasOwnProperty("message")
+  ) {
     errorResponse.message.text = error.response.data.message.text;
     errorResponse.message.code = error.response.data.message.code;
   } else if (error.response.status == 401)

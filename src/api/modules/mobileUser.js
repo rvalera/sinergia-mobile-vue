@@ -1,17 +1,5 @@
 import { apiHttp } from "../axiosApi.js";
-import {
-  appPersonPath,
-  resetPassword,
-  memberPath
-} from "../config/apiRoute.js";
-
-export const resetPasswordByType = (username, body) =>
-  apiHttp("POST", `${resetPassword}/${username}`, body);
-
-export const createAppPersonApi = (userId, body) =>
-  apiHttp("POST", `${appPersonPath}/${userId}`, body);
-
-//new endpoints
+import { memberPath } from "../config/apiRoute.js";
 
 export const loginApi = ({ email: username, password }) => {
   return apiHttp("POST", `${memberPath}/login`, { username, password });
@@ -54,3 +42,6 @@ export const changeOpeKeyApi = body =>
 
 export const getAppPersonApi = email =>
   apiHttp("GET", `${memberPath}/profile/${email}`);
+
+export const finishSignupApi = body =>
+  apiHttp("PUT", `${memberPath}/signup/finish`, body);
