@@ -195,6 +195,7 @@ export default {
     cvc: "CVC",
     expiryDate: "Expiry date",
     useByDefault: "Use by default",
+    successfulAdd: "Credit card added successfully!",
     withoutCards: "You do not have cards yet"
   },
   refill: {

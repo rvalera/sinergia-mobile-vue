@@ -196,6 +196,7 @@ export default {
     cvc: "CVC",
     expiryDate: "Fecha de vencimiento",
     useByDefault: "Usar por defecto",
+    successfulAdd: "¡Tarjeta de crédito añadida con éxito!",
     withoutCards: "No posee tarjetas aún"
   },
   refill: {

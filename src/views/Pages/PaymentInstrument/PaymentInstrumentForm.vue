@@ -136,7 +136,7 @@ export default {
       console.log(serviceResponse);
       if (serviceResponse.ok) {
         this.$router.back();
-        const params = { text: serviceResponse.message.text };
+        const params = { text: this.$t("paymentInstrument.successfulAdd") };
         window.getApp.$emit("SHOW_MESSAGE", params);
       } else {
         const params = { text: serviceResponse.message.text };

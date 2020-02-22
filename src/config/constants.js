@@ -59,6 +59,7 @@ export const genders = [
 ];
 
 export const CREDIT_TYPES_ICONS = name => {
+  name = name.toUpperCase();
   if (name === "VISA") return "static/visa.svg";
   else if (name === "AMERICAN EXPRESS") return "static/amex.svg";
   else if (name === "MASTERCARD") return "static/mastercard.svg";
