@@ -40,10 +40,17 @@ export default {
             .reverse()
             .join("")
         );
-        this.$emit("next", {
-          resultQR,
-          decodeResult
-        });
+
+        const { lastEmailLogged } = localStorage;
+        const { target } = decodeResult;
+        if (lastEmailLogged === target) {
+          const params = { text: this.$t("pay.sameTarget") };
+          window.getApp.$emit("SHOW_ERROR", params);
+        } else
+          this.$emit("next", {
+            resultQR,
+            decodeResult
+          });
       } catch (error) {
         console.log(error);
         const params = { text: this.$t("pay.invalidQR") };
@@ -55,7 +62,7 @@ export default {
         this.descryptToken({
           //text: "lqhrQuu8EiIcDPH9BuiJzTE4ELgOfLk+kd0jgowLoi9XbyzH4mpxf+mE5rclbEV5t9chy89wDOZPRDhS1Dvv7X8p/3DwDH2eGSoWjS2dze1WIDWp+7+btrUCHYXyrYZ4eBAst3g3U2DAzSvXj4Q0oJZoRIiaKfl4WhTZdsEZsvVRdjPR/e6sls5qvaXjEHkNHxY2DfoTzE3viBXgO4/XsSc4KDT6tlQdd/9DThfQghwogmG/AC8pcUQiDT1cUyoV"
           text:
-            "CksIDQ0XeYu0L2wLsrl2Is2zx2zxmW8r64chMvAUCxnj/jBaW6YX9OXkH0XIUVCB9X2y7r7Hgzv6npOioxRZiGbYmcwGMA1vJ4+ZR1skFtT384HTGsLan40JlOPpqfO2l/1CE1oDFxxgNpJ575NOKznonj5cdpy4iEY4ZwaOsrYoqbAx8vvQNLHKz0RDH8Y3"
+            "lqhrQuu8EiIcDPH9BuiJzTE4ELgOfLk+kd0jgowLoi9XbyzH4mpxf+mE5rclbEV5t9chy89wDOZPRDhS1Dvv7X8p/3DwDH2eGSoWjS2dze1WIDWp+7+btrUCHYXyrYZ4eBAst3g3U2DAzSvXj4Q0oJZoRIiaKfl4WhTZdsEZsvVKEPM5AJcT0HrAZdPOwBwIj5LOi773djXdJf1TpFVwvnONRrDSy9iDObog/F4sbUScV0vsAo/ZyKhyP01qXIVA"
         });
       /* eslint-disable-next-line no-undef */ else
         cordova.plugins.barcodeScanner.scan(

@@ -184,6 +184,7 @@ export default {
     destination: "Destino",
     device: "Terminal",
     invalidQR: "¡QR inválido!",
+    sameTarget: "¡No puedes realizar un pago a ti mismo!",
     origin: "Origen",
     reference: "Referencia",
     scan: "Escanear",

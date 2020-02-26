@@ -183,6 +183,7 @@ export default {
     destination: "Destination",
     device: "Device",
     invalidQR: "Invalid QR!",
+    sameTarget: "You cannot make a payment yourself!",
     origin: "Origin",
     reference: "Reference",
     scan: "Scan",
