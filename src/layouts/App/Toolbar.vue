@@ -98,7 +98,7 @@
           </v-list-tile>
         </template>
         <v-divider></v-divider>
-        <v-list-tile @click="() => $router.push({ name: 'LoginPage' })">
+        <v-list-tile @click="dialogLogout = true">
           <v-list-tile-avatar>
             <v-icon>power_settings_new</v-icon>
           </v-list-tile-avatar>
@@ -122,6 +122,26 @@
           <v-btn round color="primary" @click.native="handleGoBackButton">{{
             $t("common.accept")
           }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogLogout" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">{{ $t("common.logout") }}</v-card-title>
+        <v-card-text class="text-xs-center">{{
+          $t("common.sureWannaLogout")
+        }}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn round color="primary" @click.native="dialogLogout = false">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn
+            round
+            color="primary"
+            @click.native="() => $router.push({ name: 'LoginPage' })"
+            >{{ $t("common.accept") }}</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -153,7 +173,8 @@ export default {
     }
   },
   data: () => ({
-    dialog: false
+    dialog: false,
+    dialogLogout: false
   }),
   watch: {
     hasBackButton(val) {
