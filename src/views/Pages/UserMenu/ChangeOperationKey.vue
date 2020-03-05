@@ -100,10 +100,10 @@
         </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog = false">{{
+          <v-btn color="primary" round @click.native="dialog = false">{{
             $t("common.cancel")
           }}</v-btn>
-          <v-btn color="primary" flat @click.native="forgotOpeKey">{{
+          <v-btn color="primary" round @click.native="forgotOpeKey">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>

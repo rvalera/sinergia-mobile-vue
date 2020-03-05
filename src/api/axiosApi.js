@@ -4,6 +4,7 @@ import { i18n } from "@/i18n";
 import { refreshTokenApi } from "./modules";
 import { CODES_RESPONSE_TOKEN_EXPIRED } from "@/config/constants";
 import { getLatAndLongGeolocation } from "@/utils/helpers";
+import { memberPath } from "./config/apiRoute.js";
 
 export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 const AXIOS_TIMEOUT_MS = process.env.VUE_APP_AXIOS_TIMEOUT_MS;
@@ -44,7 +45,8 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
   window.getApp.$loading(false);
   if (
     serviceResponse.ok === 0 &&
-    CODES_RESPONSE_TOKEN_EXPIRED.includes(serviceResponse.message.code)
+    CODES_RESPONSE_TOKEN_EXPIRED.includes(serviceResponse.message.code) &&
+    endpoint !== `${memberPath}/token/refresh`
   ) {
     console.log("Token expired");
     const updatedToken = await refreshToken(); //Call refresh token

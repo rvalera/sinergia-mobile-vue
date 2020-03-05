@@ -106,10 +106,10 @@
         <v-card-text>{{ dialog.body }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click.native="dialog.flag = false">{{
+          <v-btn color="primary" round @click.native="dialog.flag = false">{{
             $t("common.cancel")
           }}</v-btn>
-          <v-btn color="primary" flat @click.native="handleLockUnlock">{{
+          <v-btn color="primary" round @click.native="handleLockUnlock">{{
             $t("common.accept")
           }}</v-btn>
         </v-card-actions>
