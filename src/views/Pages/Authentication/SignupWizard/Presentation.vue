@@ -1,27 +1,43 @@
 <template>
-  <v-layout wrap>
-    <v-flex xs12 primary>
+  <v-layout wrap :style="{ height: height + 'px' }">
+    <v-flex xs12 primary class="background-image">
       <v-container fill-height>
-        <v-layout align-center>
+        <v-layout>
           <v-flex xs12 class="text-xs-center">
-            <img
-              src="static/vuse.svg"
-              alt="Vuse"
-              class="text-xs-center"
-              height="300"
-            />
-            <div class="body-2 white--text">Bienvenido a CryptoPos</div>
+            <p color="primary" class="display-1 primary--text font-weight-bold">
+              Bienvenido a Virpei Cashless
+            </p>
+            <div></div>
           </v-flex>
         </v-layout>
       </v-container>
     </v-flex>
-    <div class=" put-bottom px-3">
-      <v-btn color="primary" round block @click="$emit('next')" class="ml-0">{{
-        $t("common.continue")
-      }}</v-btn>
+    <div class="put-bottom px-3">
+      <v-btn
+        color="primary"
+        round
+        block
+        @click="$emit('next')"
+        class="headline ml-0"
+      >
+        {{ $t("common.continue") }}
+      </v-btn>
     </div>
   </v-layout>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      height: window.innerHeight - 72 - 56 // 72 is stepper header size, 56 is navbar header
+    };
+  }
+};
 </script>
+
+<style scoped>
+.background-image {
+  background-image: url("/static/signup_wizard.png");
+  background-size: cover;
+}
+</style>
