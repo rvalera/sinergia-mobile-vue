@@ -30,6 +30,7 @@ export const CLEAN_APP = "CLEAN_APP";
 export const TITLE_APP = "TITLE_APP";
 export const TITLE_BUTTON = "TITLE_BUTTON";
 export const KEYBOARD = "KEYBOARD";
+export const DIALOG = "DIALOG";
 
 //Transactions
 export const TRANSACTIONS_APP = "TRANSACTIONS_APP";

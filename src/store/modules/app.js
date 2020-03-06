@@ -2,7 +2,8 @@ import {
   CLEAN_APP,
   TITLE_APP,
   TITLE_BUTTON,
-  KEYBOARD
+  KEYBOARD,
+  DIALOG
 } from "../mutation-types";
 
 import { getAppToken } from "@/api/modules";
@@ -11,6 +12,7 @@ const initialState = {
   data: {},
   app_title: "Mark-One",
   keyboardIsUp: false,
+  dialogIsUp: false,
   app_button_label: i18n.t("common.continue")
 };
 
@@ -21,12 +23,16 @@ const state = {
 const getters = {
   app_title: state => state.app_title,
   app_button_label: state => state.app_button_label,
-  keyboardIsUp: state => state.keyboardIsUp
+  keyboardIsUp: state => state.keyboardIsUp,
+  dialogIsUp: state => state.dialogIsUp
 };
 
 const mutations = {
   [KEYBOARD]: (state, payload) => {
     state.keyboardIsUp = payload;
+  },
+  [DIALOG]: (state, payload) => {
+    state.dialogIsUp = payload;
   },
   [CLEAN_APP]: state => {
     state.data = initialState.data;
@@ -62,6 +68,9 @@ const actions = {
   },
   handleKeyboard({ commit }, payload) {
     commit(KEYBOARD, payload);
+  },
+  handleDialog({ commit }, payload) {
+    commit(DIALOG, payload);
   },
   cleanApp({ commit }) {
     commit(CLEAN_APP);

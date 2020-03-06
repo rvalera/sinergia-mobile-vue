@@ -28,6 +28,13 @@ cordova build android --prod
 npm run cordova-build-android
 ```
 
+### Build android release .apk (Already signed)
+```
+npm run cordova-build-only-www-android
+cd src-cordova
+cordova build android --release --buildConfig
+```
+
 ### Lints and fixes files
 ```
 npm run lint

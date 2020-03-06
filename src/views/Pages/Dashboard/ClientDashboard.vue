@@ -54,17 +54,17 @@
     ></app-movements>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
-        <v-card-title class="headline">{{
-          $t("dashboard.confirm")
-        }}</v-card-title>
+        <v-card-title class="headline">
+          {{ $t("dashboard.confirm") }}
+        </v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn round color="primary" @click.native="dialog = false">
-            {{ $t("common.cancel") }}
-          </v-btn>
-          <v-btn round color="primary" @click.native="exitApp">
-            {{ $t("common.accept") }}
-          </v-btn>
+          <v-btn round color="primary" @click.native="closeDialogExit">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn round color="primary" @click.native="exitApp">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -73,7 +73,7 @@
 <script>
 import MiniChart from "@/components/Widgets/Chart/MiniChart";
 import { lineChartJs as lineChartData } from "@/data/ChartWidget";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import AppMovements from "../Global/AppMovements";
 import MovementFilter from "../Global/MovementFilter";
 import { getDashboardGraph } from "@/api/modules";
@@ -170,13 +170,32 @@ export default {
       }
     };
   },
+  watch: {
+    dialogIsUp(value) {
+      if (value)
+        document.removeEventListener("backbutton", this.openDialogExit);
+      else document.addEventListener("backbutton", this.openDialogExit, false);
+    },
+    dialog(value) {
+      this.handleDialog(value);
+      if (value)
+        document.addEventListener("backbutton", this.closeDialogExit, false);
+      else document.removeEventListener("backbutton", this.closeDialogExit);
+    }
+  },
   computed: {
+    ...mapGetters(["dialogIsUp"]),
     setGraphData() {
       return this.graphData;
     }
   },
   methods: {
-    ...mapActions(["setTransactionsApp", "setBalanceWallet", "logoutAction"]),
+    ...mapActions([
+      "setTransactionsApp",
+      "setBalanceWallet",
+      "logoutAction",
+      "handleDialog"
+    ]),
     showModal() {
       this.$refs.modal.show();
     },
@@ -235,6 +254,9 @@ export default {
     },
     openDialogExit() {
       this.dialog = true;
+    },
+    closeDialogExit() {
+      this.dialog = false;
     },
     async exitApp() {
       await this.logoutAction();

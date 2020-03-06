@@ -116,7 +116,7 @@
         }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn round color="primary" @click.native="dialog = false">{{
+          <v-btn round color="primary" @click.native="closeDialog">{{
             $t("common.cancel")
           }}</v-btn>
           <v-btn round color="primary" @click.native="handleGoBackButton">{{
@@ -133,7 +133,7 @@
         }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn round color="primary" @click.native="dialogLogout = false">{{
+          <v-btn round color="primary" @click.native="closeDialogLogout">{{
             $t("common.cancel")
           }}</v-btn>
           <v-btn
@@ -148,7 +148,7 @@
   </v-toolbar>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { USER_TYPE_CLIENT } from "@/config/constants";
 
 export default {
@@ -180,6 +180,18 @@ export default {
     hasBackButton(val) {
       if (val) document.addEventListener("backbutton", this.show, false);
       else document.removeEventListener("backbutton", this.show);
+    },
+    dialog(value) {
+      this.handleDialog(value);
+      if (value)
+        document.addEventListener("backbutton", this.closeDialog, false);
+      else document.removeEventListener("backbutton", this.closeDialog);
+    },
+    dialogLogout(value) {
+      this.handleDialog(value);
+      if (value)
+        document.addEventListener("backbutton", this.closeDialogLogout, false);
+      else document.removeEventListener("backbutton", this.closeDialogLogout);
     }
   },
   computed: {
@@ -198,6 +210,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["handleDialog"]),
     toggleMiniVariantMode() {
       this.$store.dispatch("toggleMiniVariantMode");
       this.$store.dispatch("toggleMiniVarient");
@@ -210,6 +223,12 @@ export default {
     },
     show() {
       this.dialog = true;
+    },
+    closeDialog() {
+      this.dialog = false;
+    },
+    closeDialogLogout() {
+      this.dialogLogout = false;
     }
   }
 };

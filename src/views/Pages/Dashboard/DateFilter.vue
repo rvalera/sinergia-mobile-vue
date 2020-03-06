@@ -91,6 +91,7 @@
   </v-layout>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -101,8 +102,13 @@ export default {
       menu2: false
     };
   },
-  computed: {},
+  watch: {
+    dialog(value) {
+      this.handleDialog(value);
+    }
+  },
   methods: {
+    ...mapActions(["handleDialog"]),
     show() {
       this.dialog = true;
     },
@@ -124,6 +130,12 @@ export default {
     hide() {
       this.dialog = false;
     }
+  },
+  mounted() {
+    document.addEventListener("backbutton", this.hide, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>

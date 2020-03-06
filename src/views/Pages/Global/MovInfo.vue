@@ -79,6 +79,7 @@
 </template>
 <script>
 import "../../../assets/utils";
+import { mapActions } from "vuex";
 import html2canvas from "html2canvas";
 import { LOGO } from "@/config/constants";
 export default {
@@ -106,10 +107,16 @@ export default {
       }
     };
   },
+  watch: {
+    dialog(value) {
+      this.handleDialog(value);
+    }
+  },
   created() {
     this.LOGO = LOGO;
   },
   methods: {
+    ...mapActions(["handleDialog"]),
     show(data) {
       this.mov = data;
       this.amount = Number(this.mov.amount).format();

@@ -81,8 +81,15 @@ export default {
       this.dialog = true;
     },
     hide() {
-      this.dialog = false;
+      if (this.dialog) this.dialog = false;
+      else this.$router.back();
     }
+  },
+  mounted() {
+    document.addEventListener("backbutton", this.hide, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.hide);
   }
 };
 </script>
