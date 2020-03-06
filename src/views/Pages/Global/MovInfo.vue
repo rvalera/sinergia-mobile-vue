@@ -124,10 +124,7 @@ export default {
     },
     hide() {
       if (this.dialog) this.dialog = false;
-      else
-        this.$router.push({
-          name: "Dashboard"
-        });
+      else this.$router.back();
     },
     async handleSharing() {
       try {
