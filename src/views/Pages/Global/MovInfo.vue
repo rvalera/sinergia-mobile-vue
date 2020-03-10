@@ -110,6 +110,8 @@ export default {
   watch: {
     dialog(value) {
       this.handleDialog(value);
+      if (value) document.addEventListener("backbutton", this.hide, false);
+      else document.removeEventListener("backbutton", this.hide);
     }
   },
   created() {
@@ -123,8 +125,7 @@ export default {
       this.dialog = true;
     },
     hide() {
-      if (this.dialog) this.dialog = false;
-      else this.$router.back();
+      this.dialog = false;
     },
     async handleSharing() {
       try {
@@ -166,9 +167,6 @@ export default {
       }
       window.getApp.$emit("LOADING", false);
     }
-  },
-  mounted() {
-    document.addEventListener("backbutton", this.hide, false);
   },
   beforeDestroy() {
     document.removeEventListener("backbutton", this.hide);

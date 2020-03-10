@@ -136,12 +136,9 @@
           <v-btn round color="primary" @click.native="closeDialogLogout">{{
             $t("common.cancel")
           }}</v-btn>
-          <v-btn
-            round
-            color="primary"
-            @click.native="() => $router.push({ name: 'LoginPage' })"
-            >{{ $t("common.accept") }}</v-btn
-          >
+          <v-btn round color="primary" @click.native="logout">{{
+            $t("common.accept")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -229,7 +226,16 @@ export default {
     },
     closeDialogLogout() {
       this.dialogLogout = false;
+    },
+    logout() {
+      this.dialogLogout = false;
+      this.$router.push("/login");
     }
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.show);
+    document.removeEventListener("backbutton", this.closeDialog);
+    document.removeEventListener("backbutton", this.closeDialogLogout);
   }
 };
 </script>

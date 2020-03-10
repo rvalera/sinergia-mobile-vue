@@ -97,6 +97,22 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-title class="headline">
+          {{ $t("dashboard.confirm") }}
+        </v-card-title>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn round color="primary" @click.native="closeDialogExit">{{
+            $t("common.cancel")
+          }}</v-btn>
+          <v-btn round color="primary" @click.native="exitApp">{{
+            $t("common.accept")
+          }}</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-img>
 </template>
 
@@ -139,11 +155,13 @@ export default {
   data() {
     return {
       form: {},
+      dialog: false,
       backgroundImg: "static/doc-images/HexesisMaterial01.png",
       showPassword: false
     };
   },
   async mounted() {
+    document.addEventListener("backbutton", this.openDialogExit, false);
     const defaultForm = {
       email: localStorage.lastEmailLogged || "",
       password: ""
@@ -151,10 +169,22 @@ export default {
     this.form = Object.assign({}, defaultForm);
     await this.logoutAction();
   },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.openDialogExit);
+  },
   methods: {
     ...mapActions(["loginAction", "logoutAction"]),
     submit() {
       this.loginAction(this.form);
+    },
+    exitApp() {
+      navigator.app.exitApp();
+    },
+    openDialogExit() {
+      this.dialog = true;
+    },
+    closeDialogExit() {
+      this.dialog = false;
     }
   }
 };

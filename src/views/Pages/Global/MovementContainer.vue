@@ -4,7 +4,7 @@
 
 <script>
 import AppMovements from "./AppMovements";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: { AppMovements },
@@ -17,11 +17,28 @@ export default {
       };
 
       this.setTransactionsApp(filter);
+    },
+    goBack() {
+      this.$router.back();
     }
   },
-
+  watch: {
+    dialogIsUp(value) {
+      if (value) document.removeEventListener("backbutton", this.goBack);
+      else document.addEventListener("backbutton", this.goBack, false);
+    }
+  },
+  computed: {
+    ...mapGetters(["dialogIsUp"])
+  },
   async created() {
     this.showMovements(10);
+  },
+  mounted() {
+    document.addEventListener("backbutton", this.goBack, false);
+  },
+  beforeDestroy() {
+    document.removeEventListener("backbutton", this.goBack);
   }
 };
 </script>
