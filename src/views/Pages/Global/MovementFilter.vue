@@ -132,8 +132,15 @@ export default {
   computed: {
     ...mapGetters(["filter_app", "keyboardIsUp"])
   },
+  watch: {
+    dialog(value) {
+      this.handleDialog(value);
+      if (value) document.addEventListener("backbutton", this.hide, false);
+      else document.removeEventListener("backbutton", this.hide);
+    }
+  },
   methods: {
-    ...mapActions(["setTransactionsApp"]),
+    ...mapActions(["setTransactionsApp", "handleDialog"]),
     show() {
       this.dialog = true;
       this.filter = {
@@ -149,9 +156,6 @@ export default {
     hide() {
       this.dialog = false;
     }
-  },
-  mounted() {
-    document.addEventListener("backbutton", this.hide, false);
   },
   beforeDestroy() {
     document.removeEventListener("backbutton", this.hide);
