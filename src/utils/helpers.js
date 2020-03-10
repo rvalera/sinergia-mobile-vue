@@ -129,13 +129,22 @@ function getCurrentPosition(options = {}) {
   });
 }
 
+function isGPSEnabled() {
+  return new Promise((resolve, reject) => {
+    /* eslint-disable-next-line no-undef */
+    cordova.plugins.diagnostic.isGpsLocationEnabled(resolve, reject);
+  });
+}
+
 export const getLatAndLongGeolocation = async () => {
   try {
-    const { coords } = await getCurrentPosition();
-    const { latitude, longitude } = coords;
-    return [latitude, longitude];
-    // Handle coordinates
+    const enabled = await isGPSEnabled();
+    if (enabled) {
+      const { coords } = await getCurrentPosition();
+      const { latitude, longitude } = coords;
+      return [latitude, longitude];
+    } else return null;
   } catch (error) {
-    console.error(error);
+    return null;
   }
 };
