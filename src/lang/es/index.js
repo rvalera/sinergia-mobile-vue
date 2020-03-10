@@ -1,5 +1,9 @@
 //This JSON should be remain sorted by key for better search and have good orthography
 export default {
+  becomeAffiliate: {
+    text:
+      "Estimado Usuario, Gracias por usar nuestra plataforma y confiar en nuestros servicios, en estos momentos estas solicitando convertirte como afiliado, esto le permitirá procesar los pagos de tu negocio, recibirá de nuestra parte un correo con la información que necesitamos para analizar tu solicitud."
+  },
   changeOperationKey: {
     confirm: "Confirma clave de operaciones"
   },

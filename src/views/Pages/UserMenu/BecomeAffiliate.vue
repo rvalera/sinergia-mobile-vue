@@ -2,13 +2,7 @@
   <v-container fill-height>
     <v-layout wrap justify-center align-content-center>
       <v-flex xs12>
-        <p class="text-xs-center title">
-          Estás seguro? esto no se puede deshacer bla bla Lorem ipsum, dolor sit
-          amet consectetur adipisicing elit.
-          <br />
-          <br />Consequatur praesentium expedita corrupti corporis cum, natus
-          perspiciatis adipisci
-        </p>
+        <p class="text-xs-center title">{{ $t("becomeAffiliate.text") }}</p>
       </v-flex>
       <v-layout justify-space-around class="put-bottom">
         <v-flex xs5>
