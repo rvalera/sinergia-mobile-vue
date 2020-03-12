@@ -123,7 +123,7 @@ export async function refreshToken() {
   }
 }
 
-function getCurrentPosition(options = {}) {
+function getCurrentPosition(options = { timeout: 1000 }) {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options);
   });
@@ -132,7 +132,7 @@ function getCurrentPosition(options = {}) {
 function isGPSEnabled() {
   return new Promise((resolve, reject) => {
     /* eslint-disable-next-line no-undef */
-    cordova.plugins.diagnostic.isGpsLocationEnabled(resolve, reject);
+    cordova.plugins.diagnostic.isLocationEnabled(resolve, reject);
   });
 }
 
@@ -142,7 +142,9 @@ export const getLatAndLongGeolocation = async () => {
     if (enabled) {
       const { coords } = await getCurrentPosition();
       const { latitude, longitude } = coords;
-      return [latitude, longitude];
+      const geolocation = [latitude, longitude];
+      localStorage.geolocation = geolocation;
+      return geolocation;
     } else return null;
   } catch (error) {
     return null;

@@ -10,10 +10,11 @@ export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND;
 const AXIOS_TIMEOUT_MS = process.env.VUE_APP_AXIOS_TIMEOUT_MS;
 
 export const apiHttp = async (method, endpoint, data, options = {}) => {
+  window.getApp.$loading(true);
   const { access_token } = localStorage;
   const geolocation = await getLatAndLongGeolocation();
   const defaultHeaders = {
-    "Geo-Location": geolocation,
+    "Geo-Location": geolocation || localStorage.geolocation,
     Accept: "application/json",
     "Content-Type": "application/json",
     Authorization: `Bearer ${access_token}`
@@ -36,7 +37,6 @@ export const apiHttp = async (method, endpoint, data, options = {}) => {
   });
 
   try {
-    window.getApp.$loading(true);
     const [materializedPromise] = await Promise.all([servicePromise]);
     serviceResponse = { ...materializedPromise.data };
   } catch (error) {
