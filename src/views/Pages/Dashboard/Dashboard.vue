@@ -1,9 +1,23 @@
+//
+<template>
+  //
+  <div class="h-full">
+    //
+    <template v-if="userType === USER_TYPE_CLIENT">
+      // <client-dashboard /> //
+    </template>
+    //
+    <template v-else>
+      // <client-dashboard /> //
+    </template>
+    //
+  </div>
+  //
+</template>
+
 <template>
   <div class="h-full">
-    <template v-if="userType === USER_TYPE_CLIENT">
-      <client-dashboard />
-    </template>
-    <template v-else>
+    <template>
       <client-dashboard />
     </template>
   </div>

@@ -9,14 +9,14 @@
             <v-layout align-center justify-center row fill-height wrap>
               <v-flex xs12 class="text-xs-center mt-3">
                 <img
-                  src="static/virpei_icon.png"
+                  src="static/docfabric_icon.jpg"
                   alt="Vuse"
                   class="text-xs-center"
                   width="30%"
                 />
                 <br />
                 <img
-                  src="static/virpei.png"
+                  src="static/docfabric.jpg"
                   alt="Vuse"
                   class="text-xs-center"
                   width="60%"
@@ -69,23 +69,23 @@
                         </v-flex>
                         <!-- Forgot password -->
                         <v-flex xs12>
-                          <router-link
+                          <!-- <router-link
                             :to="{ name: 'ForgotPasswordPage' }"
                             tag="div"
                             class="grey--text cursor-pointer"
-                          >
-                            <strong>{{ $t("forgotPassword.title") }}</strong>
-                          </router-link>
+                          > -->
+                          <strong>{{ $t("forgotPassword.title") }}</strong>
+                          <!-- </router-link> -->
                         </v-flex>
                         <!-- Sign up -->
                         <v-flex xs12>
-                          <router-link
+                          <!-- <router-link
                             :to="{ name: 'RegisterPage' }"
                             tag="div"
                             class="grey--text cursor-pointer"
-                          >
-                            <strong>{{ $t("login.dontHaveAccount") }}</strong>
-                          </router-link>
+                          > -->
+                          <strong>{{ $t("login.dontHaveAccount") }}</strong>
+                          <!-- </router-link> -->
                         </v-flex>
                       </v-layout>
                     </v-flex>

@@ -15,6 +15,11 @@ import AccountInformation from "@/views/Pages/UserMenu/AccountInformation";
 import ChangeOperationKey from "@/views/Pages/UserMenu/ChangeOperationKey";
 import BecomeAffiliate from "@/views/Pages/UserMenu/BecomeAffiliate";
 
+import WalletBalance from "@/views/Pages/Wallet/WalletBalance";
+import AppWalletFooter from "@/layouts/App/WalletFooter";
+import RefillBalance from "@/views/Pages/Wallet/RefillBalance";
+import ChangePoints from "@/views/Pages/Wallet/ChangePoints";
+
 import PayStepper from "@/views/Pages/Pay/PayStepper";
 import TransferStepper from "@/views/Pages/Transactions/TransferStepper";
 import CardsList from "@/views/Pages/Cards/CardsList";
@@ -24,13 +29,72 @@ import MovementContainer from "@/views/Pages/Global/MovementContainer";
 import PaymentInstrumentList from "@/views/Pages/PaymentInstrument/PaymentInstrumentList";
 import PaymentInstrumentForm from "@/views/Pages/PaymentInstrument/PaymentInstrumentForm";
 import Dashboard from "@/views/Pages/Dashboard/Dashboard";
+
+import ContentUser from "@/views/Pages/Content/ContentUserList";
+import Site from "@/views/Pages/Content/SiteList";
+import Content from "@/views/Pages/Content/ContentList";
+import NewContent from "@/views/Pages/Content/NewContent";
+import NewSite from "@/views/Pages/Content/NewSite";
+import NewContentType from "@/views/Pages/Content/NewContentType";
+
 import RefillStepper from "@/views/Pages/Refill/RefillStepper";
 import LiquidationList from "@/views/Pages/Liquidation/LiquidationList";
 import TerminalList from "@/views/Pages/Terminal/TerminalList";
 import TerminalForm from "@/views/Pages/Terminal/TerminalForm";
 //import App from "@/App";
 export const routes = [
-  { name: "Home", path: "/", redirect: "/dashboard" },
+  { name: "Home", path: "/", redirect: "/content" },
+  {
+    path: "/content",
+    name: "Content",
+    meta: { requiresAuth: true },
+    components: {
+      default: Content,
+      sidebar: AppSidebar,
+      header: AppToolbar,
+      footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: false,
+        title: i18n.t("menu.myTimeline")
+      }
+    }
+  },
+  {
+    path: "/site",
+    name: "Site",
+    meta: { requiresAuth: true },
+    components: {
+      default: Site,
+      sidebar: AppSidebar,
+      header: AppToolbar,
+      footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: false,
+        title: i18n.t("menu.mySites")
+      }
+    }
+  },
+  {
+    path: "/content/user",
+    name: "ContentUser",
+    meta: { requiresAuth: true },
+    components: {
+      default: ContentUser,
+      sidebar: AppSidebar,
+      header: AppToolbar,
+      footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: false,
+        title: i18n.t("menu.myContents")
+      }
+    }
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -40,6 +104,12 @@ export const routes = [
       sidebar: AppSidebar,
       header: AppToolbar,
       footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("menu.myTimeline")
+      }
     }
   },
   {
@@ -90,6 +160,108 @@ export const routes = [
       header: {
         hasBackButton: true,
         title: i18n.t("common.personalInformation")
+      }
+    }
+  },
+  {
+    path: "/wallet",
+    name: "/WalletBalance",
+    meta: { requiresAuth: true },
+    components: {
+      default: WalletBalance,
+      sidebar: AppSidebar,
+      header: AppToolbar,
+      footer: AppWalletFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.walletInformation")
+      }
+    }
+  },
+  {
+    path: "/refillBalance",
+    name: "/RefillBalance",
+    meta: { requiresAuth: true },
+    components: {
+      default: RefillBalance,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("common.refillBalance")
+      }
+    }
+  },
+  {
+    path: "/changePoints",
+    name: "/ChangePoints",
+    meta: { requiresAuth: true },
+    components: {
+      default: ChangePoints,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("menu.changePoints")
+      }
+    }
+  },
+  {
+    path: "/content/new",
+    name: "NewContent",
+    meta: { requiresAuth: true },
+    components: {
+      default: NewContent,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("menu.newContent")
+      }
+    }
+  },
+  {
+    path: "/site/new",
+    name: "NewSite",
+    meta: { requiresAuth: true },
+    components: {
+      default: NewSite,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("menu.newSite")
+      }
+    }
+  },
+  {
+    path: "/content_type/new",
+    name: "NewContentType",
+    meta: { requiresAuth: true },
+    components: {
+      default: NewContentType,
+      sidebar: AppSidebar,
+      header: AppToolbar
+      //footer: AppFooter
+    },
+    props: {
+      header: {
+        hasBackButton: true,
+        title: i18n.t("menu.newContentType")
       }
     }
   },

@@ -108,14 +108,16 @@ const actions = {
         );
         commit(LOGIN_USER, serviceResponsePerson.data);
         localStorage.setItem("user_id", serviceResponsePerson.data.id);
-        localStorage.setItem(
-          "userType",
-          serviceResponsePerson.data.affiliate.type
-        );
-        localStorage.setItem(
-          "person_id",
-          serviceResponsePerson.data.affiliate.id
-        );
+        console.log(serviceResponsePerson.data.id);
+        localStorage.setItem("userType", "C");
+        // localStorage.setItem(
+        //   "userType",
+        //   serviceResponsePerson.data.affiliate.type
+        // );
+        // localStorage.setItem(
+        //   "person_id",
+        //   serviceResponsePerson.data.affiliate.id
+        // );
         router.push({ name: "Home" });
       }
     } else {

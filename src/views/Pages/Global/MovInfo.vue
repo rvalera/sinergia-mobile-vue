@@ -145,7 +145,7 @@ export default {
         );
         // this is the complete list of currently supported params you can pass to the plugin (all optional)
         const options = {
-          message: "Compartido desde Virpei Cashless", // not supported on some apps (Facebook, Instagram)
+          message: "Compartido desde DOCFabric", // not supported on some apps (Facebook, Instagram)
           files: [canvas.toDataURL("image/png")], // an array of filenames either locally or remotely
           chooserTitle: this.$t("common.selectAnApp") // Android only, you can override the default share sheet title
         };

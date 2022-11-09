@@ -227,7 +227,7 @@ export default {
     backToDashboard() {
       this.dialogC = false;
       this.$router.push({
-        name: "Dashboard"
+        name: "Home"
       });
     }
   }

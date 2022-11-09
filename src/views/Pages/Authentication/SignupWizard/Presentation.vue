@@ -5,7 +5,7 @@
         <v-layout>
           <v-flex xs12 class="text-xs-center">
             <p color="primary" class="display-1 primary--text font-weight-bold">
-              Bienvenido a Virpei Cashless
+              Bienvenido a DOCFabric
             </p>
             <div></div>
           </v-flex>

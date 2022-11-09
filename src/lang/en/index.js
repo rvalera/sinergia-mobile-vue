@@ -64,6 +64,7 @@ export default {
     operationKey: "Operation key",
     password: "Password",
     personalInformation: "Personal information",
+    balanceInformation: "Balance",
     phone: "Phone",
     quantity: "Quantity",
     save: "Save",
@@ -77,7 +78,14 @@ export default {
     typeYourOperationKey: "Type your operation key",
     unlock: "Unlock",
     userEmail: "User email",
-    welcome: "Welcome"
+    welcome: "Welcome",
+    /////////////////////////////////////////////////////////
+    refillBalance: "Refill Balance",
+    description: "Description",
+    title: "Title",
+    keywords: "Keywords",
+    selectSite: "Select Site",
+    selectContentType: "Select Content Type"
   },
   dashboard: {
     activity: "Activity",
@@ -144,7 +152,19 @@ export default {
     setOperator: "Set operator",
     settings: "Settings",
     transactions: "Transactions",
-    transferBalance: "Transfer balance"
+    transferBalance: "Transfer balance",
+    /////////////////////////////////////////////////////
+    myContents: "My Contents",
+    mySites: "My Sites",
+    myTimeline: "My Timeline",
+    newContent: "Create Content",
+    newSite: "Create Site",
+    wallet: {
+      myWallet: "My Wallet",
+      dashboard: "Dashboard"
+    },
+    changePoints: "Change Activity Points  ",
+    newContentType: "Create Content Type"
   },
   message: {
     apiError401: "Incorrect credentials",
@@ -204,6 +224,9 @@ export default {
     useByDefault: "Use by default",
     successfulAdd: "Credit card added successfully!",
     withoutCards: "You do not have cards yet"
+  },
+  content: {
+    withoutContent: "You do not have Content yet"
   },
   refill: {
     selectInstrument: "Select a card"

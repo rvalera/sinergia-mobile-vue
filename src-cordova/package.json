@@ -1,6 +1,6 @@
 {
   "name": "com.najoconsultores.markone",
-  "displayName": "Virpei Cashless",
+  "displayName": "DOCFabric",
   "version": "1.0.0",
   "description": "A sample Apache Cordova application.",
   "main": "index.js",
@@ -16,7 +16,9 @@
     "cordova-plugin-x-socialsharing": "^5.6.3",
     "cordova.plugins.diagnostic": "^5.0.1",
     "es6-promise-plugin": "^4.2.2",
-    "phonegap-plugin-barcodescanner": "^8.1.0"
+    "phonegap-plugin-barcodescanner": "^8.1.0",
+    "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-ionic-keyboard": "^2.1.2"
   },
   "cordova": {
     "plugins": {

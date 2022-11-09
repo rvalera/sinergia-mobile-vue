@@ -64,6 +64,7 @@ export default {
     operationKey: "Clave de Operaciones",
     password: "Contraseña",
     personalInformation: "Datos personales",
+    walletInformation: "Balance",
     phone: "Teléfono",
     quantity: "Cantidad",
     save: "Guardar",
@@ -77,7 +78,14 @@ export default {
     typeYourOperationKey: "Ingrese su clave de operaciones",
     unlock: "Desbloquear",
     userEmail: "Correo de usuario",
-    welcome: "Bienvenido"
+    welcome: "Bienvenido",
+    ///////////////////////////////////////////////////////////////
+    refillBalance: "Recargar Balance",
+    description: "Descripcion",
+    title: "Titulo",
+    keywords: "Palabras Claves",
+    selectSite: "Seleccione Sitio",
+    selectContentType: "Seleccione Tipo de Contenido"
   },
   dashboard: {
     activity: "Actividad",
@@ -145,7 +153,19 @@ export default {
     setOperator: "Asignar Operador",
     settings: "Configuración",
     transactions: "Transacciones",
-    transferBalance: "Transferir Saldo"
+    transferBalance: "Transferir Saldo",
+    /////////////////////////////////////////////////////////////////
+    myContents: "Mis Contenidos",
+    mySites: "Mis Sitios",
+    myTimeline: "Mi Timeline",
+    newContent: "Crear Contenido",
+    newSite: "Crear Site",
+    wallet: {
+      myWallet: "Mi Wallet",
+      dashboard: "Dashboard"
+    },
+    changePoints: "Cambiar Puntos de Actividad",
+    newContentType: "Crear Tipo de Contenido"
   },
   message: {
     apiError401: "Credenciales incorrectas",
@@ -205,6 +225,9 @@ export default {
     useByDefault: "Usar por defecto",
     successfulAdd: "¡Tarjeta de crédito añadida con éxito!",
     withoutCards: "No posee tarjetas aún"
+  },
+  content: {
+    withoutContent: "No existen Contenidos asociados"
   },
   refill: {
     selectInstrument: "Seleccione una tarjeta"

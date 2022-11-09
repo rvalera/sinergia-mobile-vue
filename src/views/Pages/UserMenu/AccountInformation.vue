@@ -246,7 +246,7 @@ export default {
     },
     backToDashboard() {
       this.$router.push({
-        name: "Dashboard"
+        name: "Home"
       });
     }
   }

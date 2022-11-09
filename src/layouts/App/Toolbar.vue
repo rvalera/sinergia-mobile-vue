@@ -40,7 +40,7 @@
       <v-avatar color="secondary" slot="activator" size="40">
         <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
         <span class="white--text">
-          {{ user.person.fullname | first2Initials }}
+          {{ user.fullname | first2Initials }}
         </span>
       </v-avatar>
       <v-list dense>
@@ -48,14 +48,12 @@
           <v-list-tile-avatar color="secondary">
             <!-- <img :src="authUser.avatar" :alt="authUser.name" /> -->
             <span class="white--text">
-              {{ user.person.fullname | first2Initials }}
+              {{ user.fullname | first2Initials }}
             </span>
           </v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title
-              v-text="user.person.fullname"
-            ></v-list-tile-title>
+            <v-list-tile-title v-text="user.fullname"></v-list-tile-title>
             <v-list-tile-sub-title>{{ user.email }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -68,6 +66,7 @@
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("toolbar.profileUser") }}</v-list-tile-title>
         </v-list-tile>
+
         <v-list-tile
           @click="() => $router.push({ name: 'ChangePasswordPage' })"
         >
@@ -78,7 +77,8 @@
             $t("toolbar.changePassword")
           }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile
+
+        <!-- <v-list-tile
           @click="() => $router.push({ name: '/ChangeOperationKey' })"
         >
           <v-list-tile-avatar>
@@ -86,6 +86,7 @@
           </v-list-tile-avatar>
           <v-list-tile-title>{{ $t("common.operationKey") }}</v-list-tile-title>
         </v-list-tile>
+
         <template v-if="isClient && !hasPendingRequest">
           <v-divider></v-divider>
           <v-list-tile @click="() => $router.push({ name: 'BecomeAffiliate' })">
@@ -95,8 +96,8 @@
             <v-list-tile-title>{{
               $t("toolbar.becomeAffiliate")
             }}</v-list-tile-title>
-          </v-list-tile>
-        </template>
+          </v-list-tile> -->
+        <!-- </template> -->
         <v-divider></v-divider>
         <v-list-tile @click="dialogLogout = true">
           <v-list-tile-avatar>
@@ -106,6 +107,7 @@
         </v-list-tile>
       </v-list>
     </v-menu>
+
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
         <v-card-title class="headline">{{
@@ -125,6 +127,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
     <v-dialog v-model="dialogLogout" persistent max-width="290">
       <v-card>
         <v-card-title class="headline">{{ $t("common.logout") }}</v-card-title>
@@ -152,7 +155,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Virpei Cashless"
+      default: "DOCFabric"
     },
     hasBackButton: {
       //it has back button or menu button
