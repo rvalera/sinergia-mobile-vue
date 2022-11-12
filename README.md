@@ -4,6 +4,8 @@ SINERGIA es una iniciativa centrada en la construccion de un conjunto de servici
 
 Este repositorio contiene una aplicacion movil a modo de demostración de ejemplo que permite la interoperabilidad con la infraestructura de servicios de SINERGIA y permite la actualizacion y manipulacion de distintas entidades que se almacenan en una Blockchain.
 
+Se utilizan para el desarrollo un conjunto de buenas practicas que permite la mantenibilidad, con el fin de que cualquier desarrollador pueda hacer cambios, sin que esto represente un proceso traumatico.
+
 La aplicacion Movil esta construida con Cordova y el Framework Javascript Vue.JS, con Vuetify, Vuex, Vue-Router y Axios.
 
 
