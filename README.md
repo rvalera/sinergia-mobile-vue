@@ -1,3 +1,12 @@
+# SINERGIA - Cliente Movil para Blockchain
+
+SINERGIA es una iniciativa centrada en la construccion de un conjunto de servicios web tipo REST desplegados en la forma de Swagger, para consumir y manipular funcionalidades proporcionados por la Blockchain de Substrate, utilizando para ello la interface de interoperabilidad substrate-interface-py de Polkascan, de esta manera, el objetivo es ofrecer un esquema amigable y sencillo para acceder a la logica de negocio que se encuentra en una Blockchain, con ello se presenta al programador un enfoque de desarrollo efectivo al momento de abordar aplicaciones de proposito general que utilicen Blockchain.
+
+Este repositorio contiene una aplicacion movil a modo de demostración de ejemplo que permite la interoperabilidad con la infraestructura de servicios de SINERGIA y permite la actualizacion y manipulacion de distintas entidades que se almacenan en una Blockchain.
+
+La aplicacion Movil esta construida con Cordova y el Framework Javascript Vue.JS, con Vuetify, Vuex, Vue-Router y Axios.
+
+
 # vuejscli3
 
 ## Project setup
